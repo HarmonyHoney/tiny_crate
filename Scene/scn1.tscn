@@ -70,6 +70,7 @@ current = true
 
 [node name="Player" type="Node2D" parent="."]
 script = ExtResource( 2 )
+gravity = 0.25
 
 [node name="Sprite" type="Sprite" parent="Player"]
 texture = ExtResource( 1 )
