@@ -50,7 +50,6 @@ func _process(delta):
 	if is_using_gravity:
 		speed_y += gravity
 	
-	apply_pos()
 
 # axis aligned bounding box
 func aabb(x1 : int, y1 : int, w1 : int, h1 : int, x2 : int, y2 : int, w2 : int, h2 : int):
@@ -127,20 +126,23 @@ func move():
 	has_hit_right = false
 	
 	remainder_y += speed_y
-	var dy = round(remainder_y) # distance y
+	var dy = floor(remainder_y + 0.5) # distance y
 	remainder_y -= dy
 	if dy != 0:
 		move_y(dy)
 	
 	remainder_x += speed_x
-	var dx = round(remainder_x) # distance x
+	var dx = floor(remainder_x + 0.5) # distance x
 	remainder_x -= dx
 	if dx != 0:
 		move_x(dx)
+	
+	if has_moved_x or has_moved_y:
+		apply_pos()
 
 # return distance of upcoming move
 func move_get_dist():
-	return Vector2(round(remainder_x + speed_x), round(remainder_y + speed_y))
+	return Vector2(floor(remainder_x + speed_x + 0.5), floor(remainder_y + speed_y + 0.5))
 
 # move x axis
 func move_x(dist : int):
