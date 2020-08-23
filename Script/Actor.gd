@@ -2,7 +2,7 @@ extends Node2D
 class_name Actor
 
 
-
+export var tag = "actor"
 var px : int = 0
 var py : int = 0
 
@@ -50,6 +50,16 @@ func _process(delta):
 	if is_using_gravity:
 		speed_y += gravity
 	
+
+# update the node's position
+func apply_pos():
+	position.x = px
+	position.y = py
+
+# remove actor from array and free node
+func remove():
+	Shared.actor_array.erase(self)
+	queue_free()
 
 # axis aligned bounding box
 func aabb(x1 : int, y1 : int, w1 : int, h1 : int, x2 : int, y2 : int, w2 : int, h2 : int):
@@ -206,15 +216,40 @@ func overlapping_actors(dx : int, dy : int, ignore : Actor):
 			if aabb(px + dx, py + dy, hitbox_x, hitbox_y, a.px, a.py, a.hitbox_x, a.hitbox_y):
 				act.append(a)
 	return act
+
+func check_area_solid_tile(x1, y1, width, height):
+	var x2 = x1 + width - 1
+	var y2 = y1 + height - 1
 	
+	var pos = [Vector2(x1, y1), Vector2(x2, y1), Vector2(x1, y2), Vector2(x2, y2)]
+	for i in pos:
+		var w2m = Shared.node_map.world_to_map(i)
+		if Shared.node_map.get_cellv(w2m) != -1:
+			return true
+	return false
+	
+#	var w2m1 = Shared.node_map.world_to_map(Vector2(x1, y1))
+#	var w2m2 = Shared.node_map.world_to_map(Vector2(x2, y1))
+#	var w2m3 = Shared.node_map.world_to_map(Vector2(x1, y2))
+#	var w2m4 = Shared.node_map.world_to_map(Vector2(x2, y2))
+#
+#	var c1 = Shared.node_map.get_cellv(w2m1) != -1
+#	var c2 = Shared.node_map.get_cellv(w2m2) != -1
+#	var c3 = Shared.node_map.get_cellv(w2m3) != -1
+#	var c4 = Shared.node_map.get_cellv(w2m4) != -1
 
-# update the node's position
-func apply_pos():
-	position.x = px
-	position.y = py
+func check_area_solid_actor(x, y, width, height, ignore):
+	for a in Shared.actor_array:
+		if a != self and a.is_solid and a != ignore:
+			if aabb(x, y, width, height, a.px, a.py, a.hitbox_x, a.hitbox_y):
+				return true
+	return false
 
-# remove actor from array and free node
-func remove():
-	Shared.actor_array.erase(self)
-	queue_free()
+func check_area_solid(x, y, width, height, ignore):
+	if check_area_solid_tile(x, y, width, height):
+		return true
+	if check_area_solid_actor(x, y, width, height, ignore):
+		return true
+	return false
+
 

@@ -1,38 +1,16 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://Image/crate_tiles.png" type="Texture" id=1]
-[ext_resource path="res://Script/Box.gd" type="Script" id=2]
-[ext_resource path="res://Font/m3x6.tres" type="DynamicFont" id=3]
+[ext_resource path="res://Script/Box.gd" type="Script" id=1]
+[ext_resource path="res://Image/crate_tiles.png" type="Texture" id=2]
 
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 4, 4 )
-
-[sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 5, 4 )
-
-[node name="Box" type="KinematicBody2D"]
-script = ExtResource( 2 )
+[node name="Box" type="Node2D"]
+position = Vector2( -27, 12 )
+script = ExtResource( 1 )
+tag = "box"
 
 [node name="Sprite" type="Sprite" parent="."]
-texture = ExtResource( 1 )
+texture = ExtResource( 2 )
+centered = false
 vframes = 4
 hframes = 4
 frame = 1
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-shape = SubResource( 1 )
-
-[node name="RichTextLabel" type="RichTextLabel" parent="."]
-visible = false
-margin_right = 40.0
-margin_bottom = 40.0
-custom_fonts/normal_font = ExtResource( 3 )
-text = "0,0"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="PushArea2D" type="Area2D" parent="."]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="PushArea2D"]
-shape = SubResource( 2 )
