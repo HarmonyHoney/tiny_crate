@@ -40,9 +40,9 @@ var is_on_floor_3 = false
 func _ready():
 	px = floor(position.x)
 	py = floor(position.y)
+	position.x = px
+	position.y = py
 	apply_pos()
-	
-	Shared.actor_array.append(self)
 
 func _process(delta):
 	move()
@@ -55,11 +55,6 @@ func _process(delta):
 func apply_pos():
 	position.x = px
 	position.y = py
-
-# remove actor from array and free node
-func remove():
-	Shared.actor_array.erase(self)
-	queue_free()
 
 # axis aligned bounding box
 func aabb(x1 : int, y1 : int, w1 : int, h1 : int, x2 : int, y2 : int, w2 : int, h2 : int):
@@ -118,7 +113,7 @@ func check_solid_y(dist : int):
 # check for solid actors, dx, dy = distance x and y
 func check_solid_actor(dx : int, dy : int, ignore : Actor):
 	var hit = false
-	for a in Shared.actor_array:
+	for a in get_tree().get_nodes_in_group("actor"):
 		if a != self and a.is_solid and a != ignore:
 			if aabb(px + dx, py + dy, hitbox_x, hitbox_y, a.px, a.py, a.hitbox_x, a.hitbox_y):
 				hit = true
@@ -146,9 +141,6 @@ func move():
 	remainder_x -= dx
 	if dx != 0:
 		move_x(dx)
-	
-	if has_moved_x or has_moved_y:
-		apply_pos()
 
 # return distance of upcoming move
 func move_get_dist():
@@ -177,6 +169,7 @@ func move_x(dist : int):
 	else:
 		px += dist
 	
+	position.x = px
 	return hit
 
 # move y axis
@@ -206,12 +199,13 @@ func move_y(dist : int):
 	else:
 		py += dist
 	
+	position.y = py
 	return hit
 
 # return array of overlapping actors
 func overlapping_actors(dx : int, dy : int, ignore : Actor):
 	var act = []
-	for a in Shared.actor_array:
+	for a in get_tree().get_nodes_in_group("actor"):
 		if a != self and a != ignore:
 			if aabb(px + dx, py + dy, hitbox_x, hitbox_y, a.px, a.py, a.hitbox_x, a.hitbox_y):
 				act.append(a)
@@ -227,19 +221,9 @@ func check_area_solid_tile(x1, y1, width, height):
 		if Shared.node_map.get_cellv(w2m) != -1:
 			return true
 	return false
-	
-#	var w2m1 = Shared.node_map.world_to_map(Vector2(x1, y1))
-#	var w2m2 = Shared.node_map.world_to_map(Vector2(x2, y1))
-#	var w2m3 = Shared.node_map.world_to_map(Vector2(x1, y2))
-#	var w2m4 = Shared.node_map.world_to_map(Vector2(x2, y2))
-#
-#	var c1 = Shared.node_map.get_cellv(w2m1) != -1
-#	var c2 = Shared.node_map.get_cellv(w2m2) != -1
-#	var c3 = Shared.node_map.get_cellv(w2m3) != -1
-#	var c4 = Shared.node_map.get_cellv(w2m4) != -1
 
 func check_area_solid_actor(x, y, width, height, ignore):
-	for a in Shared.actor_array:
+	for a in get_tree().get_nodes_in_group("actor"):
 		if a != self and a.is_solid and a != ignore:
 			if aabb(x, y, width, height, a.px, a.py, a.hitbox_x, a.hitbox_y):
 				return true

@@ -46,7 +46,7 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if btn.p("reset"):
-		Shared.reload()
+		get_tree().reload_current_scene()
 	
 	var btnx = btn.d("right") - btn.d("left")
 	var btny = btn.d("down") - btn.d("up")
@@ -93,11 +93,12 @@ func _process(delta):
 	# push box
 	if is_on_floor and move_get_dist().x != 0 and not is_pickup:
 		for a in overlapping_actors(dir, 0, null):
-			if a is Box:
+			if a.tag == "box":
 				a.push(dir)
 				# slow movement when pushing
 				if abs(speed_x) > push_speed:
 					speed_x = push_speed * sign(speed_x)
+				move_x(dir)
 				break
 	
 
@@ -124,7 +125,8 @@ func box_pickup(dx : int, dy : int):
 			if offset_x != null:
 				is_pickup = true
 				node_sprite_box.visible = true
-				a.remove()
+				#a.remove()
+				a.queue_free()
 				py += offset_y
 				px += offset_x
 				hitbox_y = 16

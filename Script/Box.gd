@@ -15,7 +15,7 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
-	if speed_x != 0 and  is_on_floor:
+	if speed_x != 0 and is_on_floor:
 		speed_x = 0
 	
 	is_pushed = false
@@ -23,10 +23,13 @@ func _process(delta):
 
 # push box
 func push(dir : int):
-	if not move_x(dir):
-		is_pushed = true
+	if not check_solid_x(dir):
+		#is_pushed = true
+		#speed_x = dir
 		for a in overlapping_actors(0, -1, null):
 			if a.tag == "box":
+				a.push(dir)
 				# only be pushed by one crate
-				if not a.is_pushed:
-					a.push(dir)
+#				if not a.is_pushed:
+#					a.push(dir)
+		move_x(dir)
