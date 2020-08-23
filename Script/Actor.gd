@@ -3,122 +3,50 @@ class_name Actor
 
 
 export var tag = "actor"
-var px : int = 0
-var py : int = 0
 
-export var hitbox_x : int = 8
-export var hitbox_y : int = 8
+export var hitbox_x := 8
+export var hitbox_y := 8
 
-var speed_x = 0
-var speed_y = 0
-export var gravity = 0.2
+var speed_x := 0.0
+var speed_y := 0.0
+export var gravity := 0.2
 
-var remainder_x = 0
-var remainder_y = 0
+var remainder_x := 0.0
+var remainder_y := 0.0
 
-export var is_moving = true
-export var is_solid = true
-export var is_colliding = true
-export var is_using_gravity = true
-export var is_on_treadmill = false
+export var is_moving := true
+export var is_solid := true
+export var is_colliding := true
+export var is_using_gravity := true
+export var is_on_treadmill := false
 
-var has_moved_x = false
-var has_moved_y = false
+var has_moved_x := false
+var has_moved_y := false
 
-var has_hit_up = false
-var has_hit_down = false
-var has_hit_left = false
-var has_hit_right = false
+var has_hit_up := false
+var has_hit_down := false
+var has_hit_left := false
+var has_hit_right := false
 
-var is_on_floor = false
-var is_on_floor_2 = false
-var is_on_floor_3 = false
-
-
+var is_on_floor := false
+var time_since_floor := 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	px = floor(position.x)
-	py = floor(position.y)
-	position.x = px
-	position.y = py
-	apply_pos()
+	position.x = floor(position.x)
+	position.y = floor(position.y)
 
 func _process(delta):
 	move()
 	
 	if is_using_gravity:
 		speed_y += gravity
-	
-
-# update the node's position
-func apply_pos():
-	position.x = px
-	position.y = py
+	if not is_on_floor:
+		time_since_floor += 1
 
 # axis aligned bounding box
 func aabb(x1 : int, y1 : int, w1 : int, h1 : int, x2 : int, y2 : int, w2 : int, h2 : int):
 	return x1 < x2 + w2 and x2 < x1 + w1 and y1 < y2 + h2 and y2 < y1 + h1
-
-# check solid tilemap (on x axis)
-func check_solid_tile_x(dist : int):
-	# left / dist == -1
-	var x = px - 1
-	# right
-	if dist == 1:
-		x = px + hitbox_x
-	
-	var y1 = py
-	var y2 = py + hitbox_y - 1
-	var w2m1 = Shared.node_map.world_to_map(Vector2(x, y1))
-	var w2m2 = Shared.node_map.world_to_map(Vector2(x, y2))
-	
-	var check_up = Shared.node_map.get_cellv(w2m1) != -1
-	var check_down = Shared.node_map.get_cellv(w2m2) != -1
-	
-	return check_up or check_down
-
-# check solid tilemap (on y axis)
-func check_solid_tile_y(dist : int):
-	# up / dist == -1
-	var y = py - 1
-	# down
-	if dist == 1:
-		y = py + hitbox_y
-	
-	var x1 = px
-	var x2 = px + hitbox_x - 1
-	var w2m1 = Shared.node_map.world_to_map(Vector2(x1, y))
-	var w2m2 = Shared.node_map.world_to_map(Vector2(x2, y))
-	
-	var check_left = Shared.node_map.get_cellv(w2m1) != -1
-	var check_right = Shared.node_map.get_cellv(w2m2) != -1
-	
-	return check_left or check_right
-
-# check tilemap, and then check actors (on x axis)
-func check_solid_x(dist : int):
-	var hit = check_solid_tile_x(dist)
-	if not hit:
-		hit = check_solid_actor(dist, 0, null)
-	return hit
-
-# check tilemap, and then check actors (on y axis)
-func check_solid_y(dist : int):
-	var hit = check_solid_tile_y(dist)
-	if not hit:
-		hit = check_solid_actor(0, dist, null)
-	return hit
-
-# check for solid actors, dx, dy = distance x and y
-func check_solid_actor(dx : int, dy : int, ignore : Actor):
-	var hit = false
-	for a in get_tree().get_nodes_in_group("actor"):
-		if a != self and a.is_solid and a != ignore:
-			if aabb(px + dx, py + dy, hitbox_x, hitbox_y, a.px, a.py, a.hitbox_x, a.hitbox_y):
-				hit = true
-				break
-	return hit
 
 # move actor
 func move():
@@ -155,7 +83,7 @@ func move_x(dist : int):
 		var step = sign(dist)
 		
 		for i in range(abs(dist)):
-			if check_solid_x(step):
+			if is_area_solid(position.x + step, position.y):
 				speed_x = 0
 				remainder_x = 0
 				
@@ -164,54 +92,45 @@ func move_x(dist : int):
 				hit = true
 				break
 			else:
-				px += step
+				position.x += step
 		
 	else:
-		px += dist
+		position.x += dist
 	
-	position.x = px
+	position.x = position.x
 	return hit
 
 # move y axis
 func move_y(dist : int):
 	var hit = false
 	has_moved_y = true
-	is_on_floor_3 = is_on_floor_2
-	is_on_floor_2 = is_on_floor
 	is_on_floor = false
 	
 	if is_colliding:
 		var step = sign(dist)
 		
 		for i in range(abs(dist)):
-			if check_solid_y(step):
+			if is_area_solid(position.x, position.y + step):
 				speed_y = 0
 				remainder_y = 0
 				
 				has_hit_up = (step == -1)
 				has_hit_down = (step == 1)
 				is_on_floor = has_hit_down
+				time_since_floor = 0
 				hit = true
 				break
 			else:
-				py += step
+				position.y += step
 		
 	else:
-		py += dist
+		position.y += dist
 	
-	position.y = py
+	position.y = position.y
 	return hit
 
-# return array of overlapping actors
-func overlapping_actors(dx : int, dy : int, ignore : Actor):
-	var act = []
-	for a in get_tree().get_nodes_in_group("actor"):
-		if a != self and a != ignore:
-			if aabb(px + dx, py + dy, hitbox_x, hitbox_y, a.px, a.py, a.hitbox_x, a.hitbox_y):
-				act.append(a)
-	return act
-
-func check_area_solid_tile(x1, y1, width, height):
+#check if area has solid tiles
+func is_area_solid_tile(x1, y1, width, height) -> bool:
 	var x2 = x1 + width - 1
 	var y2 = y1 + height - 1
 	
@@ -222,18 +141,28 @@ func check_area_solid_tile(x1, y1, width, height):
 			return true
 	return false
 
-func check_area_solid_actor(x, y, width, height, ignore):
+# check if area has solid actors
+func is_area_solid_actor(x, y, width = hitbox_x, height = hitbox_y, ignore = null) -> bool:
 	for a in get_tree().get_nodes_in_group("actor"):
 		if a != self and a.is_solid and a != ignore:
-			if aabb(x, y, width, height, a.px, a.py, a.hitbox_x, a.hitbox_y):
+			if aabb(x, y, width, height, a.position.x, a.position.y, a.hitbox_x, a.hitbox_y):
 				return true
 	return false
 
-func check_area_solid(x, y, width, height, ignore):
-	if check_area_solid_tile(x, y, width, height):
+# check if area is solid
+func is_area_solid(x, y, width = hitbox_x, height = hitbox_y, ignore = null) -> bool:
+	if is_area_solid_tile(x, y, width, height):
 		return true
-	if check_area_solid_actor(x, y, width, height, ignore):
+	if is_area_solid_actor(x, y, width, height, ignore):
 		return true
 	return false
 
+# return array of actors
+func check_area_actors(x, y, width = hitbox_x, height = hitbox_y, group_name = "actor", ignore = null):
+	var act = []
+	for a in get_tree().get_nodes_in_group(group_name):
+		if a != self and a != ignore:
+			if aabb(x, y, width, height, a.position.x, a.position.y, a.hitbox_x, a.hitbox_y):
+				act.append(a)
+	return act
 

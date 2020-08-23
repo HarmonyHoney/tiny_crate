@@ -10,6 +10,7 @@ var jump_speed = 2
 var jump_frames = 10
 var jump_count = 0
 var is_jump = false
+var coyote_time = 3
 
 var anim_frame = 0
 var anim_step_run = 0.2
@@ -62,7 +63,7 @@ func _process(delta):
 		node_sprite_guy.flip_h = btnx == -1
 	
 	# start jump
-	if btn.p("jump") and check_jump():
+	if btn.p("jump") and time_since_floor <= coyote_time:
 		is_jump = true
 		jump_count = 0
 	
@@ -92,24 +93,21 @@ func _process(delta):
 	
 	# push box
 	if is_on_floor and move_get_dist().x != 0 and not is_pickup:
-		for a in overlapping_actors(dir, 0, null):
-			if a.tag == "box":
-				a.push(dir)
-				# slow movement when pushing
-				if abs(speed_x) > push_speed:
-					speed_x = push_speed * sign(speed_x)
-				move_x(dir)
-				break
-	
+		for a in check_area_actors(position.x + dir, position.y, hitbox_x, hitbox_y, "box"):
+			a.push(dir)
+			# slow movement when pushing
+			if abs(speed_x) > push_speed:
+				speed_x = push_speed * sign(speed_x)
+			move_x(dir)
+			break
 
 func box_release(sx : int, sy : int):
 	is_pickup = false
 	node_sprite_box.visible = false
 	hitbox_y = 8
-	py += 8
-	apply_pos()
+	position.y += 8
 	var box = scene_box.instance()
-	box.position = Vector2(px, py - 8)
+	box.position = Vector2(position.x, position.y - 8)
 	box.speed_x = sx
 	box.speed_y = sy
 	get_parent().add_child(box)
@@ -119,32 +117,23 @@ func box_pickup(dx : int, dy : int):
 	var offset_y = 0 if btn.d("down") else -8
 	
 	# pick crate on x axis
-	for a in overlapping_actors(dx, dy, null):
-		if a.tag == "box":
-			var offset_x = box_find_space(0, offset_y, a)
-			if offset_x != null:
-				is_pickup = true
-				node_sprite_box.visible = true
-				#a.remove()
-				a.queue_free()
-				py += offset_y
-				px += offset_x
-				hitbox_y = 16
-				apply_pos()
-				node_sprites.position.y = 8
-			break
-
+	for a in check_area_actors(position.x + dx, position.y + dy, hitbox_x, hitbox_y, "box"):
+		var offset_x = box_find_space(0, offset_y, a)
+		if offset_x != null:
+			is_pickup = true
+			node_sprite_box.visible = true
+			a.queue_free()
+			position.y += offset_y
+			position.x += offset_x
+			hitbox_y = 16
+			node_sprites.position.y = 8
+		break
 
 # ox, oy = offset x and y
 func box_find_space(ox, oy, ignore : Actor):
 	# wiggle around and look for an open space
 	for i in [0, 1, -1, 2, -2, 3, -3, 4, -4]:
-		if not check_area_solid(px + ox + i, py + oy, 8, 16, ignore):
+		if not is_area_solid(position.x + ox + i, position.y + oy, 8, 16, ignore):
 			return i
 	return null
-
-
-
-func check_jump():
-	return is_on_floor or is_on_floor_2 or is_on_floor_3
 

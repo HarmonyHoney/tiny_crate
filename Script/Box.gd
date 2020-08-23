@@ -23,13 +23,17 @@ func _process(delta):
 
 # push box
 func push(dir : int):
-	if not check_solid_x(dir):
-		#is_pushed = true
-		#speed_x = dir
-		for a in overlapping_actors(0, -1, null):
-			if a.tag == "box":
-				a.push(dir)
-				# only be pushed by one crate
-#				if not a.is_pushed:
-#					a.push(dir)
+	if is_pushed:
+		return
+	is_pushed = true
+	
+	# check for box at destination
+	if is_area_solid(position.x + dir, position.y):
+		for a in check_area_actors(position.x + dir, position.y, hitbox_x, hitbox_y, "box"):
+			a.push(dir)
+	
+	# check for box above
+	if not is_area_solid(position.x + dir, position.y):
+		for a in check_area_actors(position.x, position.y - 1, hitbox_x, hitbox_y, "box"):
+			a.push(dir)
 		move_x(dir)
