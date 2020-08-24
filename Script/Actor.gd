@@ -129,19 +129,22 @@ func move_y(dist : int):
 	position.y = position.y
 	return hit
 
-#check if area has solid tiles
-func is_area_solid_tile(x1, y1, width, height) -> bool:
-	var x2 = x1 + width - 1
-	var y2 = y1 + height - 1
+# check area for solid tiles
+func is_area_solid_tile(x1, y1, width, height):
+	var w2m = Shared.node_map.world_to_map(Vector2(x1, y1))
+	var cell = Shared.node_map.cell_size.x
 	
-	var pos = [Vector2(x1, y1), Vector2(x2, y1), Vector2(x1, y2), Vector2(x2, y2)]
-	for i in pos:
-		var w2m = Shared.node_map.world_to_map(i)
-		if Shared.node_map.get_cellv(w2m) != -1:
-			return true
+	# check more than four points if hitbox is longer than 8 pixels
+	for ix in range((width / cell) + 1):
+		for iy in range((height / cell) + 1):
+			var check = Vector2(w2m.x + ix, w2m.y + iy)
+			if Shared.node_map.get_cellv(check) != -1:
+				check *= cell
+				if aabb(x1, y1, width, height, check.x, check.y, cell, cell):
+					return true
 	return false
 
-# check if area has solid actors
+# check area for solid actors
 func is_area_solid_actor(x, y, width = hitbox_x, height = hitbox_y, ignore = null) -> bool:
 	for a in get_tree().get_nodes_in_group("actor"):
 		if a != self and a.is_solid and a != ignore:
