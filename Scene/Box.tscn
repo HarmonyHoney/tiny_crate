@@ -7,7 +7,6 @@
 "actor",
 "box",
 ]]
-position = Vector2( -27, 12 )
 script = ExtResource( 1 )
 tag = "box"
 

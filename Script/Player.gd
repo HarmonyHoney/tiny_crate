@@ -52,6 +52,16 @@ func _process(delta):
 	var btnx = btn.d("right") - btn.d("left")
 	var btny = btn.d("down") - btn.d("up")
 	
+	# open door
+	if btn.p("up"):
+		for a in check_area_actors(position.x, position.y, hitbox_x, hitbox_y, "door"):
+			a.open()
+			return
+	
+	# hit spike
+#	if is_area_spike():
+#		print("hit spike")
+#		get_tree().reload_current_scene()
 	
 	# walking
 	if btnx == 0:

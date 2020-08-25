@@ -1,0 +1,27 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Image/door.png" type="Texture" id=1]
+[ext_resource path="res://Script/Door.gd" type="Script" id=2]
+
+[node name="Door" type="Node2D" groups=[
+"door",
+]]
+script = ExtResource( 2 )
+is_moving = false
+is_solid = false
+is_colliding = false
+is_using_gravity = false
+
+[node name="SpriteDoor" type="Sprite" parent="."]
+texture = ExtResource( 1 )
+centered = false
+hframes = 20
+frame = 3
+
+[node name="SpriteArrow" type="Sprite" parent="."]
+modulate = Color( 1, 0, 0.301961, 1 )
+position = Vector2( 0, -8 )
+texture = ExtResource( 1 )
+centered = false
+hframes = 20
+frame = 19

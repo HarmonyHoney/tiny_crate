@@ -1,7 +1,6 @@
 extends Node2D
 class_name Actor
 
-
 export var tag = "actor"
 
 export var hitbox_x := 8
@@ -131,14 +130,14 @@ func move_y(dist : int):
 
 # check area for solid tiles
 func is_area_solid_tile(x1, y1, width, height):
-	var w2m = Shared.node_map.world_to_map(Vector2(x1, y1))
-	var cell = Shared.node_map.cell_size.x
+	var w2m = Shared.node_map_solid.world_to_map(Vector2(x1, y1))
+	var cell = Shared.node_map_solid.cell_size.x
 	
 	# check more than four points if hitbox is longer than 8 pixels
 	for ix in range((width / cell) + 1):
 		for iy in range((height / cell) + 1):
 			var check = Vector2(w2m.x + ix, w2m.y + iy)
-			if Shared.node_map.get_cellv(check) != -1:
+			if Shared.node_map_solid.get_cellv(check) != -1:
 				check *= cell
 				if aabb(x1, y1, width, height, check.x, check.y, cell, cell):
 					return true
@@ -168,4 +167,3 @@ func check_area_actors(x, y, width = hitbox_x, height = hitbox_y, group_name = "
 			if aabb(x, y, width, height, a.position.x, a.position.y, a.hitbox_x, a.hitbox_y):
 				act.append(a)
 	return act
-
