@@ -59,9 +59,11 @@ func _process(delta):
 			return
 	
 	# hit spike
-#	if is_area_spike():
-#		print("hit spike")
-#		get_tree().reload_current_scene()
+	if speed_y > -1:
+		for a in check_area_actors(position.x, position.y, hitbox_x, hitbox_y, "spike"):
+			print("hit spike")
+			death()
+			return
 	
 	# walking
 	if btnx == 0:
@@ -146,4 +148,9 @@ func box_find_space(ox, oy, ignore : Actor):
 		if not is_area_solid(position.x + ox + i, position.y + oy, 8, 16, ignore):
 			return i
 	return null
+
+func death():
+	get_tree().reload_current_scene()
+
+
 

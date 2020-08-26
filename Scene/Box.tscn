@@ -9,6 +9,10 @@
 ]]
 script = ExtResource( 1 )
 tag = "box"
+is_moving = true
+is_solid = true
+is_colliding = true
+is_using_gravity = true
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 2 )

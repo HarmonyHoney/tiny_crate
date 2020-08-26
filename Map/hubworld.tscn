@@ -78,7 +78,7 @@ map_name = "map1"
 ] instance=ExtResource( 2 )]
 position = Vector2( 88, 8 )
 tag = "door"
-map_name = "map2"
+map_name = "scn1"
 
 [node name="Door3" parent="." groups=[
 "actor",

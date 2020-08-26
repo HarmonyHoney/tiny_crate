@@ -13,10 +13,10 @@ export var gravity := 0.2
 var remainder_x := 0.0
 var remainder_y := 0.0
 
-export var is_moving := true
-export var is_solid := true
-export var is_colliding := true
-export var is_using_gravity := true
+export var is_moving := false
+export var is_solid := false
+export var is_colliding := false
+export var is_using_gravity := false
 export var is_on_treadmill := false
 
 var has_moved_x := false

@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Image/portal.png" type="Texture" id=1]
+[ext_resource path="res://Script/Actor.gd" type="Script" id=2]
+
+[node name="Exit" type="Node2D" groups=[
+"actor",
+"exit",
+]]
+script = ExtResource( 2 )
+hitbox_x = 6
+hitbox_y = 6
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( -5, -5 )
+texture = ExtResource( 1 )
+centered = false
+hframes = 5
