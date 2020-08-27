@@ -137,6 +137,10 @@ func box_release(sx : int, sy : int):
 	box.speed_y = sy
 	get_parent().add_child(box)
 	node_sprite.position.y = -4
+	if is_on_floor:
+		try_anim("idle")
+	else:
+		try_anim("jump")
 
 func box_pickup(dx : int, dy : int):
 	var offset_y = 0 if btn.d("down") else -8
@@ -151,6 +155,10 @@ func box_pickup(dx : int, dy : int):
 			position.x += offset_x
 			hitbox_y = 16
 			node_sprite.position.y = 4
+			if is_on_floor:
+				try_anim("box_idle")
+			else:
+				try_anim("box_jump")
 		break
 
 # ox, oy = offset x and y
