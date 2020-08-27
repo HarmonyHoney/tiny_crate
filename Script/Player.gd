@@ -29,19 +29,16 @@ var pickup_count = 0
 
 var dir = 1
 
-
-var node_sprites : Node2D
-var node_sprite_guy : Sprite
-var node_sprite_box : Sprite
+var node_sprite : Sprite
+var node_anim : AnimationPlayer
 
 var scene_box = load("res://Scene/Box.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	# ref nodes
-	node_sprites = get_node("Sprites")
-	node_sprite_guy = node_sprites.get_node("SpriteGuy")
-	node_sprite_box = node_sprites.get_node("SpriteBox")
+	node_sprite = get_node("Sprite")
+	node_anim = get_node("AnimationPlayer")
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -65,6 +62,19 @@ func _process(delta):
 			death()
 			return
 	
+	# anim
+	if is_on_floor:
+		if btnx == 0:
+			if is_pickup:
+				try_anim("box_idle")
+			else:
+				try_anim("idle")
+		else:
+			if is_pickup:
+				try_anim("box_run")
+			else:
+				try_anim("run")
+	
 	# walking
 	if btnx == 0:
 		speed_x *= move_slow
@@ -72,12 +82,16 @@ func _process(delta):
 		speed_x += move_accel * btnx
 		speed_x = clamp(speed_x, -move_speed, move_speed)
 		dir = btnx
-		node_sprite_guy.flip_h = btnx == -1
+		node_sprite.flip_h = btnx == -1
 	
 	# start jump
 	if btn.p("jump") and time_since_floor <= coyote_time:
 		is_jump = true
 		jump_count = 0
+		if is_pickup:
+			node_anim.play("box_jump")
+		else:
+			node_anim.play("jump")
 	
 	# jump height
 	if is_jump:
@@ -115,7 +129,6 @@ func _process(delta):
 
 func box_release(sx : int, sy : int):
 	is_pickup = false
-	node_sprite_box.visible = false
 	hitbox_y = 8
 	position.y += 8
 	var box = scene_box.instance()
@@ -123,7 +136,7 @@ func box_release(sx : int, sy : int):
 	box.speed_x = sx
 	box.speed_y = sy
 	get_parent().add_child(box)
-	node_sprites.position.y = 0
+	node_sprite.position.y = -4
 
 func box_pickup(dx : int, dy : int):
 	var offset_y = 0 if btn.d("down") else -8
@@ -133,12 +146,11 @@ func box_pickup(dx : int, dy : int):
 		var offset_x = box_find_space(0, offset_y, a)
 		if offset_x != null:
 			is_pickup = true
-			node_sprite_box.visible = true
 			a.queue_free()
 			position.y += offset_y
 			position.x += offset_x
 			hitbox_y = 16
-			node_sprites.position.y = 8
+			node_sprite.position.y = 4
 		break
 
 # ox, oy = offset x and y
@@ -152,5 +164,8 @@ func box_find_space(ox, oy, ignore : Actor):
 func death():
 	get_tree().reload_current_scene()
 
+func try_anim(arg : String):
+	if node_anim.current_animation != arg:
+		node_anim.play(arg)
 
 

@@ -1,7 +1,7 @@
 extends Node2D
 class_name Actor
 
-export var tag = "actor"
+export var tag := "actor"
 
 export var hitbox_x := 8
 export var hitbox_y := 8
