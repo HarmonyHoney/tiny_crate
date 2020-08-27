@@ -8,7 +8,7 @@ func _ready():
 	Shared.node_map_spike = self
 	
 	for pos in get_used_cells():
-		print("creating spike from tile: ", pos)
+		#print("creating spike from tile: ", pos)
 		var cell = cell_size.x
 		var inst = scene_spike.instance()
 		inst.position = Vector2(pos.x * cell, pos.y * cell + 5)

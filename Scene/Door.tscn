@@ -7,10 +7,6 @@
 "door",
 ]]
 script = ExtResource( 2 )
-is_moving = false
-is_solid = false
-is_colliding = false
-is_using_gravity = false
 
 [node name="SpriteDoor" type="Sprite" parent="."]
 texture = ExtResource( 1 )
@@ -23,5 +19,6 @@ modulate = Color( 1, 0, 0.301961, 1 )
 position = Vector2( 0, -8 )
 texture = ExtResource( 1 )
 centered = false
+flip_v = true
 hframes = 20
 frame = 19

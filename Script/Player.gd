@@ -31,14 +31,23 @@ var dir = 1
 
 var node_sprite : Sprite
 var node_anim : AnimationPlayer
+var node_audio_jump : AudioStreamPlayer2D
+var node_audio_pickup : AudioStreamPlayer2D
+var node_audio_drop : AudioStreamPlayer2D
+var node_audio_throw : AudioStreamPlayer2D
 
-var scene_box = load("res://Scene/Box.tscn")
+var scene_box = preload("res://Scene/Box.tscn")
+var scene_explosion = preload("res://Scene/Explosion.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	# ref nodes
 	node_sprite = get_node("Sprite")
 	node_anim = get_node("AnimationPlayer")
+	node_audio_jump = get_node("AudioJump")
+	node_audio_pickup = get_node("AudioPickup")
+	node_audio_drop = get_node("AudioDrop")
+	node_audio_throw = get_node("AudioThrow")
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -88,6 +97,7 @@ func _process(delta):
 	if btn.p("jump") and time_since_floor <= coyote_time:
 		is_jump = true
 		jump_count = 0
+		node_audio_jump.play()
 		if is_pickup:
 			node_anim.play("box_jump")
 		else:
@@ -141,6 +151,11 @@ func box_release(sx : int, sy : int):
 		try_anim("idle")
 	else:
 		try_anim("jump")
+	if sx != 0 or sy != 0:
+		node_audio_throw.play()
+	else:
+		node_audio_drop.play()
+		
 
 func box_pickup(dx : int, dy : int):
 	var offset_y = 0 if btn.d("down") else -8
@@ -155,6 +170,7 @@ func box_pickup(dx : int, dy : int):
 			position.x += offset_x
 			hitbox_y = 16
 			node_sprite.position.y = 4
+			node_audio_pickup.play()
 			if is_on_floor:
 				try_anim("box_idle")
 			else:
@@ -170,7 +186,11 @@ func box_find_space(ox, oy, ignore : Actor):
 	return null
 
 func death():
-	get_tree().reload_current_scene()
+	var inst = scene_explosion.instance()
+	inst.position = position + Vector2(0, 4)
+	get_parent().add_child(inst)
+	Shared.start_reset()
+	queue_free()
 
 func try_anim(arg : String):
 	if node_anim.current_animation != arg:
