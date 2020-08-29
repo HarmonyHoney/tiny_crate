@@ -24,3 +24,5 @@ func _process(delta):
 			pass
 		else:
 			position = node_target.position + pos_offset
+	position.x = round(position.x)
+	position.y = round(position.y)

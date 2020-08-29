@@ -52,9 +52,10 @@ func _ready():
 	node_audio_throw = get_node("AudioThrow")
 	
 	# assign camera target
-	node_camera_game = Shared.node_camera_game
-	node_camera_game.node_target = self
-	node_camera_game.pos_offset = Vector2(4, 4)
+	if Shared.node_camera_game:
+		node_camera_game = Shared.node_camera_game
+		node_camera_game.node_target = self
+		node_camera_game.pos_offset = Vector2(4, 4)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
