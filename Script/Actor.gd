@@ -49,10 +49,10 @@ func _process(delta):
 	if not is_on_floor:
 		time_since_floor += 1
 
+# draw hitbox in editor
 func _draw():
-	# draw hitbox
 	if Engine.editor_hint:
-		draw_rect(Rect2(0, 0, hitbox_x, hitbox_y), Color(1, 0, 0, 0.5))
+		draw_rect(Rect2(0, 0, hitbox_x, hitbox_y), Color(1, 0, 0.75, 0.5))
 
 
 # axis aligned bounding box
@@ -172,7 +172,9 @@ func is_area_solid(x, y, width = hitbox_x, height = hitbox_y, ignore = null) -> 
 	return false
 
 # return array of actors
-func check_area_actors(x, y, width = hitbox_x, height = hitbox_y, group_name = "actor", ignore = null):
+func check_area_actors(group_name = "actor", x = position.x, y = position.y, width = hitbox_x, height = hitbox_y, ignore = null):
+	if not group_name:
+		group_name = "actor"
 	var act = []
 	for a in get_tree().get_nodes_in_group(group_name):
 		if a != self and a != ignore:

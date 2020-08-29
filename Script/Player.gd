@@ -59,7 +59,6 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if Engine.editor_hint:
-		update()
 		return
 	
 	# debug
@@ -78,19 +77,19 @@ func _process(delta):
 	
 	# open door
 	if btn.p("up"):
-		for a in check_area_actors(position.x, position.y, hitbox_x, hitbox_y, "door"):
+		for a in check_area_actors("door"):
 			a.open()
 			return
 	
 	# hit exit
-	for a in check_area_actors(position.x, position.y, hitbox_x, hitbox_y, "exit"):
+	for a in check_area_actors("exit"):
 		print("hit exit")
 		death()
 		return
 	
 	# hit spike
 	if speed_y > -1:
-		for a in check_area_actors(position.x, position.y, hitbox_x, hitbox_y, "spike"):
+		for a in check_area_actors("spike"):
 			print("hit spike")
 			death()
 			return
@@ -155,7 +154,7 @@ func _process(delta):
 	
 	# push box
 	if is_on_floor and move_get_dist().x != 0 and not is_pickup:
-		for a in check_area_actors(position.x + dir, position.y, hitbox_x, hitbox_y, "box"):
+		for a in check_area_actors("box", position.x + dir):
 			a.push(dir)
 			# slow movement when pushing
 			if abs(speed_x) > push_speed:
@@ -187,7 +186,7 @@ func box_pickup(dx : int, dy : int):
 	var offset_y = 0 if btn.d("down") else -8
 	
 	# pick crate on x axis
-	for a in check_area_actors(position.x + dx, position.y + dy, hitbox_x, hitbox_y, "box"):
+	for a in check_area_actors("box", position.x + dx, position.y + dy):
 		var offset_x = box_find_space(0, offset_y, a)
 		if offset_x != null:
 			is_pickup = true
