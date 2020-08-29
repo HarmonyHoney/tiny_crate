@@ -3,6 +3,7 @@ extends Node
 
 var node_map_solid : TileMap
 var node_map_spike : TileMap
+var node_camera_game : Camera2D
 
 var is_reset = false
 var reset_clock := 0.0

@@ -1,3 +1,4 @@
+tool
 extends Node2D
 class_name Actor
 
@@ -36,12 +37,23 @@ func _ready():
 	position.y = floor(position.y)
 
 func _process(delta):
+	if Engine.editor_hint:
+		update()
+		return
+	
+	
 	move()
 	
 	if is_using_gravity:
 		speed_y += gravity
 	if not is_on_floor:
 		time_since_floor += 1
+
+func _draw():
+	# draw hitbox
+	if Engine.editor_hint:
+		draw_rect(Rect2(0, 0, hitbox_x, hitbox_y), Color(1, 0, 0, 0.5))
+
 
 # axis aligned bounding box
 func aabb(x1 : int, y1 : int, w1 : int, h1 : int, x2 : int, y2 : int, w2 : int, h2 : int):

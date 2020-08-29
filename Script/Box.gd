@@ -1,10 +1,6 @@
+tool
 extends Actor
 class_name Box
-
-
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
 
 var is_pushed = false
 
@@ -15,6 +11,10 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	if Engine.editor_hint:
+		update()
+		return
+	
 	if speed_x != 0 and is_on_floor:
 		speed_x = 0
 	

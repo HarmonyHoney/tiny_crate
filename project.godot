@@ -45,7 +45,7 @@ _global_script_class_icons={
 [application]
 
 config/name="gdBox"
-run/main_scene="res://Map/hubworld.tscn"
+run/main_scene="res://Map/map0.tscn"
 config/icon="res://icon.png"
 
 [autoload]
@@ -139,6 +139,11 @@ action={
 reset={
 "deadzone": 0.5,
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":82,"unicode":0,"echo":false,"script":null)
+ ]
+}
+debug_spawn_box={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":70,"unicode":0,"echo":false,"script":null)
  ]
 }
 

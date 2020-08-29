@@ -1,3 +1,4 @@
+tool
 extends Actor
 
 var move_speed = 1
@@ -12,17 +13,13 @@ var jump_count = 0
 var is_jump = false
 var coyote_time = 3
 
-var anim_frame = 0
-var anim_step_run = 0.2
-var anim_step_idle = 0.04
-
 var is_pickup = false
 
-var speed_drop_x = 1
-var speed_drop_y = -1
+export var speed_drop_x = 1.0
+export var speed_drop_y = -1.0
 
-var speed_throw_x = 1.0
-var speed_throw_y = -2.3
+export var speed_throw_x = 1.0
+export var speed_throw_y = -2.3
 
 var pickup_frames = 8
 var pickup_count = 0
@@ -36,11 +33,16 @@ var node_audio_pickup : AudioStreamPlayer2D
 var node_audio_drop : AudioStreamPlayer2D
 var node_audio_throw : AudioStreamPlayer2D
 
+var node_camera_game : Camera2D
+
 var scene_box = preload("res://Scene/Box.tscn")
 var scene_explosion = preload("res://Scene/Explosion.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	if Engine.editor_hint:
+		return
+	
 	# ref nodes
 	node_sprite = get_node("Sprite")
 	node_anim = get_node("AnimationPlayer")
@@ -48,13 +50,29 @@ func _ready():
 	node_audio_pickup = get_node("AudioPickup")
 	node_audio_drop = get_node("AudioDrop")
 	node_audio_throw = get_node("AudioThrow")
-
+	
+	# assign camera target
+	node_camera_game = Shared.node_camera_game
+	node_camera_game.node_target = self
+	node_camera_game.pos_offset = Vector2(4, 4)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
+	if Engine.editor_hint:
+		update()
+		return
+	
+	# debug
 	if btn.p("reset"):
 		get_tree().reload_current_scene()
+	# spawn box
+	if btn.p("debug_spawn_box"):
+		var box = scene_box.instance()
+		box.position = Vector2(position.x, position.y - 8)
+		get_parent().add_child(box)
 	
+	
+	# joystick axis
 	var btnx = btn.d("right") - btn.d("left")
 	var btny = btn.d("down") - btn.d("up")
 	
@@ -63,6 +81,12 @@ func _process(delta):
 		for a in check_area_actors(position.x, position.y, hitbox_x, hitbox_y, "door"):
 			a.open()
 			return
+	
+	# hit exit
+	for a in check_area_actors(position.x, position.y, hitbox_x, hitbox_y, "exit"):
+		print("hit exit")
+		death()
+		return
 	
 	# hit spike
 	if speed_y > -1:
@@ -113,13 +137,15 @@ func _process(delta):
 		else:
 			is_jump = false
 	
-	# pickup box
+	# box pickup / throw
 	if btn.p("action"):
 		if is_pickup:
 			if btn.d("down"):
 				box_release(speed_drop_x * dir, speed_drop_y)
+				node_audio_drop.play()
 			else:
 				box_release(speed_throw_x * dir, speed_throw_y)
+				node_audio_throw.play()
 		else:
 			if btn.d("down"):
 				box_pickup(0, 1)
@@ -137,7 +163,7 @@ func _process(delta):
 			move_x(dir)
 			break
 
-func box_release(sx : int, sy : int):
+func box_release(sx : float, sy : float):
 	is_pickup = false
 	hitbox_y = 8
 	position.y += 8
@@ -147,15 +173,15 @@ func box_release(sx : int, sy : int):
 	box.speed_y = sy
 	get_parent().add_child(box)
 	node_sprite.position.y = -4
+	node_camera_game.pos_offset = Vector2(4, 4)
 	if is_on_floor:
 		try_anim("idle")
 	else:
 		try_anim("jump")
-	if sx != 0 or sy != 0:
-		node_audio_throw.play()
-	else:
-		node_audio_drop.play()
-		
+#	if sx != 0 or sy != 0:
+#		node_audio_throw.play()
+#	else:
+#		node_audio_drop.play()
 
 func box_pickup(dx : int, dy : int):
 	var offset_y = 0 if btn.d("down") else -8
@@ -170,6 +196,7 @@ func box_pickup(dx : int, dy : int):
 			position.x += offset_x
 			hitbox_y = 16
 			node_sprite.position.y = 4
+			node_camera_game.pos_offset = Vector2(4, 12)
 			node_audio_pickup.play()
 			if is_on_floor:
 				try_anim("box_idle")
