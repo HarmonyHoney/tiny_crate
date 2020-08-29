@@ -4,8 +4,8 @@ class_name Actor
 
 export var tag := "actor"
 
-export var hitbox_x := 8
-export var hitbox_y := 8
+export var hitbox_x := 8 setget _set_hit_x
+export var hitbox_y := 8 setget _set_hit_y
 
 var speed_x := 0.0
 var speed_y := 0.0
@@ -38,9 +38,7 @@ func _ready():
 
 func _process(delta):
 	if Engine.editor_hint:
-		update()
 		return
-	
 	
 	move()
 	
@@ -49,6 +47,13 @@ func _process(delta):
 	if not is_on_floor:
 		time_since_floor += 1
 
+# update() the _draw() when hitbox values are changed (in the editor)
+func _set_hit_x(value):
+	hitbox_x = value
+	update()
+func _set_hit_y(value):
+	hitbox_y = value
+	update()
 # draw hitbox in editor
 func _draw():
 	if Engine.editor_hint:
