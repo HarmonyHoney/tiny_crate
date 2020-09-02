@@ -58,8 +58,6 @@ Shared="*res://Script/Shared.gd"
 window/size/width=320
 window/size/height=180
 window/size/always_on_top=true
-window/size/test_width=1920
-window/size/test_height=1080
 window/dpi/allow_hidpi=true
 window/stretch/mode="viewport"
 window/stretch/aspect="keep"
@@ -76,7 +74,7 @@ texture={
 "compress/lossy_quality": 0.7,
 "compress/mode": 0,
 "compress/normal_map": 0,
-"detect_3d": true,
+"detect_3d": false,
 "flags/anisotropic": false,
 "flags/filter": false,
 "flags/mipmaps": false,

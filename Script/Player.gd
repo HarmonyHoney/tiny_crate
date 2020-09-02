@@ -63,6 +63,9 @@ func _process(delta):
 		return
 	
 	# debug
+	if btn.p("ui_cancel"):
+		get_tree().quit()
+	
 	if btn.p("reset"):
 		get_tree().reload_current_scene()
 	# spawn box
