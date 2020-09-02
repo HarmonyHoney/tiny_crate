@@ -176,6 +176,8 @@ tracks/1/keys = {
 [node name="Player" type="Node2D" groups=[
 "actor",
 ]]
+z_index = 5
+z_as_relative = false
 script = ExtResource( 1 )
 tag = "player"
 gravity = 0.25

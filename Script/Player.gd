@@ -166,7 +166,7 @@ func _process(delta):
 			move_x(dir)
 			break
 
-func box_release(sx : float, sy : float):
+func box_release(sx := 0.0, sy := 0.0):
 	is_pickup = false
 	hitbox_y = 8
 	position.y += 8
@@ -186,7 +186,7 @@ func box_release(sx : float, sy : float):
 #	else:
 #		node_audio_drop.play()
 
-func box_pickup(dx : int, dy : int):
+func box_pickup(dx := 0, dy := 0):
 	var offset_y = 0 if btn.d("down") else -8
 	
 	# pick crate on x axis
@@ -216,9 +216,16 @@ func box_find_space(ox, oy, ignore : Actor):
 	return null
 
 func death():
+	# explosion
 	var inst = scene_explosion.instance()
-	inst.position = position + Vector2(0, 4)
+	inst.position = position + (Vector2(4, 8) if is_pickup else Vector2(4, 4))
 	get_parent().add_child(inst)
+	
+	# drop box
+	if is_pickup:
+		box_release()
+	
+	# reset scene
 	Shared.start_reset()
 	queue_free()
 

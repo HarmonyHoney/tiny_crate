@@ -61,6 +61,8 @@
 3/z_index = 0
 
 [node name="DetailTileMap" type="TileMap"]
+z_index = -10
+z_as_relative = false
 tile_set = SubResource( 1 )
 cell_size = Vector2( 8, 8 )
 format = 1

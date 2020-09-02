@@ -55,6 +55,7 @@ resource_local_to_scene = true
 1/z_index = 0
 
 [node name="SolidTileMap" type="TileMap"]
+z_as_relative = false
 tile_set = SubResource( 3 )
 cell_size = Vector2( 8, 8 )
 format = 1

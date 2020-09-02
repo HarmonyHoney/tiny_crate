@@ -47,6 +47,8 @@ tracks/2/keys = {
 }
 
 [node name="Explosion" type="Node2D"]
+z_index = 11
+z_as_relative = false
 script = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]

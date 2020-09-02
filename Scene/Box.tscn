@@ -7,6 +7,8 @@
 "actor",
 "box",
 ]]
+z_index = 4
+z_as_relative = false
 script = ExtResource( 1 )
 tag = "box"
 is_moving = true
