@@ -1,8 +1,11 @@
 extends Camera2D
 
 var node_target : Node2D
-export var pos_offset := Vector2()
-export var start_pos : Vector2
+export var pos_offset := Vector2.ZERO
+export var pos_start := Vector2.ZERO
+export var pos_target := Vector2.ZERO
+export var pos_current := Vector2.ZERO
+export var lerp_step := 0.1
 
 export var is_focal_point := false
 # between 0.0 and 1.0, distance of lerp between focal point and target
@@ -10,7 +13,8 @@ export var target_influence := 0.5
 
 func _ready():
 	Shared.node_camera_game = self
-	start_pos = position
+	pos_start = position
+	pos_current = position
 	
 	# looks kinda ugly when using focal point
 	if is_focal_point:
@@ -20,9 +24,12 @@ func _ready():
 func _process(delta):
 	if node_target:
 		if is_focal_point:
-			position = start_pos.linear_interpolate(node_target.position + pos_offset, target_influence)
+			pos_target = pos_start.linear_interpolate(node_target.position + pos_offset, target_influence)
 			pass
 		else:
-			position = node_target.position + pos_offset
-	#position.x = round(position.x)
-	#position.y = round(position.y)
+			pos_target = node_target.position + pos_offset
+	# smoothing
+	pos_current = pos_current.linear_interpolate(pos_target, lerp_step)
+	
+	position.x = round(pos_current.x)
+	position.y = round(pos_current.y)

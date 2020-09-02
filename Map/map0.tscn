@@ -73,6 +73,7 @@ tile_data = PoolIntArray( -262153, 2, 0, -262152, 0, 0, -262151, -1610612734, 0,
 tile_data = PoolIntArray( 65533, 0, 0, 65534, 0, 0, 65535, 0, 0, 0, 0, 0, 1, 0, 0, 2, 0, 0 )
 
 [node name="GameCamera" parent="." instance=ExtResource( 3 )]
+smoothing_enabled = false
 
 [node name="Actors" type="Node2D" parent="."]
 

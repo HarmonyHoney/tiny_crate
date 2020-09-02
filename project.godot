@@ -57,7 +57,6 @@ Shared="*res://Script/Shared.gd"
 
 window/size/width=320
 window/size/height=180
-window/size/always_on_top=true
 window/dpi/allow_hidpi=true
 window/stretch/mode="viewport"
 window/stretch/aspect="keep"
