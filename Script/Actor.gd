@@ -172,9 +172,7 @@ func is_area_solid_actor(x, y, width = hitbox_x, height = hitbox_y, ignore = nul
 func is_area_solid(x, y, width = hitbox_x, height = hitbox_y, ignore = null) -> bool:
 	if is_area_solid_tile(x, y, width, height):
 		return true
-	if is_area_solid_actor(x, y, width, height, ignore):
-		return true
-	return false
+	return is_area_solid_actor(x, y, width, height, ignore)
 
 # return array of actors
 func check_area_actors(group_name = "actor", x = position.x, y = position.y, width = hitbox_x, height = hitbox_y, ignore = null):
