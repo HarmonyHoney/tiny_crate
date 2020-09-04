@@ -113,7 +113,6 @@ func move_x(dist : int):
 	else:
 		position.x += dist
 	
-	position.x = position.x
 	return hit
 
 # move y axis
@@ -133,7 +132,8 @@ func move_y(dist : int):
 				has_hit_up = (step == -1)
 				has_hit_down = (step == 1)
 				is_on_floor = has_hit_down
-				time_since_floor = 0
+				if is_on_floor:
+					time_since_floor = 0
 				hit = true
 				break
 			else:
@@ -142,7 +142,6 @@ func move_y(dist : int):
 	else:
 		position.y += dist
 	
-	position.y = position.y
 	return hit
 
 # check area for solid tiles
