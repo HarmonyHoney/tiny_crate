@@ -1,0 +1,393 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://Scene/Box.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Scene/Player.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scene/GameCamera.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scene/SolidTileMap.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Image/crate_tiles.png" type="Texture" id=5]
+[ext_resource path="res://Scene/DetailTileMap.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Scene/SpikeTileMap.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Scene/Exit.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Script/Actor.gd" type="Script" id=9]
+
+[sub_resource type="ConvexPolygonShape2D" id=1]
+points = PoolVector2Array( 0, 0, 8, 0, 8, 8, 0, 8 )
+
+[sub_resource type="ConvexPolygonShape2D" id=2]
+points = PoolVector2Array( 8, 8, 0, 8, 0, 0, 8, 0 )
+
+[sub_resource type="TileSet" id=3]
+resource_local_to_scene = true
+0/name = "crate_tiles.png 0"
+0/texture = ExtResource( 5 )
+0/tex_offset = Vector2( 0, 0 )
+0/modulate = Color( 1, 1, 1, 1 )
+0/region = Rect2( 0, 8, 8, 8 )
+0/tile_mode = 0
+0/occluder_offset = Vector2( 0, 0 )
+0/navigation_offset = Vector2( 0, 0 )
+0/shape_offset = Vector2( 0, 0 )
+0/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+0/shape = SubResource( 1 )
+0/shape_one_way = false
+0/shape_one_way_margin = 1.0
+0/shapes = [ {
+"autotile_coord": Vector2( 0, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 1 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+} ]
+0/z_index = 0
+1/name = "crate_tiles.png 1"
+1/texture = ExtResource( 5 )
+1/tex_offset = Vector2( 0, 0 )
+1/modulate = Color( 1, 1, 1, 1 )
+1/region = Rect2( 8, 8, 8, 8 )
+1/tile_mode = 0
+1/occluder_offset = Vector2( 0, 0 )
+1/navigation_offset = Vector2( 0, 0 )
+1/shape_offset = Vector2( 0, 0 )
+1/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+1/shape = SubResource( 2 )
+1/shape_one_way = false
+1/shape_one_way_margin = 1.0
+1/shapes = [ {
+"autotile_coord": Vector2( 0, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 2 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+} ]
+1/z_index = 0
+
+[node name="Node2D" type="Node2D"]
+
+[node name="SolidTileMap" parent="." instance=ExtResource( 4 )]
+tile_set = SubResource( 3 )
+tile_data = PoolIntArray( -393229, 0, 0, -262147, 0, 0, -262146, 0, 0, -262145, 0, 0, -327680, 0, 0, -327679, 0, 0, -327678, 0, 0, -196623, 0, 0, -196622, 0, 0, -196621, 0, 0, -196620, 0, 0, -196619, 0, 0, -131084, 0, 0, -131083, 0, 0, -131075, 0, 0, -131074, 0, 0, -131073, 0, 0, -196608, 0, 0, -196607, 0, 0, -196606, 0, 0, -65539, 0, 0, -65538, 0, 0, -65537, 0, 0, -131072, 0, 0, -131071, 0, 0, -131070, 0, 0, -3, 0, 0, -2, 0, 0, -1, 0, 0, -65536, 0, 0, -65535, 0, 0, -65534, 0, 0, 65508, 0, 0, 65509, 0, 0, 65510, 0, 0, 65511, 0, 0, 65512, 0, 0, 65513, 0, 0, 65514, 0, 0, 65515, 0, 0, 65516, 0, 0, 65517, 0, 0, 65518, 0, 0, 65519, 0, 0, 65520, 0, 0, 65521, 0, 0, 65522, 0, 0, 65523, 0, 0, 65524, 0, 0, 65525, 0, 0, 65526, 1, 0, 65527, 0, 0, 65528, 0, 0, 65529, 0, 0, 65530, 0, 0, 65531, 0, 0, 65532, 0, 0, 65533, 0, 0, 65534, 0, 0, 65535, 0, 0, 0, 0, 0, 1, 0, 0, 2, 0, 0, 3, 0, 0, 4, 0, 0, 5, 0, 0, 6, 0, 0, 7, 0, 0, 8, 0, 0, 9, 1, 0 )
+
+[node name="DetailTileMap" parent="." instance=ExtResource( 6 )]
+tile_data = PoolIntArray( -262153, 2, 0, -262152, 0, 0, -262151, -1610612734, 0, -196617, 0, 0, -196616, 0, 0, -196615, 0, 0, -131081, -1073741822, 0, -131080, 0, 0, -131079, 1610612738, 0, -65544, 1, 0, -8, 1, 0, -7, -1610612734, 0, -65535, 0, 0, -65531, 2, 0, -65530, 0, 0, -65529, -1610612734, 0, 1, 1, 0 )
+
+[node name="SpikeTileMap" parent="." instance=ExtResource( 7 )]
+
+[node name="GameCamera" parent="." instance=ExtResource( 3 )]
+smoothing_enabled = false
+drag_margin_left = 0.02
+drag_margin_right = 0.02
+is_focal_point = false
+
+[node name="Actors" type="Node2D" parent="."]
+
+[node name="Exit" parent="Actors" instance=ExtResource( 8 )]
+position = Vector2( 73, -31 )
+
+[node name="Player" parent="Actors" groups=[
+"player",
+] instance=ExtResource( 2 )]
+position = Vector2( -45, -8 )
+
+[node name="Box" parent="Actors" instance=ExtResource( 1 )]
+position = Vector2( -76, -8 )
+gravity = 0.0
+
+[node name="Sprite6" type="Sprite" parent="Actors" groups=[
+"actor",
+]]
+position = Vector2( -119, -2 )
+texture = ExtResource( 5 )
+centered = false
+vframes = 4
+hframes = 4
+frame = 6
+script = ExtResource( 9 )
+is_solid = true
+
+[node name="Sprite7" type="Sprite" parent="Actors" groups=[
+"actor",
+]]
+position = Vector2( -120, -3 )
+texture = ExtResource( 5 )
+centered = false
+vframes = 4
+hframes = 4
+frame = 6
+script = ExtResource( 9 )
+is_solid = true
+
+[node name="Sprite8" type="Sprite" parent="Actors" groups=[
+"actor",
+]]
+position = Vector2( -121, -4 )
+texture = ExtResource( 5 )
+centered = false
+vframes = 4
+hframes = 4
+frame = 6
+script = ExtResource( 9 )
+is_solid = true
+
+[node name="Sprite9" type="Sprite" parent="Actors" groups=[
+"actor",
+]]
+position = Vector2( -122, -5 )
+texture = ExtResource( 5 )
+centered = false
+vframes = 4
+hframes = 4
+frame = 6
+script = ExtResource( 9 )
+is_solid = true
+
+[node name="Sprite10" type="Sprite" parent="Actors" groups=[
+"actor",
+]]
+position = Vector2( -123, -6 )
+texture = ExtResource( 5 )
+centered = false
+vframes = 4
+hframes = 4
+frame = 6
+script = ExtResource( 9 )
+is_solid = true
+
+[node name="Sprite12" type="Sprite" parent="Actors" groups=[
+"actor",
+]]
+position = Vector2( -126, -6 )
+texture = ExtResource( 5 )
+centered = false
+vframes = 4
+hframes = 4
+frame = 6
+script = ExtResource( 9 )
+is_solid = true
+
+[node name="Sprite13" type="Sprite" parent="Actors" groups=[
+"actor",
+]]
+position = Vector2( -128, -5 )
+texture = ExtResource( 5 )
+centered = false
+vframes = 4
+hframes = 4
+frame = 6
+script = ExtResource( 9 )
+is_solid = true
+
+[node name="Sprite14" type="Sprite" parent="Actors" groups=[
+"actor",
+]]
+position = Vector2( -130, -4 )
+texture = ExtResource( 5 )
+centered = false
+vframes = 4
+hframes = 4
+frame = 6
+script = ExtResource( 9 )
+is_solid = true
+
+[node name="Sprite15" type="Sprite" parent="Actors" groups=[
+"actor",
+]]
+position = Vector2( -132, -3 )
+texture = ExtResource( 5 )
+centered = false
+vframes = 4
+hframes = 4
+frame = 6
+script = ExtResource( 9 )
+is_solid = true
+
+[node name="Sprite16" type="Sprite" parent="Actors" groups=[
+"actor",
+]]
+position = Vector2( -134, -2 )
+texture = ExtResource( 5 )
+centered = false
+vframes = 4
+hframes = 4
+frame = 6
+script = ExtResource( 9 )
+is_solid = true
+
+[node name="Sprite17" type="Sprite" parent="Actors" groups=[
+"actor",
+]]
+position = Vector2( -136, -1 )
+texture = ExtResource( 5 )
+centered = false
+vframes = 4
+hframes = 4
+frame = 6
+script = ExtResource( 9 )
+is_solid = true
+
+[node name="Sprite3" type="Sprite" parent="Actors" groups=[
+"actor",
+]]
+position = Vector2( -160, -2 )
+texture = ExtResource( 5 )
+centered = false
+vframes = 4
+hframes = 4
+frame = 6
+script = ExtResource( 9 )
+is_solid = true
+
+[node name="Sprite18" type="Sprite" parent="Actors" groups=[
+"actor",
+]]
+position = Vector2( -162, -4 )
+texture = ExtResource( 5 )
+centered = false
+vframes = 4
+hframes = 4
+frame = 6
+script = ExtResource( 9 )
+is_solid = true
+
+[node name="Sprite19" type="Sprite" parent="Actors" groups=[
+"actor",
+]]
+position = Vector2( -164, -6 )
+texture = ExtResource( 5 )
+centered = false
+vframes = 4
+hframes = 4
+frame = 6
+script = ExtResource( 9 )
+is_solid = true
+
+[node name="Sprite20" type="Sprite" parent="Actors" groups=[
+"actor",
+]]
+position = Vector2( -166, -8 )
+texture = ExtResource( 5 )
+centered = false
+vframes = 4
+hframes = 4
+frame = 6
+script = ExtResource( 9 )
+is_solid = true
+
+[node name="Sprite22" type="Sprite" parent="Actors" groups=[
+"actor",
+]]
+position = Vector2( -169, -7 )
+texture = ExtResource( 5 )
+centered = false
+vframes = 4
+hframes = 4
+frame = 6
+script = ExtResource( 9 )
+is_solid = true
+
+[node name="Sprite23" type="Sprite" parent="Actors" groups=[
+"actor",
+]]
+position = Vector2( -172, -6 )
+texture = ExtResource( 5 )
+centered = false
+vframes = 4
+hframes = 4
+frame = 6
+script = ExtResource( 9 )
+is_solid = true
+
+[node name="Sprite24" type="Sprite" parent="Actors" groups=[
+"actor",
+]]
+position = Vector2( -175, -5 )
+texture = ExtResource( 5 )
+centered = false
+vframes = 4
+hframes = 4
+frame = 6
+script = ExtResource( 9 )
+is_solid = true
+
+[node name="Sprite25" type="Sprite" parent="Actors" groups=[
+"actor",
+]]
+position = Vector2( -178, -4 )
+texture = ExtResource( 5 )
+centered = false
+vframes = 4
+hframes = 4
+frame = 6
+script = ExtResource( 9 )
+is_solid = true
+
+[node name="Sprite26" type="Sprite" parent="Actors" groups=[
+"actor",
+]]
+position = Vector2( -181, -3 )
+texture = ExtResource( 5 )
+centered = false
+vframes = 4
+hframes = 4
+frame = 6
+script = ExtResource( 9 )
+is_solid = true
+
+[node name="Sprite4" type="Sprite" parent="Actors" groups=[
+"actor",
+]]
+position = Vector2( -184, -2 )
+texture = ExtResource( 5 )
+centered = false
+vframes = 4
+hframes = 4
+frame = 6
+script = ExtResource( 9 )
+is_solid = true
+
+[node name="Sprite21" type="Sprite" parent="Actors" groups=[
+"actor",
+]]
+position = Vector2( -187, -1 )
+texture = ExtResource( 5 )
+centered = false
+vframes = 4
+hframes = 4
+frame = 6
+script = ExtResource( 9 )
+is_solid = true
+
+[node name="Sprite11" type="Sprite" parent="Actors" groups=[
+"actor",
+]]
+position = Vector2( -124, -7 )
+texture = ExtResource( 5 )
+centered = false
+vframes = 4
+hframes = 4
+frame = 6
+script = ExtResource( 9 )
+is_solid = true
+
+[node name="Sprite" type="Sprite" parent="Actors" groups=[
+"actor",
+]]
+position = Vector2( -118, -1 )
+texture = ExtResource( 5 )
+centered = false
+vframes = 4
+hframes = 4
+frame = 6
+script = ExtResource( 9 )
+is_solid = true
+
+[node name="Sprite5" type="Sprite" parent="Actors" groups=[
+"actor",
+]]
+position = Vector2( -214, -5 )
+texture = ExtResource( 5 )
+centered = false
+vframes = 4
+hframes = 4
+frame = 6
+script = ExtResource( 9 )
+is_solid = true

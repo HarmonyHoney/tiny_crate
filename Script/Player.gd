@@ -132,7 +132,9 @@ func _process(delta):
 	
 	# jump height
 	if is_jump:
-		if btn.d("jump"):
+		if has_hit_up:
+			is_jump = false
+		elif btn.d("jump"):
 			speed_y = -jump_speed
 			jump_count += 1
 			if jump_count > jump_frames:

@@ -92,40 +92,41 @@ func move_get_dist():
 
 # move x axis
 func move_x(dist : int):
-	var hit = false
 	has_moved_x = true
 	
 	if is_colliding:
 		var step = sign(dist)
-		
 		for i in range(abs(dist)):
 			if is_area_solid(position.x + step, position.y):
+				if move_get_dist().y > -1 and wiggle_x(step):
+					position.x += dist
+					position.y += wiggle_x(step)
+					continue
 				speed_x = 0
 				remainder_x = 0
 				
 				has_hit_left = (step == -1)
 				has_hit_right = (step == 1)
-				hit = true
-				break
+				return true
 			else:
 				position.x += step
-		
 	else:
 		position.x += dist
-	
-	return hit
+	return false
 
 # move y axis
 func move_y(dist : int):
-	var hit = false
 	has_moved_y = true
 	is_on_floor = false
 	
 	if is_colliding:
 		var step = sign(dist)
-		
 		for i in range(abs(dist)):
 			if is_area_solid(position.x, position.y + step):
+				if step == -1 and wiggle_y(step):
+					position.y += step
+					position.x += wiggle_y(step)
+					continue
 				speed_y = 0
 				remainder_y = 0
 				
@@ -134,15 +135,27 @@ func move_y(dist : int):
 				is_on_floor = has_hit_down
 				if is_on_floor:
 					time_since_floor = 0
-				hit = true
-				break
+				return true
 			else:
 				position.y += step
-		
 	else:
 		position.y += dist
-	
-	return hit
+	return false
+
+func wiggle_x(step):
+	# wiggle around and look for an open space
+	for i in [1, -1, 2, -2]:
+		if not is_area_solid(position.x + step, position.y + i):
+			return i
+	return null
+
+# jump corner correction
+func wiggle_y(step):
+	# wiggle around and look for an open space
+	for i in [1, -1, 2, -2]:
+		if not is_area_solid(position.x + i, position.y + step):
+			return i
+	return null
 
 # check area for solid tiles
 func is_area_solid_tile(x1, y1, width, height):
