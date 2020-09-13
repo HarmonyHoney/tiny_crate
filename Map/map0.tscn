@@ -1,79 +1,32 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Scene/Box.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scene/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scene/GameCamera.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scene/SolidTileMap.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Image/crate_tiles.png" type="Texture" id=5]
 [ext_resource path="res://Scene/DetailTileMap.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Scene/SpikeTileMap.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Scene/Exit.tscn" type="PackedScene" id=8]
 
-[sub_resource type="ConvexPolygonShape2D" id=1]
-points = PoolVector2Array( 0, 0, 8, 0, 8, 8, 0, 8 )
-
-[sub_resource type="ConvexPolygonShape2D" id=2]
-points = PoolVector2Array( 8, 8, 0, 8, 0, 0, 8, 0 )
-
-[sub_resource type="TileSet" id=3]
-resource_local_to_scene = true
-0/name = "crate_tiles.png 0"
-0/texture = ExtResource( 5 )
-0/tex_offset = Vector2( 0, 0 )
-0/modulate = Color( 1, 1, 1, 1 )
-0/region = Rect2( 0, 8, 8, 8 )
-0/tile_mode = 0
-0/occluder_offset = Vector2( 0, 0 )
-0/navigation_offset = Vector2( 0, 0 )
-0/shape_offset = Vector2( 0, 0 )
-0/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
-0/shape = SubResource( 1 )
-0/shape_one_way = false
-0/shape_one_way_margin = 1.0
-0/shapes = [ {
-"autotile_coord": Vector2( 0, 0 ),
-"one_way": false,
-"one_way_margin": 1.0,
-"shape": SubResource( 1 ),
-"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
-} ]
-0/z_index = 0
-1/name = "crate_tiles.png 1"
-1/texture = ExtResource( 5 )
-1/tex_offset = Vector2( 0, 0 )
-1/modulate = Color( 1, 1, 1, 1 )
-1/region = Rect2( 8, 8, 8, 8 )
-1/tile_mode = 0
-1/occluder_offset = Vector2( 0, 0 )
-1/navigation_offset = Vector2( 0, 0 )
-1/shape_offset = Vector2( 0, 0 )
-1/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
-1/shape = SubResource( 2 )
-1/shape_one_way = false
-1/shape_one_way_margin = 1.0
-1/shapes = [ {
-"autotile_coord": Vector2( 0, 0 ),
-"one_way": false,
-"one_way_margin": 1.0,
-"shape": SubResource( 2 ),
-"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
-} ]
-1/z_index = 0
-
 [node name="Node2D" type="Node2D"]
 
 [node name="SolidTileMap" parent="." instance=ExtResource( 4 )]
-tile_set = SubResource( 3 )
-tile_data = PoolIntArray( 65526, 1, 0, 65527, 0, 0, 65528, 0, 0, 65529, 0, 0, 65530, 0, 0, 65531, 0, 0, 65532, 0, 0, 3, 0, 0, 4, 0, 0, 5, 0, 0, 6, 0, 0, 7, 0, 0, 8, 0, 0, 9, 1, 0, 131068, 1, 0, 131069, 0, 0, 131070, 0, 0, 131071, 0, 0, 65536, 0, 0, 65537, 0, 0, 65538, 0, 0, 65539, 1, 0 )
-
-[node name="DetailTileMap" parent="." instance=ExtResource( 6 )]
-tile_data = PoolIntArray( -262153, 2, 0, -262152, 0, 0, -262151, -1610612734, 0, -196617, 0, 0, -196616, 0, 0, -196615, 0, 0, -131081, -1073741822, 0, -131080, 0, 0, -131079, 1610612738, 0, -65544, 1, 0, -8, 1, 0, -7, -1610612734, 0, -65535, 0, 0, -65531, 2, 0, -65530, 0, 0, -65529, -1610612734, 0, 1, 1, 0 )
+tile_data = PoolIntArray( 65526, 0, 1, 65527, 0, 65538, 65528, 0, 0, 65529, 0, 196609, 65530, 0, 65536, 65531, 0, 0, 65532, 0, 0, 3, 0, 0, 4, 0, 65538, 5, 0, 65536, 6, 0, 65538, 7, 0, 65536, 8, 0, 0, 9, 0, 0, 131068, 0, 196608, 131069, 0, 65536, 131070, 0, 65538, 131071, 0, 65536, 65536, 0, 65537, 65537, 0, 0, 65538, 0, 0, 65539, 0, 131072 )
 
 [node name="SpikeTileMap" parent="." instance=ExtResource( 7 )]
+z_as_relative = false
 tile_data = PoolIntArray( 65533, 0, 0, 65534, 0, 0, 65535, 0, 0, 0, 0, 0, 1, 0, 0, 2, 0, 0 )
+
+[node name="DetailTileMap" parent="." instance=ExtResource( 6 )]
+tile_data = PoolIntArray( -327681, 4, 4, -262153, 2, 0, -262152, 0, 0, -262151, -1610612734, 0, -262146, 4, 65539, -262145, 4, 196608, -327680, 4, 0, -327679, 4, 65540, -196617, 0, 0, -196616, 0, 0, -196615, 0, 0, -196610, 4, 65539, -196609, 4, 0, -262144, 4, 196609, -262143, 4, 65540, -131081, -1073741822, 0, -131080, 0, 0, -131079, 1610612738, 0, -196608, 4, 3, -65544, 1, 0, -8, 1, 0, -7, -1610612734, 0, -65535, 0, 0, -65531, 2, 0, -65530, 0, 0, -65529, -1610612734, 0, 1, 1, 0 )
+
+[node name="DetailTileMap2" parent="." instance=ExtResource( 6 )]
+z_index = -11
+tile_data = PoolIntArray( -327681, 4, 4, -262146, 4, 65539, -262145, 4, 196608, -327680, 4, 0, -327679, 4, 65540, -327674, 4, 4, -196610, 4, 65539, -196609, 4, 0, -262144, 4, 196609, -262143, 4, 65540, -262140, 4, 196613, -262139, 4, 0, -262138, 4, 0, -262137, 4, 6, -196608, 4, 3, -196604, 4, 65541, -196603, 4, 0, -196602, 4, 0, -196601, 4, 65540, -131067, 4, 65539, -131066, 4, 0, -131065, 4, 131076, -65531, 4, 131075, -65530, 4, 0, -65529, 4, 65540, 131062, 4, 5, 131063, 4, 131072, 131064, 4, 1, 131065, 4, 65537, 131066, 4, 196609, 131067, 4, 1, 65540, 4, 1, 65541, 4, 1, 65542, 4, 65538, 65543, 4, 1, 65544, 4, 131072, 65545, 4, 131078, 196600, 4, 131077, 196601, 4, 1, 196602, 4, 1, 196603, 4, 65536, 196604, 4, 1, 196605, 4, 1, 196606, 4, 131072, 196607, 4, 1, 131072, 4, 65537, 131073, 4, 1, 131074, 4, 196609, 131075, 4, 65538, 131076, 4, 65538, 131077, 4, 196608, 131078, 4, 65538, 131079, 4, 196614, 262139, 4, 65539, 262140, 4, 131073, 262141, 4, 65536, 262142, 4, 65536, 262143, 4, 1, 196608, 4, 1, 196609, 4, 65538, 196610, 4, 1, 196611, 4, 196609, 196612, 4, 131078, 327678, 4, 65541, 327679, 4, 65536, 262144, 4, 65536, 262145, 4, 65538, 262146, 4, 131078 )
 
 [node name="GameCamera" parent="." instance=ExtResource( 3 )]
 smoothing_enabled = false
+target_influence = 0.3
 
 [node name="Actors" type="Node2D" parent="."]
 

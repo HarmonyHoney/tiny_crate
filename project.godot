@@ -33,13 +33,19 @@ _global_script_classes=[ {
 "class": "EditorTheme",
 "language": "GDScript",
 "path": "res://addons/aseprite_importer/classes/EditorTheme.gd"
+}, {
+"base": "Actor",
+"class": "Exit",
+"language": "GDScript",
+"path": "res://Script/Exit.gd"
 } ]
 _global_script_class_icons={
 "Actor": "",
 "AsepriteImportData": "",
 "AsepriteImporter": "",
 "Box": "",
-"EditorTheme": ""
+"EditorTheme": "",
+"Exit": ""
 }
 
 [application]
