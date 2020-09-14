@@ -1,8 +1,9 @@
 [gd_scene load_steps=11 format=2]
 
-[ext_resource path="res://Map/map10.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Map/map5.tscn" type="PackedScene" id=1]
 [ext_resource path="res://DefaultMaterial.material" type="Material" id=2]
 [ext_resource path="res://Material.material" type="Material" id=3]
+
 
 
 [sub_resource type="CubeMesh" id=1]

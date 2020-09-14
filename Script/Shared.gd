@@ -11,6 +11,8 @@ var reset_time := 1.0
 
 var _window_scale := 1.0
 
+var map_num := 0
+
 func _ready():
 	
 	# _window_scale window
@@ -32,7 +34,8 @@ func _process(delta):
 		reset_clock -= delta
 		if reset_clock < 0:
 			is_reset = false
-			get_tree().reload_current_scene()
+			get_tree().change_scene("res://Map/map" + String(map_num) + ".tscn")
+			#get_tree().reload_current_scene()
 	
 	
 	

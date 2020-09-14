@@ -88,6 +88,7 @@ func _process(delta):
 	# hit exit
 	for a in check_area_actors("exit"):
 		print("hit exit")
+		Shared.map_num += 1
 		death()
 		return
 	
