@@ -1,0 +1,41 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Scene/Box.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Scene/Player.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scene/GameCamera.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scene/SolidTileMap.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Scene/DetailTileMap.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Scene/SpikeTileMap.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Scene/Exit.tscn" type="PackedScene" id=8]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="SolidTileMap" parent="." instance=ExtResource( 4 )]
+tile_data = PoolIntArray( 65530, 0, 65538, 65531, 0, 65536, 65532, 0, 131074, 65533, 0, 1, 65534, 0, 1, 65535, 0, 65537, 0, 0, 1, 1, 0, 196608, 2, 0, 65538, 3, 0, 65536, 4, 0, 2, 5, 0, 65536 )
+
+[node name="SpikeTileMap" parent="." instance=ExtResource( 7 )]
+z_as_relative = false
+
+[node name="DetailTileMap" parent="." instance=ExtResource( 6 )]
+
+[node name="DetailTileMap2" parent="." instance=ExtResource( 6 )]
+z_index = -11
+tile_data = PoolIntArray( -524285, 4, 4, -458750, 4, 131075, -458749, 4, 65536, -458748, 4, 131076, -393214, 4, 65541, -393213, 4, 1, -393212, 4, 6, -327678, 4, 131077, -327677, 4, 131073, -327676, 4, 65542, -262143, 4, 131075, -262142, 4, 65537, -262141, 4, 196614, -196607, 4, 196611, -196606, 4, 65538, -196605, 4, 6, -131072, 4, 131077, -131071, 4, 196608, -131070, 4, 65537, -131069, 4, 196612, -131067, 0, 0, -5, 2, 0, -4, 0, 0, -3, -1610612734, 0, -65536, 4, 65541, -65535, 4, 65536, -65534, 4, 196609, -65533, 4, 65536, -65532, 4, 65540, -65531, 1, 0, 131067, 4, 196613, 131068, 4, 65537, 131069, 4, 196609, 131070, 4, 65538, 131071, 4, 196610, 65536, 4, 65538, 65537, 4, 65536, 65538, 4, 1, 65539, 4, 65538, 65540, 4, 196614, 196604, 4, 65539, 196605, 4, 1, 196606, 4, 65537, 196607, 4, 1, 131072, 4, 1, 131073, 4, 65538, 131074, 4, 196608, 131075, 4, 196612, 262142, 4, 3 )
+
+[node name="GameCamera" parent="." instance=ExtResource( 3 )]
+smoothing_enabled = false
+editor_draw_drag_margin = false
+target_influence = 0.3
+
+[node name="Actors" type="Node2D" parent="."]
+
+[node name="Exit" parent="Actors" instance=ExtResource( 8 )]
+position = Vector2( 25, -47 )
+
+[node name="Player" parent="Actors" groups=[
+"player",
+] instance=ExtResource( 2 )]
+position = Vector2( -8, -8 )
+
+[node name="Box" parent="Actors" instance=ExtResource( 1 )]
+position = Vector2( -32, -8 )
