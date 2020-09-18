@@ -37,6 +37,7 @@ var node_camera_game : Camera2D
 
 var scene_box = preload("res://Scene/Box.tscn")
 var scene_explosion = preload("res://Scene/Explosion.tscn")
+var scene_explosion2 = preload("res://Scene/Explosion2.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -88,8 +89,7 @@ func _process(delta):
 	# hit exit
 	for a in check_area_actors("exit"):
 		print("hit exit")
-		Shared.map_num += 1
-		death()
+		win()
 		return
 	
 	# hit spike
@@ -221,6 +221,22 @@ func box_find_space(ox, oy, ignore : Actor):
 func death():
 	# explosion
 	var inst = scene_explosion.instance()
+	inst.position = position + (Vector2(4, 8) if is_pickup else Vector2(4, 4))
+	get_parent().add_child(inst)
+	
+	# drop box
+	if is_pickup:
+		box_release()
+	
+	# reset scene
+	Shared.start_reset()
+	queue_free()
+
+func win():
+	Shared.map_num += 1
+	
+	# explosion
+	var inst = scene_explosion2.instance()
 	inst.position = position + (Vector2(4, 8) if is_pickup else Vector2(4, 4))
 	get_parent().add_child(inst)
 	
