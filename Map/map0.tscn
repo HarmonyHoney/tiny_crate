@@ -31,13 +31,6 @@ target_influence = 0.3
 
 [node name="Exit" parent="Actors" instance=ExtResource( 8 )]
 position = Vector2( 33, -11 )
-gravity = 0.2
-is_moving = false
-is_solid = false
-is_colliding = false
-is_using_gravity = false
-is_on_treadmill = false
-dust_count = 5
 
 [node name="Player" parent="Actors" groups=[
 "player",

@@ -30,6 +30,7 @@ func set_window_scale(arg := _window_scale):
 	print("_window_scale: ", _window_scale)
 
 func _process(delta):
+	# reset timer
 	if is_reset:
 		reset_clock -= delta
 		if reset_clock < 0:
@@ -37,12 +38,24 @@ func _process(delta):
 			get_tree().change_scene("res://Map/map" + String(map_num) + ".tscn")
 			#get_tree().reload_current_scene()
 	
-	
-	
+	# window size
 	if Input.is_action_just_pressed("window_shrink"):
 		set_window_scale(_window_scale - 1)
 	elif Input.is_action_just_pressed("window_expand"):
 		set_window_scale(_window_scale + 1)
+	
+	# quit
+	if btn.p("ui_cancel"):
+		if map_num == 0:
+			get_tree().quit()
+		else:
+			map_num = 0
+			get_tree().change_scene("res://Map/map" + String(map_num) + ".tscn")
+	
+	# reset
+	if btn.p("reset"):
+		get_tree().reload_current_scene()
+	
 
 func start_reset():
 	if !is_reset:

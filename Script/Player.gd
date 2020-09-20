@@ -63,12 +63,6 @@ func _process(delta):
 	if Engine.editor_hint:
 		return
 	
-	# debug
-	if btn.p("ui_cancel"):
-		get_tree().quit()
-	
-	if btn.p("reset"):
-		get_tree().reload_current_scene()
 	# spawn box
 	if btn.p("debug_spawn_box"):
 		var box = scene_box.instance()
