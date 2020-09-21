@@ -10,6 +10,7 @@ export var hitbox_y := 8 setget _set_hit_y
 var speed_x := 0.0
 var speed_y := 0.0
 export var gravity := 0.2
+var term_vel := 16
 
 var remainder_x := 0.0
 var remainder_y := 0.0
@@ -40,12 +41,16 @@ func _process(delta):
 	if Engine.editor_hint:
 		return
 	
-	move()
-	
-	if is_using_gravity:
-		speed_y += gravity
-	if not is_on_floor:
-		time_since_floor += 1
+	if is_moving:
+		move()
+		if is_using_gravity:
+			speed_y = min(speed_y + gravity, term_vel)
+		if not is_on_floor:
+			time_since_floor += 1
+		
+		# if outside map
+		if position.y < -999 or position.y > 999:
+			queue_free()
 
 # update() the _draw() when hitbox values are changed (in the editor)
 func _set_hit_x(value):
@@ -99,8 +104,8 @@ func move_x(dist : int):
 		for i in range(abs(dist)):
 			if is_area_solid(position.x + step, position.y):
 				if move_get_dist().y > -1 and wiggle_x(step):
-					position.x += dist
 					position.y += wiggle_x(step)
+					position.x += dist
 					continue
 				speed_x = 0
 				remainder_x = 0
@@ -124,8 +129,8 @@ func move_y(dist : int):
 		for i in range(abs(dist)):
 			if is_area_solid(position.x, position.y + step):
 				if step == -1 and wiggle_y(step):
-					position.y += step
 					position.x += wiggle_y(step)
+					position.y += step
 					continue
 				speed_y = 0
 				remainder_y = 0

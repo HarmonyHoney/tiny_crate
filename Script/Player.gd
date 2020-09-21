@@ -14,15 +14,16 @@ var is_jump = false
 var coyote_time = 3
 
 var is_pickup = false
+var pickup_frames = 8
+var pickup_count = 0
+var pickup_start := Vector2.ZERO
+var pickup_box : Actor
 
 export var speed_drop_x = 1.0
 export var speed_drop_y = -1.0
 
 export var speed_throw_x = 1.0
 export var speed_throw_y = -2.3
-
-var pickup_frames = 8
-var pickup_count = 0
 
 var dir = 1
 
@@ -73,6 +74,23 @@ func _process(delta):
 	# joystick axis
 	var btnx = btn.d("right") - btn.d("left")
 	var btny = btn.d("down") - btn.d("up")
+	
+	# pickup box
+	if is_pickup:
+		if pickup_count < pickup_frames:
+			pickup_count += 1
+			if pickup_count < pickup_frames:
+				pickup_box.position = pickup_start.linear_interpolate(position, float(pickup_count + 1) / pickup_frames).round()
+				return
+			else:
+				is_moving = true
+				pickup_box.queue_free()
+				if is_on_floor:
+					try_anim("box_idle")
+				else:
+					try_anim("box_jump")
+				return
+	
 	
 	# open door
 	if btn.p("up"):
@@ -178,10 +196,6 @@ func box_release(sx := 0.0, sy := 0.0):
 		try_anim("idle")
 	else:
 		try_anim("jump")
-#	if sx != 0 or sy != 0:
-#		node_audio_throw.play()
-#	else:
-#		node_audio_drop.play()
 
 func box_pickup(dx := 0, dy := 0):
 	var offset_y = 0 if btn.d("down") else -8
@@ -190,18 +204,21 @@ func box_pickup(dx := 0, dy := 0):
 	for a in check_area_actors("box", position.x + dx, position.y + dy):
 		var offset_x = box_find_space(0, offset_y, a)
 		if offset_x != null:
-			is_pickup = true
-			a.queue_free()
+			#a.queue_free()
 			position.y += offset_y
 			position.x += offset_x
 			hitbox_y = 16
 			node_sprite.position.y = 4
 			node_camera_game.pos_offset = Vector2(4, 12)
 			node_audio_pickup.play()
-			if is_on_floor:
-				try_anim("box_idle")
-			else:
-				try_anim("box_jump")
+			
+			is_moving = false
+			is_pickup = true
+			pickup_count = 0
+			pickup_box = a
+			pickup_box.is_moving = false
+			pickup_box.is_solid = false
+			pickup_start = pickup_box.position
 		break
 
 # ox, oy = offset x and y
@@ -245,5 +262,7 @@ func win():
 func try_anim(arg : String):
 	if node_anim.current_animation != arg:
 		node_anim.play(arg)
+		# update the animationPlayer immediately
+		node_anim.advance(0)
 
 

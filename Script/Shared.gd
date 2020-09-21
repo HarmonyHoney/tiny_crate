@@ -19,6 +19,9 @@ func _ready():
 	_window_scale = floor(OS.get_screen_size().x / get_viewport().size.x)
 	_window_scale = max(1, _window_scale- 2)
 	set_window_scale()
+	
+	#OS.window_size = Vector2(1920, 1080)
+	#OS.set_window_position(OS.get_screen_size() * 0.5 - OS.get_window_size() * 0.5)
 
 func set_window_scale(arg := _window_scale):
 	_window_scale = arg
@@ -27,7 +30,7 @@ func set_window_scale(arg := _window_scale):
 	# center window
 	OS.set_window_position(OS.get_screen_size() * 0.5 - OS.get_window_size() * 0.5)
 	
-	print("_window_scale: ", _window_scale)
+	print("_window_scale: ", _window_scale, " - ", OS.get_window_size())
 
 func _process(delta):
 	# reset timer
