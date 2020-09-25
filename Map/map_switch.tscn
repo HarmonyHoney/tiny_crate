@@ -1,13 +1,15 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Scene/SwitchBlock.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scene/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scene/GameCamera.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scene/SolidTileMap.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Scene/SwitchBlue.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Scene/DetailTileMap.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Scene/SpikeTileMap.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Scene/Exit.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Scene/Switch.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Scene/SwitchBlockBlue.tscn" type="PackedScene" id=10]
 
 [node name="Node2D" type="Node2D"]
 
@@ -32,7 +34,7 @@ target_influence = 0.3
 [node name="Actors" type="Node2D" parent="."]
 
 [node name="Exit" parent="Actors" instance=ExtResource( 8 )]
-position = Vector2( 33, -11 )
+position = Vector2( 57, -47 )
 
 [node name="Player" parent="Actors" groups=[
 "player",
@@ -50,3 +52,36 @@ position = Vector2( -120, 0 )
 
 [node name="SwitchBlock3" parent="Actors" instance=ExtResource( 1 )]
 position = Vector2( -128, 0 )
+
+[node name="SwitchBlock4" parent="Actors" instance=ExtResource( 1 )]
+position = Vector2( -16, -8 )
+
+[node name="SwitchBlock5" parent="Actors" instance=ExtResource( 1 )]
+position = Vector2( -8, -8 )
+
+[node name="SwitchBlock6" parent="Actors" instance=ExtResource( 1 )]
+position = Vector2( -24, -8 )
+
+[node name="SwitchBlue" parent="Actors" instance=ExtResource( 5 )]
+position = Vector2( 32, -4 )
+
+[node name="SwitchBlockBlue" parent="Actors" instance=ExtResource( 10 )]
+position = Vector2( 64, 0 )
+
+[node name="SwitchBlockBlue2" parent="Actors" instance=ExtResource( 10 )]
+position = Vector2( 72, 0 )
+
+[node name="SwitchBlockBlue3" parent="Actors" instance=ExtResource( 10 )]
+position = Vector2( 80, 0 )
+
+[node name="SwitchBlockBlue4" parent="Actors" instance=ExtResource( 10 )]
+position = Vector2( 88, 0 )
+
+[node name="SwitchBlockBlue5" parent="Actors" instance=ExtResource( 10 )]
+position = Vector2( 48, -24 )
+
+[node name="SwitchBlockBlue6" parent="Actors" instance=ExtResource( 10 )]
+position = Vector2( 56, -24 )
+
+[node name="SwitchBlockBlue7" parent="Actors" instance=ExtResource( 10 )]
+position = Vector2( 64, -24 )

@@ -8,6 +8,7 @@
 "actor",
 ]]
 script = ExtResource( 2 )
+tag = "switch"
 hitbox_y = 4
 
 [node name="Sprite" type="Sprite" parent="."]

@@ -7,6 +7,7 @@
 "actor",
 ]]
 script = ExtResource( 2 )
+tag = "switchblock"
 
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( 4, 4 )

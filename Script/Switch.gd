@@ -32,17 +32,31 @@ func _process(delta):
 		if is_last:
 			pass
 		else:
-			node_sprite.position.y = 2
-			noise()
+			press()
 	else:
 		if is_last:
-			node_sprite.position.y = 0
-			noise()
+			release()
 		else:
 			pass
-
 
 func noise():
 	node_audio.pitch_scale = 1 + rand_range(-0.2, 0.2)
 	node_audio.play()
+
+func press():
+	noise()
+	node_sprite.position.y = 2
+	for a in get_tree().get_nodes_in_group("switch_block_" + color):
+		a.switch_on()
+
+func release():
+	noise()
+	node_sprite.position.y = 0
+	for a in get_tree().get_nodes_in_group("switch_block_" + color):
+		a.switch_off()
+
+
+
+
+
 
