@@ -163,6 +163,7 @@ func _process(delta):
 				node_audio_drop.play()
 			else:
 				box_release(speed_throw_x * dir, speed_throw_y)
+				node_audio_throw.pitch_scale = 1 + rand_range(-0.1, 0.1)
 				node_audio_throw.play()
 		else:
 			if btn.d("down"):
@@ -210,6 +211,8 @@ func box_pickup(dx := 0, dy := 0):
 			hitbox_y = 16
 			node_sprite.position.y = 4
 			node_camera_game.pos_offset = Vector2(4, 12)
+			
+			node_audio_pickup.pitch_scale = 1 + rand_range(-0.2, 0.2)
 			node_audio_pickup.play()
 			
 			is_moving = false
