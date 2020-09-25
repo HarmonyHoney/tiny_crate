@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://Scene/SwitchBlock.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scene/Player.tscn" type="PackedScene" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://Scene/Exit.tscn" type="PackedScene" id=8]
 [ext_resource path="res://Scene/Switch.tscn" type="PackedScene" id=9]
 [ext_resource path="res://Scene/SwitchBlockBlue.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Scene/Passthrough.tscn" type="PackedScene" id=11]
 
 [node name="Node2D" type="Node2D"]
 
@@ -42,7 +43,7 @@ position = Vector2( 57, -47 )
 position = Vector2( -37, -8 )
 
 [node name="Switch" parent="Actors" instance=ExtResource( 9 )]
-position = Vector2( -72, -4 )
+position = Vector2( -80, -4 )
 
 [node name="SwitchBlock" parent="Actors" instance=ExtResource( 1 )]
 position = Vector2( -112, 0 )
@@ -85,3 +86,24 @@ position = Vector2( 56, -24 )
 
 [node name="SwitchBlockBlue7" parent="Actors" instance=ExtResource( 10 )]
 position = Vector2( 64, -24 )
+
+[node name="Passthrough" parent="Actors" instance=ExtResource( 11 )]
+position = Vector2( -56, -8 )
+
+[node name="Passthrough2" parent="Actors" instance=ExtResource( 11 )]
+position = Vector2( -56, -16 )
+
+[node name="Passthrough3" parent="Actors" instance=ExtResource( 11 )]
+position = Vector2( -56, -24 )
+
+[node name="Passthrough4" parent="Actors" instance=ExtResource( 11 )]
+position = Vector2( -32, -24 )
+
+[node name="Passthrough5" parent="Actors" instance=ExtResource( 11 )]
+position = Vector2( -24, -24 )
+
+[node name="Passthrough6" parent="Actors" instance=ExtResource( 11 )]
+position = Vector2( -16, -48 )
+
+[node name="Passthrough7" parent="Actors" instance=ExtResource( 11 )]
+position = Vector2( -8, -48 )

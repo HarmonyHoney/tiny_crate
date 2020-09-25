@@ -40,6 +40,11 @@ _global_script_classes=[ {
 "path": "res://Script/Exit.gd"
 }, {
 "base": "Actor",
+"class": "Passthrough",
+"language": "GDScript",
+"path": "res://Script/Passthrough.gd"
+}, {
+"base": "Actor",
 "class": "Switch",
 "language": "GDScript",
 "path": "res://Script/Switch.gd"
@@ -56,6 +61,7 @@ _global_script_class_icons={
 "Box": "",
 "EditorTheme": "",
 "Exit": "",
+"Passthrough": "",
 "Switch": "",
 "SwitchBlock": ""
 }
