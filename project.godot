@@ -38,6 +38,16 @@ _global_script_classes=[ {
 "class": "Exit",
 "language": "GDScript",
 "path": "res://Script/Exit.gd"
+}, {
+"base": "Actor",
+"class": "Switch",
+"language": "GDScript",
+"path": "res://Script/Switch.gd"
+}, {
+"base": "Actor",
+"class": "SwitchBlock",
+"language": "GDScript",
+"path": "res://Script/SwitchBlock.gd"
 } ]
 _global_script_class_icons={
 "Actor": "",
@@ -45,7 +55,9 @@ _global_script_class_icons={
 "AsepriteImporter": "",
 "Box": "",
 "EditorTheme": "",
-"Exit": ""
+"Exit": "",
+"Switch": "",
+"SwitchBlock": ""
 }
 
 [application]

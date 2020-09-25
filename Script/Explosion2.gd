@@ -1,9 +1,6 @@
 extends Node2D
 
-
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
+var node_audio : AudioStreamPlayer2D
 
 var target_pos := Vector2.ZERO
 
@@ -16,6 +13,10 @@ func _ready():
 	for a in get_tree().get_nodes_in_group("exit"):
 		target_pos = a.position + Vector2(3, 3)
 		break
+	
+	node_audio = $AudioStreamPlayer2D
+	node_audio.pitch_scale = 1 + rand_range(-0.2, 0.2)
+	node_audio.play()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

@@ -1,10 +1,10 @@
 [gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Script/Player.gd" type="Script" id=1]
-[ext_resource path="res://Audio/SFX/player_jump.wav" type="AudioStream" id=2]
+[ext_resource path="res://Audio/SFX/jump1.wav" type="AudioStream" id=2]
 [ext_resource path="res://Image/player.png" type="Texture" id=3]
-[ext_resource path="res://Audio/SFX/box_pickup.wav" type="AudioStream" id=4]
-[ext_resource path="res://Audio/SFX/box_throw.wav" type="AudioStream" id=5]
+[ext_resource path="res://Audio/SFX/btn3.wav" type="AudioStream" id=4]
+[ext_resource path="res://Audio/SFX/sfx10.wav" type="AudioStream" id=5]
 [ext_resource path="res://Audio/SFX/box_drop.wav" type="AudioStream" id=6]
 
 [sub_resource type="Animation" id=1]
@@ -203,6 +203,7 @@ anims/run = SubResource( 6 )
 
 [node name="AudioJump" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 2 )
+attenuation = 0.101532
 
 [node name="AudioPickup" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 4 )
