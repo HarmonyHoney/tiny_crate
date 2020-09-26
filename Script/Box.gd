@@ -29,6 +29,7 @@ func _process(delta):
 		speed_x = 0
 		node_audio.pitch_scale = 1 + rand_range(-0.2, 0.2)
 		node_audio.play()
+		Shared.node_camera_game.shake(2)
 	last_floor = is_on_floor
 	
 	is_pushed = false

@@ -157,7 +157,7 @@ func wiggle_x(step):
 # jump corner correction
 func wiggle_y(step):
 	# wiggle around and look for an open space
-	for i in [1, -1, 2, -2]:
+	for i in [1, -1, 2, -2, 3, -3]:
 		if not is_area_solid(position.x + i, position.y + step):
 			return i
 	return null

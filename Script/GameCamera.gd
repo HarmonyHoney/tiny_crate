@@ -33,3 +33,9 @@ func _process(delta):
 	
 	position.x = round(pos_current.x)
 	position.y = round(pos_current.y)
+
+# super simple screen shake
+func shake(dist : int):
+	pos_current.x +=  dist if randf() < 0.5 else -dist
+	pos_current.y +=  dist if randf() < 0.5 else -dist
+	

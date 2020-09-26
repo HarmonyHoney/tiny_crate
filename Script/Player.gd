@@ -75,7 +75,7 @@ func _process(delta):
 	var btnx = btn.d("right") - btn.d("left")
 	var btny = btn.d("down") - btn.d("up")
 	
-	# pickup box
+	# pickup box // returns from func while picking up
 	if is_pickup:
 		if pickup_count < pickup_frames:
 			pickup_count += 1
@@ -237,6 +237,7 @@ func death():
 	var inst = scene_explosion.instance()
 	inst.position = position + (Vector2(4, 8) if is_pickup else Vector2(4, 4))
 	get_parent().add_child(inst)
+	Shared.node_camera_game.shake(8)
 	
 	# drop box
 	if is_pickup:
@@ -253,6 +254,7 @@ func win():
 	var inst = scene_explosion2.instance()
 	inst.position = position + (Vector2(4, 8) if is_pickup else Vector2(4, 4))
 	get_parent().add_child(inst)
+	Shared.node_camera_game.shake(4)
 	
 	# drop box
 	if is_pickup:
