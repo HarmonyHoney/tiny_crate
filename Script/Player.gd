@@ -160,6 +160,7 @@ func _process(delta):
 		if is_pickup:
 			if btn.d("down"):
 				box_release(speed_drop_x * dir, speed_drop_y)
+				node_audio_drop.pitch_scale = 1 + rand_range(-0.1, 0.1)
 				node_audio_drop.play()
 			else:
 				box_release(speed_throw_x * dir, speed_throw_y)
