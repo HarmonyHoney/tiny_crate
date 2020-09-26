@@ -7,6 +7,7 @@ var is_pushed = false
 var last_floor := false
 
 var node_audio : AudioStreamPlayer2D
+var node_anim : AnimationPlayer
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -14,6 +15,7 @@ func _ready():
 		return
 	
 	node_audio = $AudioHit
+	node_anim = $AnimationPlayer
 	
 	if is_area_solid(position.x, position.y + 1):
 		is_on_floor = true
@@ -30,6 +32,8 @@ func _process(delta):
 		node_audio.pitch_scale = 1 + rand_range(-0.2, 0.2)
 		node_audio.play()
 		Shared.node_camera_game.shake(2)
+		node_anim.play("hit")
+		node_anim.advance(0)
 	last_floor = is_on_floor
 	
 	is_pushed = false

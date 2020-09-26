@@ -1,8 +1,36 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Script/Box.gd" type="Script" id=1]
-[ext_resource path="res://Image/crate_tiles.png" type="Texture" id=2]
+[ext_resource path="res://Image/box.png" type="Texture" id=2]
 [ext_resource path="res://Audio/SFX/hit10.wav" type="AudioStream" id=3]
+
+[sub_resource type="Animation" id=1]
+resource_name = "hit"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:region_rect")
+tracks/0/interp = 0
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.14, 0.18, 0.22, 0.26, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Rect2( 0, 0, 16, 16 ), Rect2( 16, 0, 16, 16 ), Rect2( 32, 0, 16, 16 ), Rect2( 48, 0, 16, 16 ), Rect2( 64, 0, 16, 16 ), Rect2( 80, 0, 16, 16 ), Rect2( 96, 0, 16, 16 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:offset")
+tracks/1/interp = 0
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1, 0.14, 0.18, 0.22, 0.26, 0.3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 0, 0 ), Vector2( 0, 0 ), Vector2( 0, 0 ), Vector2( 0, 0 ), Vector2( 0, 0 ), Vector2( 0, 0 ) ]
+}
 
 [node name="Box" type="Node2D" groups=[
 "actor",
@@ -18,11 +46,13 @@ is_colliding = true
 is_using_gravity = true
 
 [node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 4, 4 )
 texture = ExtResource( 2 )
-centered = false
-vframes = 4
-hframes = 4
-frame = 1
+region_enabled = true
+region_rect = Rect2( 96, 0, 16, 16 )
 
 [node name="AudioHit" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 3 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/hit = SubResource( 1 )
