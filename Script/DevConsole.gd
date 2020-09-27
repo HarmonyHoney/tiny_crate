@@ -44,9 +44,7 @@ func _on_Input_text_entered(new_text):
 		return
 	
 	var method = new_text.split(" ")[0]
-	var args = ""
-	if new_text.split(" ").size() > 1:
-		args = new_text.split(" ")[1]
+	var args = new_text.substr(method.length() + 1)
 	if has_method(method):
 		if args:
 			call(method, args)
