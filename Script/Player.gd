@@ -64,13 +64,6 @@ func _process(delta):
 	if Engine.editor_hint:
 		return
 	
-	# spawn box
-	if btn.p("debug_spawn_box"):
-		var box = scene_box.instance()
-		box.position = Vector2(position.x, position.y - 8)
-		get_parent().add_child(box)
-	
-	
 	# joystick axis
 	var btnx = btn.d("right") - btn.d("left")
 	var btny = btn.d("down") - btn.d("up")
@@ -100,14 +93,14 @@ func _process(delta):
 	
 	# hit exit
 	for a in check_area_actors("exit"):
-		print("hit exit")
+		dev.out(name + " hit exit")
 		win()
 		return
 	
 	# hit spike
 	if speed_y > -1:
 		for a in check_area_actors("spike"):
-			print("hit spike")
+			dev.out(name + " hit spike")
 			death()
 			return
 	
@@ -247,6 +240,7 @@ func death():
 	# reset scene
 	Shared.start_reset()
 	queue_free()
+	dev.out(name + " died")
 
 func win():
 	Shared.map_num += 1
@@ -264,6 +258,7 @@ func win():
 	# reset scene
 	Shared.start_reset()
 	queue_free()
+	dev.out("map complete")
 
 func try_anim(arg : String):
 	if node_anim.current_animation != arg:
@@ -271,4 +266,9 @@ func try_anim(arg : String):
 		# update the animationPlayer immediately
 		node_anim.advance(0)
 
-
+# spawn box
+func debug_box():
+	var box = scene_box.instance()
+	box.position = Vector2(position.x, position.y - 8)
+	get_parent().add_child(box)
+	dev.out("box spawned")

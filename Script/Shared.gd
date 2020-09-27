@@ -30,7 +30,8 @@ func set_window_scale(arg := _window_scale):
 	# center window
 	OS.set_window_position(OS.get_screen_size() * 0.5 - OS.get_window_size() * 0.5)
 	
-	print("_window_scale: ", _window_scale, " - ", OS.get_window_size())
+	#print("_window_scale: ", _window_scale, " - ", OS.get_window_size())
+	dev.out("_window_scale: " + str(_window_scale) + " - " + str(OS.get_window_size()))
 
 func _process(delta):
 	# reset timer
@@ -38,6 +39,7 @@ func _process(delta):
 		reset_clock -= delta
 		if reset_clock < 0:
 			is_reset = false
+			dev.out("loading scene: " + "res://Map/map" + String(map_num) + ".tscn")
 			get_tree().change_scene("res://Map/map" + String(map_num) + ".tscn")
 			#get_tree().reload_current_scene()
 	
@@ -48,16 +50,16 @@ func _process(delta):
 		set_window_scale(_window_scale + 1)
 	
 	# quit
-	if btn.p("ui_cancel"):
-		if map_num == 0:
-			get_tree().quit()
-		else:
-			map_num = 0
-			get_tree().change_scene("res://Map/map" + String(map_num) + ".tscn")
-	
-	# reset
-	if btn.p("reset"):
-		get_tree().reload_current_scene()
+#	if btn.p("ui_cancel"):
+#		if map_num == 0:
+#			get_tree().quit()
+#		else:
+#			map_num = 0
+#			get_tree().change_scene("res://Map/map" + String(map_num) + ".tscn")
+#
+#	# reset
+#	if btn.p("reset"):
+#		get_tree().reload_current_scene()
 	
 
 func start_reset():

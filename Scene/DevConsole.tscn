@@ -1,0 +1,105 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Font/m3x6.tres" type="DynamicFont" id=1]
+[ext_resource path="res://Script/DevConsole.gd" type="Script" id=2]
+
+[sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 0.247059, 0.247059, 0.247059, 0.247059 )
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color( 0.619608, 0.52549, 0.784314, 1 )
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+anti_aliasing = false
+
+[sub_resource type="StyleBoxFlat" id=1]
+draw_center = false
+
+[sub_resource type="StyleBoxFlat" id=2]
+draw_center = false
+
+[sub_resource type="StyleBoxFlat" id=4]
+draw_center = false
+
+[sub_resource type="StyleBoxFlat" id=5]
+draw_center = false
+
+[node name="DevConsole" type="CanvasLayer"]
+script = ExtResource( 2 )
+
+[node name="Control" type="Control" parent="."]
+margin_right = 320.0
+margin_bottom = 180.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel" type="Panel" parent="Control"]
+margin_left = 2.0
+margin_top = 2.0
+margin_right = 318.0
+margin_bottom = 156.0
+custom_styles/panel = SubResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Log" type="RichTextLabel" parent="Control"]
+margin_left = 8.0
+margin_top = 8.0
+margin_right = 312.0
+margin_bottom = 150.0
+focus_mode = 2
+custom_styles/focus = SubResource( 1 )
+custom_styles/normal = SubResource( 2 )
+custom_fonts/normal_font = ExtResource( 1 )
+custom_colors/default_color = Color( 0.705882, 0.823529, 0.45098, 1 )
+custom_colors/selection_color = Color( 1, 1, 1, 0.247059 )
+custom_colors/font_color_selected = Color( 1, 1, 1, 1 )
+custom_colors/font_color_shadow = Color( 0.180392, 0.180392, 0.180392, 1 )
+custom_constants/line_separation = -4
+text = "Apartments simplicity or understood do it we. Song such eyes had and off. Removed winding ask explain delight out few behaved lasting. Letters old hastily ham sending not sex chamber because present. Oh is indeed twenty entire figure. Occasional diminution announcing new now literature terminated. Really regard excuse off ten pulled. Lady am room head so lady four or eyes an. He do of consulted sometimes concluded mr. An household behaviour if pretended. 
+
+His having within saw become ask passed misery giving. Recommend questions get too fulfilled. He fact in we case miss sake. Entrance be throwing he do blessing up. Hearts warmth in genius do garden advice mr it garret. Collected preserved are middleton dependent residence but him how. Handsome weddings yet mrs you has carriage packages. Preferred joy agreement put continual elsewhere delivered now. Mrs exercise felicity had men speaking met. Rich deal mrs part led pure will but. 
+
+Apartments simplicity or understood do it we. Song such eyes had and off. Removed winding ask explain delight out few behaved lasting. Letters old hastily ham sending not sex chamber because present. Oh is indeed twenty entire figure. Occasional diminution announcing new now literature terminated. Really regard excuse off ten pulled. Lady am room head so lady four or eyes an. He do of consulted sometimes concluded mr. An household behaviour if pretended. 
+
+His having within saw become ask passed misery giving. Recommend questions get too fulfilled. He fact in we case miss sake. Entrance be throwing he do blessing up. Hearts warmth in genius do garden advice mr it garret. Collected preserved are middleton dependent residence but him how. Handsome weddings yet mrs you has carriage packages. Preferred joy agreement put continual elsewhere delivered now. Mrs exercise felicity had men speaking met. Rich deal mrs part led pure will but. "
+scroll_following = true
+selection_enabled = true
+override_selected_font_color = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Panel2" type="Panel" parent="Control"]
+margin_left = 2.0
+margin_top = 158.0
+margin_right = 318.0
+margin_bottom = 178.0
+custom_styles/panel = SubResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Input" type="LineEdit" parent="Control"]
+margin_left = 8.0
+margin_top = 155.0
+margin_right = 320.0
+margin_bottom = 178.0
+custom_styles/focus = SubResource( 4 )
+custom_styles/normal = SubResource( 5 )
+custom_fonts/font = ExtResource( 1 )
+custom_colors/cursor_color = Color( 1, 1, 1, 1 )
+custom_colors/font_color = Color( 0.909804, 0.490196, 0.243137, 1 )
+context_menu_enabled = false
+placeholder_text = "developer console"
+caret_blink = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="text_entered" from="Control/Input" to="." method="_on_Input_text_entered"]
