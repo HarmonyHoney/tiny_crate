@@ -24,14 +24,14 @@ func _ready():
 	#OS.set_window_position(OS.get_screen_size() * 0.5 - OS.get_window_size() * 0.5)
 
 func set_window_scale(arg := _window_scale):
-	_window_scale = arg
+	_window_scale = arg if arg else _window_scale
 	_window_scale = max(1, _window_scale)
 	OS.window_size = Vector2(320 * _window_scale, 180 * _window_scale)
 	# center window
 	OS.set_window_position(OS.get_screen_size() * 0.5 - OS.get_window_size() * 0.5)
 	
 	#print("_window_scale: ", _window_scale, " - ", OS.get_window_size())
-	dev.out("_window_scale: " + str(_window_scale) + " - " + str(OS.get_window_size()))
+	return "_window_scale: " + str(_window_scale) + " - resolution: " + str(OS.get_window_size())
 
 func _process(delta):
 	# reset timer
@@ -44,10 +44,10 @@ func _process(delta):
 			#get_tree().reload_current_scene()
 	
 	# window size
-	if Input.is_action_just_pressed("window_shrink"):
-		set_window_scale(_window_scale - 1)
-	elif Input.is_action_just_pressed("window_expand"):
-		set_window_scale(_window_scale + 1)
+#	if Input.is_action_just_pressed("window_shrink"):
+#		set_window_scale(_window_scale - 1)
+#	elif Input.is_action_just_pressed("window_expand"):
+#		set_window_scale(_window_scale + 1)
 	
 	# quit
 #	if btn.p("ui_cancel"):

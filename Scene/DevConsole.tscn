@@ -3,7 +3,7 @@
 [ext_resource path="res://Font/m3x6.tres" type="DynamicFont" id=1]
 [ext_resource path="res://Script/DevConsole.gd" type="Script" id=2]
 
-[sub_resource type="StyleBoxFlat" id=3]
+[sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.247059, 0.247059, 0.247059, 0.247059 )
 border_width_left = 4
 border_width_top = 4
@@ -16,10 +16,10 @@ corner_radius_bottom_right = 8
 corner_radius_bottom_left = 8
 anti_aliasing = false
 
-[sub_resource type="StyleBoxFlat" id=1]
+[sub_resource type="StyleBoxFlat" id=2]
 draw_center = false
 
-[sub_resource type="StyleBoxFlat" id=2]
+[sub_resource type="StyleBoxFlat" id=3]
 draw_center = false
 
 [sub_resource type="StyleBoxFlat" id=4]
@@ -43,7 +43,7 @@ margin_left = 2.0
 margin_top = 2.0
 margin_right = 318.0
 margin_bottom = 156.0
-custom_styles/panel = SubResource( 3 )
+custom_styles/panel = SubResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -54,8 +54,8 @@ margin_top = 8.0
 margin_right = 312.0
 margin_bottom = 150.0
 focus_mode = 2
-custom_styles/focus = SubResource( 1 )
-custom_styles/normal = SubResource( 2 )
+custom_styles/focus = SubResource( 2 )
+custom_styles/normal = SubResource( 3 )
 custom_fonts/normal_font = ExtResource( 1 )
 custom_colors/default_color = Color( 0.705882, 0.823529, 0.45098, 1 )
 custom_colors/selection_color = Color( 1, 1, 1, 0.247059 )
@@ -81,7 +81,7 @@ margin_left = 2.0
 margin_top = 158.0
 margin_right = 318.0
 margin_bottom = 178.0
-custom_styles/panel = SubResource( 3 )
+custom_styles/panel = SubResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }

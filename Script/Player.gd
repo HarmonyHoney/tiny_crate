@@ -267,8 +267,8 @@ func try_anim(arg : String):
 		node_anim.advance(0)
 
 # spawn box
-func debug_box():
+func debug_box(arg = null):
 	var box = scene_box.instance()
-	box.position = Vector2(position.x, position.y - 8)
+	box.position = arg if arg is Vector2 else Vector2(position.x, position.y - 8)
 	get_parent().add_child(box)
-	dev.out("box spawned")
+	dev.out("(box) spawned at: " + str(box.position))
