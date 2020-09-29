@@ -178,7 +178,8 @@ func _process(delta):
 
 func box_release(sx := 0.0, sy := 0.0):
 	is_pickup = false
-	hitbox_y = 8
+	#hitbox_y = 8
+	_set_hit_y(8)
 	position.y += 8
 	var box = scene_box.instance()
 	box.position = Vector2(position.x, position.y - 8)
@@ -202,7 +203,8 @@ func box_pickup(dx := 0, dy := 0):
 			#a.queue_free()
 			position.y += offset_y
 			position.x += offset_x
-			hitbox_y = 16
+			#hitbox_y = 16
+			_set_hit_y(16)
 			node_sprite.position.y = 4
 			node_camera_game.pos_offset = Vector2(4, 12)
 			

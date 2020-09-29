@@ -61,7 +61,7 @@ func _set_hit_y(value):
 	update()
 # draw hitbox in editor
 func _draw():
-	if Engine.editor_hint:
+	if Engine.editor_hint or dev.is_draw_collider:
 		draw_rect(Rect2(0, 0, hitbox_x, hitbox_y), Color(1, 0, 0.75, 0.5))
 
 

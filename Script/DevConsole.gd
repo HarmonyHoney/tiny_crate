@@ -7,6 +7,8 @@ var node_input : LineEdit
 var is_open := false
 var last_text = ""
 
+var is_draw_collider := false
+
 func _ready():
 	node_control= $Control
 	node_log = $Control/Log
@@ -40,18 +42,69 @@ func _on_Input_text_entered(new_text):
 	last_text = new_text
 	if not is_open:
 		return
-	if new_text.begins_with("_"):
-		out("error: '_' in '" + new_text + "' - private methods disabled")
-		return
 	
 	var method = new_text.split(" ")[0]
 	var arg = new_text.substr(method.length() + 1)
-	if has_method(method):
-			call(method, arg)
-	else:
+	if not _call(method, arg):
 		out("can't find: " + method)
 
-#open console
+func _call(method := "", arg := ""):
+	if _get_cmd_list().has(method):
+		call(method, arg)
+		return true
+	else:
+		return false
+
+func _set(_var := "", _val := ""):
+	if _get_var_list().has(_var):
+		set(_var, str2var(_val))
+		return true
+	else:
+		return false
+
+func _get_cmd_list():
+	var s = []
+	for m in get_script().get_script_method_list():
+		if not m.name.begins_with("_"):
+			s.append(m.name)
+	s.sort()
+	return s
+
+func _get_var_list():
+	var s = []
+	for m in get_script().get_script_property_list():
+		if not m.name.begins_with("_"):
+			s.append(m.name)
+	return s
+
+# show help text
+func help(arg = null):
+	out("(help)")
+	out(" - methods: " + str(_get_cmd_list()))
+	out(" - properties: " + str(_get_var_list()))
+
+# set a local var
+func cset(arg := ""):
+	var split = arg.split(" ")
+	if split.size() > 1:
+		var _var = split[0]
+		var _val = split[1]
+		if _set(_var, _val):
+			out("(cset) " + _var + " = " + str(get(_var)))
+		else:
+			out("(cset) '" + str(_var) + "' not found.")
+		
+	else:
+		out("(cset) '" + arg + "' invalid syntax. use 'cset <var> <val>'")
+
+# get a local var
+func cget(arg := ""):
+	if _get_var_list().has(arg):
+		out("(cget) " + arg + " = " + str(get(arg)))
+	else:
+		out("(cget) '" + arg + "' not found")
+
+# open console
 func open(arg = null):
 	is_open = true
 	node_control.visible = true
@@ -107,15 +160,6 @@ func kill(arg = null):
 	for i in get_tree().get_nodes_in_group("player"):
 		i.death()
 
-# show help text
-func help(arg = null):
-	var s = []
-	for m in get_script().get_script_method_list():
-		if not m.name.begins_with("_"):
-			s.append(m.name)
-	s.sort()
-	out("(help) methods: " + str(s))
-
 # list nodes in group, actor by default
 func list(arg = null):
 	arg = arg if arg else "actor"
@@ -124,8 +168,8 @@ func list(arg = null):
 		l.append(a.name)
 	out("(list) " + str(l.size()) + " " + str(arg) + " nodes: " + str(l))
 
-# set a variable from an actor by actor_name variable_name and value
-func setvar(arg := ""):
+# set an actor variable by actor_name, variable_name and value
+func aset(arg := ""):
 	var split = arg.split(" ")
 	if split.size() > 2:
 		var _name = split[0]
@@ -135,15 +179,15 @@ func setvar(arg := ""):
 		for a in get_tree().get_nodes_in_group("actor"):
 			if a.name.to_lower() == _name.to_lower():
 				a.set(_var, str2var(_val))
-				out("(setvar) " + str(a.name) + "." + str(_var) + " = " + str(a.get(_var)))
+				out("(aset) " + str(a.name) + "." + str(_var) + " = " + str(a.get(_var)))
 				return
 		
-		out("(setvar) " + str(_name) + " not found")
+		out("(aset) " + str(_name) + " not found")
 	else:
-		out("(setvar) '" + arg + "' invalid syntax. use 'setvar <name> <var> <val>'")
+		out("(aset) '" + arg + "' invalid syntax. use 'aset <name> <var> <val>'")
 
-# get a variable from an actor by actor_name and variable_name
-func getvar(arg := ""):
+# get an actor variable by actor_name and variable_name
+func aget(arg := ""):
 	var split = arg.split(" ")
 	if split.size() > 1:
 		var _name = split[0]
@@ -151,10 +195,27 @@ func getvar(arg := ""):
 		
 		for a in get_tree().get_nodes_in_group("actor"):
 			if a.name.to_lower() == _name.to_lower():
-				out("(getvar) " + str(a.name) + "." + str(_var) + " = " + str(a.get(_var)))
+				out("(aget) " + str(a.name) + "." + str(_var) + " = " + str(a.get(_var)))
 				return
 		
-		out("(getvar) " + str(_name) + " not found")
+		out("(aget) " + str(_name) + " not found")
 	else:
-		out("(getvar) '" + arg + "' invalid syntax. use 'getvar <name> <var>'")
+		out("(aget) '" + arg + "' invalid syntax. use 'aget <name> <var>'")
 
+# set an actor position by actor_name, x and y
+func apos(arg := ""):
+	var split = arg.split(" ")
+	if split.size() > 2:
+		var _name = split[0]
+		var _x = split[1]
+		var _y = split[2]
+		
+		for a in get_tree().get_nodes_in_group("actor"):
+			if a.name.to_lower() == _name.to_lower():
+				a.position = Vector2(_x, _y)
+				out("(apos) " + str(a.name) + ".position = " + str(a.position))
+				return
+		
+		out("(apos) " + str(_name) + " not found")
+	else:
+		out("(apos) '" + arg + "' invalid syntax. use 'apos <name> <x> <y>'")
