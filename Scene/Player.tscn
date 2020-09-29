@@ -185,6 +185,7 @@ is_moving = true
 is_solid = true
 is_colliding = true
 is_using_gravity = true
+is_using_tread = true
 
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( 4, -4 )

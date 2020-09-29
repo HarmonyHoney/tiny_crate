@@ -38,6 +38,8 @@ func _input(event):
 # signal when pressing enter
 # solve input string and call method
 func _on_Input_text_entered(new_text):
+	if new_text == "":
+		return
 	node_input.clear()
 	last_text = new_text
 	if not is_open:

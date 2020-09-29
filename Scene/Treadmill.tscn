@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Script/Treadmill.gd" type="Script" id=1]
+[ext_resource path="res://crate.png" type="Texture" id=2]
+
+[node name="Treadmill" type="Node2D" groups=[
+"actor",
+"treadmill",
+]]
+script = ExtResource( 1 )
+tag = "treadmill"
+is_solid = true
+tread_speed = -0.7
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 4, 4 )
+texture = ExtResource( 2 )
+vframes = 8
+hframes = 16
+frame = 22

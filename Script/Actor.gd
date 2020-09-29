@@ -4,33 +4,43 @@ class_name Actor
 
 export var tag := "actor"
 
+# hitbox
 export var hitbox_x := 8 setget _set_hit_x
 export var hitbox_y := 8 setget _set_hit_y
 
+# speed
 var speed_x := 0.0
 var speed_y := 0.0
 export var gravity := 0.2
 var term_vel := 16
 
+# remainder
 var remainder_x := 0.0
 var remainder_y := 0.0
 
+# movement and collision
 export var is_moving := false
 export var is_solid := false
 export var is_colliding := false
 export var is_using_gravity := false
-export var is_on_treadmill := false
 
+# has moved
 var has_moved_x := false
 var has_moved_y := false
 
+# has hit
 var has_hit_up := false
 var has_hit_down := false
 var has_hit_left := false
 var has_hit_right := false
 
+# air time
 var is_on_floor := false
 var time_since_floor := 0
+
+# treadmill
+export var is_using_tread := false
+var is_on_tread := false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -42,7 +52,11 @@ func _process(delta):
 		return
 	
 	if is_moving:
+		if is_using_tread:
+			tread_move()
+		
 		move()
+		
 		if is_using_gravity:
 			speed_y = min(speed_y + gravity, term_vel)
 		if not is_on_floor:
@@ -50,6 +64,7 @@ func _process(delta):
 		
 		# if outside map
 		if position.y < -999 or position.y > 999:
+			dev.out(name + " fell out of world")
 			queue_free()
 
 # update() the _draw() when hitbox values are changed (in the editor)
@@ -161,6 +176,14 @@ func wiggle_y(step):
 		if not is_area_solid(position.x + i, position.y + step):
 			return i
 	return null
+
+# move on treadmill
+func tread_move():
+	is_on_tread = false
+	for a in check_area_actors("treadmill", position.x, position.y + 1):
+		is_on_tread = true
+		remainder_x += a.tread_speed
+		break
 
 # check area for solid tiles
 func is_area_solid_tile(x1, y1, width, height):
