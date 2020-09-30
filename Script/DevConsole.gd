@@ -3,6 +3,7 @@ extends CanvasLayer
 var node_control : Control
 var node_log : RichTextLabel
 var node_input : LineEdit
+var node_hint : RichTextLabel
 
 var is_open := false
 var last_text = ""
@@ -14,6 +15,7 @@ func _ready():
 	node_log = $Control/Log
 	node_log.clear()
 	node_input = $Control/Input
+	node_hint = $Control/Hint
 	
 	node_control.visible = is_open
 	out("untitled project by Harmony Monroe")
@@ -49,6 +51,20 @@ func _on_Input_text_entered(new_text):
 	var arg = new_text.substr(method.length() + 1)
 	if not _call(method, arg):
 		out("can't find: " + method)
+
+func _on_Input_text_changed(new_text):
+	if new_text == "":
+		node_hint.text = ""
+	else:
+		var l = []
+		node_hint.text = ""
+		for c in _get_cmd_list():
+			if c.begins_with(new_text):
+				l.append(c)
+		l = str(l)
+		l.erase(0, 1)
+		l.erase(l.length() - 1, 1)
+		node_hint.text = l
 
 func _call(method := "", arg := ""):
 	if _get_cmd_list().has(method):
@@ -221,3 +237,6 @@ func apos(arg := ""):
 		out("(apos) " + str(_name) + " not found")
 	else:
 		out("(apos) '" + arg + "' invalid syntax. use 'apos <name> <x> <y>'")
+
+
+

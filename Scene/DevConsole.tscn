@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Font/m3x6.tres" type="DynamicFont" id=1]
 [ext_resource path="res://Script/DevConsole.gd" type="Script" id=2]
@@ -26,6 +26,10 @@ draw_center = false
 draw_center = false
 
 [sub_resource type="StyleBoxFlat" id=5]
+draw_center = false
+
+[sub_resource type="StyleBoxFlat" id=6]
+bg_color = Color( 0.839216, 0.839216, 0.839216, 1 )
 draw_center = false
 
 [node name="DevConsole" type="CanvasLayer"]
@@ -102,4 +106,29 @@ caret_blink = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Hint" type="RichTextLabel" parent="Control"]
+margin_left = 7.0
+margin_top = 146.0
+margin_right = 319.0
+margin_bottom = 161.0
+rect_clip_content = false
+focus_mode = 2
+custom_styles/focus = SubResource( 2 )
+custom_styles/normal = SubResource( 6 )
+custom_fonts/normal_font = ExtResource( 1 )
+custom_colors/default_color = Color( 0.909804, 0.490196, 0.243137, 1 )
+custom_colors/selection_color = Color( 1, 1, 1, 0.247059 )
+custom_colors/font_color_selected = Color( 1, 1, 1, 1 )
+custom_colors/font_color_shadow = Color( 0.180392, 0.180392, 0.180392, 1 )
+custom_constants/line_separation = -4
+text = "hint_text"
+fit_content_height = true
+scroll_following = true
+selection_enabled = true
+override_selected_font_color = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+[connection signal="text_changed" from="Control/Input" to="." method="_on_Input_text_changed"]
 [connection signal="text_entered" from="Control/Input" to="." method="_on_Input_text_entered"]
