@@ -61,14 +61,10 @@ func _on_Input_text_changed(new_text):
 		node_hint.text = ""
 	else:
 		var l = []
-		node_hint.text = ""
 		for c in _get_cmd_list():
 			if c.begins_with(new_text.to_lower()):
 				l.append(c)
-		l = str(l)
-		l.erase(0, 1)
-		l.erase(l.length() - 1, 1)
-		node_hint.text = l
+		node_hint.text = str(l).substr(1, str(l).length() - 2)
 
 func _call(method := "", arg := ""):
 	if _get_cmd_list().has(method):
