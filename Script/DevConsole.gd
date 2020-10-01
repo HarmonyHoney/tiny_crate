@@ -28,14 +28,18 @@ func _process(delta):
 	if btn.p("ui_cancel"):
 		close()
 
-# always grab focus when typing
+
 func _input(event):
 	if is_open:
 		if event is InputEventKey and event.pressed:
-			node_input.grab_focus()
-			# press up
-			if event.scancode == KEY_UP:
-				node_input.text = last_text
+			if node_input.has_focus():
+				# press up
+				if event.scancode == KEY_UP:
+					node_input.text = last_text
+			else:
+				# always grab focus when typing
+				node_input.grab_focus()
+				node_input.caret_position = 999
 
 # signal when pressing enter
 # solve input string and call method
@@ -47,7 +51,7 @@ func _on_Input_text_entered(new_text):
 	if not is_open:
 		return
 	
-	var method = new_text.split(" ")[0]
+	var method = new_text.split(" ")[0].to_lower()
 	var arg = new_text.substr(method.length() + 1)
 	if not _call(method, arg):
 		out("can't find: " + method)
@@ -59,7 +63,7 @@ func _on_Input_text_changed(new_text):
 		var l = []
 		node_hint.text = ""
 		for c in _get_cmd_list():
-			if c.begins_with(new_text):
+			if c.begins_with(new_text.to_lower()):
 				l.append(c)
 		l = str(l)
 		l.erase(0, 1)
