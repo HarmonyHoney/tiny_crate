@@ -2,19 +2,10 @@
 
 [ext_resource path="res://Script/Treadmill.gd" type="Script" id=1]
 [ext_resource path="res://Image/tread.png" type="Texture" id=2]
+[ext_resource path="res://Shader/scrollx.shader" type="Shader" id=3]
 
-[sub_resource type="Shader" id=1]
-code = "shader_type canvas_item;
-render_mode blend_mix;
-
-uniform float speed = 1.0;
-void fragment() {
-    COLOR = texture(TEXTURE, UV + vec2(TIME * speed, 0.0));
-}"
-custom_defines = ""
-
-[sub_resource type="ShaderMaterial" id=2]
-shader = SubResource( 1 )
+[sub_resource type="ShaderMaterial" id=1]
+shader = ExtResource( 3 )
 shader_param/speed = 4.0
 
 [node name="Treadmill" type="Node2D" groups=[
@@ -27,7 +18,7 @@ is_solid = true
 tread_speed = -0.5
 
 [node name="Sprite" type="Sprite" parent="."]
-material = SubResource( 2 )
+material = SubResource( 1 )
 texture = ExtResource( 2 )
 centered = false
 region_enabled = true

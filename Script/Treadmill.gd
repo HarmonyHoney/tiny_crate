@@ -8,19 +8,19 @@ export var editor_move := 0 setget _set_editor_move
 
 var node_sprite : Sprite
 
+const SHADER = preload("res://Shader/scrollx.shader")
+
 func _ready():
 	# editor and game code
 	node_sprite = $Sprite
+	node_sprite.material.shader = SHADER
 	node_sprite.material = node_sprite.material.duplicate(true)
-	#node_sprite.material = node_sprite.get_material().duplicate(true)
-	#node_sprite.set_material(node_sprite.get_material().duplicate(true))
-	print(node_sprite.material)
 	
 	_set_tread_speed(tread_speed)
 	_set_length(length)
 	
 	if Engine.editor_hint:
-		return
+		return # return if in editor
 	
 	# game only code
 
