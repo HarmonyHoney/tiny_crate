@@ -17,7 +17,7 @@ shader_param/speed = 1.0
 [node name="Node2D" type="Node2D"]
 
 [node name="SolidTileMap" parent="." instance=ExtResource( 4 )]
-tile_data = PoolIntArray( 65516, 0, 0, 65517, 0, 0, 65518, 0, 0, 65519, 0, 0, 65520, 0, 0, 65521, 0, 0, 65529, 0, 65538, 65530, 0, 65536, 65531, 0, 65538, 65532, 0, 0, 65533, 0, 0, 65534, 0, 65537, 65535, 0, 0, 0, 0, 0, 1, 0, 65538, 2, 0, 0, 3, 0, 65537, 4, 0, 0, 5, 0, 0, 6, 0, 196609, 131057, 0, 0, 131058, 0, 0, 131059, 0, 0, 131060, 0, 0, 131061, 0, 0, 131062, 0, 0, 131063, 0, 0, 131064, 0, 0, 131065, 0, 0 )
+tile_data = PoolIntArray( 65529, 0, 65538, 65530, 0, 65536, 65531, 0, 65538, 65532, 0, 0, 65533, 0, 0, 65534, 0, 65537, 65535, 0, 0, 0, 0, 0, 1, 0, 65538, 2, 0, 0, 3, 0, 65537, 4, 0, 0, 5, 0, 0, 6, 0, 196609, 131047, 0, 0, 131048, 0, 0, 131049, 0, 0, 131050, 0, 0, 131051, 0, 0, 131058, 0, 0, 131059, 0, 0, 131060, 0, 0, 131061, 0, 0, 131062, 0, 0, 131063, 0, 0, 131064, 0, 0, 131065, 0, 0, 196587, 0, 0, 196588, 0, 0, 196589, 0, 0, 196590, 0, 0, 196591, 0, 0, 196592, 0, 0, 196593, 0, 0, 196594, 0, 0 )
 
 [node name="SpikeTileMap" parent="." instance=ExtResource( 7 )]
 z_as_relative = false
@@ -47,8 +47,25 @@ position = Vector2( -37, -8 )
 [node name="Treadmill7" parent="Actors" instance=ExtResource( 1 )]
 position = Vector2( -112, 0 )
 hitbox_x = 56
-tread_speed = -0.5
+tread_speed = -0.3
 length = 7
+
+[node name="Treadmill8" parent="Actors" instance=ExtResource( 1 )]
+position = Vector2( -200, 0 )
+hitbox_x = 40
+tread_speed = 0.3
+length = 5
+
+[node name="Treadmill9" parent="Actors" instance=ExtResource( 1 )]
+position = Vector2( -160, 8 )
+hitbox_x = 24
+length = 3
+
+[node name="Treadmill10" parent="Actors" instance=ExtResource( 1 )]
+position = Vector2( -136, 8 )
+hitbox_x = 24
+tread_speed = 0.5
+length = 3
 
 [node name="Sprite" type="Sprite" parent="."]
 visible = false

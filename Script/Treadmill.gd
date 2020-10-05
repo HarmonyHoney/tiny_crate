@@ -8,10 +8,14 @@ export var editor_move := 0 setget _set_editor_move
 
 var node_sprite : Sprite
 
-
 func _ready():
 	# editor and game code
 	node_sprite = $Sprite
+	node_sprite.material = node_sprite.material.duplicate(true)
+	#node_sprite.material = node_sprite.get_material().duplicate(true)
+	#node_sprite.set_material(node_sprite.get_material().duplicate(true))
+	print(node_sprite.material)
+	
 	_set_tread_speed(tread_speed)
 	_set_length(length)
 	
