@@ -1,7 +1,12 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Script/Treadmill.gd" type="Script" id=1]
-[ext_resource path="res://crate.png" type="Texture" id=2]
+[ext_resource path="res://Image/tread.png" type="Texture" id=2]
+[ext_resource path="res://Shader/scrollx.shader" type="Shader" id=3]
+
+[sub_resource type="ShaderMaterial" id=1]
+shader = ExtResource( 3 )
+shader_param/speed = 0.7
 
 [node name="Treadmill" type="Node2D" groups=[
 "actor",
@@ -13,8 +18,8 @@ is_solid = true
 tread_speed = -0.7
 
 [node name="Sprite" type="Sprite" parent="."]
-position = Vector2( 4, 4 )
+material = SubResource( 1 )
 texture = ExtResource( 2 )
-vframes = 8
-hframes = 16
-frame = 22
+centered = false
+region_enabled = true
+region_rect = Rect2( 0, 0, 8, 8 )

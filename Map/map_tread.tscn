@@ -1,12 +1,18 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Scene/Treadmill.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Scene/Player.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Scene/GameCamera.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Scene/SolidTileMap.tscn" type="PackedScene" id=4]
+[ext_resource path="res://icon.png" type="Texture" id=5]
 [ext_resource path="res://Scene/DetailTileMap.tscn" type="PackedScene" id=6]
 [ext_resource path="res://Scene/SpikeTileMap.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Scene/Exit.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Shader/scrollx.shader" type="Shader" id=9]
+
+[sub_resource type="ShaderMaterial" id=1]
+shader = ExtResource( 9 )
+shader_param/speed = 1.0
 
 [node name="Node2D" type="Node2D"]
 
@@ -38,23 +44,14 @@ position = Vector2( 33, -11 )
 ] instance=ExtResource( 2 )]
 position = Vector2( -37, -8 )
 
-[node name="Treadmill" parent="Actors" instance=ExtResource( 1 )]
-position = Vector2( -64, 0 )
-
-[node name="Treadmill2" parent="Actors" instance=ExtResource( 1 )]
-position = Vector2( -72, 0 )
-
-[node name="Treadmill3" parent="Actors" instance=ExtResource( 1 )]
-position = Vector2( -80, 0 )
-
-[node name="Treadmill4" parent="Actors" instance=ExtResource( 1 )]
-position = Vector2( -88, 0 )
-
-[node name="Treadmill5" parent="Actors" instance=ExtResource( 1 )]
-position = Vector2( -96, 0 )
-
-[node name="Treadmill6" parent="Actors" instance=ExtResource( 1 )]
-position = Vector2( -104, 0 )
-
 [node name="Treadmill7" parent="Actors" instance=ExtResource( 1 )]
 position = Vector2( -112, 0 )
+hitbox_x = 56
+tread_speed = -0.5
+length = 7
+
+[node name="Sprite" type="Sprite" parent="."]
+visible = false
+material = SubResource( 1 )
+position = Vector2( 59, -39 )
+texture = ExtResource( 5 )
