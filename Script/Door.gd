@@ -1,19 +1,38 @@
 extends Actor
+class_name Door
 
-var folder = "Map"
-export var map_name := "hubworld"
+export var map_name := "hub"
 
+var node_sprite_door : Sprite
 var node_sprite_arrow : Sprite
+var node_label : Label
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
-	node_sprite_arrow = get_node("SpriteArrow")
-	pass # Replace with function body.
-
+	node_sprite_door = $SpriteDoor
+	node_sprite_arrow = $SpriteArrow
+	node_sprite_arrow.visible = true
+	
+	node_label = $Label
+	node_label.visible = true
+	align_text()
 
 func _process(delta):
-	node_sprite_arrow.visible = check_area_actors(position.x, position.y, hitbox_x, hitbox_y, "player").size()
-
+	show_hint(check_area_actors("player", position.x, position.y, hitbox_x, hitbox_y).size())
 
 func open():
-	get_tree().change_scene("res://Map/" + map_name + ".tscn")
+	Shared.start_reset(map_name)
+	Shared.hub_pos = position
+	node_sprite_door.frame = 0
+
+func show_hint(arg := false):
+	node_sprite_arrow.visible = arg
+	node_label.visible = arg
+
+func align_text():
+	if node_label:
+		node_label.text = map_name
+		node_label.rect_size = Vector2.ZERO
+		node_label.rect_position = Vector2(4 - (node_label.rect_size.x / 2), -16)
+
+
+

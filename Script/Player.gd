@@ -89,10 +89,11 @@ func _process(delta):
 	if btn.p("up"):
 		for a in check_area_actors("door"):
 			a.open()
+			open_door()
 			return
 	
-	# hit exit
-	for a in check_area_actors("exit"):
+	# hit exit, fixed when holding box
+	for a in check_area_actors("exit", position.x, position.y + (8 if is_pickup else 0), hitbox_x, 8):
 		dev.out(name + " hit exit")
 		win()
 		return
@@ -245,8 +246,6 @@ func death():
 	dev.out(name + " died")
 
 func win():
-	Shared.map_num += 1
-	
 	# explosion
 	var inst = scene_explosion2.instance()
 	inst.position = position + (Vector2(4, 8) if is_pickup else Vector2(4, 4))
@@ -258,9 +257,26 @@ func win():
 		box_release()
 	
 	# reset scene
-	Shared.start_reset()
+	Shared.start_reset("hub")
 	queue_free()
 	dev.out("map complete")
+
+func open_door():
+	# explosion
+	var inst = scene_explosion2.instance()
+	inst.position = position + (Vector2(4, 8) if is_pickup else Vector2(4, 4))
+	get_parent().add_child(inst)
+	Shared.node_camera_game.shake(4)
+	
+	# drop box
+	if is_pickup:
+		box_release()
+	
+	# reset scene
+	# Shared.start_reset("hub")
+	queue_free()
+	dev.out("map complete")
+	pass
 
 func try_anim(arg : String):
 	if node_anim.current_animation != arg:

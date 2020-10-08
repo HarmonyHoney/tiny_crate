@@ -65,7 +65,6 @@ custom_colors/default_color = Color( 0.898039, 0.709804, 0.403922, 1 )
 custom_colors/selection_color = Color( 1, 1, 1, 0.247059 )
 custom_colors/font_color_selected = Color( 1, 1, 1, 1 )
 custom_colors/font_color_shadow = Color( 0.180392, 0.180392, 0.180392, 1 )
-custom_constants/line_separation = -4
 text = "Apartments simplicity or understood do it we. Song such eyes had and off. Removed winding ask explain delight out few behaved lasting. Letters old hastily ham sending not sex chamber because present. Oh is indeed twenty entire figure. Occasional diminution announcing new now literature terminated. Really regard excuse off ten pulled. Lady am room head so lady four or eyes an. He do of consulted sometimes concluded mr. An household behaviour if pretended. 
 
 His having within saw become ask passed misery giving. Recommend questions get too fulfilled. He fact in we case miss sake. Entrance be throwing he do blessing up. Hearts warmth in genius do garden advice mr it garret. Collected preserved are middleton dependent residence but him how. Handsome weddings yet mrs you has carriage packages. Preferred joy agreement put continual elsewhere delivered now. Mrs exercise felicity had men speaking met. Rich deal mrs part led pure will but. 
@@ -92,9 +91,9 @@ __meta__ = {
 
 [node name="Input" type="LineEdit" parent="Control"]
 margin_left = 8.0
-margin_top = 155.0
+margin_top = 164.0
 margin_right = 320.0
-margin_bottom = 178.0
+margin_bottom = 172.0
 custom_styles/focus = SubResource( 4 )
 custom_styles/normal = SubResource( 5 )
 custom_fonts/font = ExtResource( 1 )
@@ -109,9 +108,9 @@ __meta__ = {
 
 [node name="Hint" type="RichTextLabel" parent="Control"]
 margin_left = 7.0
-margin_top = 141.0
+margin_top = 142.0
 margin_right = 319.0
-margin_bottom = 156.0
+margin_bottom = 150.0
 rect_clip_content = false
 focus_mode = 2
 custom_styles/focus = SubResource( 2 )

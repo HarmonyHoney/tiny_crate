@@ -4,7 +4,7 @@
 [ext_resource path="res://Image/tread.png" type="Texture" id=2]
 [ext_resource path="res://Shader/scrollx.shader" type="Shader" id=3]
 
-[sub_resource type="ShaderMaterial" id=1]
+[sub_resource type="ShaderMaterial" id=2]
 shader = ExtResource( 3 )
 shader_param/speed = 4.0
 
@@ -18,7 +18,7 @@ is_solid = true
 tread_speed = -0.5
 
 [node name="Sprite" type="Sprite" parent="."]
-material = SubResource( 1 )
+material = SubResource( 2 )
 texture = ExtResource( 2 )
 centered = false
 region_enabled = true

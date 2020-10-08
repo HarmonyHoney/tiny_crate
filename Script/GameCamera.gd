@@ -13,6 +13,10 @@ export var target_influence := 0.5
 
 func _ready():
 	Shared.node_camera_game = self
+	# move camera if in the hub world
+	if get_parent().name == "Hub":
+		position = Shared.hub_pos
+	# set vars
 	pos_start = position
 	pos_current = position
 	

@@ -11,7 +11,9 @@ var reset_time := 1.0
 
 var _window_scale := 1.0
 
-var map_num := 0
+var map_name := "hub"
+
+var hub_pos := Vector2(-16, -16)
 
 func _ready():
 	
@@ -39,8 +41,8 @@ func _process(delta):
 		reset_clock -= delta
 		if reset_clock < 0:
 			is_reset = false
-			dev.out("loading scene: " + "res://Map/map" + String(map_num) + ".tscn")
-			get_tree().change_scene("res://Map/map" + String(map_num) + ".tscn")
+			dev.out("loading scene: " + "res://Map/" + map_name + ".tscn")
+			get_tree().change_scene("res://Map/" + map_name + ".tscn")
 			#get_tree().reload_current_scene()
 	
 	# window size
@@ -62,7 +64,9 @@ func _process(delta):
 #		get_tree().reload_current_scene()
 	
 
-func start_reset():
+func start_reset(arg = ""):
 	if !is_reset:
 		is_reset = true
 		reset_clock = reset_time
+		if arg:
+			map_name = arg

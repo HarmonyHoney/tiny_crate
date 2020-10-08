@@ -29,6 +29,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://Script/Box.gd"
 }, {
+"base": "Actor",
+"class": "Door",
+"language": "GDScript",
+"path": "res://Script/Door.gd"
+}, {
 "base": "Node",
 "class": "EditorTheme",
 "language": "GDScript",
@@ -64,6 +69,7 @@ _global_script_class_icons={
 "AsepriteImportData": "",
 "AsepriteImporter": "",
 "Box": "",
+"Door": "",
 "EditorTheme": "",
 "Exit": "",
 "Passthrough": "",
@@ -75,7 +81,7 @@ _global_script_class_icons={
 [application]
 
 config/name="gdBox"
-run/main_scene="res://Map/map0.tscn"
+run/main_scene="res://Map/hub.tscn"
 config/icon="res://icon.png"
 
 [autoload]
