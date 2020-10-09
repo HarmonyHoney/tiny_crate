@@ -244,6 +244,7 @@ func death():
 	Shared.start_reset()
 	queue_free()
 	dev.out(name + " died")
+	Shared.death()
 
 func win():
 	# explosion
@@ -260,7 +261,7 @@ func win():
 	Shared.start_reset("hub")
 	queue_free()
 	dev.out("map complete")
-	Shared.stage.stop_timer()
+	Shared.win()
 
 func open_door():
 	# explosion

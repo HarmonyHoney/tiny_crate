@@ -9,13 +9,9 @@
 [ext_resource path="res://Scene/Stage/SpikeTileMap.tscn" type="PackedScene" id=7]
 [ext_resource path="res://Scene/Actor/Exit.tscn" type="PackedScene" id=8]
 
-
-
-
-
-
 [node name="Stage" type="Node2D"]
 script = ExtResource( 5 )
+stage_name = "1-5"
 
 [node name="SolidTileMap" parent="." instance=ExtResource( 4 )]
 tile_data = PoolIntArray( -327678, 0, 131074, -327677, 0, 65537, -327676, 0, 0, -327675, 0, 65538, -327674, 0, 65536, -327673, 0, 196608, -262142, 0, 0, -196606, 0, 1, -131070, 0, 0, -65534, 0, 2, 65529, 0, 196609, 65530, 0, 65537, 65531, 0, 0, 65532, 0, 65538, 65533, 0, 0, 65534, 0, 65536, 65535, 0, 0, 0, 0, 0, 1, 0, 65537, 2, 0, 131072 )
