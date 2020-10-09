@@ -260,6 +260,7 @@ func win():
 	Shared.start_reset("hub")
 	queue_free()
 	dev.out("map complete")
+	Shared.stage.stop_timer()
 
 func open_door():
 	# explosion

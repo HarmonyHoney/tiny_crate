@@ -5,6 +5,8 @@ var node_map_solid : TileMap
 var node_map_spike : TileMap
 var node_camera_game : Camera2D
 
+var stage : Stage
+
 var is_reset = false
 var reset_clock := 0.0
 var reset_time := 1.0
@@ -14,8 +16,6 @@ var _window_scale := 1.0
 var map_name := "hub"
 
 var hub_pos := Vector2(-16, -16)
-
-var map_timer := 0.0
 
 func _ready():
 	
@@ -46,11 +46,6 @@ func _process(delta):
 			dev.out("loading scene: " + "res://Map/" + map_name + ".tscn")
 			get_tree().change_scene("res://Map/" + map_name + ".tscn")
 			#get_tree().reload_current_scene()
-	
-	map_timer += delta
-	HUD.node_timer.text = "time: " + String(map_timer)
-	
-	
 
 func start_reset(arg = ""):
 	if !is_reset:
