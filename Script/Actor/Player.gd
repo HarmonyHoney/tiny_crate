@@ -36,7 +36,7 @@ var node_audio_throw : AudioStreamPlayer2D
 
 var node_camera_game : Camera2D
 
-var scene_box = preload("res://Scene/Box.tscn")
+var scene_box = preload("res://Scene/Actor/Box.tscn")
 var scene_explosion = preload("res://Scene/Explosion.tscn")
 var scene_explosion2 = preload("res://Scene/Explosion2.tscn")
 

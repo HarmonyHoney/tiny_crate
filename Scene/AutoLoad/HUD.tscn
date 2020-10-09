@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Font/m3x6.tres" type="DynamicFont" id=1]
+[ext_resource path="res://Script/AutoLoad/HUD.gd" type="Script" id=2]
+
+[node name="HUD" type="CanvasLayer"]
+script = ExtResource( 2 )
+
+[node name="Timer" type="Label" parent="."]
+margin_left = 5.0
+margin_top = 5.0
+margin_right = 77.0
+margin_bottom = 13.0
+custom_fonts/font = ExtResource( 1 )
+text = "testing 123"
+__meta__ = {
+"_edit_use_anchors_": false
+}

@@ -1,6 +1,7 @@
 [gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://Script/GameCamera.gd" type="Script" id=1]
+[ext_resource path="res://Script/Stage/GameCamera.gd" type="Script" id=1]
+
 
 [node name="GameCamera" type="Camera2D"]
 position = Vector2( 0, -27 )

@@ -1,6 +1,7 @@
 [gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://Scene/SwitchBlock.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Scene/Actor/SwitchBlock.tscn" type="PackedScene" id=1]
+
 
 [node name="SwitchBlockBlue" instance=ExtResource( 1 )]
 color = "blue"

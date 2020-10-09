@@ -1,14 +1,21 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
-[ext_resource path="res://Scene/Box.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Scene/Player.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Scene/GameCamera.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Scene/SolidTileMap.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Scene/DetailTileMap.tscn" type="PackedScene" id=6]
-[ext_resource path="res://Scene/SpikeTileMap.tscn" type="PackedScene" id=7]
-[ext_resource path="res://Scene/Exit.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Scene/Actor/Box.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Scene/Actor/Player.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scene/Stage/GameCamera.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scene/Stage/SolidTileMap.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Script/Stage/Stage.gd" type="Script" id=5]
+[ext_resource path="res://Scene/Stage/DetailTileMap.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Scene/Stage/SpikeTileMap.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Scene/Actor/Exit.tscn" type="PackedScene" id=8]
 
-[node name="Node2D" type="Node2D"]
+
+
+
+
+
+[node name="Stage" type="Node2D"]
+script = ExtResource( 5 )
 
 [node name="SolidTileMap" parent="." instance=ExtResource( 4 )]
 tile_data = PoolIntArray( -327678, 0, 131074, -327677, 0, 65537, -327676, 0, 0, -327675, 0, 65538, -327674, 0, 65536, -327673, 0, 196608, -262142, 0, 0, -196606, 0, 1, -131070, 0, 0, -65534, 0, 2, 65529, 0, 196609, 65530, 0, 65537, 65531, 0, 0, 65532, 0, 65538, 65533, 0, 0, 65534, 0, 65536, 65535, 0, 0, 0, 0, 0, 1, 0, 65537, 2, 0, 131072 )

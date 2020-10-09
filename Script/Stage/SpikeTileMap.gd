@@ -1,7 +1,7 @@
 extends TileMap
 
 
-var scene_spike = preload("res://Scene/Spike.tscn")
+var scene_spike = preload("res://Scene/Actor/Spike.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():

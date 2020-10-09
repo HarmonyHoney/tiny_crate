@@ -1,13 +1,20 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
-[ext_resource path="res://Scene/Player.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Scene/GameCamera.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Scene/SolidTileMap.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Scene/DetailTileMap.tscn" type="PackedScene" id=6]
-[ext_resource path="res://Scene/SpikeTileMap.tscn" type="PackedScene" id=7]
-[ext_resource path="res://Scene/Exit.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Script/Stage/Stage.gd" type="Script" id=1]
+[ext_resource path="res://Scene/Actor/Player.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Scene/Stage/GameCamera.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Scene/Stage/SolidTileMap.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Scene/Stage/DetailTileMap.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Scene/Stage/SpikeTileMap.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Scene/Actor/Exit.tscn" type="PackedScene" id=8]
 
-[node name="Node2D" type="Node2D"]
+
+
+
+
+
+[node name="Stage" type="Node2D"]
+script = ExtResource( 1 )
 
 [node name="SolidTileMap" parent="." instance=ExtResource( 4 )]
 tile_data = PoolIntArray( -327705, 0, 0, -327704, 0, 0, -327699, 0, 0, -327698, 0, 0, -327693, 0, 0, -327692, 0, 0, -262169, 0, 0, -262168, 0, 0, -262163, 0, 0, -262162, 0, 0, -262157, 0, 0, -262156, 0, 0, -196627, 0, 0, -196626, 0, 0, -196621, 0, 0, -196620, 0, 0, -131097, 0, 0, -131096, 0, 0, -131085, 0, 0, -131084, 0, 0, -65561, 0, 0, -65560, 0, 0, -65555, 0, 0, -65554, 0, 0, -25, 0, 0, -24, 0, 0, -19, 0, 0, -18, 0, 0, -13, 0, 0, -12, 0, 0, 65507, 0, 0, 65508, 0, 0, 65509, 0, 0, 65510, 0, 0, 65511, 0, 0, 65512, 0, 0, 65513, 0, 0, 65514, 0, 0, 65515, 0, 0, 65516, 0, 0, 65517, 0, 0, 65518, 0, 0, 65519, 0, 0, 65520, 0, 0, 65521, 0, 0, 65522, 0, 0, 65523, 0, 0, 65524, 0, 0, 65525, 0, 0, 65526, 0, 0, 65527, 0, 0, 65528, 0, 0, 65529, 0, 65538, 65530, 0, 65536, 65531, 0, 65538, 65532, 0, 0, 65533, 0, 0, 65534, 0, 65537, 65535, 0, 0, 0, 0, 0, 1, 0, 65538, 2, 0, 0, 3, 0, 65537, 4, 0, 0, 5, 0, 0, 6, 0, 196609 )

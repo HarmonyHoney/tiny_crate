@@ -71,14 +71,15 @@ func _process(delta):
 func _set_hit_x(value):
 	hitbox_x = value
 	update()
+
 func _set_hit_y(value):
 	hitbox_y = value
 	update()
+
 # draw hitbox in editor
 func _draw():
 	if Engine.editor_hint or dev.is_draw_collider:
 		draw_rect(Rect2(0, 0, hitbox_x, hitbox_y), Color(1, 0, 0.75, 0.5))
-
 
 # axis aligned bounding box
 func aabb(x1 : int, y1 : int, w1 : int, h1 : int, x2 : int, y2 : int, w2 : int, h2 : int):

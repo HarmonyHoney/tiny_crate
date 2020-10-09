@@ -12,7 +12,7 @@ _global_script_classes=[ {
 "base": "Node2D",
 "class": "Actor",
 "language": "GDScript",
-"path": "res://Script/Actor.gd"
+"path": "res://Script/Actor/Actor.gd"
 }, {
 "base": "Node",
 "class": "AsepriteImportData",
@@ -27,12 +27,12 @@ _global_script_classes=[ {
 "base": "Actor",
 "class": "Box",
 "language": "GDScript",
-"path": "res://Script/Box.gd"
+"path": "res://Script/Actor/Box.gd"
 }, {
 "base": "Actor",
 "class": "Door",
 "language": "GDScript",
-"path": "res://Script/Door.gd"
+"path": "res://Script/Actor/Door.gd"
 }, {
 "base": "Node",
 "class": "EditorTheme",
@@ -42,27 +42,32 @@ _global_script_classes=[ {
 "base": "Actor",
 "class": "Exit",
 "language": "GDScript",
-"path": "res://Script/Exit.gd"
+"path": "res://Script/Actor/Exit.gd"
 }, {
 "base": "Actor",
 "class": "Passthrough",
 "language": "GDScript",
-"path": "res://Script/Passthrough.gd"
+"path": "res://Script/Actor/Passthrough.gd"
+}, {
+"base": "Node2D",
+"class": "Stage",
+"language": "GDScript",
+"path": "res://Script/Stage/Stage.gd"
 }, {
 "base": "Actor",
 "class": "Switch",
 "language": "GDScript",
-"path": "res://Script/Switch.gd"
+"path": "res://Script/Actor/Switch.gd"
 }, {
 "base": "Actor",
 "class": "SwitchBlock",
 "language": "GDScript",
-"path": "res://Script/SwitchBlock.gd"
+"path": "res://Script/Actor/SwitchBlock.gd"
 }, {
 "base": "Actor",
 "class": "Treadmill",
 "language": "GDScript",
-"path": "res://Script/Treadmill.gd"
+"path": "res://Script/Actor/Treadmill.gd"
 } ]
 _global_script_class_icons={
 "Actor": "",
@@ -73,6 +78,7 @@ _global_script_class_icons={
 "EditorTheme": "",
 "Exit": "",
 "Passthrough": "",
+"Stage": "",
 "Switch": "",
 "SwitchBlock": "",
 "Treadmill": ""
@@ -86,9 +92,10 @@ config/icon="res://icon.png"
 
 [autoload]
 
-btn="*res://Script/btn.gd"
-dev="*res://Scene/DevConsole.tscn"
-Shared="*res://Script/Shared.gd"
+btn="*res://Script/AutoLoad/btn.gd"
+dev="*res://Scene/AutoLoad/DevConsole.tscn"
+Shared="*res://Script/AutoLoad/Shared.gd"
+HUD="*res://Scene/AutoLoad/HUD.tscn"
 
 [display]
 

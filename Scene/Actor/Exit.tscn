@@ -1,8 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Image/portal.png" type="Texture" id=1]
-[ext_resource path="res://Script/Exit.gd" type="Script" id=2]
+[ext_resource path="res://Script/Actor/Exit.gd" type="Script" id=2]
 [ext_resource path="res://Image/pixel.png" type="Texture" id=3]
+[ext_resource path="res://Image/star.png" type="Texture" id=4]
+[ext_resource path="res://Script/ExitStar.gd" type="Script" id=5]
 
 [sub_resource type="Animation" id=1]
 length = 1.6
@@ -61,3 +63,13 @@ position = Vector2( 3, 3 )
 modulate = Color( 1, 0.945098, 0.909804, 1 )
 texture = ExtResource( 3 )
 centered = false
+
+[node name="Stars" type="Node2D" parent="."]
+position = Vector2( 3, 3 )
+
+[node name="Star" type="Sprite" parent="Stars"]
+z_index = 1
+texture = ExtResource( 4 )
+hframes = 6
+script = ExtResource( 5 )
+speed = 4.0

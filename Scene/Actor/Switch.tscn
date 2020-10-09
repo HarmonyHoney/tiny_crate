@@ -1,8 +1,9 @@
 [gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://crate.png" type="Texture" id=1]
-[ext_resource path="res://Script/Switch.gd" type="Script" id=2]
+[ext_resource path="res://Script/Actor/Switch.gd" type="Script" id=2]
 [ext_resource path="res://Audio/SFX/btn3.wav" type="AudioStream" id=3]
+
 
 [node name="Switch" type="Node2D" groups=[
 "actor",

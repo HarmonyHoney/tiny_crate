@@ -15,6 +15,8 @@ var map_name := "hub"
 
 var hub_pos := Vector2(-16, -16)
 
+var map_timer := 0.0
+
 func _ready():
 	
 	# _window_scale window
@@ -45,23 +47,9 @@ func _process(delta):
 			get_tree().change_scene("res://Map/" + map_name + ".tscn")
 			#get_tree().reload_current_scene()
 	
-	# window size
-#	if Input.is_action_just_pressed("window_shrink"):
-#		set_window_scale(_window_scale - 1)
-#	elif Input.is_action_just_pressed("window_expand"):
-#		set_window_scale(_window_scale + 1)
+	map_timer += delta
+	HUD.node_timer.text = "time: " + String(map_timer)
 	
-	# quit
-#	if btn.p("ui_cancel"):
-#		if map_num == 0:
-#			get_tree().quit()
-#		else:
-#			map_num = 0
-#			get_tree().change_scene("res://Map/map" + String(map_num) + ".tscn")
-#
-#	# reset
-#	if btn.p("reset"):
-#		get_tree().reload_current_scene()
 	
 
 func start_reset(arg = ""):
