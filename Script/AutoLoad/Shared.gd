@@ -15,17 +15,23 @@ var map_name := "hub"
 var hub_pos := Vector2(-16, -16)
 var death_count := 0
 
-var stage_data = []
+var stage_data := []
+var save_file := "box.save"
 
-func _ready():
+func _ready():	
+	dev.out("Shared._ready(): ", false)
+	
 	# _window_scale window
 	_window_scale = floor(OS.get_screen_size().x / get_viewport().size.x)
 	_window_scale = max(1, _window_scale - 2)
 	set_window_scale()
 	
 	# load stage save data
-	stage_data = JSON.parse(load_data("box.save")).result
-	dev.out(JSON.print(stage_data, "\t"))
+	if load_data(save_file):
+		stage_data = JSON.parse(load_data(save_file)).result
+		dev.out(JSON.print(stage_data, "\t"))
+	else:
+		dev.out(save_file + " not found")
 
 func set_window_scale(arg := _window_scale):
 	_window_scale = arg if arg else _window_scale
@@ -73,15 +79,15 @@ func win():
 				stage_data.erase(i)
 		stage_data.append(new_data)
 	
-	save_data("box.save", JSON.print(stage_data, "\t"))
+	save_data(save_file, JSON.print(stage_data, "\t"))
 	dev.out("(box.save)")
-	dev.out(load_data("box.save"))
+	dev.out(load_data(save_file))
 	
 	death_count = 0
 
-func save_data(fname,  arg):
+func save_data(save_file,  arg):
 	var file = File.new()
-	file.open("user://" + str(fname), File.WRITE)
+	file.open("user://" + str(save_file), File.WRITE)
 	file.store_string(arg)
 	file.close()
 	#dev.out("(Shared.save) user://box.save")
@@ -93,7 +99,7 @@ func load_data(fname):
 	var content = file.get_as_text()
 	file.close()
 	return content
-
+	
 
 
 
