@@ -9,6 +9,7 @@ var stage : Stage
 var is_reset = false
 var reset_clock := 0.0
 var reset_time := 1.0
+var is_clear = false
 
 var _window_scale := 1.0
 var map_name := "hub"
@@ -57,8 +58,12 @@ func start_reset(arg = ""):
 
 func do_reset():
 	is_reset = false
-	dev.out("loading scene: " + "res://Map/" + map_name + ".tscn")
-	get_tree().change_scene("res://Map/" + map_name + ".tscn")
+	if is_clear:
+		is_clear = false
+		get_tree().change_scene("res://Scene/select.tscn")
+	else:
+		dev.out("loading scene: " + "res://Map/" + map_name + ".tscn")
+		get_tree().change_scene("res://Map/" + map_name + ".tscn")
 
 func death():
 	death_count += 1
@@ -72,6 +77,7 @@ func win():
 			"name": stage.stage_name,
 			"time": stage.timer,
 			"death": death_count,
+			"file": stage.filename,
 		}
 		
 		for i in stage_data:
@@ -90,10 +96,8 @@ func save_data(save_file,  arg):
 	file.open("user://" + str(save_file), File.WRITE)
 	file.store_string(arg)
 	file.close()
-	#dev.out("(Shared.save) user://box.save")
-	#dev.out("[\n" + str(arg) + "\n]")
 
-func load_data(fname):
+func load_data(fname = "box.save"):
 	var file = File.new()
 	file.open("user://" + str(fname), File.READ)
 	var content = file.get_as_text()

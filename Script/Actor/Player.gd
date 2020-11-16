@@ -259,6 +259,7 @@ func win():
 	
 	# reset scene
 	Shared.start_reset("hub")
+	Shared.is_clear = true
 	queue_free()
 	dev.out("map complete")
 	Shared.win()

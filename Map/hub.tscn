@@ -76,13 +76,3 @@ map_name = "map_tread"
 
 [node name="Exit" parent="Actors" instance=ExtResource( 8 )]
 position = Vector2( 40, -34 )
-gravity = 0.2
-is_moving = false
-is_solid = false
-is_colliding = false
-is_using_gravity = false
-is_using_tread = false
-dust_count = 5
-star_count = 5
-star_speed = 6
-star_orbit = 10
