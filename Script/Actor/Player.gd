@@ -136,6 +136,7 @@ func _process(delta):
 			node_anim.play("box_jump")
 		else:
 			node_anim.play("jump")
+		Shared.stage.metric_jump += 1
 	
 	# jump height
 	if is_jump:
@@ -219,6 +220,8 @@ func box_pickup(dx := 0, dy := 0):
 			pickup_box.is_moving = false
 			pickup_box.is_solid = false
 			pickup_start = pickup_box.position
+			
+			Shared.stage.metric_pickup += 1
 		break
 
 # ox, oy = offset x and y
@@ -244,7 +247,8 @@ func death():
 	Shared.start_reset()
 	queue_free()
 	dev.out(name + " died")
-	Shared.death()
+	Shared.stage.death()
+	#Shared.death()
 
 func win():
 	# explosion
