@@ -6,17 +6,6 @@
 [node name="Node2D" type="Node2D"]
 position = Vector2( 1, 1 )
 script = ExtResource( 2 )
-map_list = "1-1
-1-2
-1-3
-1-4
-1-5
-1-6
-1-7
-map_jump_test
-map_switch
-map_tread
-"
 
 [node name="Control" type="Control" parent="."]
 margin_right = 320.0
