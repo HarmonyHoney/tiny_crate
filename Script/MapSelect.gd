@@ -10,10 +10,14 @@ var maps : PoolStringArray = []
 var cursor := 0
 var line_height = 9
 
+var viewport : Viewport
+
+
 
 func _ready():
 	label_list = $Control/List
 	label_info = $Control/Info
+	viewport = $Control/ViewportContainer/Viewport
 	
 	map_list = ""
 	var dir = Directory.new()
@@ -30,7 +34,7 @@ func _ready():
 	maps.append_array(map_list.split("\n", false))
 	label_list.text = map_list
 	
-	info()
+	scroll()
 
 func _process(delta):
 	var btny = btn.p("down") - btn.p("up")
@@ -46,6 +50,7 @@ func scroll(arg = 0):
 	cursor = clamp(cursor + arg, 0, maps.size() - 1)
 	label_list.rect_position.y = 90 - (cursor * line_height)
 	info()
+	view_map()
 
 func info():
 	label_info.text = str(cursor) + " / " + maps[cursor] + "\n"
@@ -55,7 +60,13 @@ func info():
 				label_info.text += str(i.keys()[j]) + ": " + str(i.values()[j]) + "\n"
 			break
 
-
+func view_map():
+	for i in viewport.get_children():
+		i.queue_free()
+	
+	if ResourceLoader.exists("res://Map/" + maps[cursor] + ".tscn"):
+		var m = load("res://Map/" + maps[cursor] + ".tscn").instance()
+		viewport.add_child(m)
 
 
 

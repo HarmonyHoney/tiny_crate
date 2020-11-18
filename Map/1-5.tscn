@@ -43,6 +43,12 @@ position = Vector2( -16, -8 )
 
 [node name="Box" parent="Actors" instance=ExtResource( 1 )]
 position = Vector2( -52, -8 )
+hitbox_x = 8
+hitbox_y = 8
+gravity = 0.2
 
 [node name="Box2" parent="Actors" instance=ExtResource( 1 )]
 position = Vector2( -43, -8 )
+hitbox_x = 8
+hitbox_y = 8
+gravity = 0.2

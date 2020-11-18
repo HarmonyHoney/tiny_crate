@@ -10,6 +10,7 @@
 
 [node name="Stage" type="Node2D"]
 script = ExtResource( 1 )
+stage_name = "1-1"
 
 [node name="SolidTileMap" parent="." instance=ExtResource( 3 )]
 tile_data = PoolIntArray( 65529, 0, 65538, 65530, 0, 65536, 65531, 0, 65538, 65532, 0, 0, 65533, 0, 0, 65534, 0, 65537, 65535, 0, 0, 0, 0, 0, 1, 0, 65538, 2, 0, 0, 3, 0, 65537, 4, 0, 0, 5, 0, 0, 6, 0, 196609 )

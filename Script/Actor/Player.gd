@@ -247,7 +247,7 @@ func death():
 	Shared.start_reset()
 	queue_free()
 	dev.out(name + " died")
-	Shared.stage.death()
+	#Shared.stage.death()
 	#Shared.death()
 
 func win():

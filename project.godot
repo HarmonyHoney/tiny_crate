@@ -87,7 +87,7 @@ _global_script_class_icons={
 [application]
 
 config/name="gdBox"
-run/main_scene="res://Map/world.tscn"
+run/main_scene="res://Scene/select.tscn"
 config/icon="res://icon.png"
 
 [autoload]

@@ -1,7 +1,7 @@
 extends Node2D
 class_name Stage
 
-export var stage_name := "1-1"
+export var stage_name := "unnamed"
 
 var timer := 0.0
 var is_timer = true
