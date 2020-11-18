@@ -7,7 +7,6 @@
 [ext_resource path="res://Audio/SFX/sfx10.wav" type="AudioStream" id=5]
 [ext_resource path="res://Audio/SFX/box_drop.wav" type="AudioStream" id=6]
 
-
 [sub_resource type="Animation" id=1]
 length = 0.6
 loop = true
@@ -176,6 +175,7 @@ tracks/1/keys = {
 
 [node name="Player" type="Node2D" groups=[
 "actor",
+"player",
 ]]
 z_index = 5
 z_as_relative = false

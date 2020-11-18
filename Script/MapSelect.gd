@@ -13,7 +13,6 @@ var line_height = 9
 var viewport : Viewport
 
 
-
 func _ready():
 	label_list = $Control/List
 	label_info = $Control/Info
@@ -67,6 +66,8 @@ func view_map():
 	if ResourceLoader.exists("res://Map/" + maps[cursor] + ".tscn"):
 		var m = load("res://Map/" + maps[cursor] + ".tscn").instance()
 		viewport.add_child(m)
+		for i in get_tree().get_nodes_in_group("player"):
+			i.set_process(false) # dont process player
 
 
 
