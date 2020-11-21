@@ -24,7 +24,7 @@ func _ready():
 	
 	# _window_scale window
 	_window_scale = floor(OS.get_screen_size().x / get_viewport().size.x)
-	_window_scale = max(1, _window_scale - 2)
+	_window_scale = max(1, floor(_window_scale * 0.8))
 	set_window_scale()
 	
 	# load stage save data
@@ -84,7 +84,7 @@ func win():
 		}
 		
 		for i in stage_data:
-			if i["file"] == new_data["file"]:
+			if i.has("file") and i["file"] == new_data["file"]:
 				stage_data.erase(i)
 				break
 		stage_data.append(new_data)

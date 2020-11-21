@@ -3,7 +3,6 @@
 [ext_resource path="res://Font/m3x6.tres" type="DynamicFont" id=1]
 [ext_resource path="res://Script/AutoLoad/DevConsole.gd" type="Script" id=2]
 
-
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.247059, 0.247059, 0.247059, 0.247059 )
 border_width_left = 4

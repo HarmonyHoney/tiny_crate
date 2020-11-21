@@ -15,7 +15,7 @@ func _ready():
 	
 	
 	for i in Shared.stage_data:
-		if i.file == filename:
+		if i.has("file") and i.file == filename:
 			if i.has("death"):
 				metric_death = i.death
 
