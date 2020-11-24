@@ -40,6 +40,9 @@ func _input(event):
 				# always grab focus when typing
 				node_input.grab_focus()
 				node_input.caret_position = 999
+	else:
+		if Input.is_action_just_pressed("screenshot"):
+			screenshot()
 
 # signal when pressing enter
 # solve input string and call method
@@ -238,5 +241,38 @@ func apos(arg := ""):
 	else:
 		out("(apos) '" + arg + "' invalid syntax. use 'apos <name> <x> <y>'")
 
+# screenshot
+func screenshot(arg := ""):
+	# Retrieve the captured Image using get_data() and correct y axis
+	var img = get_viewport().get_texture().get_data()
+	img.flip_y()
+	
+	var p_name = str(ProjectSettings.get_setting("application/config/name"))
+	var count = 0
+	
+	# get list of files
+	var dir = Directory.new()
+	dir.make_dir("user://screenshot/")
+	if dir.open("user://screenshot/") == OK:
+		dir.list_dir_begin(true, true)
+		var file_name = dir.get_next()
+		while file_name:
+			if file_name.begins_with(p_name):
+				var end = file_name.substr(p_name.length() )
+				count = int(end) + 1
+			
+			file_name = dir.get_next()
+		dir.list_dir_end()
+	
+	var file_name = p_name + str(count)
+	
+	var path = "user://screenshot/" + file_name + ".png"
+	if img.save_png(path) == OK:
+		out("screenshot captured: " + path)
 
+func get_time(arg := ""):
+	var d = OS.get_datetime()
+	var date = str(d.month) + "-" + str(d.day) + "-" + str(d.year)
+	var time = str(d.hour) + "-" + str(d.minute) + "-" + str(d.second)
+	return date + " " + time
 
