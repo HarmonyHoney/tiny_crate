@@ -12,7 +12,7 @@ var menu_items := ["resume", "options", "exit"]
 
 
 func _ready():
-	node_timer = $Timer
+	node_timer = $Timer/Label
 	node_death = $Death
 	
 	pause = $Pause
