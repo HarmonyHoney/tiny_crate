@@ -22,7 +22,7 @@ func _ready():
 func _process(delta):
 	if is_timer:
 		timer += delta
-		HUD.node_timer.text = "timer: " + str(timer)
+		HUD.set_time(timer)
 
 func stop_timer():
 	is_timer = false
