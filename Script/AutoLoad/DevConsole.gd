@@ -258,8 +258,9 @@ func screenshot(arg := ""):
 		var file_name = dir.get_next()
 		while file_name:
 			if file_name.begins_with(p_name):
-				var end = file_name.substr(p_name.length() )
-				count = int(end) + 1
+				var end = file_name.substr(p_name.length())
+				if int(end) >= count:
+					count = int(end) + 1
 			
 			file_name = dir.get_next()
 		dir.list_dir_end()
