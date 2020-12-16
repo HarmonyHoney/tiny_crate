@@ -39,7 +39,12 @@ func _process(delta):
 	
 
 func _input(event):
-	if Input.is_action_just_pressed("pause") and not dev.is_open:
+	if dev.is_open:
+		return
+	
+	if Input.is_action_just_pressed("pause"):
+		toggle_pause()
+	if Input.is_action_just_pressed("jump"):
 		toggle_pause()
 
 

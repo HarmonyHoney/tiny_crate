@@ -96,6 +96,7 @@ btn="*res://Script/AutoLoad/btn.gd"
 dev="*res://Scene/AutoLoad/DevConsole.tscn"
 Shared="*res://Script/AutoLoad/Shared.gd"
 HUD="*res://Scene/AutoLoad/HUD.tscn"
+Pause="*res://Scene/AutoLoad/Pause.tscn"
 
 [display]
 
