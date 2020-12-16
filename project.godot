@@ -12,7 +12,7 @@ _global_script_classes=[ {
 "base": "Node2D",
 "class": "Actor",
 "language": "GDScript",
-"path": "res://Script/Actor/Actor.gd"
+"path": "res://src/actor/Actor.gd"
 }, {
 "base": "Node",
 "class": "AsepriteImportData",
@@ -27,12 +27,12 @@ _global_script_classes=[ {
 "base": "Actor",
 "class": "Box",
 "language": "GDScript",
-"path": "res://Script/Actor/Box.gd"
+"path": "res://src/actor/Box.gd"
 }, {
 "base": "Actor",
 "class": "Door",
 "language": "GDScript",
-"path": "res://Script/Actor/Door.gd"
+"path": "res://src/actor/Door.gd"
 }, {
 "base": "Node",
 "class": "EditorTheme",
@@ -42,32 +42,32 @@ _global_script_classes=[ {
 "base": "Actor",
 "class": "Exit",
 "language": "GDScript",
-"path": "res://Script/Actor/Exit.gd"
+"path": "res://src/actor/Exit.gd"
 }, {
 "base": "Actor",
 "class": "Passthrough",
 "language": "GDScript",
-"path": "res://Script/Actor/Passthrough.gd"
+"path": "res://src/actor/Passthrough.gd"
 }, {
 "base": "Node2D",
 "class": "Stage",
 "language": "GDScript",
-"path": "res://Script/Stage/Stage.gd"
+"path": "res://src/stage/Stage.gd"
 }, {
 "base": "Actor",
 "class": "Switch",
 "language": "GDScript",
-"path": "res://Script/Actor/Switch.gd"
+"path": "res://src/actor/Switch.gd"
 }, {
 "base": "Actor",
 "class": "SwitchBlock",
 "language": "GDScript",
-"path": "res://Script/Actor/SwitchBlock.gd"
+"path": "res://src/actor/SwitchBlock.gd"
 }, {
 "base": "Actor",
 "class": "Treadmill",
 "language": "GDScript",
-"path": "res://Script/Actor/Treadmill.gd"
+"path": "res://src/actor/Treadmill.gd"
 } ]
 _global_script_class_icons={
 "Actor": "",
@@ -87,16 +87,16 @@ _global_script_class_icons={
 [application]
 
 config/name="gdBox"
-run/main_scene="res://Scene/select.tscn"
+run/main_scene="res://src/menu/select.tscn"
 config/icon="res://icon.png"
 
 [autoload]
 
-btn="*res://Script/AutoLoad/btn.gd"
-dev="*res://Scene/AutoLoad/DevConsole.tscn"
-Shared="*res://Script/AutoLoad/Shared.gd"
-HUD="*res://Scene/AutoLoad/HUD.tscn"
-Pause="*res://Scene/AutoLoad/Pause.tscn"
+btn="*res://src/autoload/btn.gd"
+dev="*res://src/autoload/DevConsole.tscn"
+Shared="*res://src/autoload/Shared.gd"
+HUD="*res://src/autoload/HUD.tscn"
+Pause="*res://src/autoload/Pause.tscn"
 
 [display]
 
