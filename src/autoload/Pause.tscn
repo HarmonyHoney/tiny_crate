@@ -4,17 +4,24 @@
 [ext_resource path="res://assets/image/9slice.png" type="Texture" id=2]
 [ext_resource path="res://src/autoload/Pause.gd" type="Script" id=3]
 
-[node name="Pause" type="Control"]
+[node name="Pause" type="CanvasLayer"]
+pause_mode = 2
 script = ExtResource( 3 )
+
+[node name="Menu" type="Control" parent="."]
+margin_left = 160.0
+margin_top = 95.0
+margin_right = 224.0
+margin_bottom = 159.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="NinePatchRect" type="NinePatchRect" parent="."]
-margin_left = 128.0
-margin_top = 64.0
-margin_right = 192.0
-margin_bottom = 120.0
+[node name="NinePatchRect" type="NinePatchRect" parent="Menu"]
+margin_left = -36.0
+margin_top = -36.0
+margin_right = 36.0
+margin_bottom = 36.0
 rect_min_size = Vector2( 24, 24 )
 texture = ExtResource( 2 )
 patch_margin_left = 8
@@ -27,11 +34,10 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Header" type="Label" parent="."]
-margin_left = 128.0
-margin_top = 68.0
-margin_right = 192.0
-margin_bottom = 87.0
+[node name="Header" type="Label" parent="Menu/NinePatchRect"]
+margin_top = 4.0
+margin_right = 72.0
+margin_bottom = 23.0
 custom_fonts/font = ExtResource( 1 )
 custom_colors/font_color = Color( 1, 0.639216, 0, 1 )
 text = "-PAUSED-"
@@ -40,16 +46,17 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="List" type="Label" parent="."]
-margin_left = 136.0
-margin_top = 80.0
-margin_right = 184.0
-margin_bottom = 110.0
+[node name="List" type="Label" parent="Menu/NinePatchRect"]
+margin_left = 8.0
+margin_top = 16.0
+margin_right = 56.0
+margin_bottom = 57.0
 custom_fonts/font = ExtResource( 1 )
 custom_colors/font_color = Color( 1, 0.945098, 0.909804, 1 )
 text = "resume
 options
-exit"
+level select
+quit game"
 __meta__ = {
 "_edit_use_anchors_": false
 }

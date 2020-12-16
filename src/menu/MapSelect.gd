@@ -1,4 +1,3 @@
-
 extends Node2D
 
 
@@ -41,7 +40,7 @@ func _process(delta):
 	if btny:
 		scroll(btny)
 	
-	if btn.p("action"):
+	if btn.p("jump"):
 		Shared.map_name = maps[cursor]
 		get_tree().change_scene(map_path + maps[cursor] + ".tscn")
 

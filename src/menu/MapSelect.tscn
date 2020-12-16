@@ -1,11 +1,11 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://assets/font/m3x6.tres" type="DynamicFont" id=1]
-[ext_resource path="res://src/menu/MapSelect.gd" type="Script" id=2]
+[ext_resource path="res://src/menu/MapSelect.gd" type="Script" id=1]
+[ext_resource path="res://assets/font/m3x6.tres" type="DynamicFont" id=2]
 
 [node name="Node2D" type="Node2D"]
 position = Vector2( 1, 1 )
-script = ExtResource( 2 )
+script = ExtResource( 1 )
 
 [node name="Control" type="Control" parent="."]
 margin_right = 320.0
@@ -29,7 +29,7 @@ margin_left = 17.764
 margin_top = 90.0
 margin_right = 106.764
 margin_bottom = 180.0
-custom_fonts/normal_font = ExtResource( 1 )
+custom_fonts/normal_font = ExtResource( 2 )
 custom_colors/default_color = Color( 1, 0.945098, 0.909804, 1 )
 text = "list"
 fit_content_height = true
@@ -43,7 +43,7 @@ margin_left = 160.0
 margin_top = 10.0
 margin_right = 320.0
 margin_bottom = 170.0
-custom_fonts/normal_font = ExtResource( 1 )
+custom_fonts/normal_font = ExtResource( 2 )
 custom_colors/default_color = Color( 1, 0.945098, 0.909804, 1 )
 text = "info"
 scroll_active = false
@@ -56,7 +56,7 @@ margin_left = 10.0
 margin_top = 90.0
 margin_right = 50.0
 margin_bottom = 104.0
-custom_fonts/font = ExtResource( 1 )
+custom_fonts/font = ExtResource( 2 )
 custom_colors/font_color = Color( 1, 0.945098, 0.909804, 1 )
 text = ">"
 __meta__ = {

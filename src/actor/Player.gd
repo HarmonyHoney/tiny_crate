@@ -261,12 +261,9 @@ func win():
 	if is_pickup:
 		box_release()
 	
-	# reset scene
-	Shared.start_reset("hub")
-	Shared.is_clear = true
-	queue_free()
-	dev.out("map complete")
+	# win scene
 	Shared.win()
+	queue_free()
 
 func open_door():
 	# explosion

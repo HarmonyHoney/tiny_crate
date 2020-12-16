@@ -11,6 +11,7 @@ var reset_clock := 0.0
 var reset_time := 1.0
 var is_clear = false
 
+var map_path := "res://src/map/"
 var _window_scale := 1.0
 var map_name := "hub"
 var hub_pos := Vector2(-16, -16)
@@ -18,6 +19,7 @@ var hub_pos := Vector2(-16, -16)
 
 var stage_data := []
 var save_file := "box.save"
+
 
 func _ready():	
 	dev.out("Shared._ready(): ", false)
@@ -60,19 +62,19 @@ func do_reset():
 	is_reset = false
 	if is_clear:
 		is_clear = false
-		get_tree().change_scene("res://Scene/select.tscn")
+		get_tree().change_scene("res://src/menu/MapSelect.tscn")
 	else:
-		dev.out("loading scene: " + "res://Map/" + map_name + ".tscn")
-		get_tree().change_scene("res://Map/" + map_name + ".tscn")
+		dev.out("loading scene: " + map_path + map_name + ".tscn")
+		get_tree().change_scene(map_path + map_name + ".tscn")
 
 #func death():
 #	death_count += 1
 #	HUD.node_death.text = "deaths: " + str(death_count)
 
 func win():
+	# save data
 	if stage:
 		stage.stop_timer()
-		
 		var new_data = {
 			"file": stage.filename,
 			"name": stage.stage_name,
@@ -82,18 +84,16 @@ func win():
 			"jump": stage.metric_jump,
 			"pickup": stage.metric_pickup,
 		}
-		
 		for i in stage_data:
 			if i.has("file") and i["file"] == new_data["file"]:
 				stage_data.erase(i)
 				break
 		stage_data.append(new_data)
-	
 	save_data(save_file, JSON.print(stage_data, "\t"))
-	#dev.out("(box.save)")
-	#dev.out(load_data(save_file))
 	
-	#death_count = 0
+	start_reset()
+	is_clear = true
+	dev.out("map complete")
 
 func save_data(save_file,  arg):
 	var file = File.new()
