@@ -34,6 +34,8 @@ func _ready():
 	label_list.text = map_list
 	
 	scroll()
+	
+	HUD.hide()
 
 func _process(delta):
 	var btny = btn.p("down") - btn.p("up")
@@ -41,8 +43,12 @@ func _process(delta):
 		scroll(btny)
 	
 	if btn.p("jump"):
-		Shared.map_name = maps[cursor]
-		get_tree().change_scene(map_path + maps[cursor] + ".tscn")
+		select()
+
+func select():
+	Shared.map_name = maps[cursor]
+	get_tree().change_scene(map_path + maps[cursor] + ".tscn")
+	HUD.show()
 
 
 func scroll(arg = 0):

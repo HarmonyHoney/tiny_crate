@@ -3,19 +3,29 @@ extends CanvasLayer
 var is_paused := false
 var menu_list : Label
 var menu : Control
+var paused_menu : NinePatchRect
+var paused_list : Label
+var options_menu: NinePatchRect
+var options_list : Label
 
 var cursor := 0
-var menu_items := ["resume", "options", "level select", "quit game"]
+var menu_items := []
 var selection := ""
+var paused_items := ["resume", "options", "level select", "quit game"]
+var options_items := ["back", "fullscreen", "window size", "volume"]
 
 var timer := 0.1
 var clock := 0.0
 
 func _ready():
+	paused_menu = $Menu/Paused
+	paused_list = $Menu/Paused/List
+	options_menu = $Menu/Options
+	options_list = $Menu/Options/List
+	
 	menu = $Menu
 	menu.visible = false
-	menu_list = $Menu/NinePatchRect/List
-
+	menu_list = paused_list
 
 func _process(delta):
 	if clock != 0:
@@ -48,10 +58,9 @@ func toggle_pause():
 	
 	if is_paused:
 		get_tree().paused = is_paused
-		cursor = 0
-		write_menu()
+		switch_menu("paused")
 	else:
-		pass
+		options_menu.visible = false
 
 
 func write_menu():
@@ -66,10 +75,30 @@ func menu_select():
 		"resume":
 			toggle_pause()
 		"options":
-			pass
+			switch_menu("options")
 		"level select":
 			get_tree().change_scene("res://src/menu/MapSelect.tscn")
 			toggle_pause()
 		"quit game":
 			get_tree().quit()
+		"back":
+			switch_menu("paused")
+		"fullscreen":
+			OS.window_fullscreen = !OS.window_fullscreen
+		"volume":
+			pass
 
+func switch_menu(arg):
+	cursor = 0
+	match arg:
+		"paused":
+			paused_menu.visible = true
+			options_menu.visible = false
+			menu_list = paused_list
+			menu_items = paused_items
+		"options":
+			paused_menu.visible = false
+			options_menu.visible = true
+			menu_list = options_list
+			menu_items = options_items
+	write_menu()

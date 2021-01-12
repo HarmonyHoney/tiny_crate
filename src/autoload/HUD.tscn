@@ -1,23 +1,32 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://assets/font/m3x6.tres" type="DynamicFont" id=1]
 [ext_resource path="res://assets/image/timer.png" type="Texture" id=2]
 [ext_resource path="res://src/autoload/HUD.gd" type="Script" id=3]
+[ext_resource path="res://assets/image/hud2.png" type="Texture" id=4]
 
 [node name="HUD" type="CanvasLayer"]
 pause_mode = 2
 script = ExtResource( 3 )
 
-[node name="Timer" type="TextureRect" parent="."]
-visible = false
-margin_right = 32.0
-margin_bottom = 32.0
+[node name="Control" type="Control" parent="."]
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Timer" type="TextureRect" parent="Control"]
+margin_left = 9.0
+margin_top = 9.0
+margin_right = 41.0
+margin_bottom = 41.0
 texture = ExtResource( 2 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="Timer"]
+[node name="Label" type="Label" parent="Control/Timer"]
 margin_left = 27.0
 margin_top = 12.0
 margin_right = 53.0
@@ -29,7 +38,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Death" type="Label" parent="."]
+[node name="Death" type="Label" parent="Control"]
 visible = false
 margin_left = 5.0
 margin_top = 16.0
@@ -40,3 +49,7 @@ text = "testing 123"
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="hud2" type="Sprite" parent="Control"]
+texture = ExtResource( 4 )
+centered = false

@@ -17,7 +17,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="NinePatchRect" type="NinePatchRect" parent="Menu"]
+[node name="Paused" type="NinePatchRect" parent="Menu"]
 margin_left = -36.0
 margin_top = -36.0
 margin_right = 36.0
@@ -34,7 +34,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Header" type="Label" parent="Menu/NinePatchRect"]
+[node name="Header" type="Label" parent="Menu/Paused"]
 margin_top = 4.0
 margin_right = 72.0
 margin_bottom = 23.0
@@ -46,7 +46,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="List" type="Label" parent="Menu/NinePatchRect"]
+[node name="List" type="Label" parent="Menu/Paused"]
 margin_left = 8.0
 margin_top = 16.0
 margin_right = 56.0
@@ -57,6 +57,53 @@ text = "resume
 options
 level select
 quit game"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Options" type="NinePatchRect" parent="Menu"]
+visible = false
+margin_left = -36.0
+margin_top = -36.0
+margin_right = 36.0
+margin_bottom = 36.0
+grow_horizontal = 2
+grow_vertical = 2
+rect_min_size = Vector2( 120, 88 )
+texture = ExtResource( 2 )
+patch_margin_left = 8
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 8
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Header" type="Label" parent="Menu/Options"]
+margin_top = 4.0
+margin_right = 120.0
+margin_bottom = 23.0
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color = Color( 1, 0.639216, 0, 1 )
+text = "-OPTIONS-"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="List" type="Label" parent="Menu/Options"]
+margin_left = 8.0
+margin_top = 16.0
+margin_right = 56.0
+margin_bottom = 57.0
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color = Color( 1, 0.945098, 0.909804, 1 )
+text = "back
+fullscreen
+volume
+"
 __meta__ = {
 "_edit_use_anchors_": false
 }
