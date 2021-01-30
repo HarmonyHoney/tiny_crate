@@ -1,0 +1,56 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://src/stage/Stage.gd" type="Script" id=1]
+[ext_resource path="res://src/stage/DetailTileMap.tscn" type="PackedScene" id=2]
+[ext_resource path="res://src/stage/GameCamera.tscn" type="PackedScene" id=3]
+[ext_resource path="res://src/actor/Player.tscn" type="PackedScene" id=4]
+[ext_resource path="res://src/actor/Exit.tscn" type="PackedScene" id=5]
+[ext_resource path="res://src/stage/SolidTileMap.tscn" type="PackedScene" id=6]
+[ext_resource path="res://src/stage/SpikeTileMap.tscn" type="PackedScene" id=7]
+
+[node name="Stage" type="Node2D"]
+script = ExtResource( 1 )
+stage_name = "1-1"
+
+[node name="SolidTileMap" parent="." instance=ExtResource( 6 )]
+tile_data = PoolIntArray( -196615, 0, 0, -196614, 0, 0, -196613, 0, 0, -196612, 0, 0, -131076, 0, 0, -65543, 0, 0, -65542, 0, 0, -65541, 0, 0, -65540, 0, 0, -4, 0, 0, 65529, 0, 65538, 65530, 0, 65536, 65531, 0, 65538, 65532, 0, 0 )
+
+[node name="SpikeTileMap" parent="." instance=ExtResource( 7 )]
+z_as_relative = false
+
+[node name="DetailTileMap" parent="." instance=ExtResource( 2 )]
+tile_data = PoolIntArray( -7, 2, 0, -6, 0, 0, -5, -1610612734, 0 )
+
+[node name="DetailTileMap2" parent="." instance=ExtResource( 2 )]
+z_index = -11
+tile_data = PoolIntArray( -262150, 4, 196608, -262149, 4, 196608, -262148, 4, 196608, -262147, 4, 196608, -196612, 4, 196608, -196611, 4, 196608, -196610, 4, 196608, -131078, 4, 196608, -131077, 4, 196608, -131076, 4, 196608, -131075, 4, 196608, -131074, 4, 196608, -65542, 4, 196608, -65541, 4, 196608, -65540, 4, 65539, -65539, 4, 196608, -65538, 4, 6, -6, 4, 196608, -5, 4, 196608, -4, 4, 131075, -3, 4, 131072, -2, 4, 131078, 65531, 4, 196608, 65532, 4, 196608, 65533, 4, 196608, 65534, 4, 196608, 131066, 4, 65541, 131067, 4, 131073, 131068, 4, 65537, 131069, 4, 196608 )
+
+[node name="GameCamera" parent="." instance=ExtResource( 3 )]
+position = Vector2( -62, 3 )
+smoothing_enabled = false
+editor_draw_drag_margin = false
+target_influence = 0.3
+
+[node name="Actors" type="Node2D" parent="."]
+
+[node name="Player" parent="Actors" instance=ExtResource( 4 )]
+position = Vector2( -46, -8 )
+hitbox_x = 8
+hitbox_y = 8
+speed_drop_x = 1.0
+speed_drop_y = -1.0
+speed_throw_x = 1.0
+speed_throw_y = -2.3
+
+[node name="Exit" parent="Actors" instance=ExtResource( 5 )]
+position = Vector2( 33, -11 )
+gravity = 0.2
+is_moving = false
+is_solid = false
+is_colliding = false
+is_using_gravity = false
+is_using_tread = false
+dust_count = 5
+star_count = 5
+star_speed = 6
+star_orbit = 10

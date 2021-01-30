@@ -28,8 +28,6 @@ func _ready():
 			map_list += file_name.split(".")[0] + "\n"
 			file_name = dir.get_next()
 		dir.list_dir_end()
-	
-	
 	maps.append_array(map_list.split("\n", false))
 	label_list.text = map_list
 	
