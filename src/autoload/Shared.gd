@@ -89,6 +89,8 @@ func win():
 				stage_data.erase(i)
 				break
 		stage_data.append(new_data)
+	
+	stage_data.sort()
 	save_data(save_file, JSON.print(stage_data, "\t"))
 	
 	start_reset()

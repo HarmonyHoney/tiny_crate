@@ -22,17 +22,20 @@ func _ready():
 	
 	label = $Control/Label
 	
+	# get maps
 	maps = []
 	var dir = Directory.new()
 	if dir.open(map_path) == OK:
 		dir.list_dir_begin(true, true)
 		var file_name = dir.get_next()
 		while file_name:
-			print(file_name.split(".")[0])
 			maps.append(file_name.split(".")[0])
 			file_name = dir.get_next()
 		dir.list_dir_end()
+	maps.sort()
+	print(maps)
 	
+	# make screens
 	for i in maps.size():
 		var new = screen.duplicate()
 		new.rect_position.x += i * 120

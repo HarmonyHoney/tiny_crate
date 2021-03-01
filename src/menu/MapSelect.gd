@@ -5,8 +5,8 @@ var label_list : RichTextLabel
 var label_info : RichTextLabel
 
 var map_path := "res://src/map/"
-var map_list : String
-var maps : PoolStringArray = []
+#var map_list : String
+var maps : Array = []
 var cursor := 0
 var line_height = 9
 
@@ -18,18 +18,21 @@ func _ready():
 	label_info = $Control/Info
 	viewport = $Control/ViewportContainer/Viewport
 	
-	map_list = ""
+	maps = []
 	var dir = Directory.new()
 	if dir.open(map_path) == OK:
 		dir.list_dir_begin(true, true)
 		var file_name = dir.get_next()
 		while file_name:
-			print(file_name.split(".")[0])
-			map_list += file_name.split(".")[0] + "\n"
+			maps.append(file_name.split(".")[0])
 			file_name = dir.get_next()
 		dir.list_dir_end()
-	maps.append_array(map_list.split("\n", false))
-	label_list.text = map_list
+	maps.sort()
+	print(maps)
+	
+	label_list.text = ""
+	for i in maps:
+		label_list.text += i + "\n"
 	
 	scroll()
 	
