@@ -277,3 +277,6 @@ func get_time(arg := ""):
 	var time = str(d.hour) + "-" + str(d.minute) + "-" + str(d.second)
 	return date + " " + time
 
+# open user folder with OS
+func folder(arg := ""):
+	OS.shell_open(ProjectSettings.globalize_path("user://"))
