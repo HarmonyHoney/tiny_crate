@@ -26,10 +26,9 @@ func _ready():
 		drag_margin_v_enabled = false
 
 func _process(delta):
-	if node_target:
+	if is_instance_valid(node_target):
 		if is_focal_point:
 			pos_target = pos_start.linear_interpolate(node_target.position + pos_offset, target_influence)
-			pass
 		else:
 			pos_target = node_target.position + pos_offset
 	# smoothing
