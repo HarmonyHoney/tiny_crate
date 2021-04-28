@@ -21,7 +21,7 @@ __meta__ = {
 margin_left = -36.0
 margin_top = -36.0
 margin_right = 36.0
-margin_bottom = 36.0
+margin_bottom = 44.0
 rect_min_size = Vector2( 24, 24 )
 texture = ExtResource( 2 )
 patch_margin_left = 8
@@ -54,6 +54,7 @@ margin_bottom = 57.0
 custom_fonts/font = ExtResource( 1 )
 custom_colors/font_color = Color( 1, 0.945098, 0.909804, 1 )
 text = "resume
+reset
 options
 level select
 quit game"

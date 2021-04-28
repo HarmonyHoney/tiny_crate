@@ -17,6 +17,7 @@ __meta__ = {
 }
 
 [node name="Timer" type="TextureRect" parent="Control"]
+visible = false
 margin_left = 9.0
 margin_top = 9.0
 margin_right = 41.0

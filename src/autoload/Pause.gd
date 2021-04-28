@@ -11,7 +11,7 @@ var options_list : Label
 var cursor := 0
 var menu_items := []
 var selection := ""
-var paused_items := ["resume", "options", "level select", "quit game"]
+var paused_items := ["resume", "reset", "level select", "options", "quit game"]
 var options_items := ["back", "fullscreen", "window size", "volume"]
 
 var timer := 0.1
@@ -74,10 +74,13 @@ func menu_select():
 	match menu_items[cursor]:
 		"resume":
 			toggle_pause()
+		"reset":
+			Shared.do_reset()
+			toggle_pause()
 		"options":
 			switch_menu("options")
 		"level select":
-			get_tree().change_scene("res://src/menu/MapSelect.tscn")
+			get_tree().change_scene("res://src/menu/select.tscn")
 			toggle_pause()
 		"quit game":
 			get_tree().quit()

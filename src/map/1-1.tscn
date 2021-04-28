@@ -8,9 +8,6 @@
 [ext_resource path="res://src/stage/DetailTileMap.tscn" type="PackedScene" id=6]
 [ext_resource path="res://src/actor/Exit.tscn" type="PackedScene" id=8]
 
-
-
-
 [node name="Stage" type="Node2D"]
 script = ExtResource( 1 )
 stage_name = "1-1"
