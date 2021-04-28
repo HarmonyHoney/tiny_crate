@@ -2,14 +2,11 @@
 
 [ext_resource path="res://src/stage/GameCamera.gd" type="Script" id=1]
 
-
-
 [node name="GameCamera" type="Camera2D"]
 position = Vector2( 0, -27 )
 current = true
 drag_margin_h_enabled = true
 drag_margin_v_enabled = true
-smoothing_enabled = true
 drag_margin_left = 0.1
 drag_margin_top = 0.1
 drag_margin_right = 0.1

@@ -27,7 +27,6 @@ tile_data = PoolIntArray( -131075, 4, 4, -65540, 4, 65539, -65539, 4, 196608, -6
 
 [node name="GameCamera" parent="." instance=ExtResource( 2 )]
 position = Vector2( -19, -9 )
-smoothing_enabled = false
 editor_draw_drag_margin = false
 target_influence = 0.3
 

@@ -18,6 +18,7 @@ var level_path := "res://src/map/"
 var level_grid : Control
 var level : Label
 
+var wait = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -46,14 +47,20 @@ func _ready():
 		view_scene(new.get_node("ViewportContainer/Viewport"), world_path + worlds[i])
 
 func _process(delta):
+	if wait > 0:
+		wait -= delta
+		#get_port().size -= Vector2.ONE * 5
+		if wait < 0:
+			get_tree().change_scene(level_path + levels[pick] + ".tscn")
+		return
+	
 	var btnx = btn.p("right") - btn.p("left")
 	
 	if is_select:
 		if btn.p("action"):
 			close_world()
 		if btn.p("jump"):
-			Shared.map_name = levels[pick]
-			get_tree().change_scene(level_path + levels[pick] + ".tscn")
+			open_level()
 		if btnx:
 			pick_level(btnx)
 	else:
@@ -106,7 +113,7 @@ func close_world():
 	for i in level_grid.get_children():
 		i.queue_free()
 	
-	view_scene(screens.get_children()[cursor].get_node("ViewportContainer/Viewport"), world_path + worlds[cursor])
+	view_scene(get_port(), world_path + worlds[cursor])
 
 # look into a folder and return a list of filenames without file extension
 func dir_list(path : String):
@@ -122,7 +129,24 @@ func dir_list(path : String):
 	array.sort()
 	return array
 
+func get_screen():
+	return screens.get_children()[cursor]
+
+func get_port():
+	return screens.get_children()[cursor].get_node("ViewportContainer/Viewport")
+
 func pick_level(arg = 0):
 	pick = clamp(pick + arg, 0, levels.size() - 1)
 	picker.rect_position = level_grid.get_children()[pick].rect_position
-	view_scene(screens.get_children()[cursor].get_node("ViewportContainer/Viewport"), level_path + levels[pick])
+	view_scene(get_port(), level_path + levels[pick])
+
+func open_level():
+	cam.position = get_screen().rect_position + Vector2(50, 50)
+	#screens.get_children()[cursor].move_pos = cam.position - Vector2(50, 50)
+	Shared.map_name = levels[pick]
+	wait = 0.4
+	#get_tree().change_scene(level_path + levels[pick] + ".tscn")
+	#get_port().size = Vector2(50, 50)
+	get_screen().get_node("ViewportContainer").rect_size += Vector2.ONE * 50
+
+

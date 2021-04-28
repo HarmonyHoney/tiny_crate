@@ -1,0 +1,59 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://assets/image/wipe.png" type="Texture" id=1]
+
+[sub_resource type="GDScript" id=2]
+script/source = "extends Node2D
+
+var sprite : Sprite
+var sprites : Node2D
+
+var tick = 0.05
+var clock = 0
+
+var frame = 0
+export var backwards = false
+var done = false
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	clock = tick
+	
+	sprite = $Sprites/Sprite.duplicate()
+	$Sprites/Sprite.queue_free()
+	sprites = $Sprites
+	
+	for y in 12:
+		for x in 21:
+			var s = sprite.duplicate()
+			s.position = Vector2(x, y) * 16
+			sprites.add_child(s)
+
+func _process(delta):
+	clock -= delta
+	if clock < 0:
+		clock += tick
+		frame += 1
+		
+		if frame > 15:
+			sprites.visible = false
+			done = true
+			set_process(false)
+			return
+		
+		for i in sprites.get_children():
+			i.frame = clamp(15 - frame if backwards else frame, 0, 15)
+
+"
+
+[node name="Wipe" type="Node2D"]
+script = SubResource( 2 )
+backwards = true
+
+[node name="Sprites" type="Node2D" parent="."]
+
+[node name="Sprite" type="Sprite" parent="Sprites"]
+texture = ExtResource( 1 )
+hframes = 4
+vframes = 4
+region_rect = Rect2( 0, 0, 16, 16 )
