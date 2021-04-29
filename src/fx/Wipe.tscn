@@ -8,17 +8,20 @@ script/source = "extends Node2D
 var sprite : Sprite
 var sprites : Node2D
 
+export var act = false
+export var backwards = false
+
 var tick = 0.05
 var clock = 0
 
 var frame = 0
-export var backwards = false
-var done = false
+# last frame
+export var last = 14
+
+signal finish
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	clock = tick
-	
 	sprite = $Sprites/Sprite.duplicate()
 	$Sprites/Sprite.queue_free()
 	sprites = $Sprites
@@ -28,6 +31,8 @@ func _ready():
 			var s = sprite.duplicate()
 			s.position = Vector2(x, y) * 16
 			sprites.add_child(s)
+	
+	start() if act else stop(false)
 
 func _process(delta):
 	clock -= delta
@@ -35,20 +40,35 @@ func _process(delta):
 		clock += tick
 		frame += 1
 		
-		if frame > 15:
+		if frame > last:
 			sprites.visible = false
-			done = true
-			set_process(false)
+			stop()
 			return
 		
 		for i in sprites.get_children():
-			i.frame = clamp(15 - frame if backwards else frame, 0, 15)
+			i.frame = clamp(last - frame if backwards else frame, 0, last)
+
+func start(_backwards = false):
+	act = true
+	set_process(true)
+	frame = 0
+	clock = tick
+	backwards = _backwards
+	sprites.visible = true
+
+func stop(_emit_signal = true):
+	act = false
+	set_process(false)
+	sprites.visible = false
+	
+	if _emit_signal:
+		emit_signal(\"finish\")
+
 
 "
 
 [node name="Wipe" type="Node2D"]
 script = SubResource( 2 )
-backwards = true
 
 [node name="Sprites" type="Node2D" parent="."]
 

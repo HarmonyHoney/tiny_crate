@@ -49,9 +49,9 @@ func _ready():
 func _process(delta):
 	if wait > 0:
 		wait -= delta
-		#get_port().size -= Vector2.ONE * 5
 		if wait < 0:
-			get_tree().change_scene(level_path + levels[pick] + ".tscn")
+			HUD.wipe.connect("finish", self, "load_level")
+			HUD.wipe.start()
 		return
 	
 	var btnx = btn.p("right") - btn.p("left")
@@ -142,11 +142,9 @@ func pick_level(arg = 0):
 
 func open_level():
 	cam.position = get_screen().rect_position + Vector2(50, 50)
-	#screens.get_children()[cursor].move_pos = cam.position - Vector2(50, 50)
 	Shared.map_name = levels[pick]
 	wait = 0.4
-	#get_tree().change_scene(level_path + levels[pick] + ".tscn")
-	#get_port().size = Vector2(50, 50)
-	get_screen().get_node("ViewportContainer").rect_size += Vector2.ONE * 50
 
-
+func load_level():
+	get_tree().change_scene(level_path + levels[pick] + ".tscn")
+	HUD.wipe.start(true)

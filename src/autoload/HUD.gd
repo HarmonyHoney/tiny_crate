@@ -3,11 +3,13 @@ extends CanvasLayer
 var node_timer : Label
 var node_death : Label
 var control : Control
+var wipe : Node2D
 
 func _ready():
 	node_timer = $Control/Timer/Label
 	node_death = $Control/Death
 	control = $Control
+	wipe = $Wipe
 
 func _process(delta):
 	pass
