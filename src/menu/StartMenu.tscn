@@ -1,0 +1,62 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://assets/font/m3x6.tres" type="DynamicFont" id=1]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Node2D
+
+
+var cursor = 0
+var menu_items = [\"play\", \"options\", \"exit\"]
+var node_list : Node2D
+var node_cursor : Node2D
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	
+	node_cursor = $Cursor
+	node_list = $List
+	
+	var lbl = $List/Label.duplicate()
+	$List/Label.queue_free()
+	
+	for i in menu_items.size():
+		var l = lbl.duplicate()
+		l.text = menu_items[i]
+		l.rect_position = Vector2(320 / 2, (180 / 2) + i * 11)
+		node_list.add_child(l)
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta):
+	var btny = btn.p(\"down\") - btn.p(\"up\")
+	if btny:
+		cursor = clamp(cursor + btny, 0, menu_items.size() - 1)
+		node_cursor.position = node_list.get_children()[cursor].rect_position + Vector2(-5, 0)
+"
+
+[node name="Node2D" type="Node2D"]
+script = SubResource( 1 )
+
+[node name="Cursor" type="Node2D" parent="."]
+position = Vector2( 20, 20 )
+
+[node name="Label" type="Label" parent="Cursor"]
+margin_right = 4.0
+margin_bottom = 8.0
+custom_fonts/font = ExtResource( 1 )
+text = ">"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="List" type="Node2D" parent="."]
+
+[node name="Label" type="Label" parent="List"]
+margin_right = 16.0
+margin_bottom = 8.0
+custom_fonts/font = ExtResource( 1 )
+text = "text"
+__meta__ = {
+"_edit_use_anchors_": false
+}

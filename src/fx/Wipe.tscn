@@ -59,7 +59,7 @@ func start(_backwards = false):
 	clock = tick
 	backwards = _backwards
 	sprites.visible = true
-	audio.play()
+	#audio.play()
 
 func stop(_emit_signal = true):
 	act = false

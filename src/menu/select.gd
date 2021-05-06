@@ -1,5 +1,14 @@
 extends Node2D
 
+var world_path := "res://src/menu/worlds/"
+var level_path := "res://src/map/"
+# map/ dir, menu/worlds scene, world name
+var maps = [
+	["w1", "world-1", "world one"],
+	["w2", "world-2", "woorld too"],
+	["test", "map_switch", "testing"],
+	]
+
 var cam : Camera2D
 
 var is_select := false
@@ -7,14 +16,11 @@ var cursor = 0
 var pick = 0
 var picker : Control
 
-var worlds = []
-var world_path := "res://src/menu/worlds/"
 var screens : Control
 var screen : Control
 var screen_dist = 150
 
 var levels = []
-var level_path := "res://src/map/"
 var level_grid : Control
 var level : Label
 
@@ -35,16 +41,16 @@ func _ready():
 	picker = $Control/Picker
 	
 	# get world maps
-	worlds = dir_list(world_path)
-	print("worlds: ", worlds)
+	#worlds = dir_list(world_path)
+	#print("worlds: ", worlds)
 	
 	# make screens
-	for i in worlds.size():
+	for i in maps.size():
 		var new = screen.duplicate()
 		new.rect_position.x += i * screen_dist
-		new.get_node("Label").text = worlds[i]
+		new.get_node("Label").text = maps[i][2]
 		screens.add_child(new)
-		view_scene(new.get_node("ViewportContainer/Viewport"), world_path + worlds[i])
+		view_scene(new.get_node("ViewportContainer/Viewport"), world_path + maps[i][1])
 
 func _process(delta):
 	if wait > 0:
@@ -67,7 +73,7 @@ func _process(delta):
 		if btn.p("jump"):
 			open_world()
 		if btnx:
-			cursor = clamp(cursor + btnx, 0, worlds.size() - 1)
+			cursor = clamp(cursor + btnx, 0, maps.size() - 1)
 			cam.position.x = screens.get_children()[cursor].rect_position.x + 50
 
 # view a scene inside the viewport by path
@@ -87,7 +93,7 @@ func open_world():
 	cam.position.y += 180
 	
 	# get levels
-	levels = dir_list(level_path)
+	levels = dir_list(level_path + maps[cursor][0])
 	print("levels: ", levels)
 	
 	# level grid
@@ -113,7 +119,7 @@ func close_world():
 	for i in level_grid.get_children():
 		i.queue_free()
 	
-	view_scene(get_port(), world_path + worlds[cursor])
+	view_scene(get_port(), world_path + maps[cursor][1])
 
 # look into a folder and return a list of filenames without file extension
 func dir_list(path : String):
@@ -138,13 +144,13 @@ func get_port():
 func pick_level(arg = 0):
 	pick = clamp(pick + arg, 0, levels.size() - 1)
 	picker.rect_position = level_grid.get_children()[pick].rect_position
-	view_scene(get_port(), level_path + levels[pick])
+	view_scene(get_port(), level_path + maps[cursor][0] + "/" + levels[pick])
 
 func open_level():
 	cam.position = get_screen().rect_position + Vector2(50, 50)
-	Shared.map_name = levels[pick]
+	Shared.map_name = maps[cursor][0] + "/" + levels[pick]
 	wait = 0.4
 
 func load_level():
-	get_tree().change_scene(level_path + levels[pick] + ".tscn")
+	get_tree().change_scene(level_path + maps[cursor][0] + "/" + levels[pick] + ".tscn")
 	HUD.wipe.start(true)
