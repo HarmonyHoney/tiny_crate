@@ -121,7 +121,7 @@ mesh = SubResource( 1 )
 material/0 = null
 
 [node name="Camera" type="Camera" parent="."]
-transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.15, 0.9 )
+transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.250981, 1.15, 1.30941 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Camera"]
 playback_speed = 0.5

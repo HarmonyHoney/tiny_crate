@@ -1,17 +1,18 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://assets/font/m3x6.tres" type="DynamicFont" id=1]
 [ext_resource path="res://assets/image/9slice.png" type="Texture" id=2]
 [ext_resource path="res://src/autoload/Pause.gd" type="Script" id=3]
+[ext_resource path="res://assets/image/8pixel.png" type="Texture" id=4]
 
 [node name="Pause" type="CanvasLayer"]
 pause_mode = 2
 script = ExtResource( 3 )
 
 [node name="Menu" type="Control" parent="."]
-margin_left = 160.0
+margin_left = 159.764
 margin_top = 95.0
-margin_right = 224.0
+margin_right = 223.764
 margin_bottom = 159.0
 __meta__ = {
 "_edit_use_anchors_": false
@@ -34,6 +35,12 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Cursor" type="Sprite" parent="Menu/Paused"]
+modulate = Color( 0.113725, 0.168627, 0.32549, 1 )
+position = Vector2( 36, 16 )
+scale = Vector2( 10, 1 )
+texture = ExtResource( 4 )
+
 [node name="Header" type="Label" parent="Menu/Paused"]
 margin_top = 4.0
 margin_right = 72.0
@@ -47,17 +54,16 @@ __meta__ = {
 }
 
 [node name="List" type="Label" parent="Menu/Paused"]
-margin_left = 8.0
 margin_top = 16.0
-margin_right = 56.0
-margin_bottom = 57.0
+margin_right = 72.0
+margin_bottom = 72.0
 custom_fonts/font = ExtResource( 1 )
-custom_colors/font_color = Color( 1, 0.945098, 0.909804, 1 )
 text = "resume
 reset
 options
 level select
 quit game"
+align = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }

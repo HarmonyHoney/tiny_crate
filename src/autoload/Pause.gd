@@ -17,6 +17,8 @@ var options_items := ["back", "fullscreen", "window size", "volume"]
 var timer := 0.1
 var clock := 0.0
 
+var node_cursor : Node2D
+
 func _ready():
 	paused_menu = $Menu/Paused
 	paused_list = $Menu/Paused/List
@@ -26,6 +28,8 @@ func _ready():
 	menu = $Menu
 	menu.visible = false
 	menu_list = paused_list
+	
+	node_cursor = $Menu/Paused/Cursor
 
 func _process(delta):
 	if clock != 0:
@@ -67,8 +71,13 @@ func write_menu():
 	menu_list.text = ""
 	for i in menu_items.size():
 		if cursor == i:
-			menu_list.text += "> "
-		menu_list.text += menu_items[i] + "\n"
+			menu_list.text += "-" + menu_items[i] + "-" + "\n"
+			node_cursor.position.y = 20 + i * 11
+			node_cursor.scale.x = menu_items[i].length() * 0.6
+		else:
+			menu_list.text += menu_items[i] + "\n"
+	
+
 
 func menu_select():
 	match menu_items[cursor]:

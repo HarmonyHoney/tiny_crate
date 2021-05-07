@@ -33,6 +33,20 @@ func _process(delta):
 	if btny:
 		cursor = clamp(cursor + btny, 0, menu_items.size() - 1)
 		node_cursor.position = node_list.get_children()[cursor].rect_position + Vector2(-5, 0)
+	if btn.p(\"jump\"):
+		select()
+
+func select():
+	match menu_items[cursor]:
+		\"play\":
+			get_tree().change_scene(\"res://src/menu/select.tscn\")
+		\"options\":
+			node_list.get_children()[cursor].text = \"boptions\"
+		\"exit\":
+			get_tree().quit()
+
+
+
 "
 
 [node name="Node2D" type="Node2D"]
