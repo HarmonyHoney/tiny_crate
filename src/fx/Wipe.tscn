@@ -46,7 +46,7 @@ func _process(delta):
 		
 		if frame > last:
 			sprites.visible = false
-			stop()
+			stop(not backwards)
 			return
 		
 		for i in sprites.get_children():

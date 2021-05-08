@@ -20,6 +20,7 @@ var hub_pos := Vector2(-16, -16)
 var stage_data := []
 var save_file := "box.save"
 
+var last_pick = 0
 
 func _ready():	
 	dev.out("Shared._ready(): ", false)
@@ -51,26 +52,24 @@ func set_window_scale(arg := _window_scale):
 	OS.set_window_position(OS.get_screen_size() * 0.5 - OS.get_window_size() * 0.5)
 	return "_window_scale: " + str(_window_scale) + " - resolution: " + str(OS.get_window_size())
 
-func start_reset(arg = ""):
+func start_reset():
 	if !is_reset:
 		is_reset = true
 		reset_clock = reset_time
-		if arg:
-			map_name = arg
 
 func do_reset():
 	is_reset = false
+	HUD.wipe.connect("finish", self, "change_map")
+	HUD.wipe.start()
+
+func change_map():
 	if is_clear:
 		is_clear = false
 		get_tree().change_scene("res://src/menu/select.tscn")
 	else:
-		#dev.out("loading scene: " + map_path + map_name + ".tscn")
-		#get_tree().change_scene(map_path + map_name + ".tscn")
-		get_tree().reload_current_scene()
+		get_tree().change_scene(map_path + map_name + ".tscn")
+	HUD.wipe.start(true)
 
-#func death():
-#	death_count += 1
-#	HUD.node_death.text = "deaths: " + str(death_count)
 
 func win():
 	# save data
@@ -94,8 +93,8 @@ func win():
 	stage_data.sort()
 	save_data(save_file, JSON.print(stage_data, "\t"))
 	
-	start_reset()
 	is_clear = true
+	start_reset()
 	dev.out("map complete")
 
 func save_data(save_file,  arg):

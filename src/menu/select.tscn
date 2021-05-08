@@ -20,13 +20,15 @@ var screen_dist = 105
 
 var wait = 0
 
+var last_pick = 0
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	cam = $Camera2D
 	
 	screens = $Control/Screens
-	screen = $Control/Screens/Screen.duplicate()
-	$Control/Screens/Screen.queue_free()
+	screen = $Control/Screen.duplicate()
+	$Control/Screen.queue_free()
 	
 	# get world maps
 	maps = dir_list(map_path)
@@ -41,6 +43,9 @@ func _ready():
 		new.get_node(\"Label\").text = maps[i]
 		screens.add_child(new)
 		view_scene(new.get_node(\"ViewportContainer/Viewport\"), map_path + maps[i])
+	
+	last_pick = Shared.last_pick
+	scroll(last_pick)
 
 func _process(delta):
 	if wait > 0:
@@ -55,8 +60,12 @@ func _process(delta):
 	if btn.p(\"jump\"):
 		open_map()
 	if btnx or btny:
-		cursor = clamp(cursor + btnx + (btny * 3), 0, maps.size() - 1)
-		cam.position = screens.get_children()[cursor].rect_position + Vector2(50, 50)
+		scroll(btnx + (btny * 3))
+
+func scroll(arg = 0):
+	cursor = clamp(cursor + arg, 0, maps.size() - 1)
+	cam.position = screens.get_children()[cursor].rect_position + Vector2(50, 50)
+
 # look into a folder and return a list of filenames without file extension
 func dir_list(path : String):
 	var array = []
@@ -83,13 +92,9 @@ func view_scene(port, path):
 			i.set_process(false) # dont process player
 
 func open_map():
-	HUD.wipe.connect(\"finish\", self, \"load_map\")
-	HUD.wipe.start()
-
-func load_map():
+	Shared.last_pick = cursor
 	Shared.map_name = maps[cursor]
-	get_tree().change_scene(map_path + maps[cursor] + \".tscn\")
-	HUD.wipe.start(true)
+	Shared.do_reset()
 "
 
 [sub_resource type="Animation" id=2]
@@ -163,7 +168,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Screen" type="Control" parent="Control/Screens"]
+[node name="Screen" type="Control" parent="Control"]
 margin_left = 110.0
 margin_top = 40.0
 margin_right = 150.0
@@ -172,7 +177,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ColorRect" type="ColorRect" parent="Control/Screens/Screen"]
+[node name="ColorRect" type="ColorRect" parent="Control/Screen"]
 visible = false
 margin_left = -2.00002
 margin_top = -2.0
@@ -183,7 +188,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ViewportContainer" type="ViewportContainer" parent="Control/Screens/Screen"]
+[node name="ViewportContainer" type="ViewportContainer" parent="Control/Screen"]
 margin_left = -1.52588e-05
 margin_right = 100.0
 margin_bottom = 100.0
@@ -191,13 +196,13 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Viewport" type="Viewport" parent="Control/Screens/Screen/ViewportContainer"]
+[node name="Viewport" type="Viewport" parent="Control/Screen/ViewportContainer"]
 size = Vector2( 100, 100 )
 own_world = true
 handle_input_locally = false
 render_target_update_mode = 3
 
-[node name="Label" type="Label" parent="Control/Screens/Screen"]
+[node name="Label" type="Label" parent="Control/Screen"]
 margin_top = 46.0
 margin_right = 100.0
 margin_bottom = 54.0
