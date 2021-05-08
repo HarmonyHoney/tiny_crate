@@ -53,6 +53,7 @@ __meta__ = {
 }
 
 [node name="hud2" type="Sprite" parent="Control"]
+visible = false
 texture = ExtResource( 4 )
 centered = false
 
