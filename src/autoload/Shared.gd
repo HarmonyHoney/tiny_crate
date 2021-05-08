@@ -64,8 +64,9 @@ func do_reset():
 		is_clear = false
 		get_tree().change_scene("res://src/menu/select.tscn")
 	else:
-		dev.out("loading scene: " + map_path + map_name + ".tscn")
-		get_tree().change_scene(map_path + map_name + ".tscn")
+		#dev.out("loading scene: " + map_path + map_name + ".tscn")
+		#get_tree().change_scene(map_path + map_name + ".tscn")
+		get_tree().reload_current_scene()
 
 #func death():
 #	death_count += 1

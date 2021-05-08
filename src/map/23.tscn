@@ -1,0 +1,54 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://src/stage/Stage.gd" type="Script" id=1]
+[ext_resource path="res://src/actor/Box.tscn" type="PackedScene" id=2]
+[ext_resource path="res://src/actor/Player.tscn" type="PackedScene" id=3]
+[ext_resource path="res://src/stage/SolidTileMap.tscn" type="PackedScene" id=4]
+[ext_resource path="res://src/stage/SpikeTileMap.tscn" type="PackedScene" id=5]
+[ext_resource path="res://src/stage/DetailTileMap.tscn" type="PackedScene" id=6]
+[ext_resource path="res://src/stage/GameCamera.tscn" type="PackedScene" id=7]
+[ext_resource path="res://src/actor/Exit.tscn" type="PackedScene" id=8]
+
+[node name="Stage" type="Node2D"]
+script = ExtResource( 1 )
+stage_name = "1-7"
+
+[node name="SolidTileMap" parent="." instance=ExtResource( 4 )]
+tile_data = PoolIntArray( -589832, 0, 0, -524296, 0, 0, -458760, 0, 0, -458756, 0, 0, -458755, 0, 0, -458754, 0, 0, -458753, 0, 0, -524288, 0, 0, -524287, 0, 0, -524286, 0, 0, -393224, 0, 0, -393220, 0, 0, -327688, 0, 0, -327684, 0, 0, -393210, 0, 0, -393209, 0, 0, -262152, 0, 0, -262151, 0, 0, -262150, 0, 0, -262149, 0, 0, -262148, 0, 0, -131068, 0, 0, -131067, 0, 0, -131066, 0, 0, 65533, 0, 0, 65534, 0, 0, 65535, 0, 0, 0, 0, 0, 1, 0, 0, 2, 0, 0, 3, 0, 0, 196594, 0, 0, 196595, 0, 0, 196596, 0, 0, 196597, 0, 0, 196598, 0, 0, 196599, 0, 0, 196600, 0, 0, 196601, 0, 0, 196602, 0, 0, 196603, 0, 0, 196604, 0, 0 )
+
+[node name="SpikeTileMap" parent="." instance=ExtResource( 5 )]
+z_as_relative = false
+tile_data = PoolIntArray( -524292, 0, 0, -524291, 0, 0, -524290, 0, 0, -524289, 0, 0, -589824, 0, 0, -589823, 0, 0, -589822, 0, 0, -196604, 0, 0, -196603, 0, 0, -196602, 0, 0, -3, 0, 0, -2, 0, 0, -1, 0, 0, -65536, 0, 0, -65535, 0, 0, -65534, 0, 0, -65533, 0, 0 )
+
+[node name="DetailTileMap" parent="." instance=ExtResource( 6 )]
+
+[node name="DetailTileMap2" parent="." instance=ExtResource( 6 )]
+z_index = -11
+
+[node name="GameCamera" parent="." instance=ExtResource( 7 )]
+editor_draw_drag_margin = false
+is_focal_point = false
+target_influence = 0.3
+
+[node name="Actors" type="Node2D" parent="."]
+
+[node name="Exit" parent="Actors" instance=ExtResource( 8 )]
+position = Vector2( -47, -55 )
+
+[node name="Player" parent="Actors" instance=ExtResource( 3 )]
+position = Vector2( -55, 8 )
+
+[node name="Box" parent="Actors" instance=ExtResource( 2 )]
+position = Vector2( -101, 8 )
+
+[node name="Box2" parent="Actors" instance=ExtResource( 2 )]
+position = Vector2( -98, 0 )
+
+[node name="Box3" parent="Actors" instance=ExtResource( 2 )]
+position = Vector2( -102, -8 )
+
+[node name="Box4" parent="Actors" instance=ExtResource( 2 )]
+position = Vector2( -87, 8 )
+
+[node name="Box5" parent="Actors" instance=ExtResource( 2 )]
+position = Vector2( -84, 0 )

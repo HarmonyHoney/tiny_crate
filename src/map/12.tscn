@@ -1,0 +1,48 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://src/stage/Stage.gd" type="Script" id=1]
+[ext_resource path="res://src/actor/Box.tscn" type="PackedScene" id=2]
+[ext_resource path="res://src/actor/Player.tscn" type="PackedScene" id=3]
+[ext_resource path="res://src/stage/SolidTileMap.tscn" type="PackedScene" id=4]
+[ext_resource path="res://src/stage/SpikeTileMap.tscn" type="PackedScene" id=5]
+[ext_resource path="res://src/stage/DetailTileMap.tscn" type="PackedScene" id=6]
+[ext_resource path="res://src/stage/GameCamera.tscn" type="PackedScene" id=7]
+[ext_resource path="res://src/actor/Exit.tscn" type="PackedScene" id=8]
+
+[node name="Stage" type="Node2D"]
+script = ExtResource( 1 )
+stage_name = "1-7"
+
+[node name="SolidTileMap" parent="." instance=ExtResource( 4 )]
+tile_data = PoolIntArray( -131056, 0, 0, -131055, 0, 0, -131054, 0, 0, 196604, 0, 0, 196605, 0, 0, 196606, 0, 0, 196607, 0, 0, 131072, 0, 0, 131073, 0, 0, 131074, 0, 0, 131075, 0, 0, 131076, 0, 0, 196612, 0, 0, 196613, 0, 0, 196614, 0, 0, 196615, 0, 0, 196616, 0, 0, 196617, 0, 0, 196618, 0, 0, 196619, 0, 0, 196620, 0, 0, 196621, 0, 0, 196622, 0, 0, 196623, 0, 0, 196624, 0, 0, 196625, 0, 0 )
+
+[node name="SpikeTileMap" parent="." instance=ExtResource( 5 )]
+z_as_relative = false
+tile_data = PoolIntArray( 131077, 0, 0, 131078, 0, 0, 131079, 0, 0, 131080, 0, 0, 131081, 0, 0, 131082, 0, 0, 131083, 0, 0, 131084, 0, 0, 131085, 0, 0, 131086, 0, 0, 131087, 0, 0, 131088, 0, 0, 131089, 0, 0 )
+
+[node name="DetailTileMap" parent="." instance=ExtResource( 6 )]
+
+[node name="DetailTileMap2" parent="." instance=ExtResource( 6 )]
+z_index = -11
+
+[node name="GameCamera" parent="." instance=ExtResource( 7 )]
+editor_draw_drag_margin = false
+is_focal_point = false
+target_influence = 0.3
+
+[node name="Actors" type="Node2D" parent="."]
+
+[node name="Exit" parent="Actors" instance=ExtResource( 8 )]
+position = Vector2( 137, -47 )
+
+[node name="Player" parent="Actors" instance=ExtResource( 3 )]
+position = Vector2( 9, 8 )
+
+[node name="Box" parent="Actors" instance=ExtResource( 2 )]
+position = Vector2( -21, 8 )
+
+[node name="Box2" parent="Actors" instance=ExtResource( 2 )]
+position = Vector2( -17, 0 )
+
+[node name="Box3" parent="Actors" instance=ExtResource( 2 )]
+position = Vector2( -22, -8 )

@@ -3,7 +3,7 @@ extends Actor
 
 var move_speed = 1
 var move_slow = 0.75
-var move_accel = 0.15
+var move_accel = 0.12
 var move_last = 0
 var push_speed = 0.3
 
@@ -11,7 +11,7 @@ var jump_speed = 2
 var jump_frames = 10
 var jump_count = 0
 var is_jump = false
-var coyote_time = 3
+var coyote_time = 5
 
 var is_pickup = false
 var pickup_frames = 8

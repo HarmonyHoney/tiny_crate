@@ -7,9 +7,6 @@
 [ext_resource path="res://assets/audio/sfx/sfx10.wav" type="AudioStream" id=5]
 [ext_resource path="res://assets/audio/sfx/box_drop.wav" type="AudioStream" id=6]
 
-
-
-
 [sub_resource type="Animation" id=1]
 length = 0.6
 loop = true

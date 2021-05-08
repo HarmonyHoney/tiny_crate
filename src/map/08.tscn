@@ -1,0 +1,44 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://src/stage/Stage.gd" type="Script" id=1]
+[ext_resource path="res://src/actor/Box.tscn" type="PackedScene" id=2]
+[ext_resource path="res://src/actor/Player.tscn" type="PackedScene" id=3]
+[ext_resource path="res://src/stage/SolidTileMap.tscn" type="PackedScene" id=4]
+[ext_resource path="res://src/stage/SpikeTileMap.tscn" type="PackedScene" id=5]
+[ext_resource path="res://src/stage/DetailTileMap.tscn" type="PackedScene" id=6]
+[ext_resource path="res://src/stage/GameCamera.tscn" type="PackedScene" id=7]
+[ext_resource path="res://src/actor/Exit.tscn" type="PackedScene" id=8]
+
+[node name="Stage" type="Node2D"]
+script = ExtResource( 1 )
+stage_name = "1-7"
+
+[node name="SolidTileMap" parent="." instance=ExtResource( 4 )]
+tile_data = PoolIntArray( -131066, 0, 0, -131065, 0, 0, -131064, 0, 0, 65533, 0, 0, 65534, 0, 0, 65535, 0, 0, 0, 0, 0, 1, 0, 0, 2, 0, 0, 3, 0, 0, 131069, 0, 131074, 196596, 0, 0, 196597, 0, 0, 196598, 0, 0, 196600, 0, 196609, 196601, 0, 65538, 196602, 0, 0, 196603, 0, 65536, 196604, 0, 65538, 196605, 0, 2 )
+
+[node name="SpikeTileMap" parent="." instance=ExtResource( 5 )]
+z_as_relative = false
+tile_data = PoolIntArray( -3, 0, 0, -2, 0, 0, -1, 0, 0, -65536, 0, 0, -65535, 0, 0, -65534, 0, 0, -65533, 0, 0 )
+
+[node name="DetailTileMap" parent="." instance=ExtResource( 6 )]
+
+[node name="DetailTileMap2" parent="." instance=ExtResource( 6 )]
+z_index = -11
+
+[node name="GameCamera" parent="." instance=ExtResource( 7 )]
+editor_draw_drag_margin = false
+target_influence = 0.3
+
+[node name="Actors" type="Node2D" parent="."]
+
+[node name="Exit" parent="Actors" instance=ExtResource( 8 )]
+position = Vector2( 57, -31 )
+
+[node name="Player" parent="Actors" instance=ExtResource( 3 )]
+position = Vector2( -48, 8 )
+
+[node name="Box" parent="Actors" instance=ExtResource( 2 )]
+position = Vector2( -88, 8 )
+
+[node name="Box2" parent="Actors" instance=ExtResource( 2 )]
+position = Vector2( -91, 0 )
