@@ -22,6 +22,8 @@ var save_file := "box.save"
 
 var last_pick = 0
 
+var view_size := Vector2(240, 180)
+
 func _ready():	
 	dev.out("Shared._ready(): ", false)
 	
@@ -47,7 +49,7 @@ func _process(delta):
 func set_window_scale(arg := _window_scale):
 	_window_scale = arg if arg else _window_scale
 	_window_scale = max(1, _window_scale)
-	OS.window_size = Vector2(320 * _window_scale, 180 * _window_scale)
+	OS.window_size = Vector2(view_size.x * _window_scale, view_size.y * _window_scale)
 	# center window
 	OS.set_window_position(OS.get_screen_size() * 0.5 - OS.get_window_size() * 0.5)
 	return "_window_scale: " + str(_window_scale) + " - resolution: " + str(OS.get_window_size())
@@ -72,6 +74,14 @@ func change_map():
 
 
 func win():
+	win_save()
+	
+	is_clear = true
+	last_pick += 1
+	start_reset()
+	dev.out("map complete")
+
+func win_save():
 	# save data
 	if stage:
 		stage.stop_timer()
@@ -92,10 +102,7 @@ func win():
 	
 	stage_data.sort()
 	save_data(save_file, JSON.print(stage_data, "\t"))
-	
-	is_clear = true
-	start_reset()
-	dev.out("map complete")
+
 
 func save_data(save_file,  arg):
 	var file = File.new()

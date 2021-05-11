@@ -84,7 +84,6 @@ func _process(delta):
 					try_anim("box_jump")
 				return
 	
-	
 	# open door
 	if btn.p("up"):
 		for a in check_area_actors("door"):
@@ -96,6 +95,11 @@ func _process(delta):
 	for a in check_area_actors("exit", position.x, position.y + (8 if is_pickup else 0), hitbox_x, 8):
 		dev.out(name + " hit exit")
 		win()
+		return
+	
+	# fall out of stage
+	if position.y > 100:
+		death()
 		return
 	
 	# hit spike
