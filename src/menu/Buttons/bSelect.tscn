@@ -1,0 +1,134 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://assets/image/btn.png" type="Texture" id=1]
+[ext_resource path="res://assets/font/m6x11.tres" type="DynamicFont" id=2]
+
+[node name="Buttons" type="Node2D"]
+
+[node name="c" type="Sprite" parent="."]
+position = Vector2( 19, 138 )
+texture = ExtResource( 1 )
+hframes = 6
+vframes = 4
+region_rect = Rect2( 0, 0, 18, 18 )
+
+[node name="c_label" type="Label" parent="."]
+margin_left = 31.0
+margin_top = 132.0
+margin_right = 59.0
+margin_bottom = 145.0
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_as_outline = 1
+text = "back"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="x" type="Sprite" parent="."]
+position = Vector2( 19, 161 )
+texture = ExtResource( 1 )
+hframes = 6
+vframes = 4
+frame = 1
+region_rect = Rect2( 0, 0, 18, 18 )
+
+[node name="x_label" type="Label" parent="."]
+margin_left = 31.0
+margin_top = 156.0
+margin_right = 69.0
+margin_bottom = 169.0
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_as_outline = 1
+text = "select"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="esc" type="Sprite" parent="."]
+visible = false
+position = Vector2( 28, 19 )
+texture = ExtResource( 1 )
+hframes = 3
+vframes = 4
+frame = 6
+region_rect = Rect2( 0, 0, 18, 18 )
+
+[node name="esc_label" type="Label" parent="."]
+visible = false
+margin_left = 49.0
+margin_top = 13.0
+margin_right = 79.0
+margin_bottom = 26.0
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_as_outline = 1
+text = "menu"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Arrows" type="Node2D" parent="."]
+position = Vector2( 203, 152 )
+
+[node name="up" type="Sprite" parent="Arrows"]
+position = Vector2( 0, -9 )
+texture = ExtResource( 1 )
+hframes = 6
+vframes = 4
+frame = 6
+region_rect = Rect2( 0, 0, 18, 18 )
+
+[node name="down" type="Sprite" parent="Arrows"]
+position = Vector2( 0, 9 )
+texture = ExtResource( 1 )
+hframes = 6
+vframes = 4
+frame = 7
+region_rect = Rect2( 0, 0, 18, 18 )
+
+[node name="left" type="Sprite" parent="Arrows"]
+position = Vector2( -18, 0 )
+texture = ExtResource( 1 )
+hframes = 6
+vframes = 4
+frame = 8
+region_rect = Rect2( 0, 0, 18, 18 )
+
+[node name="right" type="Sprite" parent="Arrows"]
+position = Vector2( 18, 0 )
+texture = ExtResource( 1 )
+hframes = 6
+vframes = 4
+frame = 9
+region_rect = Rect2( 0, 0, 18, 18 )
+
+[node name="arrows_label" type="Label" parent="."]
+margin_left = 140.0
+margin_top = 146.0
+margin_right = 170.0
+margin_bottom = 159.0
+custom_fonts/font = ExtResource( 2 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_as_outline = 1
+text = "move"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ent" type="Sprite" parent="."]
+position = Vector2( -52, 18 )
+texture = ExtResource( 1 )
+hframes = 3
+vframes = 4
+frame = 7
+region_rect = Rect2( 0, 0, 18, 18 )
+
+[node name="return" type="Sprite" parent="."]
+position = Vector2( -56, 43 )
+texture = ExtResource( 1 )
+hframes = 3
+vframes = 4
+frame = 10
+region_rect = Rect2( 0, 0, 18, 18 )

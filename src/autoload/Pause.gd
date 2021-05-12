@@ -72,7 +72,7 @@ func write_menu():
 	for i in menu_items.size():
 		if cursor == i:
 			menu_list.text += "-" + menu_items[i] + "-" + "\n"
-			node_cursor.position.y = 20 + i * 11
+			node_cursor.position.y = 11 + i * 11
 			node_cursor.scale.x = menu_items[i].length() * 0.6
 		else:
 			menu_list.text += menu_items[i] + "\n"

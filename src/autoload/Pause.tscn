@@ -1,28 +1,34 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://assets/font/m3x6.tres" type="DynamicFont" id=1]
 [ext_resource path="res://assets/image/9slice.png" type="Texture" id=2]
 [ext_resource path="res://src/autoload/Pause.gd" type="Script" id=3]
 [ext_resource path="res://assets/image/8pixel.png" type="Texture" id=4]
+[ext_resource path="res://assets/font/m6x11.ttf" type="DynamicFontData" id=5]
+
+[sub_resource type="DynamicFont" id=1]
+extra_spacing_bottom = -1
+font_data = ExtResource( 5 )
 
 [node name="Pause" type="CanvasLayer"]
 pause_mode = 2
 script = ExtResource( 3 )
+__meta__ = {
+"_edit_horizontal_guides_": [ -19.0 ]
+}
 
 [node name="Menu" type="Control" parent="."]
-margin_left = 159.764
-margin_top = 95.0
-margin_right = 223.764
-margin_bottom = 159.0
+margin_left = 84.0
+margin_top = 54.0
+margin_right = 156.0
+margin_bottom = 126.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Paused" type="NinePatchRect" parent="Menu"]
-margin_left = -36.0
-margin_top = -36.0
-margin_right = 36.0
-margin_bottom = 44.0
+margin_right = 72.0
+margin_bottom = 72.0
 rect_min_size = Vector2( 24, 24 )
 texture = ExtResource( 2 )
 patch_margin_left = 8
@@ -41,28 +47,27 @@ position = Vector2( 36, 16 )
 scale = Vector2( 10, 1 )
 texture = ExtResource( 4 )
 
-[node name="Header" type="Label" parent="Menu/Paused"]
-margin_top = 4.0
-margin_right = 72.0
-margin_bottom = 23.0
-custom_fonts/font = ExtResource( 1 )
-custom_colors/font_color = Color( 1, 0.639216, 0, 1 )
-text = "-PAUSED-"
-align = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="List" type="Label" parent="Menu/Paused"]
-margin_top = 16.0
+margin_top = 8.0
 margin_right = 72.0
-margin_bottom = 72.0
+margin_bottom = 64.0
 custom_fonts/font = ExtResource( 1 )
 text = "resume
 reset
 options
 level select
 quit game"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Header" type="Label" parent="Menu/Paused"]
+margin_top = -24.0
+margin_right = 72.0
+margin_bottom = -9.0
+custom_fonts/font = SubResource( 1 )
+text = "PAUSED"
 align = 1
 __meta__ = {
 "_edit_use_anchors_": false
