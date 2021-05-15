@@ -1,10 +1,11 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://assets/font/m3x6.tres" type="DynamicFont" id=1]
 [ext_resource path="res://assets/image/9slice.png" type="Texture" id=2]
 [ext_resource path="res://src/autoload/Pause.gd" type="Script" id=3]
 [ext_resource path="res://assets/image/8pixel.png" type="Texture" id=4]
 [ext_resource path="res://assets/font/m6x11.ttf" type="DynamicFontData" id=5]
+[ext_resource path="res://src/menu/Buttons/bSelect.tscn" type="PackedScene" id=6]
 
 [sub_resource type="DynamicFont" id=1]
 extra_spacing_bottom = -1
@@ -18,13 +19,16 @@ __meta__ = {
 }
 
 [node name="Menu" type="Control" parent="."]
-margin_left = 84.0
-margin_top = 54.0
-margin_right = 156.0
-margin_bottom = 126.0
+margin_left = 92.0
+margin_top = 36.0
+margin_right = 164.0
+margin_bottom = 108.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Buttons" parent="Menu" instance=ExtResource( 6 )]
+position = Vector2( -92, -36 )
 
 [node name="Paused" type="NinePatchRect" parent="Menu"]
 margin_right = 72.0

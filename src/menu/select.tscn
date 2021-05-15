@@ -182,7 +182,6 @@ __meta__ = {
 }
 
 [node name="ColorRect" type="ColorRect" parent="Control/Screen"]
-visible = false
 margin_left = -2.00002
 margin_top = -2.0
 margin_right = 102.0
@@ -263,7 +262,7 @@ z_index = -1000
 z_as_relative = false
 
 [node name="ColorRect" type="ColorRect" parent="BG/Background"]
-margin_right = 240.0
+margin_right = 320.0
 margin_bottom = 180.0
 color = Color( 0.258824, 0.129412, 0.211765, 1 )
 __meta__ = {

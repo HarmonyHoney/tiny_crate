@@ -1,23 +1,23 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://assets/image/btn.png" type="Texture" id=1]
-[ext_resource path="res://assets/font/m6x11.tres" type="DynamicFont" id=2]
+[ext_resource path="res://assets/font/m6x11.tres" type="DynamicFont" id=1]
+[ext_resource path="res://assets/image/btn.png" type="Texture" id=2]
 
 [node name="Buttons" type="Node2D"]
 
 [node name="c" type="Sprite" parent="."]
-position = Vector2( 19, 102 )
-texture = ExtResource( 1 )
+position = Vector2( 109, 125 )
+texture = ExtResource( 2 )
 hframes = 6
 vframes = 4
 region_rect = Rect2( 0, 0, 18, 18 )
 
 [node name="c_label" type="Label" parent="."]
-margin_left = 31.0
-margin_top = 96.0
-margin_right = 59.0
-margin_bottom = 109.0
-custom_fonts/font = ExtResource( 2 )
+margin_left = 121.0
+margin_top = 118.0
+margin_right = 149.0
+margin_bottom = 131.0
+custom_fonts/font = ExtResource( 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 custom_constants/shadow_as_outline = 1
 text = "back"
@@ -27,18 +27,18 @@ __meta__ = {
 
 [node name="x" type="Sprite" parent="."]
 position = Vector2( 19, 125 )
-texture = ExtResource( 1 )
+texture = ExtResource( 2 )
 hframes = 6
 vframes = 4
 frame = 1
 region_rect = Rect2( 0, 0, 18, 18 )
 
 [node name="x_label" type="Label" parent="."]
-margin_left = 31.0
-margin_top = 120.0
-margin_right = 69.0
-margin_bottom = 133.0
-custom_fonts/font = ExtResource( 2 )
+margin_left = 32.0
+margin_top = 118.0
+margin_right = 70.0
+margin_bottom = 131.0
+custom_fonts/font = ExtResource( 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 custom_constants/shadow_as_outline = 1
 text = "select"
@@ -47,21 +47,19 @@ __meta__ = {
 }
 
 [node name="esc" type="Sprite" parent="."]
-visible = false
 position = Vector2( 28, 19 )
-texture = ExtResource( 1 )
+texture = ExtResource( 2 )
 hframes = 3
 vframes = 4
 frame = 6
 region_rect = Rect2( 0, 0, 18, 18 )
 
 [node name="esc_label" type="Label" parent="."]
-visible = false
 margin_left = 49.0
 margin_top = 13.0
 margin_right = 79.0
 margin_bottom = 26.0
-custom_fonts/font = ExtResource( 2 )
+custom_fonts/font = ExtResource( 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 custom_constants/shadow_as_outline = 1
 text = "menu"
@@ -71,7 +69,7 @@ __meta__ = {
 
 [node name="arrows" type="Sprite" parent="."]
 position = Vector2( 237, 125 )
-texture = ExtResource( 1 )
+texture = ExtResource( 2 )
 hframes = 6
 vframes = 4
 frame = 7
@@ -80,19 +78,19 @@ region_rect = Rect2( 0, 0, 18, 18 )
 [node name="arrows_label" type="Label" parent="."]
 margin_left = 196.0
 margin_top = 118.0
-margin_right = 226.0
+margin_right = 220.0
 margin_bottom = 131.0
-custom_fonts/font = ExtResource( 2 )
+custom_fonts/font = ExtResource( 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 custom_constants/shadow_as_outline = 1
-text = "move"
+text = "pick"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="ent" type="Sprite" parent="."]
 position = Vector2( -52, 18 )
-texture = ExtResource( 1 )
+texture = ExtResource( 2 )
 hframes = 3
 vframes = 4
 frame = 7
@@ -100,7 +98,7 @@ region_rect = Rect2( 0, 0, 18, 18 )
 
 [node name="return" type="Sprite" parent="."]
 position = Vector2( -56, 43 )
-texture = ExtResource( 1 )
+texture = ExtResource( 2 )
 hframes = 3
 vframes = 4
 frame = 10

@@ -12,7 +12,7 @@ func _ready():
 	node_death = $Control/Death
 	control = $Control
 	wipe = $Wipe
-	buttons = $Buttons
+	#buttons = $Buttons
 
 func _process(delta):
 	pass

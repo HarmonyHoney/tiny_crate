@@ -22,7 +22,7 @@ var save_file := "box.save"
 
 var last_pick = 0
 
-var view_size := Vector2(240, 180)
+var view_size := Vector2(256, 144)
 
 func _ready():	
 	dev.out("Shared._ready(): ", false)
