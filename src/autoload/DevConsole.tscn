@@ -1,7 +1,7 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=12 format=2]
 
-[ext_resource path="res://assets/font/m3x6.tres" type="DynamicFont" id=1]
 [ext_resource path="res://src/autoload/DevConsole.gd" type="Script" id=2]
+[ext_resource path="res://assets/font/m3x6.ttf" type="DynamicFontData" id=3]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.247059, 0.247059, 0.247059, 0.247059 )
@@ -22,17 +22,37 @@ draw_center = false
 [sub_resource type="StyleBoxFlat" id=3]
 draw_center = false
 
+[sub_resource type="DynamicFont" id=9]
+outline_size = 1
+outline_color = Color( 0, 0, 0, 1 )
+extra_spacing_top = -5
+font_data = ExtResource( 3 )
+
 [sub_resource type="StyleBoxFlat" id=4]
 draw_center = false
 
 [sub_resource type="StyleBoxFlat" id=5]
 draw_center = false
 
+[sub_resource type="DynamicFont" id=7]
+outline_size = 1
+outline_color = Color( 0, 0, 0, 1 )
+extra_spacing_top = -5
+font_data = ExtResource( 3 )
+
 [sub_resource type="StyleBoxFlat" id=6]
 bg_color = Color( 0.839216, 0.839216, 0.839216, 1 )
 draw_center = false
 
+[sub_resource type="DynamicFont" id=8]
+outline_size = 1
+outline_color = Color( 0, 0, 0, 1 )
+extra_spacing_top = -5
+font_data = ExtResource( 3 )
+
 [node name="DevConsole" type="CanvasLayer"]
+pause_mode = 2
+layer = 2
 script = ExtResource( 2 )
 
 [node name="Control" type="Control" parent="."]
@@ -45,8 +65,8 @@ __meta__ = {
 [node name="Panel" type="Panel" parent="Control"]
 margin_left = 2.0
 margin_top = 2.0
-margin_right = 318.0
-margin_bottom = 156.0
+margin_right = 254.0
+margin_bottom = 120.0
 custom_styles/panel = SubResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -55,12 +75,12 @@ __meta__ = {
 [node name="Log" type="RichTextLabel" parent="Control"]
 margin_left = 8.0
 margin_top = 8.0
-margin_right = 312.0
-margin_bottom = 150.0
+margin_right = 248.0
+margin_bottom = 114.0
 focus_mode = 2
 custom_styles/focus = SubResource( 2 )
 custom_styles/normal = SubResource( 3 )
-custom_fonts/normal_font = ExtResource( 1 )
+custom_fonts/normal_font = SubResource( 9 )
 custom_colors/default_color = Color( 0.898039, 0.709804, 0.403922, 1 )
 custom_colors/selection_color = Color( 1, 1, 1, 0.247059 )
 custom_colors/font_color_selected = Color( 1, 1, 1, 1 )
@@ -81,9 +101,9 @@ __meta__ = {
 
 [node name="Panel2" type="Panel" parent="Control"]
 margin_left = 2.0
-margin_top = 158.0
-margin_right = 318.0
-margin_bottom = 178.0
+margin_top = 122.0
+margin_right = 254.0
+margin_bottom = 142.0
 custom_styles/panel = SubResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -91,12 +111,12 @@ __meta__ = {
 
 [node name="Input" type="LineEdit" parent="Control"]
 margin_left = 8.0
-margin_top = 164.0
-margin_right = 320.0
-margin_bottom = 172.0
+margin_top = 128.0
+margin_right = 246.0
+margin_bottom = 136.0
 custom_styles/focus = SubResource( 4 )
 custom_styles/normal = SubResource( 5 )
-custom_fonts/font = ExtResource( 1 )
+custom_fonts/font = SubResource( 7 )
 custom_colors/cursor_color = Color( 1, 1, 1, 1 )
 custom_colors/font_color = Color( 0.705882, 0.823529, 0.45098, 1 )
 context_menu_enabled = false
@@ -108,14 +128,14 @@ __meta__ = {
 
 [node name="Hint" type="RichTextLabel" parent="Control"]
 margin_left = 7.0
-margin_top = 142.0
+margin_top = 106.0
 margin_right = 319.0
-margin_bottom = 150.0
+margin_bottom = 114.0
 rect_clip_content = false
 focus_mode = 2
 custom_styles/focus = SubResource( 2 )
 custom_styles/normal = SubResource( 6 )
-custom_fonts/normal_font = ExtResource( 1 )
+custom_fonts/normal_font = SubResource( 8 )
 custom_colors/default_color = Color( 0.705882, 0.823529, 0.45098, 1 )
 custom_colors/selection_color = Color( 1, 1, 1, 0.247059 )
 custom_colors/font_color_selected = Color( 1, 1, 1, 1 )
@@ -129,5 +149,6 @@ override_selected_font_color = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
 [connection signal="text_changed" from="Control/Input" to="." method="_on_Input_text_changed"]
 [connection signal="text_entered" from="Control/Input" to="." method="_on_Input_text_entered"]

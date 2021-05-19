@@ -32,7 +32,6 @@ editor_draw_drag_margin = false
 target_influence = 0.3
 
 [node name="Actors" type="Node2D" parent="."]
-visible = false
 
 [node name="Exit" parent="Actors" instance=ExtResource( 8 )]
 position = Vector2( 57, -31 )

@@ -130,12 +130,18 @@ func open(arg = null):
 	is_open = true
 	node_control.visible = true
 	node_input.grab_focus()
+	
+	if !Pause.is_paused:
+		Pause.toggle_pause()
 
 # close console
 func close(arg = null):
 	is_open = false
 	node_control.visible = false
 	node_input.clear()
+	
+	if Pause.is_paused:
+		Pause.toggle_pause()
 
 # print to console
 func out(arg = "", newline = true):
