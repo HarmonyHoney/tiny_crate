@@ -39,6 +39,9 @@ var node_camera_game : Camera2D
 var scene_box = preload("res://src/actor/Box.tscn")
 var scene_explosion = preload("res://src/fx/Explosion.tscn")
 var scene_explosion2 = preload("res://src/fx/Explosion2.tscn")
+var scene_sword = preload("res://src/actor/Sword.tscn")
+
+var sword
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -58,6 +61,15 @@ func _ready():
 		node_camera_game = Shared.node_camera_game
 		node_camera_game.node_target = self
 		node_camera_game.pos_offset = Vector2(4, 4)
+	
+	#sword = $Sword
+	call_deferred("holdupp")
+	
+
+func holdupp():
+	sword = scene_sword.instance()
+	get_parent().add_child(sword)
+	sword.position = position
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -181,6 +193,13 @@ func _process(delta):
 				speed_x = push_speed * sign(speed_x)
 			move_x(dir)
 			break
+	
+	#sword.position = center() - Vector2(dir * 10, 3)
+	#sword.flip_h = dir != 1
+	
+	if btn.p("action"):
+		sword.slash()
+		
 
 func box_release(sx := 0.0, sy := 0.0):
 	is_pickup = false

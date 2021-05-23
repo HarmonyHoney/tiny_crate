@@ -19,7 +19,7 @@ func _ready():
 	pos_current = position
 	
 	# looks kinda ugly when using focal point
-	if is_focal_point:
+	if true:
 		drag_margin_h_enabled = false
 		drag_margin_v_enabled = false
 

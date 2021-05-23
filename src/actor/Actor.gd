@@ -85,6 +85,10 @@ func _draw():
 func aabb(x1 : int, y1 : int, w1 : int, h1 : int, x2 : int, y2 : int, w2 : int, h2 : int):
 	return x1 < x2 + w2 and x2 < x1 + w1 and y1 < y2 + h2 and y2 < y1 + h1
 
+# center position
+func center():
+	return position + Vector2(hitbox_x / 2, hitbox_y / 2)
+
 # move actor
 func move():
 	# clear bools
