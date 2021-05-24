@@ -36,4 +36,4 @@ target_influence = 0.3
 position = Vector2( -37, -8 )
 
 [node name="Exit" parent="Actors" instance=ExtResource( 7 )]
-position = Vector2( 33, -11 )
+position = Vector2( 27, -53 )

@@ -199,7 +199,6 @@ func _process(delta):
 	
 	if btn.p("action"):
 		sword.slash()
-		
 
 func box_release(sx := 0.0, sy := 0.0):
 	is_pickup = false
