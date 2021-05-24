@@ -36,6 +36,7 @@ var has_hit_right := false
 
 # air time
 var is_on_floor := false
+var is_on_floor_last := false
 var time_since_floor := 0
 
 # treadmill
@@ -142,6 +143,7 @@ func move_x(dist : int):
 # move y axis
 func move_y(dist : int):
 	has_moved_y = true
+	is_on_floor_last = is_on_floor
 	is_on_floor = false
 	
 	if is_colliding:

@@ -122,7 +122,10 @@ func _process(delta):
 			return
 	
 	# anim
-	if is_on_floor:
+	if is_on_floor and !is_on_floor_last:
+		try_anim("land")
+	
+	if is_on_floor and node_anim.current_animation != "land":
 		if btnx == 0:
 			if is_pickup:
 				try_anim("box_idle")
@@ -304,15 +307,22 @@ func open_door():
 	dev.out("map complete")
 	pass
 
-func try_anim(arg : String):
-	if node_anim.current_animation != arg:
-		node_anim.play(arg)
-		# update the animationPlayer immediately
-		node_anim.advance(0)
-
 # spawn box
 func debug_box(arg = null):
 	var box = scene_box.instance()
 	box.position = arg if arg is Vector2 else Vector2(position.x, position.y - 8)
 	get_parent().add_child(box)
 	dev.out("(box) spawned at: " + str(box.position))
+
+func try_anim(arg : String):
+	if node_anim.current_animation != arg:
+		node_anim.play(arg)
+		# update the animationPlayer immediately
+		node_anim.advance(0)
+
+# when animation finishes
+func _on_AnimationPlayer_animation_finished(anim_name):
+	if !node_anim.get_animation(node_anim.assigned_animation).loop:
+		match node_anim.assigned_animation:
+			"land":
+				try_anim("idle")
