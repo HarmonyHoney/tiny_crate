@@ -3,6 +3,13 @@ extends Node2D
 class_name Actor
 
 export var tag := "actor"
+export var is_active := true
+export var is_pickup := false
+var is_thrown := false
+
+var is_holding := false
+var pickup : Actor
+var is_lifting = false
 
 # hitbox
 export var hitbox_x := 8 setget _set_hit_x
@@ -21,6 +28,7 @@ var remainder_y := 0.0
 # movement and collision
 export var is_moving := false
 export var is_solid := false
+export var is_one_way := false
 export var is_colliding := false
 export var is_using_gravity := false
 
@@ -49,8 +57,17 @@ func _ready():
 	position.y = floor(position.y)
 
 func _process(delta):
-	if Engine.editor_hint:
+	if Engine.editor_hint or !is_active:
 		return
+	
+	# holding actor
+	if is_holding:
+		if is_lifting:
+			pickup.position = pickup.position.linear_interpolate(position - Vector2(0, 8), 0.3)
+			if pickup.position.distance_to(position - Vector2(0, 8)) < 1:
+				is_lifting = false
+		else:
+			pickup.position = position - Vector2(0, 8)
 	
 	if is_moving:
 		if is_using_tread:
@@ -60,7 +77,7 @@ func _process(delta):
 		
 		if is_using_gravity:
 			speed_y = min(speed_y + gravity, term_vel)
-		if not is_on_floor:
+		if !is_on_floor:
 			time_since_floor += 1
 		
 		# if outside map
@@ -162,6 +179,8 @@ func move_y(dist : int):
 				is_on_floor = has_hit_down
 				if is_on_floor:
 					time_since_floor = 0
+					if !is_on_floor_last:
+						_on_hit_floor()
 				return true
 			else:
 				position.y += step
@@ -193,7 +212,7 @@ func tread_move():
 		break
 
 # check area for solid tiles
-func is_area_solid_tile(x1, y1, width, height):
+func is_area_solid_tile(x1, y1, width, height) -> bool:
 	var w2m = Shared.node_map_solid.world_to_map(Vector2(x1, y1))
 	var cell = Shared.node_map_solid.cell_size.x
 	
@@ -210,8 +229,10 @@ func is_area_solid_tile(x1, y1, width, height):
 # check area for solid actors
 func is_area_solid_actor(x, y, width = hitbox_x, height = hitbox_y, ignore = null) -> bool:
 	for a in get_tree().get_nodes_in_group("actor"):
-		if a != self and a.is_solid and a != ignore:
+		if a != self and a != ignore and a.is_active and a.is_solid:
 			if aabb(x, y, width, height, a.position.x, a.position.y, a.hitbox_x, a.hitbox_y):
+				if a.is_one_way and a.position.y - hitbox_y != position.y:
+					continue
 				return true
 	return false
 
@@ -227,7 +248,31 @@ func check_area_actors(group_name = "actor", x = position.x, y = position.y, wid
 		group_name = "actor"
 	var act = []
 	for a in get_tree().get_nodes_in_group(group_name):
-		if a != self and a != ignore:
+		if a != self and a != ignore and a.is_active:
 			if aabb(x, y, width, height, a.position.x, a.position.y, a.hitbox_x, a.hitbox_y):
 				act.append(a)
 	return act
+
+func _on_hit_floor():
+	if is_thrown:
+		is_thrown = false
+		speed_x = 0
+
+func release_pickup(sx := 0.0, sy := 0.0):
+	pickup.position = Vector2(position.x, position.y - 8)
+	pickup.speed_x = sx
+	pickup.speed_y = sy
+	pickup.is_active = true
+	pickup.is_thrown = true
+	is_holding = false
+
+func pickup_actor(a : Actor):
+	if is_instance_valid(a):
+		pickup = a
+		pickup.is_active = false
+		is_holding = true
+		is_lifting = true
+
+func hit(arg = 0):
+	pass
+

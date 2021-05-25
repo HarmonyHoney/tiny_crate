@@ -9,6 +9,9 @@ var last_floor := false
 var node_audio : AudioStreamPlayer2D
 var node_anim : AnimationPlayer
 
+var scene_explosion = preload("res://src/fx/Explosion.tscn")
+var scene_explosion2 = preload("res://src/fx/Explosion2.tscn")
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	if Engine.editor_hint:
@@ -26,18 +29,16 @@ func _ready():
 func _process(delta):
 	if Engine.editor_hint:
 		return
-	
-	if is_on_floor and not last_floor:
-		speed_x = 0
+	is_pushed = false
+
+func _on_hit_floor():
+	._on_hit_floor()
+	if !is_on_floor_last:
 		node_audio.pitch_scale = 1 + rand_range(-0.2, 0.2)
 		node_audio.play()
 		Shared.node_camera_game.shake(2)
 		node_anim.play("hit")
 		node_anim.advance(0)
-	last_floor = is_on_floor
-	
-	is_pushed = false
-
 
 # push box
 func push(dir : int):
@@ -55,3 +56,11 @@ func push(dir : int):
 		for a in check_area_actors("box", position.x, position.y - 1):
 			a.push(dir)
 		move_x(dir)
+
+func hit(arg = 0):
+	var inst = scene_explosion.instance()
+	inst.position = position + (Vector2(4, 8) if is_holding else Vector2(4, 4))
+	get_parent().add_child(inst)
+	Shared.node_camera_game.shake(2)
+	queue_free()
+

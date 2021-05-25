@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://src/stage/Stage.gd" type="Script" id=1]
 [ext_resource path="res://src/actor/Player.tscn" type="PackedScene" id=2]
@@ -7,6 +7,9 @@
 [ext_resource path="res://src/stage/DetailTileMap.tscn" type="PackedScene" id=5]
 [ext_resource path="res://src/stage/GameCamera.tscn" type="PackedScene" id=6]
 [ext_resource path="res://src/actor/Exit.tscn" type="PackedScene" id=7]
+[ext_resource path="res://src/actor/Box.tscn" type="PackedScene" id=8]
+[ext_resource path="res://src/actor/SwitchBlockBlue.tscn" type="PackedScene" id=9]
+[ext_resource path="res://src/actor/SwitchBlock.tscn" type="PackedScene" id=10]
 
 [node name="Stage" type="Node2D"]
 script = ExtResource( 1 )
@@ -37,3 +40,33 @@ position = Vector2( -37, -8 )
 
 [node name="Exit" parent="Actors" instance=ExtResource( 7 )]
 position = Vector2( 27, -53 )
+hitbox_x = 0
+hitbox_y = 0
+gravity = 0.0
+
+[node name="Box" parent="Actors" instance=ExtResource( 8 )]
+position = Vector2( -104, -8 )
+
+[node name="Box2" parent="Actors" instance=ExtResource( 8 )]
+position = Vector2( -109, -16 )
+
+[node name="Box3" parent="Actors" instance=ExtResource( 8 )]
+position = Vector2( -114, -8 )
+
+[node name="SwitchBlock" parent="Actors" instance=ExtResource( 10 )]
+position = Vector2( -80, -16 )
+is_pickup = true
+is_moving = true
+is_solid = true
+is_one_way = true
+is_colliding = true
+is_using_gravity = true
+
+[node name="SwitchBlockBlue" parent="Actors" instance=ExtResource( 9 )]
+position = Vector2( -145, -19 )
+is_pickup = true
+is_moving = true
+is_solid = true
+is_one_way = true
+is_colliding = true
+is_using_gravity = true

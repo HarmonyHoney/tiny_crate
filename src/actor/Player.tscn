@@ -210,7 +210,6 @@ script = ExtResource( 1 )
 tag = "player"
 gravity = 0.25
 is_moving = true
-is_solid = true
 is_colliding = true
 is_using_gravity = true
 is_using_tread = true
@@ -219,7 +218,7 @@ is_using_tread = true
 position = Vector2( 4, -4 )
 texture = ExtResource( 3 )
 region_enabled = true
-region_rect = Rect2( 56, 0, 8, 24 )
+region_rect = Rect2( 0, 0, 8, 24 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "idle"
