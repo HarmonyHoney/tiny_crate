@@ -10,6 +10,8 @@ var is_thrown := false
 var is_holding := false
 var pickup : Actor
 var is_lifting = false
+var pickup_target : Vector2
+var pickup_lerp := 0.3
 
 # hitbox
 export var hitbox_x := 8 setget _set_hit_x
@@ -59,16 +61,8 @@ func _ready():
 func _process(delta):
 	if Engine.editor_hint or !is_active:
 		return
-	
-	# holding actor
-	if is_holding:
-		if is_lifting:
-			pickup.position = pickup.position.linear_interpolate(position - Vector2(0, 8), 0.3)
-			if pickup.position.distance_to(position - Vector2(0, 8)) < 1:
-				is_lifting = false
-		else:
-			pickup.position = position - Vector2(0, 8)
-	
+
+	# move
 	if is_moving:
 		if is_using_tread:
 			tread_move()
@@ -79,11 +73,15 @@ func _process(delta):
 			speed_y = min(speed_y + gravity, term_vel)
 		if !is_on_floor:
 			time_since_floor += 1
-		
-		# if outside map
-		if position.y < -999 or position.y > 999:
-			dev.out(name + " fell out of world")
-			queue_free()
+	
+	# holding pickup
+	if is_holding:
+		for i in 9:
+			var p = position + Vector2(0, -8 + i)
+			if !is_area_solid(p.x, p.y):
+				pickup_target = p
+				break
+		pickup.position = pickup.position.linear_interpolate(pickup_target, pickup_lerp)
 
 # update() the _draw() when hitbox values are changed (in the editor)
 func _set_hit_x(value):
@@ -259,7 +257,7 @@ func _on_hit_floor():
 		speed_x = 0
 
 func release_pickup(sx := 0.0, sy := 0.0):
-	pickup.position = Vector2(position.x, position.y - 8)
+	pickup.position = pickup_target
 	pickup.speed_x = sx
 	pickup.speed_y = sy
 	pickup.is_active = true

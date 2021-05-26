@@ -11,6 +11,7 @@ lerp_step = 0.2
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 1 )
+hframes = 3
 
 [node name="Audio1" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 3 )
