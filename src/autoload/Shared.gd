@@ -13,7 +13,7 @@ var is_clear = false
 
 var map_path := "res://src/map/"
 var _window_scale := 1.0
-var map_name := "hub"
+var map_name := "001"
 var hub_pos := Vector2(-16, -16)
 #var death_count := 0
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://src/stage/Stage.gd" type="Script" id=1]
 [ext_resource path="res://src/actor/Player.tscn" type="PackedScene" id=2]
@@ -6,7 +6,6 @@
 [ext_resource path="res://src/stage/SpikeTileMap.tscn" type="PackedScene" id=4]
 [ext_resource path="res://src/stage/DetailTileMap.tscn" type="PackedScene" id=5]
 [ext_resource path="res://src/stage/GameCamera.tscn" type="PackedScene" id=6]
-[ext_resource path="res://src/actor/Exit.tscn" type="PackedScene" id=7]
 [ext_resource path="res://src/actor/Box.tscn" type="PackedScene" id=8]
 [ext_resource path="res://src/actor/SwitchBlockBlue.tscn" type="PackedScene" id=9]
 [ext_resource path="res://src/actor/SwitchBlock.tscn" type="PackedScene" id=10]
@@ -36,13 +35,7 @@ target_influence = 0.3
 [node name="Actors" type="Node2D" parent="."]
 
 [node name="Player" parent="Actors" instance=ExtResource( 2 )]
-position = Vector2( -37, -8 )
-
-[node name="Exit" parent="Actors" instance=ExtResource( 7 )]
-position = Vector2( 27, -53 )
-hitbox_x = 0
-hitbox_y = 0
-gravity = 0.0
+position = Vector2( -90, -73 )
 
 [node name="Box" parent="Actors" instance=ExtResource( 8 )]
 position = Vector2( -104, -8 )
@@ -52,6 +45,249 @@ position = Vector2( -109, -16 )
 
 [node name="Box3" parent="Actors" instance=ExtResource( 8 )]
 position = Vector2( -114, -8 )
+
+[node name="Box4" parent="Actors" instance=ExtResource( 8 )]
+position = Vector2( -102, -38 )
+
+[node name="Box5" parent="Actors" instance=ExtResource( 8 )]
+position = Vector2( -107, -46 )
+
+[node name="Box6" parent="Actors" instance=ExtResource( 8 )]
+position = Vector2( -112, -38 )
+
+[node name="Box7" parent="Actors" instance=ExtResource( 8 )]
+position = Vector2( -92, -61 )
+
+[node name="Box8" parent="Actors" instance=ExtResource( 8 )]
+position = Vector2( -97, -69 )
+
+[node name="Box9" parent="Actors" instance=ExtResource( 8 )]
+position = Vector2( -102, -61 )
+
+[node name="Box10" parent="Actors" instance=ExtResource( 8 )]
+position = Vector2( -75, -39 )
+
+[node name="Box11" parent="Actors" instance=ExtResource( 8 )]
+position = Vector2( -80, -47 )
+
+[node name="Box12" parent="Actors" instance=ExtResource( 8 )]
+position = Vector2( -85, -39 )
+
+[node name="Box13" parent="Actors" instance=ExtResource( 8 )]
+position = Vector2( -115, -66 )
+
+[node name="Box14" parent="Actors" instance=ExtResource( 8 )]
+position = Vector2( -120, -74 )
+
+[node name="Box15" parent="Actors" instance=ExtResource( 8 )]
+position = Vector2( -125, -66 )
+
+[node name="Box16" parent="Actors" instance=ExtResource( 8 )]
+position = Vector2( -71, -76 )
+
+[node name="Box17" parent="Actors" instance=ExtResource( 8 )]
+position = Vector2( -76, -84 )
+
+[node name="Box18" parent="Actors" instance=ExtResource( 8 )]
+position = Vector2( -81, -76 )
+
+[node name="Box19" parent="Actors" instance=ExtResource( 8 )]
+position = Vector2( -53, -53 )
+
+[node name="Box20" parent="Actors" instance=ExtResource( 8 )]
+position = Vector2( -58, -61 )
+
+[node name="Box21" parent="Actors" instance=ExtResource( 8 )]
+position = Vector2( -63, -53 )
+
+[node name="Box22" parent="Actors" instance=ExtResource( 8 )]
+position = Vector2( -52, -20 )
+
+[node name="Box23" parent="Actors" instance=ExtResource( 8 )]
+position = Vector2( -57, -28 )
+
+[node name="Box24" parent="Actors" instance=ExtResource( 8 )]
+position = Vector2( -62, -20 )
+
+[node name="Box25" parent="Actors" instance=ExtResource( 8 )]
+position = Vector2( -100, -84 )
+
+[node name="Box26" parent="Actors" instance=ExtResource( 8 )]
+position = Vector2( -105, -92 )
+
+[node name="Box27" parent="Actors" instance=ExtResource( 8 )]
+position = Vector2( -110, -84 )
+
+[node name="Box28" parent="Actors" instance=ExtResource( 8 )]
+position = Vector2( -127, -39 )
+
+[node name="Box29" parent="Actors" instance=ExtResource( 8 )]
+position = Vector2( -132, -47 )
+
+[node name="Box30" parent="Actors" instance=ExtResource( 8 )]
+position = Vector2( -137, -39 )
+
+[node name="Box31" parent="Actors" instance=ExtResource( 8 )]
+position = Vector2( -45, -79 )
+
+[node name="Box32" parent="Actors" instance=ExtResource( 8 )]
+position = Vector2( -50, -87 )
+
+[node name="Box33" parent="Actors" instance=ExtResource( 8 )]
+position = Vector2( -55, -79 )
+
+[node name="Box34" parent="Actors" instance=ExtResource( 8 )]
+position = Vector2( -61, -101 )
+
+[node name="Box35" parent="Actors" instance=ExtResource( 8 )]
+position = Vector2( -66, -109 )
+
+[node name="Box36" parent="Actors" instance=ExtResource( 8 )]
+position = Vector2( -71, -101 )
+
+[node name="Box37" parent="Actors" instance=ExtResource( 8 )]
+position = Vector2( -109, -109 )
+
+[node name="Box38" parent="Actors" instance=ExtResource( 8 )]
+position = Vector2( -114, -117 )
+
+[node name="Box39" parent="Actors" instance=ExtResource( 8 )]
+position = Vector2( -119, -109 )
+
+[node name="Box40" parent="Actors" instance=ExtResource( 8 )]
+position = Vector2( -82, -106 )
+
+[node name="Box41" parent="Actors" instance=ExtResource( 8 )]
+position = Vector2( -87, -114 )
+
+[node name="Box42" parent="Actors" instance=ExtResource( 8 )]
+position = Vector2( -92, -106 )
+
+[node name="Box43" parent="Actors" instance=ExtResource( 8 )]
+position = Vector2( -95, -136 )
+
+[node name="Box44" parent="Actors" instance=ExtResource( 8 )]
+position = Vector2( -100, -144 )
+
+[node name="Box45" parent="Actors" instance=ExtResource( 8 )]
+position = Vector2( -105, -136 )
+
+[node name="Box46" parent="Actors" instance=ExtResource( 8 )]
+position = Vector2( -71, -149 )
+
+[node name="Box47" parent="Actors" instance=ExtResource( 8 )]
+position = Vector2( -76, -157 )
+
+[node name="Box48" parent="Actors" instance=ExtResource( 8 )]
+position = Vector2( -81, -149 )
+
+[node name="Box49" parent="Actors" instance=ExtResource( 8 )]
+position = Vector2( -46, -161 )
+
+[node name="Box50" parent="Actors" instance=ExtResource( 8 )]
+position = Vector2( -51, -169 )
+
+[node name="Box51" parent="Actors" instance=ExtResource( 8 )]
+position = Vector2( -56, -161 )
+
+[node name="Box52" parent="Actors" instance=ExtResource( 8 )]
+position = Vector2( -40, -128 )
+
+[node name="Box53" parent="Actors" instance=ExtResource( 8 )]
+position = Vector2( -45, -136 )
+
+[node name="Box54" parent="Actors" instance=ExtResource( 8 )]
+position = Vector2( -50, -128 )
+
+[node name="Box55" parent="Actors" instance=ExtResource( 8 )]
+position = Vector2( -30, -101 )
+
+[node name="Box56" parent="Actors" instance=ExtResource( 8 )]
+position = Vector2( -35, -109 )
+
+[node name="Box57" parent="Actors" instance=ExtResource( 8 )]
+position = Vector2( -40, -101 )
+
+[node name="Box58" parent="Actors" instance=ExtResource( 8 )]
+position = Vector2( -12, -140 )
+
+[node name="Box59" parent="Actors" instance=ExtResource( 8 )]
+position = Vector2( -17, -148 )
+
+[node name="Box60" parent="Actors" instance=ExtResource( 8 )]
+position = Vector2( -22, -140 )
+
+[node name="Box61" parent="Actors" instance=ExtResource( 8 )]
+position = Vector2( -22, -174 )
+
+[node name="Box62" parent="Actors" instance=ExtResource( 8 )]
+position = Vector2( -27, -182 )
+
+[node name="Box63" parent="Actors" instance=ExtResource( 8 )]
+position = Vector2( -32, -174 )
+
+[node name="Box64" parent="Actors" instance=ExtResource( 8 )]
+position = Vector2( 3, -71 )
+
+[node name="Box65" parent="Actors" instance=ExtResource( 8 )]
+position = Vector2( -2, -79 )
+
+[node name="Box66" parent="Actors" instance=ExtResource( 8 )]
+position = Vector2( -7, -71 )
+
+[node name="Box67" parent="Actors" instance=ExtResource( 8 )]
+position = Vector2( -96, -195 )
+
+[node name="Box68" parent="Actors" instance=ExtResource( 8 )]
+position = Vector2( -101, -203 )
+
+[node name="Box69" parent="Actors" instance=ExtResource( 8 )]
+position = Vector2( -106, -195 )
+
+[node name="Box70" parent="Actors" instance=ExtResource( 8 )]
+position = Vector2( -58, -208 )
+
+[node name="Box71" parent="Actors" instance=ExtResource( 8 )]
+position = Vector2( -63, -216 )
+
+[node name="Box72" parent="Actors" instance=ExtResource( 8 )]
+position = Vector2( -68, -208 )
+
+[node name="Box73" parent="Actors" instance=ExtResource( 8 )]
+position = Vector2( -67, -176 )
+
+[node name="Box74" parent="Actors" instance=ExtResource( 8 )]
+position = Vector2( -72, -184 )
+
+[node name="Box75" parent="Actors" instance=ExtResource( 8 )]
+position = Vector2( -77, -176 )
+
+[node name="Box76" parent="Actors" instance=ExtResource( 8 )]
+position = Vector2( -131, -161 )
+
+[node name="Box77" parent="Actors" instance=ExtResource( 8 )]
+position = Vector2( -136, -169 )
+
+[node name="Box78" parent="Actors" instance=ExtResource( 8 )]
+position = Vector2( -141, -161 )
+
+[node name="Box79" parent="Actors" instance=ExtResource( 8 )]
+position = Vector2( -122, -245 )
+
+[node name="Box80" parent="Actors" instance=ExtResource( 8 )]
+position = Vector2( -127, -253 )
+
+[node name="Box81" parent="Actors" instance=ExtResource( 8 )]
+position = Vector2( -132, -245 )
+
+[node name="Box82" parent="Actors" instance=ExtResource( 8 )]
+position = Vector2( -81, -269 )
+
+[node name="Box83" parent="Actors" instance=ExtResource( 8 )]
+position = Vector2( -86, -277 )
+
+[node name="Box84" parent="Actors" instance=ExtResource( 8 )]
+position = Vector2( -91, -269 )
 
 [node name="SwitchBlock" parent="Actors" instance=ExtResource( 10 )]
 position = Vector2( -80, -16 )

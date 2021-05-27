@@ -6,12 +6,16 @@
 [ext_resource path="res://assets/audio/sfx/hit6.wav" type="AudioStream" id=4]
 
 [node name="Sword" type="Node2D"]
+z_index = 49
+z_as_relative = false
 script = ExtResource( 2 )
 lerp_step = 0.2
+slash_dist = 22
 
 [node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 4, 4 )
 texture = ExtResource( 1 )
-hframes = 3
+hframes = 6
 
 [node name="Audio1" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 3 )

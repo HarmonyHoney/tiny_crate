@@ -31,8 +31,7 @@ var node_audio_throw : AudioStreamPlayer2D
 var node_camera_game : Camera2D
 
 var scene_box = preload("res://src/actor/Box.tscn")
-var scene_explosion = preload("res://src/fx/Explosion.tscn")
-var scene_explosion2 = preload("res://src/fx/Explosion2.tscn")
+var scene_explosion_exit = preload("res://src/fx/ExplosionExit.tscn")
 var scene_sword = preload("res://src/actor/Sword.tscn")
 
 var sword
@@ -184,7 +183,7 @@ func death():
 
 func win():
 	# explosion
-	var inst = scene_explosion2.instance()
+	var inst = scene_explosion_exit.instance()
 	inst.position = position + (Vector2(4, 8) if is_holding else Vector2(4, 4))
 	get_parent().add_child(inst)
 	Shared.node_camera_game.shake(4)
@@ -199,7 +198,7 @@ func win():
 
 func open_door():
 	# explosion
-	var inst = scene_explosion2.instance()
+	var inst = scene_explosion_exit.instance()
 	inst.position = position + (Vector2(4, 8) if is_holding else Vector2(4, 4))
 	get_parent().add_child(inst)
 	Shared.node_camera_game.shake(4)

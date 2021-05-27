@@ -6,12 +6,17 @@ export var tag := "actor"
 export var is_active := true
 export var is_pickup := false
 var is_thrown := false
+export var is_smash := false
+export var is_slam := false
 
 var is_holding := false
 var pickup : Actor
 var is_lifting = false
 var pickup_target : Vector2
 var pickup_lerp := 0.3
+
+# center position
+var center := Vector2.ZERO
 
 # hitbox
 export var hitbox_x := 8 setget _set_hit_x
@@ -53,6 +58,10 @@ var time_since_floor := 0
 export var is_using_tread := false
 var is_on_tread := false
 
+var scene_explosion = preload("res://src/fx/Explosion.tscn")
+var scene_explosion2 = preload("res://src/fx/Explosion2.tscn")
+var scene_slam = preload("res://src/fx/slam.tscn")
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	position.x = floor(position.x)
@@ -92,6 +101,12 @@ func _set_hit_y(value):
 	hitbox_y = value
 	update()
 
+# set or get center position
+func center(arg = null) -> Vector2:
+	if arg:
+		position = arg - Vector2(hitbox_x / 2, hitbox_y / 2).round()
+	return position + Vector2(hitbox_x / 2, hitbox_y / 2).round()
+
 # draw hitbox in editor
 func _draw():
 	if Engine.editor_hint or dev.is_draw_collider:
@@ -100,10 +115,6 @@ func _draw():
 # axis aligned bounding box
 func aabb(x1 : int, y1 : int, w1 : int, h1 : int, x2 : int, y2 : int, w2 : int, h2 : int):
 	return x1 < x2 + w2 and x2 < x1 + w1 and y1 < y2 + h2 and y2 < y1 + h1
-
-# center position
-func center():
-	return position + Vector2(hitbox_x / 2, hitbox_y / 2)
 
 # move actor
 func move():
@@ -255,6 +266,11 @@ func _on_hit_floor():
 	if is_thrown:
 		is_thrown = false
 		speed_x = 0
+	if is_slam:
+		Shared.node_camera_game.shake(2)
+		var inst = scene_slam.instance()
+		inst.position = Vector2(center().x, position.y + hitbox_y)
+		get_parent().add_child(inst)
 
 func release_pickup(sx := 0.0, sy := 0.0):
 	pickup.position = pickup_target
@@ -272,5 +288,11 @@ func pickup_actor(a : Actor):
 		is_lifting = true
 
 func hit(arg = 0):
-	pass
+	if is_smash:
+		var e = scene_explosion if randf() > 0.9 else scene_explosion2
+		var inst = e.instance()
+		inst.position = center()
+		get_parent().add_child(inst)
+		Shared.node_camera_game.shake(2)
+		queue_free()
 
