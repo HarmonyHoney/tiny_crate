@@ -60,7 +60,7 @@ var is_on_tread := false
 
 var scene_explosion = preload("res://src/fx/Explosion.tscn")
 var scene_explosion2 = preload("res://src/fx/Explosion2.tscn")
-var scene_slam = preload("res://src/fx/slam.tscn")
+var scene_slam = preload("res://src/fx/Slam.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -226,8 +226,9 @@ func is_area_solid_tile(x1, y1, width, height) -> bool:
 	var cell = Shared.node_map_solid.cell_size.x
 	
 	# check more than four points if hitbox is longer than 8 pixels
-	for ix in range((width / cell) + 1):
-		for iy in range((height / cell) + 1):
+	var points = min(2, (width / cell + 1))
+	for ix in points:	
+		for iy in points:
 			var check = Vector2(w2m.x + ix, w2m.y + iy)
 			if Shared.node_map_solid.get_cellv(check) != -1:
 				check *= cell

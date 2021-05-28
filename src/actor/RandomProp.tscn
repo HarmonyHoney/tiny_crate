@@ -1,0 +1,31 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://assets/image/crate_tiles.png" type="Texture" id=1]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Node2D
+
+var box = preload(\"res://src/actor/Box.tscn\")
+var pot = preload(\"res://src/actor/Pot.tscn\")
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	call_deferred(\"wait\")
+
+func wait():
+	var a = box.instance() if randf() > 0.5 else pot.instance()
+	a.position = position
+	get_parent().add_child(a)
+	queue_free()
+"
+
+[node name="RandomProp" type="Node2D"]
+script = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 1 )
+centered = false
+hframes = 4
+vframes = 4
+frame = 4

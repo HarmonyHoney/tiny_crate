@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://src/stage/Stage.gd" type="Script" id=1]
 [ext_resource path="res://src/actor/Player.tscn" type="PackedScene" id=2]
@@ -6,9 +6,8 @@
 [ext_resource path="res://src/stage/SpikeTileMap.tscn" type="PackedScene" id=4]
 [ext_resource path="res://src/stage/DetailTileMap.tscn" type="PackedScene" id=5]
 [ext_resource path="res://src/stage/GameCamera.tscn" type="PackedScene" id=6]
+[ext_resource path="res://src/actor/RandomProp.tscn" type="PackedScene" id=7]
 [ext_resource path="res://src/actor/Box.tscn" type="PackedScene" id=8]
-[ext_resource path="res://src/actor/SwitchBlockBlue.tscn" type="PackedScene" id=9]
-[ext_resource path="res://src/actor/SwitchBlock.tscn" type="PackedScene" id=10]
 
 [node name="Stage" type="Node2D"]
 script = ExtResource( 1 )
@@ -35,274 +34,499 @@ target_influence = 0.3
 [node name="Actors" type="Node2D" parent="."]
 
 [node name="Player" parent="Actors" instance=ExtResource( 2 )]
-position = Vector2( -90, -73 )
-
-[node name="Box" parent="Actors" instance=ExtResource( 8 )]
-position = Vector2( -104, -8 )
-
-[node name="Box2" parent="Actors" instance=ExtResource( 8 )]
-position = Vector2( -109, -16 )
-
-[node name="Box3" parent="Actors" instance=ExtResource( 8 )]
-position = Vector2( -114, -8 )
-
-[node name="Box4" parent="Actors" instance=ExtResource( 8 )]
-position = Vector2( -102, -38 )
-
-[node name="Box5" parent="Actors" instance=ExtResource( 8 )]
-position = Vector2( -107, -46 )
-
-[node name="Box6" parent="Actors" instance=ExtResource( 8 )]
-position = Vector2( -112, -38 )
-
-[node name="Box7" parent="Actors" instance=ExtResource( 8 )]
-position = Vector2( -92, -61 )
-
-[node name="Box8" parent="Actors" instance=ExtResource( 8 )]
-position = Vector2( -97, -69 )
-
-[node name="Box9" parent="Actors" instance=ExtResource( 8 )]
-position = Vector2( -102, -61 )
-
-[node name="Box10" parent="Actors" instance=ExtResource( 8 )]
-position = Vector2( -75, -39 )
-
-[node name="Box11" parent="Actors" instance=ExtResource( 8 )]
-position = Vector2( -80, -47 )
-
-[node name="Box12" parent="Actors" instance=ExtResource( 8 )]
-position = Vector2( -85, -39 )
-
-[node name="Box13" parent="Actors" instance=ExtResource( 8 )]
-position = Vector2( -115, -66 )
-
-[node name="Box14" parent="Actors" instance=ExtResource( 8 )]
-position = Vector2( -120, -74 )
-
-[node name="Box15" parent="Actors" instance=ExtResource( 8 )]
-position = Vector2( -125, -66 )
-
-[node name="Box16" parent="Actors" instance=ExtResource( 8 )]
-position = Vector2( -71, -76 )
-
-[node name="Box17" parent="Actors" instance=ExtResource( 8 )]
-position = Vector2( -76, -84 )
-
-[node name="Box18" parent="Actors" instance=ExtResource( 8 )]
-position = Vector2( -81, -76 )
-
-[node name="Box19" parent="Actors" instance=ExtResource( 8 )]
-position = Vector2( -53, -53 )
-
-[node name="Box20" parent="Actors" instance=ExtResource( 8 )]
-position = Vector2( -58, -61 )
-
-[node name="Box21" parent="Actors" instance=ExtResource( 8 )]
-position = Vector2( -63, -53 )
-
-[node name="Box22" parent="Actors" instance=ExtResource( 8 )]
-position = Vector2( -52, -20 )
-
-[node name="Box23" parent="Actors" instance=ExtResource( 8 )]
-position = Vector2( -57, -28 )
-
-[node name="Box24" parent="Actors" instance=ExtResource( 8 )]
-position = Vector2( -62, -20 )
-
-[node name="Box25" parent="Actors" instance=ExtResource( 8 )]
-position = Vector2( -100, -84 )
-
-[node name="Box26" parent="Actors" instance=ExtResource( 8 )]
-position = Vector2( -105, -92 )
-
-[node name="Box27" parent="Actors" instance=ExtResource( 8 )]
-position = Vector2( -110, -84 )
-
-[node name="Box28" parent="Actors" instance=ExtResource( 8 )]
-position = Vector2( -127, -39 )
-
-[node name="Box29" parent="Actors" instance=ExtResource( 8 )]
-position = Vector2( -132, -47 )
-
-[node name="Box30" parent="Actors" instance=ExtResource( 8 )]
-position = Vector2( -137, -39 )
-
-[node name="Box31" parent="Actors" instance=ExtResource( 8 )]
-position = Vector2( -45, -79 )
-
-[node name="Box32" parent="Actors" instance=ExtResource( 8 )]
-position = Vector2( -50, -87 )
-
-[node name="Box33" parent="Actors" instance=ExtResource( 8 )]
-position = Vector2( -55, -79 )
-
-[node name="Box34" parent="Actors" instance=ExtResource( 8 )]
-position = Vector2( -61, -101 )
-
-[node name="Box35" parent="Actors" instance=ExtResource( 8 )]
-position = Vector2( -66, -109 )
-
-[node name="Box36" parent="Actors" instance=ExtResource( 8 )]
-position = Vector2( -71, -101 )
-
-[node name="Box37" parent="Actors" instance=ExtResource( 8 )]
-position = Vector2( -109, -109 )
-
-[node name="Box38" parent="Actors" instance=ExtResource( 8 )]
-position = Vector2( -114, -117 )
-
-[node name="Box39" parent="Actors" instance=ExtResource( 8 )]
-position = Vector2( -119, -109 )
-
-[node name="Box40" parent="Actors" instance=ExtResource( 8 )]
-position = Vector2( -82, -106 )
-
-[node name="Box41" parent="Actors" instance=ExtResource( 8 )]
-position = Vector2( -87, -114 )
-
-[node name="Box42" parent="Actors" instance=ExtResource( 8 )]
-position = Vector2( -92, -106 )
-
-[node name="Box43" parent="Actors" instance=ExtResource( 8 )]
-position = Vector2( -95, -136 )
-
-[node name="Box44" parent="Actors" instance=ExtResource( 8 )]
-position = Vector2( -100, -144 )
-
-[node name="Box45" parent="Actors" instance=ExtResource( 8 )]
-position = Vector2( -105, -136 )
-
-[node name="Box46" parent="Actors" instance=ExtResource( 8 )]
-position = Vector2( -71, -149 )
-
-[node name="Box47" parent="Actors" instance=ExtResource( 8 )]
-position = Vector2( -76, -157 )
-
-[node name="Box48" parent="Actors" instance=ExtResource( 8 )]
-position = Vector2( -81, -149 )
-
-[node name="Box49" parent="Actors" instance=ExtResource( 8 )]
-position = Vector2( -46, -161 )
-
-[node name="Box50" parent="Actors" instance=ExtResource( 8 )]
-position = Vector2( -51, -169 )
-
-[node name="Box51" parent="Actors" instance=ExtResource( 8 )]
-position = Vector2( -56, -161 )
-
-[node name="Box52" parent="Actors" instance=ExtResource( 8 )]
-position = Vector2( -40, -128 )
-
-[node name="Box53" parent="Actors" instance=ExtResource( 8 )]
-position = Vector2( -45, -136 )
-
-[node name="Box54" parent="Actors" instance=ExtResource( 8 )]
-position = Vector2( -50, -128 )
-
-[node name="Box55" parent="Actors" instance=ExtResource( 8 )]
-position = Vector2( -30, -101 )
-
-[node name="Box56" parent="Actors" instance=ExtResource( 8 )]
-position = Vector2( -35, -109 )
-
-[node name="Box57" parent="Actors" instance=ExtResource( 8 )]
-position = Vector2( -40, -101 )
-
-[node name="Box58" parent="Actors" instance=ExtResource( 8 )]
-position = Vector2( -12, -140 )
-
-[node name="Box59" parent="Actors" instance=ExtResource( 8 )]
-position = Vector2( -17, -148 )
-
-[node name="Box60" parent="Actors" instance=ExtResource( 8 )]
-position = Vector2( -22, -140 )
-
-[node name="Box61" parent="Actors" instance=ExtResource( 8 )]
-position = Vector2( -22, -174 )
-
-[node name="Box62" parent="Actors" instance=ExtResource( 8 )]
-position = Vector2( -27, -182 )
-
-[node name="Box63" parent="Actors" instance=ExtResource( 8 )]
-position = Vector2( -32, -174 )
-
-[node name="Box64" parent="Actors" instance=ExtResource( 8 )]
-position = Vector2( 3, -71 )
-
-[node name="Box65" parent="Actors" instance=ExtResource( 8 )]
-position = Vector2( -2, -79 )
-
-[node name="Box66" parent="Actors" instance=ExtResource( 8 )]
-position = Vector2( -7, -71 )
-
-[node name="Box67" parent="Actors" instance=ExtResource( 8 )]
-position = Vector2( -96, -195 )
-
-[node name="Box68" parent="Actors" instance=ExtResource( 8 )]
-position = Vector2( -101, -203 )
-
-[node name="Box69" parent="Actors" instance=ExtResource( 8 )]
-position = Vector2( -106, -195 )
-
-[node name="Box70" parent="Actors" instance=ExtResource( 8 )]
-position = Vector2( -58, -208 )
-
-[node name="Box71" parent="Actors" instance=ExtResource( 8 )]
-position = Vector2( -63, -216 )
-
-[node name="Box72" parent="Actors" instance=ExtResource( 8 )]
-position = Vector2( -68, -208 )
-
-[node name="Box73" parent="Actors" instance=ExtResource( 8 )]
-position = Vector2( -67, -176 )
-
-[node name="Box74" parent="Actors" instance=ExtResource( 8 )]
-position = Vector2( -72, -184 )
-
-[node name="Box75" parent="Actors" instance=ExtResource( 8 )]
-position = Vector2( -77, -176 )
-
-[node name="Box76" parent="Actors" instance=ExtResource( 8 )]
-position = Vector2( -131, -161 )
-
-[node name="Box77" parent="Actors" instance=ExtResource( 8 )]
-position = Vector2( -136, -169 )
-
-[node name="Box78" parent="Actors" instance=ExtResource( 8 )]
-position = Vector2( -141, -161 )
-
-[node name="Box79" parent="Actors" instance=ExtResource( 8 )]
-position = Vector2( -122, -245 )
-
-[node name="Box80" parent="Actors" instance=ExtResource( 8 )]
-position = Vector2( -127, -253 )
-
-[node name="Box81" parent="Actors" instance=ExtResource( 8 )]
-position = Vector2( -132, -245 )
+position = Vector2( -104, -85 )
 
 [node name="Box82" parent="Actors" instance=ExtResource( 8 )]
-position = Vector2( -81, -269 )
+position = Vector2( 83, -43 )
 
 [node name="Box83" parent="Actors" instance=ExtResource( 8 )]
-position = Vector2( -86, -277 )
+position = Vector2( 78, -51 )
 
 [node name="Box84" parent="Actors" instance=ExtResource( 8 )]
-position = Vector2( -91, -269 )
+position = Vector2( 73, -43 )
 
-[node name="SwitchBlock" parent="Actors" instance=ExtResource( 10 )]
-position = Vector2( -80, -16 )
-is_pickup = true
-is_moving = true
-is_solid = true
-is_one_way = true
-is_colliding = true
-is_using_gravity = true
+[node name="RandomProp7" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -133, -94 )
 
-[node name="SwitchBlockBlue" parent="Actors" instance=ExtResource( 9 )]
-position = Vector2( -145, -19 )
-is_pickup = true
-is_moving = true
-is_solid = true
-is_one_way = true
-is_colliding = true
-is_using_gravity = true
+[node name="RandomProp9" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -129, -80 )
+
+[node name="RandomProp13" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -119, -61 )
+
+[node name="RandomProp14" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -124, -50 )
+
+[node name="RandomProp15" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -115, -47 )
+
+[node name="RandomProp16" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -125, -30 )
+
+[node name="RandomProp17" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -130, -19 )
+
+[node name="RandomProp18" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -121, -16 )
+
+[node name="RandomProp22" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -99, -28 )
+
+[node name="RandomProp23" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -104, -17 )
+
+[node name="RandomProp24" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -95, -14 )
+
+[node name="RandomProp25" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -68, -30 )
+
+[node name="RandomProp26" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -73, -19 )
+
+[node name="RandomProp27" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -64, -16 )
+
+[node name="RandomProp28" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -93, -67 )
+
+[node name="RandomProp29" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -98, -56 )
+
+[node name="RandomProp30" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -89, -53 )
+
+[node name="RandomProp31" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -46, -33 )
+
+[node name="RandomProp32" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -51, -22 )
+
+[node name="RandomProp33" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -42, -19 )
+
+[node name="RandomProp34" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -65, -60 )
+
+[node name="RandomProp35" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -70, -49 )
+
+[node name="RandomProp36" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -61, -46 )
+
+[node name="RandomProp37" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -28, -50 )
+
+[node name="RandomProp38" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -33, -39 )
+
+[node name="RandomProp39" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -24, -36 )
+
+[node name="RandomProp40" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -45, -76 )
+
+[node name="RandomProp41" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -50, -65 )
+
+[node name="RandomProp42" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -41, -62 )
+
+[node name="RandomProp43" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -73, -91 )
+
+[node name="RandomProp44" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -78, -80 )
+
+[node name="RandomProp45" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -69, -77 )
+
+[node name="RandomProp46" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -104, -119 )
+
+[node name="RandomProp47" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -109, -108 )
+
+[node name="RandomProp48" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -100, -105 )
+
+[node name="RandomProp49" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -55, -119 )
+
+[node name="RandomProp50" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -60, -108 )
+
+[node name="RandomProp51" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -51, -105 )
+
+[node name="RandomProp52" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -24, -93 )
+
+[node name="RandomProp53" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -29, -82 )
+
+[node name="RandomProp54" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -20, -79 )
+
+[node name="RandomProp55" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -28, -136 )
+
+[node name="RandomProp56" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -33, -125 )
+
+[node name="RandomProp57" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -24, -122 )
+
+[node name="RandomProp58" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -77, -149 )
+
+[node name="RandomProp59" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -82, -138 )
+
+[node name="RandomProp60" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -73, -135 )
+
+[node name="RandomProp61" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -118, -152 )
+
+[node name="RandomProp62" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -123, -141 )
+
+[node name="RandomProp63" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -114, -138 )
+
+[node name="RandomProp69" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -132, -174 )
+
+[node name="RandomProp70" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -103, -179 )
+
+[node name="RandomProp71" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -108, -168 )
+
+[node name="RandomProp72" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -99, -165 )
+
+[node name="RandomProp73" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -56, -179 )
+
+[node name="RandomProp74" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -61, -168 )
+
+[node name="RandomProp75" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -52, -165 )
+
+[node name="RandomProp76" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -25, -174 )
+
+[node name="RandomProp77" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -30, -163 )
+
+[node name="RandomProp78" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -21, -160 )
+
+[node name="RandomProp79" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -37, -208 )
+
+[node name="RandomProp80" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -42, -197 )
+
+[node name="RandomProp81" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -33, -194 )
+
+[node name="RandomProp82" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -74, -212 )
+
+[node name="RandomProp83" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -79, -201 )
+
+[node name="RandomProp84" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -70, -198 )
+
+[node name="RandomProp85" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -111, -216 )
+
+[node name="RandomProp86" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -116, -205 )
+
+[node name="RandomProp87" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -107, -202 )
+
+[node name="RandomProp91" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -125, -251 )
+
+[node name="RandomProp92" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -130, -240 )
+
+[node name="RandomProp93" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -121, -237 )
+
+[node name="RandomProp94" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -93, -255 )
+
+[node name="RandomProp95" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -98, -244 )
+
+[node name="RandomProp96" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -89, -241 )
+
+[node name="RandomProp97" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -65, -257 )
+
+[node name="RandomProp98" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -70, -246 )
+
+[node name="RandomProp99" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -61, -243 )
+
+[node name="RandomProp100" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -28, -250 )
+
+[node name="RandomProp101" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -33, -239 )
+
+[node name="RandomProp102" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -24, -236 )
+
+[node name="RandomProp109" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -133, -359 )
+
+[node name="RandomProp111" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -129, -345 )
+
+[node name="RandomProp115" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -119, -326 )
+
+[node name="RandomProp116" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -124, -315 )
+
+[node name="RandomProp117" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -115, -312 )
+
+[node name="RandomProp118" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -125, -295 )
+
+[node name="RandomProp119" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -130, -284 )
+
+[node name="RandomProp120" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -121, -281 )
+
+[node name="RandomProp124" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -99, -293 )
+
+[node name="RandomProp125" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -104, -282 )
+
+[node name="RandomProp126" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -95, -279 )
+
+[node name="RandomProp127" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -68, -295 )
+
+[node name="RandomProp128" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -73, -284 )
+
+[node name="RandomProp129" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -64, -281 )
+
+[node name="RandomProp130" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -93, -332 )
+
+[node name="RandomProp131" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -98, -321 )
+
+[node name="RandomProp132" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -89, -318 )
+
+[node name="RandomProp133" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -46, -298 )
+
+[node name="RandomProp134" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -51, -287 )
+
+[node name="RandomProp135" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -42, -284 )
+
+[node name="RandomProp136" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -65, -325 )
+
+[node name="RandomProp137" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -70, -314 )
+
+[node name="RandomProp138" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -61, -311 )
+
+[node name="RandomProp139" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -28, -315 )
+
+[node name="RandomProp140" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -33, -304 )
+
+[node name="RandomProp141" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -24, -301 )
+
+[node name="RandomProp142" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -45, -341 )
+
+[node name="RandomProp143" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -50, -330 )
+
+[node name="RandomProp144" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -41, -327 )
+
+[node name="RandomProp145" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -73, -356 )
+
+[node name="RandomProp146" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -78, -345 )
+
+[node name="RandomProp147" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -69, -342 )
+
+[node name="RandomProp148" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -104, -384 )
+
+[node name="RandomProp149" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -109, -373 )
+
+[node name="RandomProp150" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -100, -370 )
+
+[node name="RandomProp151" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -55, -384 )
+
+[node name="RandomProp152" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -60, -373 )
+
+[node name="RandomProp153" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -51, -370 )
+
+[node name="RandomProp154" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -24, -358 )
+
+[node name="RandomProp155" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -29, -347 )
+
+[node name="RandomProp156" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -20, -344 )
+
+[node name="RandomProp157" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -28, -401 )
+
+[node name="RandomProp158" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -33, -390 )
+
+[node name="RandomProp159" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -24, -387 )
+
+[node name="RandomProp160" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -77, -414 )
+
+[node name="RandomProp161" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -82, -403 )
+
+[node name="RandomProp162" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -73, -400 )
+
+[node name="RandomProp163" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -118, -417 )
+
+[node name="RandomProp164" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -123, -406 )
+
+[node name="RandomProp165" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -114, -403 )
+
+[node name="RandomProp171" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -132, -439 )
+
+[node name="RandomProp172" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -103, -444 )
+
+[node name="RandomProp173" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -108, -433 )
+
+[node name="RandomProp174" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -99, -430 )
+
+[node name="RandomProp175" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -56, -444 )
+
+[node name="RandomProp176" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -61, -433 )
+
+[node name="RandomProp177" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -52, -430 )
+
+[node name="RandomProp178" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -25, -439 )
+
+[node name="RandomProp179" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -30, -428 )
+
+[node name="RandomProp180" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -21, -425 )
+
+[node name="RandomProp181" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -37, -473 )
+
+[node name="RandomProp182" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -42, -462 )
+
+[node name="RandomProp183" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -33, -459 )
+
+[node name="RandomProp184" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -74, -477 )
+
+[node name="RandomProp185" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -79, -466 )
+
+[node name="RandomProp186" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -70, -463 )
+
+[node name="RandomProp187" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -111, -481 )
+
+[node name="RandomProp188" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -116, -470 )
+
+[node name="RandomProp189" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -107, -467 )
+
+[node name="RandomProp193" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -125, -516 )
+
+[node name="RandomProp194" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -130, -505 )
+
+[node name="RandomProp195" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -121, -502 )
+
+[node name="RandomProp196" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -93, -520 )
+
+[node name="RandomProp197" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -98, -509 )
+
+[node name="RandomProp198" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -89, -506 )
+
+[node name="RandomProp199" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -65, -522 )
+
+[node name="RandomProp200" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -70, -511 )
+
+[node name="RandomProp201" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -61, -508 )
+
+[node name="RandomProp202" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -28, -515 )
+
+[node name="RandomProp203" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -33, -504 )
+
+[node name="RandomProp204" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -24, -501 )
