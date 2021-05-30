@@ -22,9 +22,6 @@ tile_data = PoolIntArray( 196595, 0, 0, 196596, 0, 0, 196597, 0, 0, 196598, 0, 0
 
 [node name="DetailTileMap" parent="." instance=ExtResource( 6 )]
 
-[node name="DetailTileMap2" parent="." instance=ExtResource( 6 )]
-z_index = -11
-
 [node name="GameCamera" parent="." instance=ExtResource( 7 )]
 editor_draw_drag_margin = false
 is_focal_point = false
