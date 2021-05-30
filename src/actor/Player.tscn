@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://src/actor/Player.gd" type="Script" id=1]
 [ext_resource path="res://assets/audio/sfx/player_jump.wav" type="AudioStream" id=2]
@@ -6,8 +6,9 @@
 [ext_resource path="res://assets/audio/sfx/btn3.wav" type="AudioStream" id=4]
 [ext_resource path="res://assets/audio/sfx/sfx10.wav" type="AudioStream" id=5]
 [ext_resource path="res://assets/audio/sfx/box_drop.wav" type="AudioStream" id=6]
+[ext_resource path="res://assets/image/guy.png" type="Texture" id=7]
 
-[sub_resource type="Animation" id=2]
+[sub_resource type="Animation" id=1]
 length = 0.6
 loop = true
 tracks/0/type = "value"
@@ -35,7 +36,7 @@ tracks/1/keys = {
 "values": [ Vector2( 0, 0 ), Vector2( 0, 0 ) ]
 }
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=2]
 length = 0.1
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:region_rect")
@@ -62,7 +63,7 @@ tracks/1/keys = {
 "values": [ Vector2( 0, 0 ) ]
 }
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id=3]
 length = 0.6
 loop = true
 tracks/0/type = "value"
@@ -90,7 +91,7 @@ tracks/1/keys = {
 "values": [ Vector2( 0, 0 ), Vector2( 0, 0 ), Vector2( 0, 0 ), Vector2( 0, 0 ) ]
 }
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=4]
 length = 0.6
 loop = true
 tracks/0/type = "value"
@@ -118,7 +119,7 @@ tracks/1/keys = {
 "values": [ Vector2( 0, 0 ), Vector2( 0, 0 ) ]
 }
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id=5]
 length = 0.1
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:region_rect")
@@ -145,7 +146,7 @@ tracks/1/keys = {
 "values": [ Vector2( 0, 0 ) ]
 }
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=6]
 length = 0.6
 loop = true
 tracks/0/type = "value"
@@ -189,6 +190,7 @@ is_using_gravity = true
 is_using_tread = true
 
 [node name="Sprite" type="Sprite" parent="."]
+visible = false
 position = Vector2( 4, -4 )
 texture = ExtResource( 3 )
 region_enabled = true
@@ -196,12 +198,12 @@ region_rect = Rect2( 0, 0, 8, 24 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "idle"
-anims/box_idle = SubResource( 2 )
-anims/box_jump = SubResource( 3 )
-anims/box_run = SubResource( 4 )
-anims/idle = SubResource( 5 )
-anims/jump = SubResource( 6 )
-anims/run = SubResource( 7 )
+anims/box_idle = SubResource( 1 )
+anims/box_jump = SubResource( 2 )
+anims/box_run = SubResource( 3 )
+anims/idle = SubResource( 4 )
+anims/jump = SubResource( 5 )
+anims/run = SubResource( 6 )
 
 [node name="AudioJump" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 2 )
@@ -215,3 +217,8 @@ stream = ExtResource( 6 )
 
 [node name="AudioThrow" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 5 )
+
+[node name="guy" type="Sprite" parent="."]
+position = Vector2( 4, 4 )
+scale = Vector2( 0.027, 0.027 )
+texture = ExtResource( 7 )

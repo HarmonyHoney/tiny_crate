@@ -103,7 +103,7 @@ Pause="*res://src/autoload/Pause.tscn"
 window/size/width=256
 window/size/height=144
 window/dpi/allow_hidpi=true
-window/stretch/mode="viewport"
+window/stretch/mode="2d"
 window/stretch/aspect="keep"
 
 [editor_plugins]
@@ -219,8 +219,6 @@ screenshot={
 
 [rendering]
 
-2d/snapping/use_gpu_pixel_snap=true
 environment/default_clear_color=Color( 0, 0, 0, 1 )
 environment/default_environment="res://default_env.tres"
-quality/dynamic_fonts/use_oversampling=false
-quality/2d/use_pixel_snap=true
+quality/2d/use_pixel_snap=false

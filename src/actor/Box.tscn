@@ -48,9 +48,8 @@ is_using_tread = true
 
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( 4, 4 )
+scale = Vector2( 0.026, 0.026 )
 texture = ExtResource( 1 )
-region_enabled = true
-region_rect = Rect2( 96, 0, 16, 16 )
 
 [node name="AudioHit" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 2 )
