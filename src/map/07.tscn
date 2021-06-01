@@ -29,12 +29,15 @@ tile_data = PoolIntArray( -524289, 4, 196613, -589824, 4, 65542, -458753, 4, 5, 
 [node name="GameCamera" parent="." instance=ExtResource( 7 )]
 position = Vector2( 0, -15 )
 editor_draw_drag_margin = false
+is_focal_point = false
 target_influence = 0.3
 
 [node name="Actors" type="Node2D" parent="."]
 
 [node name="Exit" parent="Actors" instance=ExtResource( 8 )]
 position = Vector2( -3, -67 )
+hitbox_x = 8
+gravity = 16.0
 
 [node name="Player" parent="Actors" instance=ExtResource( 3 )]
 position = Vector2( -42, 8 )

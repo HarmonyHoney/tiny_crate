@@ -24,9 +24,9 @@ func _process(delta):
 		return
 	
 	if is_switch:
-		if not is_solid:
+		if not is_in_group("solid"):
 			if not is_area_solid_actor(position.x, position.y):
-				is_solid = true
+				set_solid(true)
 				node_sprite.frame = frame_on
 	
 
@@ -35,7 +35,7 @@ func switch_on():
 
 func switch_off():
 	is_switch = false
-	is_solid = false
+	set_solid(false)
 	node_sprite.frame = frame_off
 
 

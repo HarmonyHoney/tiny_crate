@@ -27,7 +27,7 @@ func _process(delta):
 			is_done = not is_area_solid_actor(position.x, position.y)
 			if is_done:
 				node_sprite.frame += 1
-				is_solid = true
+				set_solid(true)
 				node_audio.play()
 		else:
 			is_hit = is_area_solid_actor(position.x, position.y)

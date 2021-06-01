@@ -13,7 +13,6 @@ var is_complete = false
 func _ready():
 	Shared.stage = self
 	
-	
 	for i in Shared.stage_data:
 		if i.has("file") and i.file == filename:
 			if i.has("death"):

@@ -4,10 +4,9 @@ class_name Box
 
 var is_pushed = false
 
-var last_floor := false
-
 var node_audio : AudioStreamPlayer2D
 var node_anim : AnimationPlayer
+var node_sprite : Sprite
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -16,30 +15,27 @@ func _ready():
 	
 	node_audio = $AudioHit
 	node_anim = $AnimationPlayer
+	node_sprite = $Sprite
 	
 	if is_area_solid(position.x, position.y + 1):
 		is_on_floor = true
-		last_floor = true
 
 func just_moved():
- $Sprite.position = Vector2(4,4) + remainder
+	node_sprite.position = Vector2(4,4) + (Vector2.ZERO if is_on_floor else remainder)
+
+func hit_floor():
+	speed.x = 0
+	node_audio.pitch_scale = 1 + rand_range(-0.2, 0.2)
+	node_audio.play()
+	Shared.node_camera_game.shake(2)
+	node_anim.play("hit")
+	node_anim.advance(0)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if Engine.editor_hint:
 		return
-	
-	if is_on_floor and not last_floor:
-		speed.x = 0
-		node_audio.pitch_scale = 1 + rand_range(-0.2, 0.2)
-		node_audio.play()
-		Shared.node_camera_game.shake(2)
-		node_anim.play("hit")
-		node_anim.advance(0)
-	last_floor = is_on_floor
-	
 	is_pushed = false
-
 
 # push box
 func push(dir : int):

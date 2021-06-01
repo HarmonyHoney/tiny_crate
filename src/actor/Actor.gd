@@ -2,8 +2,6 @@ tool
 extends Node2D
 class_name Actor
 
-export var tag := "actor"
-
 # hitbox
 export var hitbox_x := 8 setget _set_hit_x
 export var hitbox_y := 8 setget _set_hit_y
@@ -12,13 +10,10 @@ export var hitbox_y := 8 setget _set_hit_y
 var speed := Vector2.ZERO
 export var gravity := 0.2
 var term_vel := 16
-
-# remainder
 var remainder := Vector2.ZERO
 
 # movement and collision
 export var is_moving := false
-export var is_solid := false
 export var is_colliding := false
 export var is_using_gravity := false
 
@@ -35,12 +30,14 @@ var has_hit_right := false
 
 # air time
 var is_on_floor := false
+var is_on_floor_last := false
 var time_since_floor := 0
 
 # treadmill
 export var is_using_tread := false
 var is_on_tread := false
 
+# ignore this actor
 var ignore_actor : Actor
 
 # Called when the node enters the scene tree for the first time.
@@ -77,6 +74,21 @@ func _set_hit_y(value):
 	hitbox_y = value
 	update()
 
+func set_solid(arg := false):
+	#is_solid = arg
+	if arg:
+		add_to_group("solid")
+	else:
+		remove_from_group("solid")
+
+func set_active(arg := false):
+	#is_active = arg
+	set_process(arg)
+	if arg:
+		add_to_group("actor")
+	else:
+		remove_from_group("actor")
+
 # draw hitbox in editor
 func _draw():
 	if Engine.editor_hint or dev.is_draw_collider:
@@ -85,6 +97,12 @@ func _draw():
 # axis aligned bounding box
 func aabb(x1 : int, y1 : int, w1 : int, h1 : int, x2 : int, y2 : int, w2 : int, h2 : int):
 	return x1 < x2 + w2 and x2 < x1 + w1 and y1 < y2 + h2 and y2 < y1 + h1
+
+func is_overlapping(a : Actor):
+	return aabb(position.x, position.y, hitbox_x, hitbox_y, a.position.x, a.position.y, a.hitbox_x, a.hitbox_y)
+
+func center():
+	return position + Vector2(hitbox_x / 2, hitbox_y / 2)
 
 # move actor
 func move(override = Vector2.ZERO):
@@ -95,7 +113,7 @@ func move(override = Vector2.ZERO):
 	has_hit_down = false
 	has_hit_left = false
 	has_hit_right = false
-	last_move = Vector2.ZERO
+	last_move = position
 	
 	if override != Vector2.ZERO:
 		move_y(override.y)
@@ -112,6 +130,8 @@ func move(override = Vector2.ZERO):
 		remainder.x -= dx
 		if dx != 0:
 			move_x(dx)
+	
+	last_move = position - last_move
 	
 	just_moved()
 
@@ -144,12 +164,12 @@ func move_x(dist : int):
 				position.x += step
 	else:
 		position.x += dist
-		last_move.x = dist
 	return false
 
 # move y axis
 func move_y(dist : int):
 	has_moved_y = true
+	is_on_floor_last = is_on_floor
 	is_on_floor = false
 	
 	if is_colliding:
@@ -168,13 +188,17 @@ func move_y(dist : int):
 				is_on_floor = has_hit_down
 				if is_on_floor:
 					time_since_floor = 0
+					if !is_on_floor_last:
+						hit_floor()
 				return true
 			else:
 				position.y += step
 	else:
 		position.y += dist
-		last_move.y = dist
 	return false
+
+func hit_floor():
+	pass
 
 func wiggle_x(step):
 	# wiggle around and look for an open space
@@ -217,8 +241,8 @@ func is_area_solid_tile(x1, y1, width, height):
 
 # check area for solid actors
 func is_area_solid_actor(x, y, width = hitbox_x, height = hitbox_y, ignore = null) -> bool:
-	for a in get_tree().get_nodes_in_group("actor"):
-		if a != self and a.is_solid and a != ignore and a != ignore_actor:
+	for a in get_tree().get_nodes_in_group("solid"):
+		if a != self and a != ignore and a != ignore_actor:
 			if aabb(x, y, width, height, a.position.x, a.position.y, a.hitbox_x, a.hitbox_y):
 				return true
 	return false
@@ -231,10 +255,8 @@ func is_area_solid(x, y, width = hitbox_x, height = hitbox_y, ignore = null) -> 
 
 # return array of actors
 func check_area_actors(group_name = "actor", x = position.x, y = position.y, width = hitbox_x, height = hitbox_y, ignore = null):
-	if not group_name:
-		group_name = "actor"
 	var act = []
-	for a in get_tree().get_nodes_in_group(group_name):
+	for a in get_tree().get_nodes_in_group(group_name if group_name else "actor"):
 		if a != self and a != ignore:
 			if aabb(x, y, width, height, a.position.x, a.position.y, a.hitbox_x, a.hitbox_y):
 				act.append(a)

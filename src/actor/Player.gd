@@ -19,11 +19,9 @@ var pickup_count = 0
 var pickup_start := Vector2.ZERO
 var pickup_box : Actor
 
-export var speed_drop_x = 1.0
-export var speed_drop_y = -1.0
+export var speed_drop := Vector2(1, -1)
 
-export var speed_throw_x = 1.0
-export var speed_throw_y = -2.3
+export var speed_throw := Vector2(1, -2.3)
 
 var dir = 1
 
@@ -60,14 +58,23 @@ func _ready():
 		node_camera_game.pos_offset = Vector2(4, 4)
 
 func just_moved():
-	$guy.position = Vector2(3, 4) + remainder
+	$guy.position = Vector2(3, 4) + Vector2(remainder.x, 0 if is_on_floor else remainder.y) 
 	
 	# move box
 	if is_pickup:
-		pickup_box.move(position - Vector2(1,8) - pickup_box.position)
-		if pickup_box.has_hit_down:
-			box_release()
-	
+		var diff = position - Vector2(1, 8) - pickup_box.position
+		if diff != Vector2.ZERO:
+			pickup_box.move(diff)
+			if pickup_box.has_hit_down:
+				box_release()
+			elif (pickup_box.has_hit_left or pickup_box.has_hit_right) and abs(pickup_box.center().x - center().x) > 4:
+				box_release()
+		pickup_box.node_sprite.position = Vector2(4,4) + remainder
+	# ignore actor until not overlapping
+	elif is_instance_valid(ignore_actor):
+		if !is_overlapping(ignore_actor):
+			ignore_actor.ignore_actor = null
+			ignore_actor = null
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -157,11 +164,11 @@ func _process(delta):
 	if btn.p("action"):
 		if is_pickup:
 			if btn.d("down"):
-				box_release(speed_drop_x * dir, speed_drop_y)
+				box_release(speed_drop.x * dir, speed_drop.y)
 				node_audio_drop.pitch_scale = 1 + rand_range(-0.1, 0.1)
 				node_audio_drop.play()
 			else:
-				box_release(speed_throw_x * dir, speed_throw_y)
+				box_release(speed_throw.x * dir, speed_throw.y)
 				node_audio_throw.pitch_scale = 1 + rand_range(-0.1, 0.1)
 				node_audio_throw.play()
 		else:
@@ -184,18 +191,17 @@ func _process(delta):
 func box_release(sx := 0.0, sy := 0.0):
 	is_pickup = false
 	pickup_box.speed = Vector2(sx, sy)
+	#pickup_box.set_process(true)
 	pickup_box.is_moving = true
-	ignore_actor = null
-	pickup_box.ignore_actor = null
+	#ignore_actor = null
+	#pickup_box.ignore_actor = null
 
 func box_pickup(dx := 0, dy := 0):
-	var offset_y = 0 if btn.d("down") else -8
 	
 	# pick crate on x axis
 	for a in check_area_actors("box", position.x + dx, position.y + dy):
-		var offset_x = box_find_space(0, offset_y, a)
+		var offset_x = box_find_space(0, -8, a)
 		if offset_x != null:
-			#position.y += offset_y
 			position.x += offset_x
 			
 			node_audio_pickup.pitch_scale = 1 + rand_range(-0.2, 0.2)
@@ -204,6 +210,7 @@ func box_pickup(dx := 0, dy := 0):
 			is_pickup = true
 			pickup_box = a
 			pickup_box.is_moving = false
+			#pickup_box.set_process(false)
 			pickup_box.position = position - Vector2(1, 8)
 			ignore_actor = pickup_box
 			pickup_box.ignore_actor = self

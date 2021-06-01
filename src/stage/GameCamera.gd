@@ -4,7 +4,6 @@ var node_target : Node2D
 export var pos_offset := Vector2.ZERO
 export var pos_start := Vector2.ZERO
 export var pos_target := Vector2.ZERO
-export var pos_current := Vector2.ZERO
 export var lerp_step := 0.1
 
 export var is_focal_point := false
@@ -16,7 +15,6 @@ func _ready():
 	
 	# set vars
 	pos_start = position
-	pos_current = position
 	
 	# looks kinda ugly when using focal point
 	if is_focal_point:
@@ -30,13 +28,10 @@ func _process(delta):
 		else:
 			pos_target = node_target.position + pos_offset
 	# smoothing
-	pos_current = pos_current.linear_interpolate(pos_target, lerp_step)
-	
-	position.x = round(pos_current.x)
-	position.y = round(pos_current.y)
+	position = position.linear_interpolate(pos_target, lerp_step)
 
 # super simple screen shake
 func shake(dist : int):
-	pos_current.x +=  dist if randf() < 0.5 else -dist
-	pos_current.y +=  dist if randf() < 0.5 else -dist
+	position.x +=  dist if randf() < 0.5 else -dist
+	position.y +=  dist if randf() < 0.5 else -dist
 	

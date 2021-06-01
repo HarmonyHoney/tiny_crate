@@ -4,10 +4,6 @@
 [ext_resource path="res://assets/image/crate.png" type="Texture" id=2]
 [ext_resource path="res://assets/audio/sfx/hit0.wav" type="AudioStream" id=3]
 
-
-
-
-
 [node name="Passthrough" type="Node2D" groups=[
 "actor",
 ]]
@@ -16,8 +12,8 @@ script = ExtResource( 1 )
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( 4, 4 )
 texture = ExtResource( 2 )
-vframes = 8
 hframes = 16
+vframes = 8
 frame = 15
 
 [node name="Audio" type="AudioStreamPlayer2D" parent="."]
