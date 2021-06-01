@@ -25,6 +25,7 @@ export var is_using_gravity := false
 # has moved
 var has_moved_x := false
 var has_moved_y := false
+var last_move := Vector2.ZERO
 
 # has hit
 var has_hit_up := false
@@ -39,6 +40,8 @@ var time_since_floor := 0
 # treadmill
 export var is_using_tread := false
 var is_on_tread := false
+
+var ignore_actor : Actor
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -84,26 +87,31 @@ func aabb(x1 : int, y1 : int, w1 : int, h1 : int, x2 : int, y2 : int, w2 : int, 
 	return x1 < x2 + w2 and x2 < x1 + w1 and y1 < y2 + h2 and y2 < y1 + h1
 
 # move actor
-func move():
-	# clear bools
+func move(override = Vector2.ZERO):
+	# clear vars
 	has_moved_x = false
 	has_moved_y = false
 	has_hit_up = false
 	has_hit_down = false
 	has_hit_left = false
 	has_hit_right = false
+	last_move = Vector2.ZERO
 	
-	remainder.y += speed.y
-	var dy = floor(remainder.y + 0.5) # distance y
-	remainder.y -= dy
-	if dy != 0:
-		move_y(dy)
-	
-	remainder.x += speed.x
-	var dx = floor(remainder.x + 0.5) # distance x
-	remainder.x -= dx
-	if dx != 0:
-		move_x(dx)
+	if override != Vector2.ZERO:
+		move_y(override.y)
+		move_x(override.x)
+	else:
+		remainder.y += speed.y
+		var dy = floor(remainder.y + 0.5) # distance y
+		remainder.y -= dy
+		if dy != 0:
+			move_y(dy)
+		
+		remainder.x += speed.x
+		var dx = floor(remainder.x + 0.5) # distance x
+		remainder.x -= dx
+		if dx != 0:
+			move_x(dx)
 	
 	just_moved()
 
@@ -136,6 +144,7 @@ func move_x(dist : int):
 				position.x += step
 	else:
 		position.x += dist
+		last_move.x = dist
 	return false
 
 # move y axis
@@ -164,6 +173,7 @@ func move_y(dist : int):
 				position.y += step
 	else:
 		position.y += dist
+		last_move.y = dist
 	return false
 
 func wiggle_x(step):
@@ -195,8 +205,9 @@ func is_area_solid_tile(x1, y1, width, height):
 	var cell = Shared.node_map_solid.cell_size.x
 	
 	# check more than four points if hitbox is longer than 8 pixels
-	for ix in range((width / cell) + 1):
-		for iy in range((height / cell) + 1):
+	var points = max(2, (width / cell) + 1)
+	for ix in points:
+		for iy in points:
 			var check = Vector2(w2m.x + ix, w2m.y + iy)
 			if Shared.node_map_solid.get_cellv(check) != -1:
 				check *= cell
@@ -207,7 +218,7 @@ func is_area_solid_tile(x1, y1, width, height):
 # check area for solid actors
 func is_area_solid_actor(x, y, width = hitbox_x, height = hitbox_y, ignore = null) -> bool:
 	for a in get_tree().get_nodes_in_group("actor"):
-		if a != self and a.is_solid and a != ignore:
+		if a != self and a.is_solid and a != ignore and a != ignore_actor:
 			if aabb(x, y, width, height, a.position.x, a.position.y, a.hitbox_x, a.hitbox_y):
 				return true
 	return false

@@ -182,6 +182,7 @@ z_index = 5
 z_as_relative = false
 script = ExtResource( 1 )
 tag = "player"
+hitbox_x = 6
 gravity = 0.25
 is_moving = true
 is_solid = true
@@ -219,6 +220,6 @@ stream = ExtResource( 6 )
 stream = ExtResource( 5 )
 
 [node name="guy" type="Sprite" parent="."]
-position = Vector2( 4, 4 )
-scale = Vector2( 0.027, 0.027 )
+position = Vector2( 3, 4 )
+scale = Vector2( 0.02, 0.027 )
 texture = ExtResource( 7 )

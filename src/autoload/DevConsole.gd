@@ -8,7 +8,7 @@ var node_hint : RichTextLabel
 var is_open := false
 var last_text = ""
 
-var is_draw_collider := false
+export var is_draw_collider := false
 
 func _ready():
 	node_control= $Control

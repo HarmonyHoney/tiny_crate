@@ -60,7 +60,14 @@ func _ready():
 		node_camera_game.pos_offset = Vector2(4, 4)
 
 func just_moved():
-	$guy.position = Vector2(4,4) + remainder
+	$guy.position = Vector2(3, 4) + remainder
+	
+	# move box
+	if is_pickup:
+		pickup_box.move(position - Vector2(1,8) - pickup_box.position)
+		if pickup_box.has_hit_down:
+			box_release()
+	
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -73,19 +80,8 @@ func _process(delta):
 	
 	# pickup box // returns from func while picking up
 	if is_pickup:
-		if pickup_count < pickup_frames:
-			pickup_count += 1
-			if pickup_count < pickup_frames:
-				pickup_box.position = pickup_start.linear_interpolate(position, float(pickup_count + 1) / pickup_frames).round()
-				return
-			else:
-				is_moving = true
-				pickup_box.queue_free()
-				if is_on_floor:
-					try_anim("box_idle")
-				else:
-					try_anim("box_jump")
-				return
+		pass
+		#pickup_box.position = position - Vector2(1, 8)
 	
 	# open door
 	if btn.p("up"):
@@ -132,7 +128,7 @@ func _process(delta):
 		speed.x += move_accel * btnx
 		speed.x = clamp(speed.x, -move_speed, move_speed)
 		dir = btnx
-		node_sprite.flip_h = btnx == -1
+		$guy.flip_h = btnx == -1
 	
 	# start jump
 	if btn.p("jump") and time_since_floor <= coyote_time:
@@ -187,20 +183,10 @@ func _process(delta):
 
 func box_release(sx := 0.0, sy := 0.0):
 	is_pickup = false
-	#hitbox_y = 8
-	_set_hit_y(8)
-	position.y += 8
-	var box = scene_box.instance()
-	box.position = Vector2(position.x, position.y - 8)
-	box.speed.x = sx
-	box.speed.y = sy
-	get_parent().add_child(box)
-	node_sprite.position.y = -4
-	node_camera_game.pos_offset = Vector2(4, 4)
-	if is_on_floor:
-		try_anim("idle")
-	else:
-		try_anim("jump")
+	pickup_box.speed = Vector2(sx, sy)
+	pickup_box.is_moving = true
+	ignore_actor = null
+	pickup_box.ignore_actor = null
 
 func box_pickup(dx := 0, dy := 0):
 	var offset_y = 0 if btn.d("down") else -8
@@ -209,26 +195,18 @@ func box_pickup(dx := 0, dy := 0):
 	for a in check_area_actors("box", position.x + dx, position.y + dy):
 		var offset_x = box_find_space(0, offset_y, a)
 		if offset_x != null:
-			#a.queue_free()
-			position.y += offset_y
+			#position.y += offset_y
 			position.x += offset_x
-			#hitbox_y = 16
-			_set_hit_y(16)
-			node_sprite.position.y = 4
-			node_camera_game.pos_offset = Vector2(4, 12)
 			
 			node_audio_pickup.pitch_scale = 1 + rand_range(-0.2, 0.2)
 			node_audio_pickup.play()
 			
-			is_moving = false
 			is_pickup = true
-			pickup_count = 0
 			pickup_box = a
 			pickup_box.is_moving = false
-			pickup_box.is_solid = false
-			pickup_start = pickup_box.position
-			
-			#Shared.stage.metric_pickup += 1
+			pickup_box.position = position - Vector2(1, 8)
+			ignore_actor = pickup_box
+			pickup_box.ignore_actor = self
 		break
 
 # ox, oy = offset x and y

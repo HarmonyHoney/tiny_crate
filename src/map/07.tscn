@@ -41,12 +41,9 @@ position = Vector2( -42, 8 )
 
 [node name="Box" parent="Actors" instance=ExtResource( 2 )]
 position = Vector2( 54, 8 )
-gravity = 0.0
 
 [node name="Box2" parent="Actors" instance=ExtResource( 2 )]
 position = Vector2( 20, 0 )
-gravity = 0.0
 
 [node name="Box3" parent="Actors" instance=ExtResource( 2 )]
 position = Vector2( -59, 8 )
-gravity = 0.0
