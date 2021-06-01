@@ -21,6 +21,8 @@ func _ready():
 		is_on_floor = true
 		last_floor = true
 
+func just_moved():
+ $Sprite.position = Vector2(4,4) + remainder
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
