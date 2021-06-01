@@ -59,6 +59,9 @@ func _ready():
 		node_camera_game.node_target = self
 		node_camera_game.pos_offset = Vector2(4, 4)
 
+func just_moved():
+	$guy.position = Vector2(4,4) + remainder
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	if Engine.editor_hint:
@@ -103,7 +106,7 @@ func _process(delta):
 		return
 	
 	# hit spike
-	if speed_y > -1:
+	if speed.y > -1:
 		for a in check_area_actors("spike"):
 			dev.out(name + " hit spike")
 			death()
@@ -124,10 +127,10 @@ func _process(delta):
 	
 	# walking
 	if btnx == 0:
-		speed_x *= move_slow
+		speed.x *= move_slow
 	else:
-		speed_x += move_accel * btnx
-		speed_x = clamp(speed_x, -move_speed, move_speed)
+		speed.x += move_accel * btnx
+		speed.x = clamp(speed.x, -move_speed, move_speed)
 		dir = btnx
 		node_sprite.flip_h = btnx == -1
 	
@@ -147,7 +150,7 @@ func _process(delta):
 		if has_hit_up:
 			is_jump = false
 		elif btn.d("jump"):
-			speed_y = -jump_speed
+			speed.y = -jump_speed
 			jump_count += 1
 			if jump_count > jump_frames:
 				is_jump = false
@@ -177,8 +180,8 @@ func _process(delta):
 		for a in check_area_actors("box", position.x + dir):
 			a.push(dir)
 			# slow movement when pushing
-			if abs(speed_x) > push_speed:
-				speed_x = push_speed * sign(speed_x)
+			if abs(speed.x) > push_speed:
+				speed.x = push_speed * sign(speed.x)
 			move_x(dir)
 			break
 
@@ -189,8 +192,8 @@ func box_release(sx := 0.0, sy := 0.0):
 	position.y += 8
 	var box = scene_box.instance()
 	box.position = Vector2(position.x, position.y - 8)
-	box.speed_x = sx
-	box.speed_y = sy
+	box.speed.x = sx
+	box.speed.y = sy
 	get_parent().add_child(box)
 	node_sprite.position.y = -4
 	node_camera_game.pos_offset = Vector2(4, 4)

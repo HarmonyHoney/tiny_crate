@@ -9,14 +9,12 @@ export var hitbox_x := 8 setget _set_hit_x
 export var hitbox_y := 8 setget _set_hit_y
 
 # speed
-var speed_x := 0.0
-var speed_y := 0.0
+var speed := Vector2.ZERO
 export var gravity := 0.2
 var term_vel := 16
 
 # remainder
-var remainder_x := 0.0
-var remainder_y := 0.0
+var remainder := Vector2.ZERO
 
 # movement and collision
 export var is_moving := false
@@ -58,7 +56,7 @@ func _process(delta):
 		move()
 		
 		if is_using_gravity:
-			speed_y = min(speed_y + gravity, term_vel)
+			speed.y = min(speed.y + gravity, term_vel)
 		if not is_on_floor:
 			time_since_floor += 1
 		
@@ -95,21 +93,26 @@ func move():
 	has_hit_left = false
 	has_hit_right = false
 	
-	remainder_y += speed_y
-	var dy = floor(remainder_y + 0.5) # distance y
-	remainder_y -= dy
+	remainder.y += speed.y
+	var dy = floor(remainder.y + 0.5) # distance y
+	remainder.y -= dy
 	if dy != 0:
 		move_y(dy)
 	
-	remainder_x += speed_x
-	var dx = floor(remainder_x + 0.5) # distance x
-	remainder_x -= dx
+	remainder.x += speed.x
+	var dx = floor(remainder.x + 0.5) # distance x
+	remainder.x -= dx
 	if dx != 0:
 		move_x(dx)
+	
+	just_moved()
+
+func just_moved():
+	pass
 
 # return distance of upcoming move
 func move_get_dist():
-	return Vector2(floor(remainder_x + speed_x + 0.5), floor(remainder_y + speed_y + 0.5))
+	return Vector2(floor(remainder.x + speed.x + 0.5), floor(remainder.y + speed.y + 0.5))
 
 # move x axis
 func move_x(dist : int):
@@ -123,8 +126,8 @@ func move_x(dist : int):
 					position.y += wiggle_x(step)
 					position.x += dist
 					continue
-				speed_x = 0
-				remainder_x = 0
+				speed.x = 0
+				remainder.x = 0
 				
 				has_hit_left = (step == -1)
 				has_hit_right = (step == 1)
@@ -148,8 +151,8 @@ func move_y(dist : int):
 					position.x += wiggle_y(step)
 					position.y += step
 					continue
-				speed_y = 0
-				remainder_y = 0
+				speed.y = 0
+				remainder.y = 0
 				
 				has_hit_up = (step == -1)
 				has_hit_down = (step == 1)
@@ -183,7 +186,7 @@ func tread_move():
 	is_on_tread = false
 	for a in check_area_actors("treadmill", position.x, position.y + 1):
 		is_on_tread = true
-		remainder_x += a.tread_speed
+		remainder.x += a.tread_speed
 		break
 
 # check area for solid tiles
