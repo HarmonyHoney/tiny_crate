@@ -13,7 +13,7 @@ var is_clear = false
 
 var map_path := "res://src/map/"
 var _window_scale := 1.0
-var map_name := "hub"
+var map_name := "01"
 var hub_pos := Vector2(-16, -16)
 #var death_count := 0
 
@@ -28,9 +28,9 @@ func _ready():
 	dev.out("Shared._ready(): ", false)
 	
 	# _window_scale window
-	_window_scale = floor(OS.get_screen_size().x / get_viewport().size.x)
-	_window_scale = max(1, floor(_window_scale * 0.9))
-	set_window_scale()
+	#window_scale = floor(OS.get_screen_size().x / get_viewport().size.x)
+	#_window_scale = max(1, floor(_window_scale * 0.9))
+	#set_window_scale()
 	
 	# load stage save data
 	if load_data(save_file):

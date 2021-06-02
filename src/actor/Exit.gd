@@ -18,9 +18,9 @@ func _ready():
 		return
 	
 	# create dust
-	node_dust = $Dust
+	node_dust = $Scale/Dust
 	for i in dust_count - 1:
-		node_dust.add_child($Dust/dust.duplicate())
+		node_dust.add_child($Scale/Dust/dust.duplicate())
 	var j = 0
 	for i in node_dust.get_children():
 		i.position.x = floor(rand_range(-4, 4))
@@ -28,9 +28,9 @@ func _ready():
 		j += 2
 	
 	# create stars
-	node_stars = $Stars
+	node_stars = $Scale/Stars
 	for i in star_count - 1:
-		node_stars.add_child($Stars/Star.duplicate())
+		node_stars.add_child($Scale/Stars/Star.duplicate())
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):

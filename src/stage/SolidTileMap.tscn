@@ -1,10 +1,6 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://src/stage/SolidTileMap.gd" type="Script" id=1]
 [ext_resource path="res://assets/image/solid_bricks.png" type="Texture" id=2]
-
-
-
 
 [sub_resource type="TileSet" id=1]
 0/name = "solid_bricks.png 0"
@@ -29,9 +25,16 @@
 0/shapes = [  ]
 0/z_index = 0
 
+[sub_resource type="GDScript" id=2]
+script/source = "extends TileMap
+
+func _ready():
+	Shared.node_map_solid = self
+"
+
 [node name="SolidTileMap" type="TileMap"]
 z_as_relative = false
 tile_set = SubResource( 1 )
 cell_size = Vector2( 8, 8 )
 format = 1
-script = ExtResource( 1 )
+script = SubResource( 2 )

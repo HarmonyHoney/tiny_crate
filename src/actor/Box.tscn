@@ -44,10 +44,11 @@ is_moving = true
 is_colliding = true
 is_using_gravity = true
 is_using_tread = true
+push_dur = 0.04
 
 [node name="Sprite" type="Sprite" parent="."]
-position = Vector2( 4, 4 )
-scale = Vector2( 0.026, 0.026 )
+position = Vector2( 50, 50 )
+scale = Vector2( 0.333, 0.333 )
 texture = ExtResource( 1 )
 
 [node name="AudioHit" type="AudioStreamPlayer2D" parent="."]

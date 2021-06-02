@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://src/stage/Stage.gd" type="Script" id=1]
 [ext_resource path="res://src/actor/Box.tscn" type="PackedScene" id=2]
@@ -8,13 +8,61 @@
 [ext_resource path="res://src/stage/DetailTileMap.tscn" type="PackedScene" id=6]
 [ext_resource path="res://src/stage/GameCamera.tscn" type="PackedScene" id=7]
 [ext_resource path="res://src/actor/Exit.tscn" type="PackedScene" id=8]
+[ext_resource path="res://assets/image/solid_bricks.png" type="Texture" id=10]
+[ext_resource path="res://assets/image/brickA.png" type="Texture" id=11]
+
+[sub_resource type="TileSet" id=1]
+0/name = "solid_bricks.png 0"
+0/texture = ExtResource( 10 )
+0/tex_offset = Vector2( 0, 0 )
+0/modulate = Color( 1, 1, 1, 1 )
+0/region = Rect2( 0, 0, 24, 32 )
+0/tile_mode = 2
+0/autotile/icon_coordinate = Vector2( 0, 0 )
+0/autotile/tile_size = Vector2( 8, 8 )
+0/autotile/spacing = 0
+0/autotile/occluder_map = [  ]
+0/autotile/navpoly_map = [  ]
+0/autotile/priority_map = [  ]
+0/autotile/z_index_map = [  ]
+0/occluder_offset = Vector2( 0, 0 )
+0/navigation_offset = Vector2( 0, 0 )
+0/shape_offset = Vector2( 0, 0 )
+0/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+0/shape_one_way = false
+0/shape_one_way_margin = 0.0
+0/shapes = [  ]
+0/z_index = 0
+1/name = "brickA.png 1"
+1/texture = ExtResource( 11 )
+1/tex_offset = Vector2( 0, 0 )
+1/modulate = Color( 1, 1, 1, 1 )
+1/region = Rect2( 0, 0, 300, 300 )
+1/tile_mode = 0
+1/occluder_offset = Vector2( 0, 0 )
+1/navigation_offset = Vector2( 0, 0 )
+1/shape_offset = Vector2( 0, 0 )
+1/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+1/shape_one_way = false
+1/shape_one_way_margin = 0.0
+1/shapes = [  ]
+1/z_index = 0
 
 [node name="Stage" type="Node2D"]
 script = ExtResource( 1 )
 stage_name = "1-7"
 
 [node name="SolidTileMap" parent="." instance=ExtResource( 4 )]
+visible = false
 tile_data = PoolIntArray( -196618, 0, 0, -196617, 0, 0, -196616, 0, 0, -196615, 0, 0, -196614, 0, 0, -196613, 0, 0, -196612, 0, 0, -196611, 0, 0, -131075, 0, 0, -131074, 0, 0, -131073, 0, 0, -196608, 0, 0, -196607, 0, 0, 131074, 0, 0, 131075, 0, 0, 131076, 0, 0, 131077, 0, 0, 131078, 0, 0, 131079, 0, 0, 262142, 0, 0, 262143, 0, 0, 196608, 0, 0, 196609, 0, 0, 196610, 0, 0, 589816, 0, 0, 589817, 0, 0, 589818, 0, 0, 589819, 0, 0, 589820, 0, 0, 589821, 0, 0, 655357, 0, 0, 655358, 0, 0, 655359, 0, 0, 589824, 0, 0, 589825, 0, 0, 589826, 0, 0, 589827, 0, 0, 589828, 0, 0, 589829, 0, 0, 589830, 0, 0 )
+
+[node name="SolidTileMap2" type="TileMap" parent="."]
+scale = Vector2( 0.027, 0.027 )
+z_as_relative = false
+tile_set = SubResource( 1 )
+cell_size = Vector2( 300, 300 )
+format = 1
+tile_data = PoolIntArray( -196618, 1, 0, -196617, 1, 0, -196616, 1, 0, -196615, 1, 0, -196614, 1, 0, -196613, 1, 0, -196612, 1, 0, -196611, 1, 0, -131075, 1, 0, -131074, 1, 0, -131073, 1, 0, -196608, 1, 0, -196607, 1, 0, 131074, 1, 0, 131075, 1, 0, 131076, 1, 0, 131077, 1, 0, 131078, 1, 0, 131079, 1, 0, 262142, 1, 0, 262143, 1, 0, 196608, 1, 0, 196609, 1, 0, 196610, 1, 0, 589816, 1, 0, 589817, 1, 0, 589818, 1, 0, 589819, 1, 0, 589820, 1, 0, 589821, 1, 0, 655357, 1, 0, 655358, 1, 0, 655359, 1, 0, 589824, 1, 0, 589825, 1, 0, 589826, 1, 0, 589827, 1, 0, 589828, 1, 0, 589829, 1, 0, 589830, 1, 0 )
 
 [node name="SpikeTileMap" parent="." instance=ExtResource( 5 )]
 z_as_relative = false
