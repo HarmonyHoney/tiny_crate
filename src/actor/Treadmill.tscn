@@ -1,8 +1,9 @@
 [gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://src/actor/Treadmill.gd" type="Script" id=1]
-[ext_resource path="res://assets/image/tread.png" type="Texture" id=2]
+[ext_resource path="res://media/image/tread.png" type="Texture" id=2]
 [ext_resource path="res://src/shader/scrollx.shader" type="Shader" id=3]
+
 
 
 

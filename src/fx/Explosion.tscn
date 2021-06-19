@@ -1,8 +1,9 @@
 [gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://src/fx/Explosion.gd" type="Script" id=1]
-[ext_resource path="res://assets/image/explode.png" type="Texture" id=2]
-[ext_resource path="res://assets/audio/sfx/Randomize7.wav" type="AudioStream" id=3]
+[ext_resource path="res://media/image/explode.png" type="Texture" id=2]
+[ext_resource path="res://media/audio/sfx/Randomize7.wav" type="AudioStream" id=3]
+
 
 [sub_resource type="Animation" id=1]
 length = 0.45

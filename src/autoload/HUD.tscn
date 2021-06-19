@@ -1,9 +1,9 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://assets/font/m3x6.tres" type="DynamicFont" id=1]
-[ext_resource path="res://assets/image/timer.png" type="Texture" id=2]
+[ext_resource path="res://media/font/m3x6.tres" type="DynamicFont" id=1]
+[ext_resource path="res://media/image/timer.png" type="Texture" id=2]
 [ext_resource path="res://src/autoload/HUD.gd" type="Script" id=3]
-[ext_resource path="res://assets/image/hud2.png" type="Texture" id=4]
+[ext_resource path="res://media/image/hud2.png" type="Texture" id=4]
 [ext_resource path="res://src/fx/Wipe.tscn" type="PackedScene" id=5]
 
 [node name="HUD" type="CanvasLayer"]

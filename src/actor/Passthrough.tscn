@@ -1,8 +1,9 @@
 [gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://src/actor/Passthrough.gd" type="Script" id=1]
-[ext_resource path="res://assets/image/crate.png" type="Texture" id=2]
-[ext_resource path="res://assets/audio/sfx/hit0.wav" type="AudioStream" id=3]
+[ext_resource path="res://media/image/crate.png" type="Texture" id=2]
+[ext_resource path="res://media/audio/sfx/hit0.wav" type="AudioStream" id=3]
+
 
 [node name="Passthrough" type="Node2D" groups=[
 "actor",

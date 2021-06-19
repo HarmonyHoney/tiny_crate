@@ -1,9 +1,9 @@
 [gd_scene load_steps=10 format=2]
 
-[ext_resource path="res://assets/image/corner.png" type="Texture" id=1]
-[ext_resource path="res://assets/font/m3x6.tres" type="DynamicFont" id=2]
-[ext_resource path="res://assets/image/btn.png" type="Texture" id=3]
-[ext_resource path="res://assets/font/m6x11.tres" type="DynamicFont" id=4]
+[ext_resource path="res://media/image/corner.png" type="Texture" id=1]
+[ext_resource path="res://media/font/m3x6.tres" type="DynamicFont" id=2]
+[ext_resource path="res://media/image/btn.png" type="Texture" id=3]
+[ext_resource path="res://media/font/m6x11.tres" type="DynamicFont" id=4]
 [ext_resource path="res://src/menu/Buttons/bSelect.tscn" type="PackedScene" id=5]
 [ext_resource path="res://src/shader/outline2D_outer.shader" type="Shader" id=6]
 

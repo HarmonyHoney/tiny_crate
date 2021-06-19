@@ -8,8 +8,9 @@
 [ext_resource path="res://src/stage/DetailTileMap.tscn" type="PackedScene" id=6]
 [ext_resource path="res://src/stage/GameCamera.tscn" type="PackedScene" id=7]
 [ext_resource path="res://src/actor/Exit.tscn" type="PackedScene" id=8]
-[ext_resource path="res://assets/image/solid_bricks.png" type="Texture" id=10]
-[ext_resource path="res://assets/image/brickA.png" type="Texture" id=11]
+[ext_resource path="res://media/image/solid_bricks.png" type="Texture" id=10]
+[ext_resource path="res://media/image/brickA.png" type="Texture" id=11]
+
 
 [sub_resource type="TileSet" id=1]
 0/name = "solid_bricks.png 0"

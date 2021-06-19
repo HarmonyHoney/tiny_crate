@@ -1,6 +1,7 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://assets/image/solid_bricks.png" type="Texture" id=2]
+[ext_resource path="res://media/image/solid_bricks.png" type="Texture" id=2]
+
 
 [sub_resource type="TileSet" id=1]
 0/name = "solid_bricks.png 0"

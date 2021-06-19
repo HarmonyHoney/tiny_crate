@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://assets/image/btn.png" type="Texture" id=1]
-[ext_resource path="res://assets/font/m6x11.tres" type="DynamicFont" id=2]
+[ext_resource path="res://media/image/btn.png" type="Texture" id=1]
+[ext_resource path="res://media/font/m6x11.tres" type="DynamicFont" id=2]
 
 [node name="Buttons" type="Node2D"]
 
