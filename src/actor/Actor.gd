@@ -2,9 +2,6 @@ tool
 extends Node2D
 class_name Actor
 
-const tile_size = 12.5
-var tile = Vector2.ZERO
-
 # hitbox
 export var hitbox_x := 8 setget _set_hit_x
 export var hitbox_y := 8 setget _set_hit_y
@@ -45,8 +42,7 @@ var ignore_actor : Actor
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	tile = Vector2(position.x / tile_size, position.y / tile_size).floor()
-	position = tile * tile_size
+	position = position.floor()
 
 func _process(delta):
 	if Engine.editor_hint:
@@ -64,7 +60,7 @@ func _process(delta):
 			time_since_floor += 1
 		
 		# if outside map
-		if tile.y < -999 or tile.y > 999:
+		if position.y < -999 or position.y > 999:
 			dev.out(name + " fell out of world")
 			queue_free()
 
@@ -95,17 +91,17 @@ func set_active(arg := false):
 # draw hitbox in editor
 func _draw():
 	if Engine.editor_hint or dev.is_draw_collider:
-		draw_rect(Rect2(0, 0, hitbox_x * tile_size, hitbox_y * tile_size), Color(1, 0, 0.75, 0.5))
+		draw_rect(Rect2(0, 0, hitbox_x, hitbox_y), Color(1, 0, 0.75, 0.5))
 
 # axis aligned bounding box
 func aabb(x1 : int, y1 : int, w1 : int, h1 : int, x2 : int, y2 : int, w2 : int, h2 : int):
 	return x1 < x2 + w2 and x2 < x1 + w1 and y1 < y2 + h2 and y2 < y1 + h1
 
 func is_overlapping(a : Actor):
-	return aabb(tile.x, tile.y, hitbox_x, hitbox_y, a.tile.x, a.tile.y, a.hitbox_x, a.hitbox_y)
+	return aabb(position.x, position.y, hitbox_x, hitbox_y, a.position.x, a.position.y, a.hitbox_x, a.hitbox_y)
 
 func center():
-	return tile + Vector2(hitbox_x / 2, hitbox_y / 2)
+	return position + Vector2(hitbox_x / 2, hitbox_y / 2)
 
 # move actor
 func move(override = Vector2.ZERO):
@@ -116,7 +112,7 @@ func move(override = Vector2.ZERO):
 	has_hit_down = false
 	has_hit_left = false
 	has_hit_right = false
-	last_move = tile
+	last_move = position
 	
 	if override != Vector2.ZERO:
 		move_y(override.y)
@@ -134,9 +130,7 @@ func move(override = Vector2.ZERO):
 		if dx != 0:
 			move_x(dx)
 	
-	last_move = tile - last_move
-	
-	position = tile * tile_size
+	last_move = position - last_move
 	just_moved()
 
 func just_moved():
@@ -153,10 +147,10 @@ func move_x(dist : int):
 	if is_colliding:
 		var step = sign(dist)
 		for i in range(abs(dist)):
-			if is_area_solid(tile.x + step, tile.y):
+			if is_area_solid(position.x + step, position.y):
 				if move_get_dist().y > -1 and wiggle_x(step):
-					tile.y += wiggle_x(step)
-					tile.x += dist
+					position.y += wiggle_x(step)
+					position.x += dist
 					continue
 				speed.x = 0
 				remainder.x = 0
@@ -165,9 +159,9 @@ func move_x(dist : int):
 				has_hit_right = (step == 1)
 				return true
 			else:
-				tile.x += step
+				position.x += step
 	else:
-		tile.x += dist
+		position.x += dist
 	return false
 
 # move y axis
@@ -179,10 +173,10 @@ func move_y(dist : int):
 	if is_colliding:
 		var step = sign(dist)
 		for i in range(abs(dist)):
-			if is_area_solid(tile.x, tile.y + step):
+			if is_area_solid(position.x, position.y + step):
 				if step == -1 and wiggle_y(step):
-					tile.x += wiggle_y(step)
-					tile.y += step
+					position.x += wiggle_y(step)
+					position.y += step
 					continue
 				speed.y = 0
 				remainder.y = 0
@@ -196,9 +190,9 @@ func move_y(dist : int):
 						hit_floor()
 				return true
 			else:
-				tile.y += step
+				position.y += step
 	else:
-		tile.y += dist
+		position.y += dist
 	return false
 
 func hit_floor():
@@ -207,7 +201,7 @@ func hit_floor():
 func wiggle_x(step):
 	# wiggle around and look for an open space
 	for i in [1, -1, 2, -2]:
-		if not is_area_solid(tile.x + step, tile.y + i):
+		if not is_area_solid(position.x + step, position.y + i):
 			return i
 	return null
 
@@ -215,22 +209,22 @@ func wiggle_x(step):
 func wiggle_y(step):
 	# wiggle around and look for an open space
 	for i in [1, -1, 2, -2, 3, -3]:
-		if not is_area_solid(tile.x + i, tile.y + step):
+		if not is_area_solid(position.x + i, position.y + step):
 			return i
 	return null
 
 # move on treadmill
 func tread_move():
 	is_on_tread = false
-	for a in check_area_actors("treadmill", tile.x, tile.y + 1):
+	for a in check_area_actors("treadmill", position.x, position.y + 1):
 		is_on_tread = true
 		remainder.x += a.tread_speed
 		break
 
 # check area for solid tiles
 func is_area_solid_tile(x1, y1, width, height):
-	var w2m = Shared.node_map_solid.world_to_map(Vector2(x1, y1) * tile_size)
-	var cell = Shared.node_map_solid.cell_size.x / tile_size
+	var w2m = Shared.node_map_solid.world_to_map(Vector2(x1, y1))
+	var cell = Shared.node_map_solid.cell_size.x
 	
 	# check more than four points if hitbox is longer than 8 pixels
 	var points = max(2, (width / cell) + 1)
@@ -247,7 +241,7 @@ func is_area_solid_tile(x1, y1, width, height):
 func is_area_solid_actor(x, y, width = hitbox_x, height = hitbox_y, ignore = null) -> bool:
 	for a in get_tree().get_nodes_in_group("solid"):
 		if a != self and a != ignore and a != ignore_actor:
-			if aabb(x, y, width, height, a.tile.x, a.tile.y, a.hitbox_x, a.hitbox_y):
+			if aabb(x, y, width, height, a.position.x, a.position.y, a.hitbox_x, a.hitbox_y):
 				return true
 	return false
 
@@ -258,10 +252,10 @@ func is_area_solid(x, y, width = hitbox_x, height = hitbox_y, ignore = null) -> 
 	return is_area_solid_actor(x, y, width, height, ignore)
 
 # return array of actors
-func check_area_actors(group_name = "actor", x = tile.x, y = tile.y, width = hitbox_x, height = hitbox_y, ignore = null):
+func check_area_actors(group_name = "actor", x = position.x, y = position.y, width = hitbox_x, height = hitbox_y, ignore = null):
 	var act = []
 	for a in get_tree().get_nodes_in_group(group_name if group_name else "actor"):
 		if a != self and a != ignore:
-			if aabb(x, y, width, height, a.tile.x, a.tile.y, a.hitbox_x, a.hitbox_y):
+			if aabb(x, y, width, height, a.position.x, a.position.y, a.hitbox_x, a.hitbox_y):
 				act.append(a)
 	return act

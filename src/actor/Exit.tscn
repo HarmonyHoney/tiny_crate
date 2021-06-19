@@ -45,31 +45,28 @@ hitbox_x = 6
 hitbox_y = 6
 dust_speed = 0.1
 
-[node name="Scale" type="Node2D" parent="."]
-scale = Vector2( 12.5, 12.5 )
-
-[node name="Sprite" type="Sprite" parent="Scale"]
+[node name="Sprite" type="Sprite" parent="."]
 position = Vector2( 3, 3 )
 texture = ExtResource( 1 )
 region_enabled = true
 region_rect = Rect2( 0, 0, 16, 16 )
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Scale"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "Loop"
 anims/Loop = SubResource( 1 )
 
-[node name="Dust" type="Node2D" parent="Scale"]
+[node name="Dust" type="Node2D" parent="."]
 position = Vector2( 3, 3 )
 
-[node name="dust" type="Sprite" parent="Scale/Dust"]
+[node name="dust" type="Sprite" parent="Dust"]
 modulate = Color( 1, 0.945098, 0.909804, 1 )
 texture = ExtResource( 3 )
 centered = false
 
-[node name="Stars" type="Node2D" parent="Scale"]
+[node name="Stars" type="Node2D" parent="."]
 position = Vector2( 3, 3 )
 
-[node name="Star" type="Sprite" parent="Scale/Stars"]
+[node name="Star" type="Sprite" parent="Stars"]
 z_index = 1
 texture = ExtResource( 4 )
 hframes = 6

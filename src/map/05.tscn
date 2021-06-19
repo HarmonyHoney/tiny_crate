@@ -36,7 +36,8 @@ target_influence = 0.3
 position = Vector2( 37, -51 )
 
 [node name="Player" parent="Actors" instance=ExtResource( 3 )]
-position = Vector2( -16, -8 )
+position = Vector2( -23, -59 )
+is_moving = true
 
 [node name="Box" parent="Actors" instance=ExtResource( 2 )]
 position = Vector2( -52, -8 )

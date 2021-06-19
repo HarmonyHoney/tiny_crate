@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://src/actor/Player.gd" type="Script" id=1]
 [ext_resource path="res://assets/audio/sfx/player_jump.wav" type="AudioStream" id=2]
@@ -6,7 +6,6 @@
 [ext_resource path="res://assets/audio/sfx/btn3.wav" type="AudioStream" id=4]
 [ext_resource path="res://assets/audio/sfx/sfx10.wav" type="AudioStream" id=5]
 [ext_resource path="res://assets/audio/sfx/box_drop.wav" type="AudioStream" id=6]
-[ext_resource path="res://assets/image/guy.png" type="Texture" id=7]
 
 [sub_resource type="Animation" id=1]
 length = 0.6
@@ -182,15 +181,12 @@ tracks/1/keys = {
 z_index = 5
 z_as_relative = false
 script = ExtResource( 1 )
-hitbox_x = 5
-hitbox_y = 6
 gravity = 0.25
 is_colliding = true
 is_using_gravity = true
 is_using_tread = true
 
 [node name="Sprite" type="Sprite" parent="."]
-visible = false
 position = Vector2( 4, -4 )
 texture = ExtResource( 3 )
 region_enabled = true
@@ -217,8 +213,3 @@ stream = ExtResource( 6 )
 
 [node name="AudioThrow" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 5 )
-
-[node name="guy" type="Sprite" parent="."]
-position = Vector2( 31.25, 37 )
-scale = Vector2( 0.208, 0.25 )
-texture = ExtResource( 7 )

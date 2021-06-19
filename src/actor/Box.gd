@@ -23,12 +23,13 @@ func _ready():
 	node_sprite = $Sprite
 	spr_pos = node_sprite.position
 	
-	if is_area_solid(tile.x, tile.y + 1):
+	if is_area_solid(position.x, position.y + 1):
 		is_on_floor = true
 
 func just_moved():
 	if !is_push:
-		node_sprite.position = spr_pos + (Vector2.ZERO if is_on_floor else remainder * tile_size)
+		pass
+		#node_sprite.position = spr_pos + (Vector2.ZERO if is_on_floor else remainder * tile_size)
 
 func hit_floor():
 	speed.x = 0
@@ -43,11 +44,7 @@ func _process(delta):
 	if Engine.editor_hint:
 		return
 	
-	if is_push:
-		push_clock = min(push_clock + delta, push_dur)
-		node_sprite.position = spr_pos - Vector2(lerp(push_dir, 0, push_clock / push_dur) * tile_size, 0)
-		if push_clock == push_dur:
-			is_push = false
+	is_push = false
 
 # push box
 func push(dir : int):
@@ -57,13 +54,13 @@ func push(dir : int):
 	push_clock = 0
 	
 	# check for box at destination
-	if is_area_solid(tile.x + dir, tile.y):
-		for a in check_area_actors("box", tile.x + dir):
+	if is_area_solid(position.x + dir, position.y):
+		for a in check_area_actors("box", position.x + dir):
 			a.push(dir)
 	
 	# check for box above
-	if not is_area_solid(tile.x + dir, tile.y):
-		for a in check_area_actors("box", tile.x, tile.y - 1):
+	if not is_area_solid(position.x + dir, position.y):
+		for a in check_area_actors("box", position.x, position.y - 1):
 			a.push(dir)
 		move_x(dir)
 		push_dir = dir

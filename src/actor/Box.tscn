@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://assets/image/box.png" type="Texture" id=1]
+[ext_resource path="res://assets/image/crate_tiles.png" type="Texture" id=1]
 [ext_resource path="res://assets/audio/sfx/hit10.wav" type="AudioStream" id=2]
 [ext_resource path="res://src/actor/Box.gd" type="Script" id=3]
 
@@ -47,9 +47,11 @@ is_using_tread = true
 push_dur = 0.04
 
 [node name="Sprite" type="Sprite" parent="."]
-position = Vector2( 50, 50 )
-scale = Vector2( 0.333, 0.333 )
+position = Vector2( 4, 4 )
 texture = ExtResource( 1 )
+hframes = 4
+vframes = 4
+frame = 1
 
 [node name="AudioHit" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 2 )

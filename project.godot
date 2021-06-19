@@ -87,7 +87,7 @@ _global_script_class_icons={
 [application]
 
 config/name="gdBox"
-run/main_scene="res://src/map/0001.tscn"
+run/main_scene="res://src/map/05.tscn"
 config/icon="res://icon.png"
 
 [autoload]
@@ -100,12 +100,12 @@ Pause="*res://src/autoload/Pause.tscn"
 
 [display]
 
-window/size/width=1920
-window/size/height=1080
-window/size/test_width=1280
-window/size/test_height=720
+window/size/width=128
+window/size/height=128
+window/size/test_width=512
+window/size/test_height=512
 window/dpi/allow_hidpi=true
-window/stretch/mode="2d"
+window/stretch/mode="viewport"
 window/stretch/aspect="keep"
 
 [editor_plugins]
@@ -223,6 +223,8 @@ screenshot={
 
 [rendering]
 
+2d/snapping/use_gpu_pixel_snap=true
 environment/default_clear_color=Color( 0.5, 0.6, 1, 1 )
 environment/default_environment="res://default_env.tres"
-quality/2d/use_pixel_snap=false
+quality/dynamic_fonts/use_oversampling=false
+quality/2d/use_pixel_snap=true
