@@ -7,7 +7,6 @@
 [ext_resource path="res://media/font/m6x11.ttf" type="DynamicFontData" id=5]
 [ext_resource path="res://src/menu/Buttons/bSelect.tscn" type="PackedScene" id=6]
 
-
 [sub_resource type="DynamicFont" id=1]
 outline_size = 1
 outline_color = Color( 0, 0, 0, 1 )
@@ -22,11 +21,10 @@ __meta__ = {
 }
 
 [node name="Menu" type="Control" parent="."]
-margin_left = 745.0
-margin_top = 331.0
-margin_right = 817.0
-margin_bottom = 403.0
-rect_scale = Vector2( 7, 7 )
+margin_left = 31.0
+margin_top = 34.0
+margin_right = 103.0
+margin_bottom = 106.0
 __meta__ = {
 "_edit_use_anchors_": false
 }

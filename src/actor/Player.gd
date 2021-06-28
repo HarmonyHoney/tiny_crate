@@ -18,6 +18,7 @@ var pickup_frames = 8
 var pickup_count = 0
 var pickup_start := Vector2.ZERO
 var pickup_box : Actor
+var pickup_offset := Vector2(-2, -8)
 
 export var speed_drop := Vector2(1, -1)
 
@@ -60,7 +61,7 @@ func _ready():
 func just_moved():
 	# move box
 	if is_pickup:
-		var diff = position - Vector2(0, 8) - pickup_box.position
+		var diff = position + pickup_offset - pickup_box.position
 		if diff != Vector2.ZERO:
 			pickup_box.move(diff)
 			if pickup_box.has_hit_down:
@@ -197,7 +198,7 @@ func box_pickup(dx := 0, dy := 0):
 			is_pickup = true
 			pickup_box = a
 			pickup_box.is_moving = false
-			pickup_box.position = position - Vector2(0, 8)
+			pickup_box.position = position + pickup_offset
 			ignore_actor = pickup_box
 			pickup_box.ignore_actor = self
 		break
