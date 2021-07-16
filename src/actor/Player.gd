@@ -18,7 +18,7 @@ var pickup_frames = 8
 var pickup_count = 0
 var pickup_start := Vector2.ZERO
 var pickup_box : Actor
-var pickup_offset := Vector2(-2, -8)
+var pickup_offset := Vector2(0, -8)
 
 export var speed_drop := Vector2(1, -1)
 
@@ -133,10 +133,7 @@ func _process(delta):
 		is_jump = true
 		jump_count = 0
 		node_audio_jump.play()
-		if is_pickup:
-			node_anim.play("box_jump")
-		else:
-			node_anim.play("jump")
+		node_anim.play("jump")
 		#Shared.stage.metric_jump += 1
 	
 	# jump height
