@@ -100,9 +100,9 @@ Pause="*res://src/autoload/Pause.tscn"
 
 [display]
 
-window/size/width=128
+window/size/width=228
 window/size/height=128
-window/size/test_width=768
+window/size/test_width=1368
 window/size/test_height=768
 window/dpi/allow_hidpi=true
 window/stretch/mode="viewport"
