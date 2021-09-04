@@ -34,6 +34,7 @@ func _process(delta):
 			pos_target = pos_start.linear_interpolate(node_target.position + pos_offset, target_influence)
 		else:
 			pos_target = node_target.position + pos_offset
+	
 	# smoothing
 	lerp_pos = lerp_pos.linear_interpolate(pos_target, lerp_step)
 	position = lerp_pos.round()

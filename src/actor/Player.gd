@@ -101,9 +101,9 @@ func _process(delta):
 		return
 	
 	# fall out of stage
-	if position.y > 100:
-		death()
-		return
+#	if position.y > 100:
+#		death()
+#		return
 	
 	# hit spike
 	if speed.y > -1:

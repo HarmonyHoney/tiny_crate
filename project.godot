@@ -87,7 +87,7 @@ _global_script_class_icons={
 [application]
 
 config/name="gdBox"
-run/main_scene="res://src/map/05.tscn"
+run/main_scene="res://src/map/A01.tscn"
 config/icon="res://icon.png"
 
 [autoload]
@@ -100,7 +100,7 @@ Pause="*res://src/autoload/Pause.tscn"
 
 [display]
 
-window/size/width=228
+window/size/width=224
 window/size/height=128
 window/size/test_width=1368
 window/size/test_height=768

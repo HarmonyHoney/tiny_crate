@@ -60,9 +60,9 @@ func _process(delta):
 			time_since_floor += 1
 		
 		# if outside map
-		if position.y < -999 or position.y > 999:
-			dev.out(name + " fell out of world")
-			queue_free()
+#		if position.y < -999 or position.y > 999:
+#			dev.out(name + " fell out of world")
+#			queue_free()
 
 # update() the _draw() when hitbox values are changed (in the editor)
 func _set_hit_x(value):
@@ -96,6 +96,9 @@ func _draw():
 # axis aligned bounding box
 func aabb(x1 : int, y1 : int, w1 : int, h1 : int, x2 : int, y2 : int, w2 : int, h2 : int):
 	return x1 < x2 + w2 and x2 < x1 + w1 and y1 < y2 + h2 and y2 < y1 + h1
+
+func aabb_other(x2 : int, y2 : int, w2 : int, h2 : int):
+	return position.x < x2 + w2 and x2 < position.x + hitbox_x and position.y < y2 + h2 and y2 < position.y + hitbox_y
 
 func is_overlapping(a : Actor):
 	return aabb(position.x, position.y, hitbox_x, hitbox_y, a.position.x, a.position.y, a.hitbox_x, a.hitbox_y)
