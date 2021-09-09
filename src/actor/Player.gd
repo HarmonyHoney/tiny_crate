@@ -39,6 +39,11 @@ var scene_box = preload("res://src/actor/Box.tscn")
 var scene_explosion = preload("res://src/fx/Explosion.tscn")
 var scene_explosion2 = preload("res://src/fx/Explosion2.tscn")
 
+# powerups
+var is_powerup_push := false
+var is_powerup_lift := false
+
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	if Engine.editor_hint:
@@ -86,6 +91,10 @@ func _process(delta):
 	# pickup box // returns from func while picking up
 	if is_pickup:
 		pass
+	
+	# collect powerup
+	for a in check_area_actors("powerup"):
+		collect_powerup(a)
 	
 	# open door
 	if btn.p("up"):
@@ -149,7 +158,7 @@ func _process(delta):
 			is_jump = false
 	
 	# box pickup / throw
-	if btn.p("action"):
+	if is_powerup_lift and btn.p("action"):
 		if is_pickup:
 			if btn.d("down"):
 				box_release(speed_drop.x * dir, speed_drop.y)
@@ -166,10 +175,9 @@ func _process(delta):
 				box_pickup(0, 1)
 			else:
 				box_pickup(dir * 4, 0)
-			
 	
 	# push box
-	if is_on_floor and move_get_dist().x != 0 and not is_pickup:
+	if is_powerup_push and is_on_floor and move_get_dist().x != 0 and not is_pickup:
 		for a in check_area_actors("box", position.x + dir):
 			a.push(dir)
 			# slow movement when pushing
@@ -177,6 +185,14 @@ func _process(delta):
 				speed.x = push_speed * sign(speed.x)
 			move_x(dir)
 			break
+
+func collect_powerup(arg : Actor):
+	match arg.powerup_name:
+		"push":
+			is_powerup_push = true
+		"lift":
+			is_powerup_lift = true
+	arg.collect()
 
 func box_release(sx := 0.0, sy := 0.0):
 	is_pickup = false

@@ -49,6 +49,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/actor/Passthrough.gd"
 }, {
+"base": "Actor",
+"class": "Powerup",
+"language": "GDScript",
+"path": "res://src/actor/powerup/Powerup.gd"
+}, {
 "base": "Node2D",
 "class": "Stage",
 "language": "GDScript",
@@ -78,6 +83,7 @@ _global_script_class_icons={
 "EditorTheme": "",
 "Exit": "",
 "Passthrough": "",
+"Powerup": "",
 "Stage": "",
 "Switch": "",
 "SwitchBlock": "",
