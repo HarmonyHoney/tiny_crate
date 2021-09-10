@@ -4,23 +4,17 @@
 [ext_resource path="res://src/actor/Switch.gd" type="Script" id=2]
 [ext_resource path="res://media/audio/sfx/btn3.wav" type="AudioStream" id=3]
 
-
-
-
-
-
 [node name="Switch" type="Node2D" groups=[
 "actor",
 ]]
 script = ExtResource( 2 )
-tag = "switch"
 hitbox_y = 4
 
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( 4, 0 )
 texture = ExtResource( 1 )
-vframes = 8
 hframes = 16
+vframes = 8
 frame = 7
 region_rect = Rect2( 0.132, 0, 0, 0 )
 

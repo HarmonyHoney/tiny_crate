@@ -18,7 +18,6 @@ func _ready():
 	
 	node_sprite = $Sprite
 
-
 func _process(delta):
 	if Engine.editor_hint:
 		return
@@ -28,7 +27,6 @@ func _process(delta):
 			if not is_area_solid_actor(position.x, position.y):
 				set_solid(true)
 				node_sprite.frame = frame_on
-	
 
 func switch_on():
 	is_switch = true

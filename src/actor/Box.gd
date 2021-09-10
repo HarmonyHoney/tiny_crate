@@ -13,6 +13,8 @@ var push_clock := 0.0
 export var push_dur := 0.3
 var push_dir = -1
 
+var shake_dist = 1
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	if Engine.editor_hint:
@@ -35,9 +37,11 @@ func hit_floor():
 	speed.x = 0
 	node_audio.pitch_scale = 1 + rand_range(-0.2, 0.2)
 	node_audio.play()
-	Shared.node_camera_game.shake(2)
+	Shared.node_camera_game.shake(shake_dist)
 	node_anim.play("hit")
 	node_anim.advance(0)
+	
+	shake_dist = 1
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):

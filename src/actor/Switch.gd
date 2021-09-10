@@ -18,7 +18,6 @@ func _ready():
 	
 	node_sprite = $Sprite
 	node_audio = $AudioStreamPlayer2D
-	
 
 
 func _process(delta):

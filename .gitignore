@@ -12,5 +12,5 @@ data_*/
 
 # custom
 *.import
-Export/
+[Ee]xport/
 [Bb]uild/

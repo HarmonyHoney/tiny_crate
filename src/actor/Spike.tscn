@@ -7,7 +7,7 @@
 "actor",
 "spike",
 ]]
-z_index = -5
+z_index = 5
 z_as_relative = false
 script = ExtResource( 2 )
 hitbox_y = 3

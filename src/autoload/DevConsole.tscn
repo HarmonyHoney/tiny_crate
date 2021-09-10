@@ -3,7 +3,6 @@
 [ext_resource path="res://src/autoload/DevConsole.gd" type="Script" id=2]
 [ext_resource path="res://media/font/m3x6.ttf" type="DynamicFontData" id=3]
 
-
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.247059, 0.247059, 0.247059, 0.247059 )
 border_width_left = 4
@@ -57,8 +56,6 @@ layer = 2
 script = ExtResource( 2 )
 
 [node name="Control" type="Control" parent="."]
-margin_right = 320.0
-margin_bottom = 180.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -66,8 +63,8 @@ __meta__ = {
 [node name="Panel" type="Panel" parent="Control"]
 margin_left = 2.0
 margin_top = 2.0
-margin_right = 254.0
-margin_bottom = 120.0
+margin_right = 226.0
+margin_bottom = 104.0
 custom_styles/panel = SubResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -76,8 +73,8 @@ __meta__ = {
 [node name="Log" type="RichTextLabel" parent="Control"]
 margin_left = 8.0
 margin_top = 8.0
-margin_right = 248.0
-margin_bottom = 114.0
+margin_right = 220.0
+margin_bottom = 98.0
 focus_mode = 2
 custom_styles/focus = SubResource( 2 )
 custom_styles/normal = SubResource( 3 )
@@ -102,9 +99,9 @@ __meta__ = {
 
 [node name="Panel2" type="Panel" parent="Control"]
 margin_left = 2.0
-margin_top = 122.0
-margin_right = 254.0
-margin_bottom = 142.0
+margin_top = 106.0
+margin_right = 226.0
+margin_bottom = 126.0
 custom_styles/panel = SubResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -112,9 +109,9 @@ __meta__ = {
 
 [node name="Input" type="LineEdit" parent="Control"]
 margin_left = 8.0
-margin_top = 128.0
-margin_right = 246.0
-margin_bottom = 136.0
+margin_top = 112.0
+margin_right = 220.0
+margin_bottom = 120.0
 custom_styles/focus = SubResource( 5 )
 custom_styles/normal = SubResource( 6 )
 custom_fonts/font = SubResource( 7 )
@@ -128,10 +125,10 @@ __meta__ = {
 }
 
 [node name="Hint" type="RichTextLabel" parent="Control"]
-margin_left = 7.0
-margin_top = 106.0
-margin_right = 319.0
-margin_bottom = 114.0
+margin_left = 8.0
+margin_top = 90.0
+margin_right = 220.0
+margin_bottom = 98.0
 rect_clip_content = false
 focus_mode = 2
 custom_styles/focus = SubResource( 2 )

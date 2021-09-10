@@ -57,4 +57,16 @@ visible = false
 texture = ExtResource( 4 )
 centered = false
 
+[node name="test_label" type="Label" parent="Control"]
+visible = false
+margin_left = 5.0
+margin_top = 16.0
+margin_right = 77.0
+margin_bottom = 24.0
+custom_fonts/font = ExtResource( 1 )
+text = "testing 123"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Wipe" parent="." instance=ExtResource( 5 )]

@@ -7,12 +7,15 @@ var wipe : Node2D
 
 var buttons : Node2D
 
+var test_label : Label
+
 func _ready():
 	node_timer = $Control/Timer/Label
 	node_death = $Control/Death
 	control = $Control
 	wipe = $Wipe
 	#buttons = $Buttons
+	test_label = $Control/test_label
 
 func _process(delta):
 	pass

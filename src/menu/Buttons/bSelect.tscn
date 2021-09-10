@@ -6,6 +6,7 @@
 [node name="Buttons" type="Node2D"]
 
 [node name="c" type="Sprite" parent="."]
+visible = false
 position = Vector2( 19, 102 )
 texture = ExtResource( 1 )
 hframes = 6
@@ -13,6 +14,7 @@ vframes = 4
 region_rect = Rect2( 0, 0, 18, 18 )
 
 [node name="c_label" type="Label" parent="."]
+visible = false
 margin_left = 31.0
 margin_top = 96.0
 margin_right = 59.0
@@ -26,7 +28,7 @@ __meta__ = {
 }
 
 [node name="x" type="Sprite" parent="."]
-position = Vector2( 19, 125 )
+position = Vector2( 13, 115 )
 texture = ExtResource( 1 )
 hframes = 6
 vframes = 4
@@ -34,10 +36,10 @@ frame = 1
 region_rect = Rect2( 0, 0, 18, 18 )
 
 [node name="x_label" type="Label" parent="."]
-margin_left = 31.0
-margin_top = 120.0
-margin_right = 69.0
-margin_bottom = 133.0
+margin_left = 24.0
+margin_top = 108.0
+margin_right = 62.0
+margin_bottom = 121.0
 custom_fonts/font = ExtResource( 2 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 custom_constants/shadow_as_outline = 1
@@ -70,7 +72,7 @@ __meta__ = {
 }
 
 [node name="arrows" type="Sprite" parent="."]
-position = Vector2( 237, 125 )
+position = Vector2( 215, 115 )
 texture = ExtResource( 1 )
 hframes = 6
 vframes = 4
@@ -78,10 +80,10 @@ frame = 7
 region_rect = Rect2( 0, 0, 18, 18 )
 
 [node name="arrows_label" type="Label" parent="."]
-margin_left = 196.0
-margin_top = 118.0
-margin_right = 226.0
-margin_bottom = 131.0
+margin_left = 175.0
+margin_top = 108.0
+margin_right = 205.0
+margin_bottom = 121.0
 custom_fonts/font = ExtResource( 2 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 custom_constants/shadow_as_outline = 1

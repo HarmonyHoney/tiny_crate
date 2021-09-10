@@ -56,7 +56,7 @@ func _ready():
 	if Shared.node_camera_game:
 		node_camera_game = Shared.node_camera_game
 		node_camera_game.node_target = self
-		node_camera_game.pos_offset = Vector2(4, 4)
+		node_camera_game.pos_target_offset = Vector2(4, 4)
 
 func just_moved():
 	# move box
@@ -66,7 +66,7 @@ func just_moved():
 			pickup_box.move(diff)
 			if pickup_box.has_hit_down:
 				box_release()
-			elif (pickup_box.has_hit_left or pickup_box.has_hit_right) and abs(pickup_box.center().x - center().x) > 4:
+			elif (pickup_box.has_hit_left or pickup_box.has_hit_right) and abs(pickup_box.center().x - center().x) > 3:
 				box_release()
 	# ignore actor until not overlapping
 	elif is_instance_valid(ignore_actor):
@@ -182,6 +182,7 @@ func box_release(sx := 0.0, sy := 0.0):
 	is_pickup = false
 	pickup_box.speed = Vector2(sx, sy)
 	pickup_box.is_moving = true
+	pickup_box.shake_dist = 2
 
 func box_pickup(dx := 0, dy := 0):
 	for a in check_area_actors("box", position.x + dx, position.y + dy):
