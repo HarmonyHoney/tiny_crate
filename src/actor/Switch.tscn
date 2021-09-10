@@ -7,6 +7,8 @@
 [node name="Switch" type="Node2D" groups=[
 "actor",
 ]]
+z_index = -5
+z_as_relative = false
 script = ExtResource( 2 )
 hitbox_y = 4
 

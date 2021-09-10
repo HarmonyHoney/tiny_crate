@@ -13,7 +13,7 @@ var push_clock := 0.0
 export var push_dur := 0.3
 var push_dir = -1
 
-var shake_dist = 1
+var shake_dist = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -27,6 +27,7 @@ func _ready():
 	
 	if is_area_solid(position.x, position.y + 1):
 		is_on_floor = true
+		shake_dist = 1
 
 func just_moved():
 	if !is_push:
@@ -40,7 +41,6 @@ func hit_floor():
 	Shared.node_camera_game.shake(shake_dist)
 	node_anim.play("hit")
 	node_anim.advance(0)
-	
 	shake_dist = 1
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

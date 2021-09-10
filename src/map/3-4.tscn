@@ -1,0 +1,74 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://src/stage/SolidTileMap.tscn" type="PackedScene" id=1]
+[ext_resource path="res://src/actor/Exit.tscn" type="PackedScene" id=2]
+[ext_resource path="res://src/stage/GameCamera.tscn" type="PackedScene" id=3]
+[ext_resource path="res://src/stage/DetailTileMap.tscn" type="PackedScene" id=4]
+[ext_resource path="res://src/stage/SpikeTileMap.tscn" type="PackedScene" id=5]
+[ext_resource path="res://src/actor/Player.tscn" type="PackedScene" id=6]
+[ext_resource path="res://src/stage/Stage.gd" type="Script" id=7]
+[ext_resource path="res://src/actor/SwitchBlock.tscn" type="PackedScene" id=8]
+[ext_resource path="res://src/actor/SwitchBlue.tscn" type="PackedScene" id=9]
+[ext_resource path="res://src/actor/SwitchBlockBlue.tscn" type="PackedScene" id=10]
+[ext_resource path="res://src/actor/Switch.tscn" type="PackedScene" id=11]
+[ext_resource path="res://src/actor/Box.tscn" type="PackedScene" id=12]
+
+[node name="Stage" type="Node2D"]
+script = ExtResource( 7 )
+stage_name = "1-1"
+
+[node name="SolidTileMap" parent="." instance=ExtResource( 1 )]
+tile_data = PoolIntArray( -458763, 0, 1, -458762, 0, 1, -458761, 0, 1, -458760, 0, 1, -458759, 0, 1, -458758, 0, 1, -524287, 0, 1, -524286, 0, 1, -524285, 0, 1, -524284, 0, 1, -524283, 0, 1, -524282, 0, 1, -524281, 0, 1, -524280, 0, 1, -524279, 0, 1, -524278, 0, 1, -524277, 0, 1, -524276, 0, 1, -524275, 0, 1, -524274, 0, 1, -393227, 0, 1, -393222, 0, 1, -393221, 0, 1, -393220, 0, 1, -393219, 0, 1, -393218, 0, 1, -393217, 0, 1, -458752, 0, 1, -458751, 0, 1, -458738, 0, 1, -327691, 0, 1, -327686, 0, 1, -393202, 0, 1, -393201, 0, 1, -393200, 0, 1, -393199, 0, 1, -393198, 0, 1, -393197, 0, 1, -393196, 0, 1, -262155, 0, 1, -262151, 0, 1, -262150, 0, 1, -327660, 0, 1, -196619, 0, 1, -196614, 0, 1, -262124, 0, 1, -131083, 0, 1, -131078, 0, 1, -131077, 0, 1, -131076, 0, 1, -131075, 0, 1, -196591, 0, 1, -196590, 0, 1, -196589, 0, 1, -196588, 0, 1, -65547, 0, 1, -131069, 0, 1, -131068, 0, 1, -131055, 0, 1, -11, 0, 1, -65519, 0, 1, 65525, 0, 1, 17, 0, 1, 131061, 0, 1, 65547, 0, 1, 65548, 0, 1, 65549, 0, 1, 65550, 0, 1, 65551, 0, 1, 65552, 0, 1, 65553, 0, 1, 196597, 0, 1, 131083, 0, 1, 262133, 0, 1, 262134, 0, 1, 262135, 0, 1, 262136, 0, 1, 262137, 0, 1, 262138, 0, 1, 262139, 0, 1, 262140, 0, 1, 262141, 0, 1, 196619, 0, 1, 327677, 0, 1, 262155, 0, 1, 393213, 0, 1, 393214, 0, 1, 393215, 0, 1, 327680, 0, 1, 327681, 0, 1, 327682, 0, 1, 327683, 0, 1, 327684, 0, 1, 327685, 0, 1, 327686, 0, 1, 327687, 0, 1, 327688, 0, 1, 327689, 0, 1, 327690, 0, 1, 327691, 0, 1 )
+
+[node name="SpikeTileMap" parent="." instance=ExtResource( 5 )]
+tile_data = PoolIntArray( 11, 0, 0, 12, 0, 0, 13, 0, 0, 14, 0, 0, 15, 0, 0, 16, 0, 0, 327678, 0, 0, 327679, 0, 0, 262144, 0, 0, 262145, 0, 0, 262146, 0, 0, 262147, 0, 0, 262148, 0, 0, 262149, 0, 0, 262150, 0, 0, 262151, 0, 0, 262152, 0, 0, 262153, 0, 0, 262154, 0, 0 )
+
+[node name="DetailTileMap" parent="." instance=ExtResource( 4 )]
+z_index = -11
+
+[node name="GameCamera" parent="." instance=ExtResource( 3 )]
+position = Vector2( 16, -8 )
+bounds = Rect2( 0, 0, 48, 0 )
+
+[node name="Actors" type="Node2D" parent="."]
+
+[node name="Player" parent="Actors" instance=ExtResource( 6 )]
+position = Vector2( -64, 16 )
+
+[node name="Exit" parent="Actors" instance=ExtResource( 2 )]
+position = Vector2( 149, -35 )
+
+[node name="SwitchBlue" parent="Actors" instance=ExtResource( 9 )]
+position = Vector2( -48, 20 )
+
+[node name="SwitchBlockBlue" parent="Actors" instance=ExtResource( 10 )]
+position = Vector2( 0, 8 )
+
+[node name="SwitchBlockBlue2" parent="Actors" instance=ExtResource( 10 )]
+position = Vector2( 8, 8 )
+
+[node name="SwitchBlockBlue3" parent="Actors" instance=ExtResource( 10 )]
+position = Vector2( 16, 8 )
+
+[node name="Switch" parent="Actors" instance=ExtResource( 11 )]
+position = Vector2( -56, -44 )
+
+[node name="SwitchBlock" parent="Actors" instance=ExtResource( 8 )]
+position = Vector2( 56, -16 )
+
+[node name="SwitchBlock2" parent="Actors" instance=ExtResource( 8 )]
+position = Vector2( 64, -16 )
+
+[node name="SwitchBlock3" parent="Actors" instance=ExtResource( 8 )]
+position = Vector2( 72, -16 )
+
+[node name="Box" parent="Actors" instance=ExtResource( 12 )]
+position = Vector2( 29, -24 )
+
+[node name="Box2" parent="Actors" instance=ExtResource( 12 )]
+position = Vector2( -36, -32 )
+
+[node name="Box3" parent="Actors" instance=ExtResource( 12 )]
+position = Vector2( -80, 16 )
+
+[editable path="GameCamera"]

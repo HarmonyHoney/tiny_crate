@@ -1,0 +1,54 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://src/stage/SolidTileMap.tscn" type="PackedScene" id=1]
+[ext_resource path="res://src/actor/Exit.tscn" type="PackedScene" id=2]
+[ext_resource path="res://src/stage/GameCamera.tscn" type="PackedScene" id=3]
+[ext_resource path="res://src/stage/DetailTileMap.tscn" type="PackedScene" id=4]
+[ext_resource path="res://src/stage/SpikeTileMap.tscn" type="PackedScene" id=5]
+[ext_resource path="res://src/actor/Player.tscn" type="PackedScene" id=6]
+[ext_resource path="res://src/stage/Stage.gd" type="Script" id=7]
+[ext_resource path="res://src/actor/Box.tscn" type="PackedScene" id=8]
+
+[node name="Stage" type="Node2D"]
+script = ExtResource( 7 )
+stage_name = "1-1"
+
+[node name="SolidTileMap" parent="." instance=ExtResource( 1 )]
+tile_data = PoolIntArray( -524293, 0, 1, -524292, 0, 1, -524291, 0, 1, -524290, 0, 1, -524289, 0, 1, -589824, 0, 1, -589823, 0, 1, -589822, 0, 1, -589821, 0, 1, -589820, 0, 1, -458757, 0, 1, -524284, 0, 1, -393226, 0, 1, -393225, 0, 1, -393224, 0, 1, -393223, 0, 1, -393222, 0, 1, -393221, 0, 1, -458748, 0, 1, -458747, 0, 1, -458746, 0, 1, -458745, 0, 1, -458744, 0, 1, -458743, 0, 1, -327692, 0, 1, -327691, 0, 1, -327690, 0, 1, -393207, 0, 1, -393206, 0, 1, -393205, 0, 1, -262156, 0, 1, -327669, 0, 1, -196620, 0, 1, -262133, 0, 1, -131084, 0, 1, -196597, 0, 1, -65548, 0, 1, -131061, 0, 1, -12, 0, 1, -65525, 0, 1, 65524, 0, 1, 65525, 0, 1, 65526, 0, 1, 65527, 0, 1, 65528, 0, 1, 7, 0, 1, 8, 0, 1, 9, 0, 1, 10, 0, 1, 11, 0, 1, 131064, 0, 1, 65543, 0, 1, 196600, 0, 1, 196601, 0, 1, 196602, 0, 1, 196603, 0, 1, 196604, 0, 1, 196605, 0, 1, 196606, 0, 1, 196607, 0, 1, 131072, 0, 1, 131073, 0, 1, 131074, 0, 1, 131075, 0, 1, 131076, 0, 1, 131077, 0, 1, 131078, 0, 1, 131079, 0, 1 )
+
+[node name="SpikeTileMap" parent="." instance=ExtResource( 5 )]
+tile_data = PoolIntArray( 131065, 0, 0, 131066, 0, 0, 131067, 0, 0, 131068, 0, 0, 131069, 0, 0, 131070, 0, 0, 131071, 0, 0, 65536, 0, 0, 65537, 0, 0, 65538, 0, 0, 65539, 0, 0, 65540, 0, 0, 65541, 0, 0, 65542, 0, 0 )
+
+[node name="DetailTileMap" parent="." instance=ExtResource( 4 )]
+z_index = -11
+
+[node name="GameCamera" parent="." instance=ExtResource( 3 )]
+position = Vector2( 0, -24 )
+
+[node name="Actors" type="Node2D" parent="."]
+
+[node name="Player" parent="Actors" instance=ExtResource( 6 )]
+position = Vector2( -68, -8 )
+
+[node name="Exit" parent="Actors" instance=ExtResource( 2 )]
+position = Vector2( -3, -55 )
+
+[node name="Box" parent="Actors" instance=ExtResource( 8 )]
+position = Vector2( -84, -8 )
+
+[node name="Box2" parent="Actors" instance=ExtResource( 8 )]
+position = Vector2( -86, -16 )
+
+[node name="Box3" parent="Actors" instance=ExtResource( 8 )]
+position = Vector2( -83, -24 )
+
+[node name="Box4" parent="Actors" instance=ExtResource( 8 )]
+position = Vector2( 67, -8 )
+
+[node name="Box5" parent="Actors" instance=ExtResource( 8 )]
+position = Vector2( 72, -16 )
+
+[node name="Box6" parent="Actors" instance=ExtResource( 8 )]
+position = Vector2( 78, -8 )
+
+[editable path="GameCamera"]

@@ -2,8 +2,6 @@
 
 [ext_resource path="res://src/actor/Switch.tscn" type="PackedScene" id=1]
 
-
-
 [node name="SwitchBlue" instance=ExtResource( 1 )]
 color = "blue"
 
