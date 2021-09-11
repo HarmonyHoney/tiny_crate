@@ -182,11 +182,13 @@ tracks/1/keys = {
 z_index = 5
 z_as_relative = false
 script = ExtResource( 1 )
-gravity = 0.25
 is_moving = true
 is_colliding = true
 is_using_gravity = true
 is_using_tread = true
+move_speed = 0.9
+jump_speed = 1.4
+jump_frames = 16
 
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( 4, -4 )

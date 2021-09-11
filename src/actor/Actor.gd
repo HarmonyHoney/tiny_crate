@@ -37,7 +37,7 @@ var time_since_floor := 0
 export var is_using_tread := false
 var is_on_tread := false
 
-# ignore this actor
+# ignore this actor's solidity
 var ignore_actor : Actor
 
 # Called when the node enters the scene tree for the first time.
@@ -246,16 +246,27 @@ func is_area_solid_actor(x, y, width = hitbox_x, height = hitbox_y, ignore = nul
 	return false
 
 # check if area is solid
-func is_area_solid(x, y, width = hitbox_x, height = hitbox_y, ignore = null) -> bool:
+func is_area_solid(x = position.x, y = position.y, width = hitbox_x, height = hitbox_y, ignore = null) -> bool:
 	if is_area_solid_tile(x, y, width, height):
 		return true
 	return is_area_solid_actor(x, y, width, height, ignore)
+
+# is overlapping any actor?
+func is_area_actor(group_name = "actor", x = position.x, y = position.y, width = hitbox_x, height = hitbox_y, ignore = null):
+	for a in get_tree().get_nodes_in_group(group_name if group_name else "actor"):
+		if a != self and a != ignore and aabb(x, y, width, height, a.position.x, a.position.y, a.hitbox_x, a.hitbox_y):
+			return true
+	return false
 
 # return array of actors
 func check_area_actors(group_name = "actor", x = position.x, y = position.y, width = hitbox_x, height = hitbox_y, ignore = null):
 	var act = []
 	for a in get_tree().get_nodes_in_group(group_name if group_name else "actor"):
-		if a != self and a != ignore:
-			if aabb(x, y, width, height, a.position.x, a.position.y, a.hitbox_x, a.hitbox_y):
-				act.append(a)
+		if a != self and a != ignore and aabb(x, y, width, height, a.position.x, a.position.y, a.hitbox_x, a.hitbox_y):
+			act.append(a)
 	return act
+
+func check_area_first_actor(group_name = "actor", x = position.x, y = position.y, width = hitbox_x, height = hitbox_y, ignore = null):
+	for a in get_tree().get_nodes_in_group(group_name if group_name else "actor"):
+		if a != self and a != ignore and aabb(x, y, width, height, a.position.x, a.position.y, a.hitbox_x, a.hitbox_y):
+			return a

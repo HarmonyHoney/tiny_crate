@@ -1,28 +1,26 @@
 tool
 extends Actor
 
-var move_speed = 1
+export var move_speed = 0.75
 var move_slow = 0.75
 var move_accel = 0.12
 var move_last = 0
 var push_speed = 0.3
 
-var jump_speed = 2
-var jump_frames = 10
+export var jump_speed = 1.5
+export var jump_frames = 15
 var jump_count = 0
 var is_jump = false
 var coyote_time = 5
 
 var is_pickup = false
-var pickup_frames = 8
-var pickup_count = 0
-var pickup_start := Vector2.ZERO
 var pickup_box : Actor
-var pickup_offset := Vector2(0, -8)
 
-export var speed_drop := Vector2(1, -1)
+var pickup_offset := -5
+var pickup_target := Vector2.ZERO
+var pickup_lerp := 0.3
 
-export var speed_throw := Vector2(1, -2.3)
+export var speed_throw := Vector2(1, -2.6)
 
 var dir = 1
 
@@ -39,10 +37,18 @@ var scene_box = preload("res://src/actor/Box.tscn")
 var scene_explosion = preload("res://src/fx/Explosion.tscn")
 var scene_explosion2 = preload("res://src/fx/Explosion2.tscn")
 
+var btnx = 0
+var btny = 0
+var btnx_last = 0
+var btnx_array = []
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	if Engine.editor_hint:
 		return
+	
+	for i in 11:
+		btnx_array.append(0)
 	
 	# ref nodes
 	node_sprite = $Sprite
@@ -58,17 +64,10 @@ func _ready():
 		node_camera_game.node_target = self
 		node_camera_game.pos_target_offset = Vector2(4, 4)
 
+# holding pickup
 func just_moved():
-	# move box
 	if is_pickup:
-		var diff = position + pickup_offset - pickup_box.position
-		if diff != Vector2.ZERO:
-			pickup_box.move(diff)
-			if pickup_box.has_hit_down:
-				box_release()
-			elif (pickup_box.has_hit_left or pickup_box.has_hit_right) and abs(pickup_box.center().x - center().x) > 3:
-				box_release()
-	# ignore actor until not overlapping
+		move_box()
 	elif is_instance_valid(ignore_actor):
 		if !is_overlapping(ignore_actor):
 			ignore_actor.ignore_actor = null
@@ -80,8 +79,13 @@ func _process(delta):
 		return
 	
 	# joystick axis
-	var btnx = btn.d("right") - btn.d("left")
-	var btny = btn.d("down") - btn.d("up")
+	btnx = btn.d("right") - btn.d("left")
+	btny = btn.d("down") - btn.d("up")
+	
+	btnx_array.push_front(btnx)
+	btnx_array.pop_back()
+	if btnx:
+		btnx_last = btnx
 	
 	# pickup box // returns from func while picking up
 	if is_pickup:
@@ -94,23 +98,17 @@ func _process(delta):
 			open_door()
 			return
 	
-	# hit exit, fixed when holding box
-	for a in check_area_actors("exit", position.x, position.y + (8 if is_pickup else 0), hitbox_x, 8):
+	# hit exit
+	for a in check_area_actors("exit"):
 		dev.out(name + " hit exit")
 		win()
 		return
 	
-	# fall out of stage
-	if position.y > 100:
+	# hit spike
+	if speed.y > -1 and is_area_actor("spike"):
+		dev.out(name + " hit spike")
 		death()
 		return
-	
-	# hit spike
-	if speed.y > -1:
-		for a in check_area_actors("spike"):
-			dev.out(name + " hit spike")
-			death()
-			return
 	
 	# anim
 	if is_on_floor:
@@ -133,7 +131,7 @@ func _process(delta):
 		is_jump = true
 		jump_count = 0
 		node_audio_jump.play()
-		node_anim.play("jump")
+		try_anim("jump")
 		#Shared.stage.metric_jump += 1
 	
 	# jump height
@@ -151,78 +149,97 @@ func _process(delta):
 	# box pickup / throw
 	if btn.p("action"):
 		if is_pickup:
-			if btn.d("down"):
-				box_release(speed_drop.x * dir, speed_drop.y)
-				node_audio_drop.pitch_scale = 1 + rand_range(-0.1, 0.1)
-				node_audio_drop.play()
-			else:
-				box_release(speed_throw.x * dir, speed_throw.y)
+			if btnx_array.has(-1) or btnx_array.has(1):
+				box_release(speed_throw.x * btnx_last, speed_throw.y)
 				node_audio_throw.pitch_scale = 1 + rand_range(-0.1, 0.1)
 				node_audio_throw.play()
+			else:
+				box_release(0, 0)
+				node_audio_drop.pitch_scale = 1 + rand_range(-0.1, 0.1)
+				node_audio_drop.play()
 		else:
-			if btn.d("up"):
-				box_pickup(0, -1)
-			elif btn.d("down"):
-				box_pickup(0, 1)
+			if btny:
+				box_pickup(0, btny)
 			else:
 				box_pickup(dir * 4, 0)
-			
 	
 	# push box
-	if is_on_floor and move_get_dist().x != 0 and not is_pickup:
-		for a in check_area_actors("box", position.x + dir):
-			a.push(dir)
-			# slow movement when pushing
-			if abs(speed.x) > push_speed:
-				speed.x = push_speed * sign(speed.x)
-			move_x(dir)
-			break
+	if !is_pickup and is_on_floor and move_get_dist().x:
+		var a = check_area_actors("box", position.x + dir)
+		if a.size():
+			a.sort_custom(self, "sort_y_ascent")
+			var b = a.front()
+			if is_instance_valid(b) and b != ignore_actor:
+				b.push(dir)
+				# slow movement when pushing
+				speed.x = clamp(speed.x, -push_speed, push_speed)
+				move_x(dir)
 
 func box_release(sx := 0.0, sy := 0.0):
 	is_pickup = false
 	pickup_box.speed = Vector2(sx, sy)
 	pickup_box.is_moving = true
 	pickup_box.shake_dist = 2
+	pickup_box.position = pickup_box.position.round()
 
 func box_pickup(dx := 0, dy := 0):
-	for a in check_area_actors("box", position.x + dx, position.y + dy):
-		var offset_x = box_find_space(0, -8, a)
-		if offset_x != null:
-			position.x += offset_x
+	if !is_area_solid():
+		var a = ignore_actor if is_instance_valid(ignore_actor) else check_area_first_actor("box", position.x + dx, position.y + dy)
+		if !is_instance_valid(a):
+			var b = check_area_actors("box", position.x - 2, position.y - 2, hitbox_x + 4, hitbox_y + 4)
+			b.sort_custom(self, "sort_x")
+			b.sort_custom(self, "sort_y_descent")
+			a = b.front()
+		if is_instance_valid(a):
+			is_pickup = true
+			a.ignore_actor = self
+			ignore_actor = a
+			a.is_moving = false
+			pickup_box = a
+			move_box()
 			
 			node_audio_pickup.pitch_scale = 1 + rand_range(-0.2, 0.2)
 			node_audio_pickup.play()
-			
-			is_pickup = true
-			pickup_box = a
-			pickup_box.is_moving = false
-			pickup_box.position = position + pickup_offset
-			ignore_actor = pickup_box
-			pickup_box.ignore_actor = self
-		break
 
-# ox, oy = offset x and y
-func box_find_space(ox, oy, ignore : Actor):
-	# wiggle around and look for an open space
-	for i in [0, 1, -1, 2, -2, 3, -3, 4, -4]:
-		if not is_area_solid(position.x + ox + i, position.y + oy, 8, 16, ignore):
-			return i
-	return null
+func sort_x(a, b):
+	if abs(a.position.x - position.x) < abs(b.position.x - position.x):
+		return true
+	return false
+
+func sort_y_ascent(a, b):
+	if a.position.y - position.y > b.position.y - position.y:
+		return true
+	return false
+
+func sort_y_descent(a, b):
+	if a.position.y - position.y < b.position.y - position.y:
+		return true
+	return false
+
+func move_box():
+	for i in abs(pickup_offset) + 1:
+		var p = position + Vector2(0, pickup_offset + i)
+		if !is_area_solid(p.x, p.y):
+			pickup_target = p
+			break
+	pickup_box.position = pickup_box.position.linear_interpolate(pickup_target, pickup_lerp)
+
+func remove_player():
+	# drop box
+	if is_pickup:
+		box_release()
+	queue_free()
 
 func death():
 	# explosion
 	var inst = scene_explosion.instance()
-	inst.position = position + (Vector2(4, 8) if is_pickup else Vector2(4, 4))
+	inst.position = center()
 	get_parent().add_child(inst)
 	Shared.node_camera_game.shake(8)
 	
-	# drop box
-	if is_pickup:
-		box_release()
-	
 	# reset scene
 	Shared.start_reset()
-	queue_free()
+	remove_player()
 	dev.out(name + " died")
 	#Shared.stage.death()
 	#Shared.death()
@@ -234,13 +251,9 @@ func win():
 	get_parent().add_child(inst)
 	Shared.node_camera_game.shake(4)
 	
-	# drop box
-	if is_pickup:
-		box_release()
-	
 	# win scene
 	Shared.win()
-	queue_free()
+	remove_player()
 
 func open_door():
 	# explosion
@@ -249,13 +262,9 @@ func open_door():
 	get_parent().add_child(inst)
 	Shared.node_camera_game.shake(4)
 	
-	# drop box
-	if is_pickup:
-		box_release()
-	
 	# reset scene
 	# Shared.start_reset("hub")
-	queue_free()
+	remove_player()
 	dev.out("map complete")
 	pass
 
