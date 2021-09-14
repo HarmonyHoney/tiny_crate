@@ -47,7 +47,7 @@ func _ready():
 	if Engine.editor_hint:
 		return
 	
-	for i in 11:
+	for i in 8:
 		btnx_array.append(0)
 	
 	# ref nodes
