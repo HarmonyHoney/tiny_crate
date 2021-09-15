@@ -1,0 +1,53 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://src/stage/DetailTileMap.tscn" type="PackedScene" id=1]
+[ext_resource path="res://src/stage/GameCamera.tscn" type="PackedScene" id=2]
+[ext_resource path="res://src/stage/SolidTileMap.tscn" type="PackedScene" id=3]
+[ext_resource path="res://src/actor/Player.tscn" type="PackedScene" id=4]
+[ext_resource path="res://src/stage/SpikeTileMap.tscn" type="PackedScene" id=5]
+[ext_resource path="res://src/actor/Exit.tscn" type="PackedScene" id=6]
+[ext_resource path="res://src/stage/Stage.gd" type="Script" id=7]
+[ext_resource path="res://src/actor/Box.tscn" type="PackedScene" id=8]
+[ext_resource path="res://media/font/m3x6.tres" type="DynamicFont" id=9]
+
+[node name="Stage" type="Node2D"]
+script = ExtResource( 7 )
+stage_name = "1-1"
+
+[node name="SolidTileMap" parent="." instance=ExtResource( 3 )]
+tile_data = PoolIntArray( -196616, 0, 0, -196615, 0, 0, -196614, 0, 0, -196613, 0, 0, -196612, 0, 0, -196611, 0, 0, -196610, 0, 0, -196609, 0, 0, -262144, 0, 0, -262143, 0, 0, -262142, 0, 0, -262141, 0, 0, -262140, 0, 0, -262139, 0, 0, -262138, 0, 0, -262137, 0, 0, -131080, 0, 0, -196601, 0, 0, -65544, 0, 0, -131065, 0, 0, -8, 0, 0, -65529, 0, 0, 65528, 0, 0, 7, 0, 0, 131064, 0, 0, 65543, 0, 0, 196600, 0, 0, 131076, 0, 0, 131077, 0, 0, 131078, 0, 0, 131079, 0, 0, 262136, 0, 0, 262137, 0, 0, 262138, 0, 0, 262139, 0, 0, 262140, 0, 0, 262141, 0, 0, 262142, 0, 0, 262143, 0, 0, 196608, 0, 0, 196609, 0, 0, 196610, 0, 0, 196611, 0, 0, 196612, 0, 0, 196613, 0, 0, 196614, 0, 0, 196615, 0, 0 )
+
+[node name="SpikeTileMap" parent="." instance=ExtResource( 5 )]
+tile_data = PoolIntArray( 196601, 0, 0, 196602, 0, 0, 196603, 0, 0, 196604, 0, 0, 196605, 0, 0, 196606, 0, 0, 196607, 0, 0, 131072, 0, 0, 131073, 0, 0, 131074, 0, 0, 131075, 0, 0 )
+
+[node name="DetailTileMap" parent="." instance=ExtResource( 1 )]
+z_index = -11
+
+[node name="GameCamera" parent="." instance=ExtResource( 2 )]
+
+[node name="Actors" type="Node2D" parent="."]
+
+[node name="Player" parent="Actors" instance=ExtResource( 4 )]
+position = Vector2( 32, 8 )
+
+[node name="Exit" parent="Actors" instance=ExtResource( 6 )]
+position = Vector2( -55, -7 )
+
+[node name="Box" parent="Actors" instance=ExtResource( 8 )]
+position = Vector2( 48, 8 )
+
+[node name="Box2" parent="Actors" instance=ExtResource( 8 )]
+position = Vector2( 48, 0 )
+
+[node name="Label" type="Label" parent="."]
+margin_left = -32.0
+margin_top = 48.0
+margin_right = 27.0
+margin_bottom = 56.0
+custom_fonts/font = ExtResource( 9 )
+text = "stepping stones"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[editable path="GameCamera"]

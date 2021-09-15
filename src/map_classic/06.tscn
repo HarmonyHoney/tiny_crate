@@ -1,0 +1,38 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://src/stage/SpikeTileMap.tscn" type="PackedScene" id=1]
+[ext_resource path="res://src/actor/Player.tscn" type="PackedScene" id=2]
+[ext_resource path="res://src/actor/Exit.tscn" type="PackedScene" id=3]
+[ext_resource path="res://src/stage/SolidTileMap.tscn" type="PackedScene" id=4]
+[ext_resource path="res://src/stage/GameCamera.tscn" type="PackedScene" id=5]
+[ext_resource path="res://src/stage/DetailTileMap.tscn" type="PackedScene" id=6]
+[ext_resource path="res://src/actor/Box.tscn" type="PackedScene" id=7]
+[ext_resource path="res://src/stage/Stage.gd" type="Script" id=8]
+
+[node name="Stage" type="Node2D"]
+script = ExtResource( 8 )
+stage_name = "1-1"
+
+[node name="SolidTileMap" parent="." instance=ExtResource( 4 )]
+tile_data = PoolIntArray( -196614, 0, 0, -196613, 0, 0, -196612, 0, 0, -196611, 0, 0, -196610, 0, 0, -196609, 0, 0, -262144, 0, 0, -262143, 0, 0, -262142, 0, 0, -262141, 0, 0, -262140, 0, 0, -262139, 0, 0, -131078, 0, 0, -196603, 0, 0, -65542, 0, 0, -131067, 0, 0, -6, 0, 0, -65531, 0, 0, 65530, 0, 0, 5, 0, 0, 131066, 0, 0, 65541, 0, 0, 196602, 0, 0, 196603, 0, 0, 196604, 0, 0, 196605, 0, 0, 196606, 0, 0, 131077, 0, 0, 262138, 0, 0, 262139, 0, 0, 262140, 0, 0, 262141, 0, 0, 262142, 0, 0, 262143, 0, 0, 196608, 0, 0, 196609, 0, 0, 196610, 0, 0, 196611, 0, 0, 196612, 0, 0, 196613, 0, 0 )
+
+[node name="SpikeTileMap" parent="." instance=ExtResource( 1 )]
+tile_data = PoolIntArray( 196607, 0, 0, 131072, 0, 0, 131073, 0, 0, 131074, 0, 0, 131075, 0, 0, 131076, 0, 0 )
+
+[node name="DetailTileMap" parent="." instance=ExtResource( 6 )]
+z_index = -11
+
+[node name="GameCamera" parent="." instance=ExtResource( 5 )]
+
+[node name="Actors" type="Node2D" parent="."]
+
+[node name="Player" parent="Actors" instance=ExtResource( 2 )]
+position = Vector2( -24, 8 )
+
+[node name="Exit" parent="Actors" instance=ExtResource( 3 )]
+position = Vector2( 33, -15 )
+
+[node name="Box" parent="Actors" instance=ExtResource( 7 )]
+position = Vector2( -40, 8 )
+
+[editable path="GameCamera"]
