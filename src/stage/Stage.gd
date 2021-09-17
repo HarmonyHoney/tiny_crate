@@ -1,4 +1,4 @@
-#extends Node2D
+extends Node2D
 #class_name Stage
 #
 #var stage_name := "unnamed"
