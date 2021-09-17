@@ -372,6 +372,7 @@ func attract_mode():
 				get_parent().set_button_box()
 				at = 30
 			29:
+				remainder = Vector2.ZERO
 				a_step = -1
 	
 	if btnp_jump:
