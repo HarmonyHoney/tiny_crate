@@ -107,9 +107,9 @@ func win_save():
 	print("save_data: ", save_data)
 
 
-func save_file(save_filename,  arg):
+func save_file(fname, arg):
 	var file = File.new()
-	file.open("user://" + str(save_filename), File.WRITE)
+	file.open("user://" + str(fname), File.WRITE)
 	file.store_string(arg)
 	file.close()
 
@@ -124,5 +124,7 @@ func delete_save():
 	print("delete save")
 	save_file(save_filename, "")
 
-
+func unlock():
+	save_data["map"] = 99
+	save_file("box.save", JSON.print(save_data, "\t"))
 

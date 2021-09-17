@@ -15,6 +15,8 @@ var push_dir = -1
 
 var shake_dist = 0
 
+var scene_slam = preload("res://src/fx/Slam.tscn")
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	if Engine.editor_hint or Shared.is_level_select:
@@ -43,6 +45,11 @@ func hit_floor():
 	node_anim.play("hit")
 	node_anim.advance(0)
 	shake_dist = 1
+	
+	# slam
+	var inst = scene_slam.instance()
+	inst.position = center()
+	get_parent().add_child(inst)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):

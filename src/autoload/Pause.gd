@@ -12,7 +12,7 @@ var cursor := 0
 var menu_items := []
 var selection := ""
 var paused_items := ["resume", "reset", "level select", "options", "quit game"]
-var options_items := ["back", "fullscreen", "window size", "volume", "delete save data"]
+var options_items := ["back", "fullscreen", "window size", "volume", "delete save data", "unlock all"]
 
 var timer := 0.1
 var clock := 0.0
@@ -101,6 +101,8 @@ func menu_select():
 		"delete save data":
 			Shared.delete_save()
 			node_audio.play()
+		"unlock all":
+			Shared.unlock()
 
 func switch_menu(arg):
 	cursor = 0
