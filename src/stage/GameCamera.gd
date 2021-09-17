@@ -20,7 +20,8 @@ var bounds_lower := Vector2.ZERO
 export var bounds := Rect2(0, 0, 0, 0) setget _set_bounds
 
 func _ready():
-	if Engine.editor_hint:
+	if Engine.editor_hint or Shared.is_level_select:
+		set_process(false)
 		return
 	
 	Shared.node_camera_game = self

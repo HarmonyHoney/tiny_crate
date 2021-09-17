@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://src/stage/SolidTileMap.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/actor/Exit.tscn" type="PackedScene" id=2]
@@ -7,10 +7,12 @@
 [ext_resource path="res://src/stage/SpikeTileMap.tscn" type="PackedScene" id=5]
 [ext_resource path="res://src/actor/Player.tscn" type="PackedScene" id=6]
 [ext_resource path="res://src/stage/Stage.gd" type="Script" id=7]
+[ext_resource path="res://media/font/m6x11.tres" type="DynamicFont" id=8]
+[ext_resource path="res://media/image/btn.png" type="Texture" id=9]
+[ext_resource path="res://src/menu/hide_on_level_select.gd" type="Script" id=10]
 
 [node name="Stage" type="Node2D"]
 script = ExtResource( 7 )
-stage_name = "1-1"
 
 [node name="SolidTileMap" parent="." instance=ExtResource( 1 )]
 tile_data = PoolIntArray( -196613, 0, 0, -196612, 536870912, 1, -196611, 536870912, 0, -196610, 536870912, 1, -196609, 0, 0, -262144, 536870912, 1, -262143, 536870912, 0, -262142, 536870912, 1, -262141, 0, 0, -262140, 536870912, 1, -262139, 0, 0, -262138, 536870912, 1, -262137, 0, 0, -131077, 0, 0, -196601, 0, 0, -65544, 0, 0, -65543, 536870912, 1, -65542, 0, 0, -65541, 0, 1, -131065, 536870912, 1, -8, 0, 0, -65533, 0, 0, -65532, 536870912, 0, -65531, 536870912, 1, -65530, 0, 0, -65529, 0, 0, 65528, 536870912, 1, 3, 536870912, 1, 131064, 536870912, 0, 65539, 0, 0, 196600, 536870912, 1, 196607, 0, 0, 131072, 536870912, 0, 131073, 536870912, 1, 131074, 0, 0, 131075, 0, 0, 262136, 0, 0, 262143, 0, 0, 327672, 0, 0, 327673, 536870912, 1, 327674, 0, 0, 327675, 536870912, 1, 327676, 536870912, 0, 327677, 536870912, 0, 327678, 536870912, 1, 327679, 0, 0 )
@@ -30,5 +32,28 @@ position = Vector2( -48, 24 )
 
 [node name="Exit" parent="Actors" instance=ExtResource( 2 )]
 position = Vector2( 45, -19 )
+
+[node name="x" type="Sprite" parent="."]
+position = Vector2( 0, -47 )
+texture = ExtResource( 9 )
+hframes = 6
+vframes = 4
+frame = 1
+region_rect = Rect2( 0, 0, 18, 18 )
+script = ExtResource( 10 )
+
+[node name="x_label" type="Label" parent="x"]
+margin_left = 12.0
+margin_top = -7.0
+margin_right = 50.0
+margin_bottom = 6.0
+custom_fonts/font = ExtResource( 8 )
+custom_colors/font_color = Color( 1, 0.945098, 0.909804, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_as_outline = 1
+text = "jump"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [editable path="GameCamera"]

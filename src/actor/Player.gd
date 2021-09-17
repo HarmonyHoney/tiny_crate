@@ -31,8 +31,6 @@ var node_audio_pickup : AudioStreamPlayer2D
 var node_audio_drop : AudioStreamPlayer2D
 var node_audio_throw : AudioStreamPlayer2D
 
-var node_camera_game : Camera2D
-
 var scene_box = preload("res://src/actor/Box.tscn")
 var scene_explosion = preload("res://src/fx/Explosion.tscn")
 var scene_explosion2 = preload("res://src/fx/Explosion2.tscn")
@@ -44,7 +42,8 @@ var btnx_array = []
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	if Engine.editor_hint:
+	if Engine.editor_hint or Shared.is_level_select:
+		set_process(false)
 		return
 	
 	for i in 8:
@@ -60,9 +59,8 @@ func _ready():
 	
 	# assign camera target
 	if Shared.node_camera_game:
-		node_camera_game = Shared.node_camera_game
-		node_camera_game.node_target = self
-		node_camera_game.pos_target_offset = Vector2(4, 4)
+		Shared.node_camera_game.node_target = self
+		Shared.node_camera_game.pos_target_offset = Vector2(4, 4)
 
 # holding pickup
 func just_moved():
@@ -86,17 +84,6 @@ func _process(delta):
 	btnx_array.pop_back()
 	if btnx:
 		btnx_last = btnx
-	
-	# pickup box // returns from func while picking up
-	if is_pickup:
-		pass
-	
-	# open door
-	if btn.p("up"):
-		for a in check_area_actors("door"):
-			a.open()
-			open_door()
-			return
 	
 	# hit exit
 	for a in check_area_actors("exit"):
@@ -132,7 +119,6 @@ func _process(delta):
 		jump_count = 0
 		node_audio_jump.play()
 		try_anim("jump")
-		#Shared.stage.metric_jump += 1
 	
 	# jump height
 	if is_jump:
@@ -201,6 +187,7 @@ func box_pickup(dx := 0, dy := 0):
 			node_audio_pickup.pitch_scale = 1 + rand_range(-0.2, 0.2)
 			node_audio_pickup.play()
 
+# custom array sorting for boxes
 func sort_x(a, b):
 	if abs(a.position.x - position.x) < abs(b.position.x - position.x):
 		return true
@@ -241,8 +228,6 @@ func death():
 	Shared.start_reset()
 	remove_player()
 	dev.out(name + " died")
-	#Shared.stage.death()
-	#Shared.death()
 
 func win():
 	# explosion
@@ -254,19 +239,6 @@ func win():
 	# win scene
 	Shared.win()
 	remove_player()
-
-func open_door():
-	# explosion
-	var inst = scene_explosion2.instance()
-	inst.position = position + (Vector2(4, 8) if is_pickup else Vector2(4, 4))
-	get_parent().add_child(inst)
-	Shared.node_camera_game.shake(4)
-	
-	# reset scene
-	# Shared.start_reset("hub")
-	remove_player()
-	dev.out("map complete")
-	pass
 
 func try_anim(arg : String):
 	if node_anim.current_animation != arg:

@@ -29,11 +29,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/actor/Box.gd"
 }, {
-"base": "Actor",
-"class": "Door",
-"language": "GDScript",
-"path": "res://src/actor/Door.gd"
-}, {
 "base": "Node",
 "class": "EditorTheme",
 "language": "GDScript",
@@ -49,11 +44,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/actor/Passthrough.gd"
 }, {
-"base": "Node2D",
-"class": "Stage",
-"language": "GDScript",
-"path": "res://src/stage/Stage.gd"
-}, {
 "base": "Actor",
 "class": "Switch",
 "language": "GDScript",
@@ -63,25 +53,17 @@ _global_script_classes=[ {
 "class": "SwitchBlock",
 "language": "GDScript",
 "path": "res://src/actor/SwitchBlock.gd"
-}, {
-"base": "Actor",
-"class": "Treadmill",
-"language": "GDScript",
-"path": "res://src/actor/Treadmill.gd"
 } ]
 _global_script_class_icons={
 "Actor": "",
 "AsepriteImportData": "",
 "AsepriteImporter": "",
 "Box": "",
-"Door": "",
 "EditorTheme": "",
 "Exit": "",
 "Passthrough": "",
-"Stage": "",
 "Switch": "",
-"SwitchBlock": "",
-"Treadmill": ""
+"SwitchBlock": ""
 }
 
 [application]

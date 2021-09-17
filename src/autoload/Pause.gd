@@ -12,12 +12,13 @@ var cursor := 0
 var menu_items := []
 var selection := ""
 var paused_items := ["resume", "reset", "level select", "options", "quit game"]
-var options_items := ["back", "fullscreen", "window size", "volume"]
+var options_items := ["back", "fullscreen", "window size", "volume", "delete save data"]
 
 var timer := 0.1
 var clock := 0.0
 
 var node_cursor : Node2D
+var node_audio : AudioStreamPlayer2D
 
 func _ready():
 	paused_menu = $Menu/Paused
@@ -30,6 +31,7 @@ func _ready():
 	menu_list = paused_list
 	
 	node_cursor = $Menu/Paused/Cursor
+	node_audio = $AudioStreamPlayer2D
 
 func _process(delta):
 	if clock != 0:
@@ -53,7 +55,6 @@ func _input(event):
 					cursor = clamp(cursor + btny, 0, menu_items.size() - 1)
 					selection = menu_items[cursor]
 					write_menu()
-					
 
 func toggle_pause():
 	is_paused = !is_paused
@@ -66,7 +67,6 @@ func toggle_pause():
 	else:
 		options_menu.visible = false
 
-
 func write_menu():
 	menu_list.text = ""
 	for i in menu_items.size():
@@ -76,8 +76,6 @@ func write_menu():
 			node_cursor.scale.x = menu_items[i].length() * 0.6
 		else:
 			menu_list.text += menu_items[i] + "\n"
-	
-
 
 func menu_select():
 	match menu_items[cursor]:
@@ -89,7 +87,8 @@ func menu_select():
 		"options":
 			switch_menu("options")
 		"level select":
-			get_tree().change_scene("res://src/menu/select.tscn")
+			Shared.scene_path = Shared.level_select_path
+			Shared.do_reset()
 			toggle_pause()
 		"quit game":
 			get_tree().quit()
@@ -99,6 +98,9 @@ func menu_select():
 			OS.window_fullscreen = !OS.window_fullscreen
 		"volume":
 			pass
+		"delete save data":
+			Shared.delete_save()
+			node_audio.play()
 
 func switch_menu(arg):
 	cursor = 0

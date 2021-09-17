@@ -1,10 +1,7 @@
 extends Node
 
 var node_map_solid : TileMap
-var node_map_spike : TileMap
 var node_camera_game : Camera2D
-
-var stage : Stage
 
 var is_reset = false
 var reset_clock := 0.0
@@ -12,32 +9,41 @@ var reset_time := 1.0
 var is_clear = false
 
 var map_path := "res://src/map/"
+var current_map := 0
+var scene_path := "res://src/menu/select.tscn"
+var level_select_path := "res://src/menu/select.tscn"
+
 var _window_scale := 1.0
-var map_name := "01"
-var hub_pos := Vector2(-16, -16)
 #var death_count := 0
 
-var stage_data := []
-var save_file := "box.save"
+var save_data := {}
+var save_filename := "box.save"
 
-var last_pick = 0
+var view_size := Vector2(228, 128)
 
-var view_size := Vector2(256, 144)
+var maps = []
+
+var is_level_select := false
 
 func _ready():	
 	dev.out("Shared._ready(): ", false)
+	
+	# get world maps
+	maps = dir_list(map_path)
+	print("maps: ", maps)
 	
 	# _window_scale window
 	#window_scale = floor(OS.get_screen_size().x / get_viewport().size.x)
 	#_window_scale = max(1, floor(_window_scale * 0.9))
 	#set_window_scale()
 	
-	# load stage save data
-	if load_data(save_file):
-		stage_data = JSON.parse(load_data(save_file)).result
-		dev.out(JSON.print(stage_data, "\t"))
+	# load save data
+	if load_file(save_filename):
+		save_data = JSON.parse(load_file(save_filename)).result
+		dev.out("save_data: " + JSON.print(save_data, "\t"))
 	else:
-		dev.out(save_file + " not found")
+		dev.out(save_filename + " not found")
+		save_data["map"] = 0
 
 func _process(delta):
 	# reset timer
@@ -45,6 +51,20 @@ func _process(delta):
 		reset_clock -= delta
 		if reset_clock < 0:
 			do_reset()
+
+# look into a folder and return a list of filenames without file extension
+func dir_list(path : String):
+	var array = []
+	var dir = Directory.new()
+	if dir.open(path) == OK:
+		dir.list_dir_begin(true, true)
+		var file_name = dir.get_next()
+		while file_name:
+			array.append(file_name.split(".")[0])
+			file_name = dir.get_next()
+		dir.list_dir_end()
+	array.sort()
+	return array
 
 func set_window_scale(arg := _window_scale):
 	_window_scale = arg if arg else _window_scale
@@ -65,58 +85,44 @@ func do_reset():
 	HUD.wipe.start()
 
 func change_map():
-	if is_clear:
-		is_clear = false
-		get_tree().change_scene("res://src/menu/select.tscn")
-	else:
-		get_tree().change_scene(map_path + map_name + ".tscn")
+	get_tree().change_scene(scene_path)
+	is_level_select = scene_path == level_select_path
 	HUD.wipe.start(true)
 
+func set_map(arg):
+	current_map = clamp(arg, 0, Shared.maps.size() - 1)
+	scene_path = map_path + maps[current_map] + ".tscn"
 
 func win():
 	win_save()
-	
-	is_clear = true
-	last_pick += 1
+	set_map(current_map + 1)
 	start_reset()
 	dev.out("map complete")
 
 func win_save():
-	# save data
-	if stage:
-		stage.stop_timer()
-		var new_data = {
-			"file": stage.filename,
-			"name": stage.stage_name,
-			"complete": stage.is_complete,
-			"time": stage.timer,
-			"death": stage.metric_death,
-			"jump": stage.metric_jump,
-			"pickup": stage.metric_pickup,
-		}
-		for i in stage_data:
-			if i.has("file") and i["file"] == new_data["file"]:
-				stage_data.erase(i)
-				break
-		stage_data.append(new_data)
+	if save_data["map"] < current_map + 1:
+		save_data["map"]  = current_map + 1
 	
-	stage_data.sort()
-	save_data(save_file, JSON.print(stage_data, "\t"))
+	save_file(save_filename, JSON.print(save_data, "\t"))
+	print("save_data: ", save_data)
 
 
-func save_data(save_file,  arg):
+func save_file(save_filename,  arg):
 	var file = File.new()
-	file.open("user://" + str(save_file), File.WRITE)
+	file.open("user://" + str(save_filename), File.WRITE)
 	file.store_string(arg)
 	file.close()
 
-func load_data(fname = "box.save"):
+func load_file(fname = "box.save"):
 	var file = File.new()
 	file.open("user://" + str(fname), File.READ)
 	var content = file.get_as_text()
 	file.close()
 	return content
-	
+
+func delete_save():
+	print("delete save")
+	save_file(save_filename, "")
 
 
 

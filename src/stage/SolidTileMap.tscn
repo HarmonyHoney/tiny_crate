@@ -2,7 +2,6 @@
 
 [ext_resource path="res://media/image/solid_bricks.png" type="Texture" id=2]
 
-
 [sub_resource type="TileSet" id=1]
 0/name = "solid_bricks.png 0"
 0/texture = ExtResource( 2 )

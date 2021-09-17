@@ -17,7 +17,8 @@ var shake_dist = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	if Engine.editor_hint:
+	if Engine.editor_hint or Shared.is_level_select:
+		set_process(false)
 		return
 	
 	node_audio = $AudioHit

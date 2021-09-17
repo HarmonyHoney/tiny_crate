@@ -26,8 +26,6 @@ func _ready():
 	rot_speed += rand_range(-rot_speed_diff, rot_speed_diff)
 	if randf() > 0.5:
 		rot_speed = -rot_speed
-	
-
 
 func _process(delta):
 	counter += delta

@@ -6,102 +6,7 @@
 [ext_resource path="res://media/font/m6x11.tres" type="DynamicFont" id=4]
 [ext_resource path="res://src/menu/Buttons/bSelect.tscn" type="PackedScene" id=5]
 [ext_resource path="res://src/shader/outline2D_outer.shader" type="Shader" id=6]
-
-[sub_resource type="GDScript" id=1]
-script/source = "extends Node2D
-
-var map_path := \"res://src/map/\"
-
-var maps = []
-
-var cam : Camera2D
-
-var cursor = 0
-
-var screens : Control
-var screen : Control
-var screen_dist = 105
-var columns = 4
-
-var wait = 0
-
-var last_pick = 0
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	cam = $Camera2D
-	
-	screens = $Control/Screens
-	screen = $Control/Screen.duplicate()
-	$Control/Screen.queue_free()
-	
-	# get world maps
-	maps = dir_list(map_path)
-	print(\"maps: \", maps)
-	
-	# make screens
-	for i in maps.size():
-		var new = screen.duplicate()
-		var sy = i / columns
-		var sx = i % columns
-		new.rect_position += Vector2(sx + (sy % 2) * 0.5, sy) * screen_dist
-		#new.rect_position += Vector2(i, 0) * screen_dist
-		new.get_node(\"Label\").text = maps[i]
-		screens.add_child(new)
-		view_scene(new.get_node(\"ViewportContainer/Viewport\"), map_path + maps[i])
-	
-	last_pick = Shared.last_pick
-	scroll(last_pick)
-
-func _process(delta):
-	if wait > 0:
-		wait -= delta
-		if wait < 0:
-			HUD.wipe.connect(\"finish\", self, \"load_level\")
-			HUD.wipe.start()
-		return
-	
-	var btnx = btn.p(\"right\") - btn.p(\"left\")
-	var btny = btn.p(\"down\") - btn.p(\"up\")
-	if btn.p(\"jump\"):
-		open_map()
-	if btnx or btny:
-		scroll(btnx + (btny * columns))
-
-func scroll(arg = 0):
-	cursor = clamp(cursor + arg, 0, maps.size() - 1)
-	cam.position = screens.get_children()[cursor].rect_position + Vector2(50, 50)
-
-# look into a folder and return a list of filenames without file extension
-func dir_list(path : String):
-	var array = []
-	var dir = Directory.new()
-	if dir.open(path) == OK:
-		dir.list_dir_begin(true, true)
-		var file_name = dir.get_next()
-		while file_name:
-			array.append(file_name.split(\".\")[0])
-			file_name = dir.get_next()
-		dir.list_dir_end()
-	array.sort()
-	return array
-
-# view a scene inside the viewport by path
-func view_scene(port, path):
-	for i in port.get_children():
-		i.queue_free()
-	
-	if ResourceLoader.exists(path + \".tscn\"):
-		var m = load(path + \".tscn\").instance()
-		port.add_child(m)
-		for i in get_tree().get_nodes_in_group(\"player\"):
-			i.set_process(false) # dont process player
-
-func open_map():
-	Shared.last_pick = cursor
-	Shared.map_name = maps[cursor]
-	Shared.do_reset()
-"
+[ext_resource path="res://src/menu/select.gd" type="Script" id=7]
 
 [sub_resource type="Animation" id=2]
 resource_name = "New Anim"
@@ -163,7 +68,7 @@ shader_param/line_thickness = 1.0
 
 [node name="Node2D" type="Node2D"]
 position = Vector2( 1, 1 )
-script = SubResource( 1 )
+script = ExtResource( 7 )
 
 [node name="Control" type="Control" parent="."]
 margin_right = 320.0

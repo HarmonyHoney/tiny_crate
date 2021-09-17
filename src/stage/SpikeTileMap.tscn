@@ -1,6 +1,7 @@
 [gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://media/image/crate_tiles.png" type="Texture" id=1]
+[ext_resource path="res://src/stage/SpikeTileMap.gd" type="Script" id=2]
 
 [sub_resource type="TileSet" id=1]
 0/name = "crate_tiles.png 0"
@@ -18,26 +19,10 @@
 0/shapes = [  ]
 0/z_index = 0
 
-[sub_resource type="GDScript" id=2]
-script/source = "extends TileMap
-
-var scene_spike = preload(\"res://src/actor/Spike.tscn\")
-
-func _ready():
-	Shared.node_map_spike = self
-	
-	for pos in get_used_cells():
-		var cell = cell_size.x
-		var inst = scene_spike.instance()
-		inst.position = Vector2(pos.x * cell, pos.y * cell + 5)
-		add_child(inst)
-	clear()
-"
-
 [node name="SpikeTileMap" type="TileMap"]
 z_index = 5
 z_as_relative = false
 tile_set = SubResource( 1 )
 cell_size = Vector2( 8, 8 )
 format = 1
-script = SubResource( 2 )
+script = ExtResource( 2 )

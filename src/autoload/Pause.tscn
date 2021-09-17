@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://media/font/m3x6.tres" type="DynamicFont" id=1]
 [ext_resource path="res://media/image/9slice.png" type="Texture" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://media/image/8pixel.png" type="Texture" id=4]
 [ext_resource path="res://media/font/m6x11.ttf" type="DynamicFontData" id=5]
 [ext_resource path="res://src/menu/Buttons/bSelect.tscn" type="PackedScene" id=6]
+[ext_resource path="res://media/audio/sfx/sfx5.wav" type="AudioStream" id=7]
 
 [sub_resource type="DynamicFont" id=1]
 outline_size = 1
@@ -122,3 +123,6 @@ volume
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 7 )
