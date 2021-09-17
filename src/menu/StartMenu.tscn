@@ -1,76 +1,190 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://media/font/m3x6.tres" type="DynamicFont" id=1]
+[ext_resource path="res://media/image/9slice.png" type="Texture" id=2]
+[ext_resource path="res://src/menu/StartMenu.gd" type="Script" id=3]
+[ext_resource path="res://media/image/8pixel.png" type="Texture" id=4]
+[ext_resource path="res://media/font/m6x11.ttf" type="DynamicFontData" id=5]
+[ext_resource path="res://src/menu/Buttons/bSelect.tscn" type="PackedScene" id=6]
+[ext_resource path="res://media/audio/sfx/sfx5.wav" type="AudioStream" id=7]
+[ext_resource path="res://src/stage/DetailTileMap.tscn" type="PackedScene" id=8]
+[ext_resource path="res://src/actor/Box.tscn" type="PackedScene" id=9]
+[ext_resource path="res://src/menu/AttractMode.gd" type="Script" id=10]
+[ext_resource path="res://src/stage/SolidTileMap.tscn" type="PackedScene" id=11]
+[ext_resource path="res://src/actor/Player.tscn" type="PackedScene" id=12]
+[ext_resource path="res://src/stage/GameCamera.tscn" type="PackedScene" id=13]
+[ext_resource path="res://src/actor/SwitchBlockBlue.tscn" type="PackedScene" id=14]
+[ext_resource path="res://src/actor/SwitchBlue.tscn" type="PackedScene" id=15]
 
-[sub_resource type="GDScript" id=1]
-script/source = "extends Node2D
+[sub_resource type="DynamicFont" id=1]
+outline_size = 1
+outline_color = Color( 0, 0, 0, 1 )
+extra_spacing_bottom = -1
+font_data = ExtResource( 5 )
 
+[node name="StartMenu" type="Node2D"]
+pause_mode = 2
+script = ExtResource( 3 )
 
-var cursor = 0
-var menu_items = [\"play\", \"options\", \"exit\"]
-var node_list : Node2D
-var node_cursor : Node2D
+[node name="Menu" type="Node2D" parent="."]
+z_index = 20
+z_as_relative = false
 
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	
-	node_cursor = $Cursor
-	node_list = $List
-	
-	var lbl = $List/Label.duplicate()
-	$List/Label.queue_free()
-	
-	for i in menu_items.size():
-		var l = lbl.duplicate()
-		l.text = menu_items[i]
-		l.rect_position = Vector2(320 / 2, (180 / 2) + i * 11)
-		node_list.add_child(l)
+[node name="Buttons" parent="Menu" instance=ExtResource( 6 )]
+position = Vector2( -18, 0 )
 
+[node name="Cursor" type="Sprite" parent="Menu"]
+modulate = Color( 0.113725, 0.168627, 0.32549, 1 )
+position = Vector2( 14, 40 )
+scale = Vector2( 10, 1 )
+texture = ExtResource( 4 )
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	var btny = btn.p(\"down\") - btn.p(\"up\")
-	if btny:
-		cursor = clamp(cursor + btny, 0, menu_items.size() - 1)
-		node_cursor.position = node_list.get_children()[cursor].rect_position + Vector2(-5, 0)
-	if btn.p(\"jump\"):
-		select()
+[node name="Main" type="Control" parent="Menu"]
+margin_left = -21.0
+margin_right = 19.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-func select():
-	match menu_items[cursor]:
-		\"play\":
-			get_tree().change_scene(\"res://src/menu/select.tscn\")
-		\"options\":
-			node_list.get_children()[cursor].text = \"boptions\"
-		\"exit\":
-			get_tree().quit()
+[node name="NinePatchRect" type="NinePatchRect" parent="Menu/Main"]
+visible = false
+margin_right = 72.0
+margin_bottom = 72.0
+rect_min_size = Vector2( 24, 24 )
+texture = ExtResource( 2 )
+patch_margin_left = 8
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 8
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
+[node name="List" type="Label" parent="Menu/Main"]
+margin_top = 36.0
+margin_right = 72.0
+margin_bottom = 92.0
+custom_fonts/font = ExtResource( 1 )
+text = "resume
+reset
+options
+level select
+quit game"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
+[node name="Header" type="Label" parent="Menu/Main"]
+margin_left = 3.0
+margin_top = 9.0
+margin_right = 231.0
+margin_bottom = 22.0
+custom_fonts/font = SubResource( 1 )
+text = "GAME NAME"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
+[node name="Options" type="Control" parent="Menu"]
+visible = false
+margin_right = 40.0
+margin_bottom = 40.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NinePatchRect" type="NinePatchRect" parent="Menu/Options"]
+visible = false
+margin_right = 72.0
+margin_bottom = 88.0
+grow_horizontal = 2
+grow_vertical = 2
+rect_min_size = Vector2( 72, 72 )
+texture = ExtResource( 2 )
+patch_margin_left = 8
+patch_margin_top = 8
+patch_margin_right = 8
+patch_margin_bottom = 8
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="List" type="Label" parent="Menu/Options"]
+margin_left = 11.0
+margin_top = 31.0
+margin_right = 59.0
+margin_bottom = 72.0
+custom_fonts/font = ExtResource( 1 )
+custom_colors/font_color = Color( 1, 0.945098, 0.909804, 1 )
+text = "back
+fullscreen
+volume
 "
-
-[node name="Node2D" type="Node2D"]
-script = SubResource( 1 )
-
-[node name="Cursor" type="Node2D" parent="."]
-position = Vector2( 20, 20 )
-
-[node name="Label" type="Label" parent="Cursor"]
-margin_right = 4.0
-margin_bottom = 8.0
-custom_fonts/font = ExtResource( 1 )
-text = ">"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="List" type="Node2D" parent="."]
-
-[node name="Label" type="Label" parent="List"]
-margin_right = 16.0
-margin_bottom = 8.0
-custom_fonts/font = ExtResource( 1 )
-text = "text"
+[node name="Header" type="Label" parent="Menu/Options"]
+margin_top = 9.0
+margin_right = 228.0
+margin_bottom = 22.0
+custom_fonts/font = SubResource( 1 )
+text = "OPTIONS"
+align = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource( 7 )
+
+[node name="Stage" type="Node2D" parent="."]
+
+[node name="SolidTileMap" parent="Stage" instance=ExtResource( 11 )]
+tile_data = PoolIntArray( 393222, 0, 1, 393223, 0, 1, 393224, 0, 1, 393225, 0, 1, 393226, 0, 1, 458758, 0, 1, 524294, 0, 1, 589830, 0, 1, 655366, 0, 1, 720902, 0, 1, 786438, 0, 1, 786442, 0, 1, 786443, 0, 1, 786444, 0, 1, 786448, 0, 1, 786449, 0, 1, 786450, 0, 1, 786451, 0, 1, 786452, 0, 1, 786453, 0, 1, 786454, 0, 1 )
+
+[node name="DetailTileMap" parent="Stage" instance=ExtResource( 8 )]
+z_index = -11
+
+[node name="GameCamera" parent="Stage" instance=ExtResource( 13 )]
+position = Vector2( 96, 64 )
+
+[node name="Actors" type="Node2D" parent="Stage"]
+script = ExtResource( 10 )
+
+[node name="Player" parent="Stage/Actors" instance=ExtResource( 12 )]
+position = Vector2( 88, 88 )
+is_attract_mode = true
+
+[node name="Box0" parent="Stage/Actors" instance=ExtResource( 9 )]
+position = Vector2( 160, 88 )
+
+[node name="Box1" parent="Stage/Actors" instance=ExtResource( 9 )]
+position = Vector2( 164, 80 )
+
+[node name="Box2" parent="Stage/Actors" instance=ExtResource( 9 )]
+position = Vector2( 160, 72 )
+
+[node name="Box3" parent="Stage/Actors" instance=ExtResource( 9 )]
+position = Vector2( 64, 40 )
+
+[node name="SwitchBlue" parent="Stage/Actors" instance=ExtResource( 15 )]
+position = Vector2( 64, 44 )
+
+[node name="SwitchBlockBlue" parent="Stage/Actors" instance=ExtResource( 14 )]
+position = Vector2( 104, 96 )
+
+[node name="SwitchBlockBlue2" parent="Stage/Actors" instance=ExtResource( 14 )]
+position = Vector2( 112, 96 )
+
+[node name="SwitchBlockBlue3" parent="Stage/Actors" instance=ExtResource( 14 )]
+position = Vector2( 120, 96 )
+
+[editable path="Stage/GameCamera"]

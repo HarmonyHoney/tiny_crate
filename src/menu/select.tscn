@@ -137,6 +137,9 @@ margin_top = -1.0
 margin_right = 56.0
 margin_bottom = 7.0
 color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2( 160, 90 )

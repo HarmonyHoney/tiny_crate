@@ -58,11 +58,6 @@ func _process(delta):
 			speed.y = min(speed.y + gravity, term_vel)
 		if not is_on_floor:
 			time_since_floor += 1
-		
-		# if outside map
-		if position.y < -999 or position.y > 999:
-			dev.out(name + " fell out of world")
-			queue_free()
 
 # update() the _draw() when hitbox values are changed (in the editor)
 func _set_hit_x(value):

@@ -69,7 +69,7 @@ _global_script_class_icons={
 [application]
 
 config/name="gdBox"
-run/main_scene="res://src/menu/select.tscn"
+run/main_scene="res://src/menu/StartMenu.tscn"
 config/icon="res://icon.png"
 
 [autoload]
