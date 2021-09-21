@@ -1,5 +1,6 @@
 tool
 extends Actor
+class_name Player
 
 export var move_speed = 0.75
 var move_slow = 0.75
@@ -83,9 +84,7 @@ func _process(delta):
 		return
 	
 	# input
-	if is_attract_mode:
-		attract_mode()
-	else:
+	if !is_attract_mode:
 		btnx = btn.d("right") - btn.d("left")
 		btny = btn.d("down") - btn.d("up")
 		btnp_jump = btn.p("jump")
@@ -264,116 +263,3 @@ func debug_box(arg = null):
 	box.position = arg if arg is Vector2 else Vector2(position.x, position.y - 8)
 	get_parent().add_child(box)
 	dev.out("(box) spawned at: " + str(box.position))
-
-var a_step := -1 # attract step
-var at := 0 # attract timer
-
-func attract_mode():
-	btnp_jump = false
-	btnp_pick = false
-	
-	if at > 0:
-		at -= 1
-	else:
-		a_step += 1
-		match a_step:
-			0:
-				btnx = 1
-				at = 49
-			1:
-				btnp_jump = true
-				at = 30
-			2:
-				btnd_jump = false
-				btnx = 0
-				at = 10
-			3:
-				btnp_pick = true # pick
-				at = 10
-			4:
-				btnx = -1
-				at = 16
-			5:
-				btnx = 0
-				at = 5
-			6:
-				btnp_pick = true # throw
-				at = 40
-			7:
-				btnx = 1
-				at = 12
-			8:
-				btnx = 0
-				btnp_pick = true # pick
-				at = 20
-			9:
-				btnx = -1
-				at = 18
-			10:
-				btnx = 0
-				at = 3
-			11:
-				btnp_pick = true # throw
-				at = 30
-			12:
-				btnx = 1
-				at = 25
-			13:
-				btnx = 0
-				btnp_pick = true # pick
-				at = 20
-			14:
-				btnx = -1
-				at = 20
-			15:
-				btnp_jump = true
-				at = 34
-			16:
-				btnd_jump = false
-				btnx = 0
-				at = 10
-			17:
-				btnp_pick = true # drop
-				at = 10
-			18:
-				btnp_jump = true
-				at = 10
-			19:
-				btnd_jump = false
-				at = 20
-			20:
-				btnx = -1
-				at = 5
-			21:
-				btnp_jump = true
-				at = 35
-			22:
-				btnd_jump = false
-				btnx = 0
-				at = 10
-			23:
-				btnp_pick = true # pick
-				at = 10
-			24:
-				btnx = 1
-				at = 24
-			25:
-				btnx = 0
-				at = 30
-			26:
-				btnx = -1
-				at = 7
-			27:
-				btnp_pick = true # throw
-				btnx = 0
-				get_parent().set_box_stack()
-				at = 50
-			28:
-				get_parent().set_button_box()
-				at = 30
-			29:
-				remainder = Vector2.ZERO
-				a_step = -1
-	
-	if btnp_jump:
-		btnd_jump = true

@@ -64,7 +64,7 @@ func menu_select():
 			Shared.do_reset()
 		"options":
 			switch_menu("options")
-		"quit game":
+		"quit":
 			get_tree().quit()
 		"back":
 			switch_menu("paused")

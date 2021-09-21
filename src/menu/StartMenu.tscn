@@ -152,6 +152,7 @@ tile_data = PoolIntArray( 393222, 0, 1, 393223, 0, 1, 393224, 0, 1, 393225, 0, 1
 
 [node name="DetailTileMap" parent="Stage" instance=ExtResource( 8 )]
 z_index = -11
+tile_data = PoolIntArray( 720906, 4, 0 )
 
 [node name="GameCamera" parent="Stage" instance=ExtResource( 13 )]
 position = Vector2( 96, 64 )
