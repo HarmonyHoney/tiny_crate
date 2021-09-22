@@ -83,7 +83,7 @@ margin_top = 9.0
 margin_right = 186.0
 margin_bottom = 22.0
 custom_fonts/font = SubResource( 1 )
-text = "TOSS N CROSS"
+text = "TINY CRATE"
 align = 1
 __meta__ = {
 "_edit_use_anchors_": false
