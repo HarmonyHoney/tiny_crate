@@ -35,6 +35,7 @@ func _ready():
 	
 	# set vars
 	lerp_pos = position
+	pos_target = position
 
 func _process(delta):
 	if !is_moving or Engine.editor_hint:
@@ -42,9 +43,8 @@ func _process(delta):
 	
 	if is_instance_valid(node_target):
 		pos_target = node_target.position + pos_target_offset
-		pos_target.x = clamp(pos_target.x, bounds_upper.x, bounds_lower.x)
-		pos_target.y = clamp(pos_target.y, bounds_upper.y, bounds_lower.y)
-		#HUD.test_label.text = str(pos_target)
+	pos_target.x = clamp(pos_target.x, bounds_upper.x, bounds_lower.x)
+	pos_target.y = clamp(pos_target.y, bounds_upper.y, bounds_lower.y)
 	
 	# smoothing
 	lerp_pos = lerp_pos.linear_interpolate(pos_target, lerp_step)

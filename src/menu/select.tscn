@@ -189,7 +189,7 @@ z_as_relative = false
 [node name="ColorRect" type="ColorRect" parent="BG/Background"]
 margin_right = 320.0
 margin_bottom = 180.0
-color = Color( 0.258824, 0.129412, 0.211765, 1 )
+color = Color( 0.113725, 0.168627, 0.32549, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }

@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=2]
 
-[ext_resource path="res://src/map/1-6.tscn" type="PackedScene" id=1]
+[ext_resource path="res://src/map/2-2.tscn" type="PackedScene" id=1]
 [ext_resource path="res://media/3d/DefaultMaterial.material" type="Material" id=2]
 [ext_resource path="res://media/3d/Material.material" type="Material" id=3]
 

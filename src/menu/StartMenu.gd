@@ -1,22 +1,22 @@
 extends Node2D
 
 var menu_list : Label
+var menu_items := []
 
 var main_menu : Control
 var main_list : Label
 var main_items := ["play", "options", "quit"]
 
-var options_menu : Control
-var options_list : Label
-var options_items := ["back", "SFX volume", "Music volume", "fullscreen", "window size", "delete save data", "unlock all"]
+var quit_menu : Control
+var quit_list : Label
+var quit_items := ["yes", "no"]
 
 var cursor := 0
-var menu_items := []
 
 var timer := 0.1
 var clock := 0.0
 
-var node_cursor : Node2D
+var node_cursor : ColorRect
 var node_audio : AudioStreamPlayer2D
 
 var is_input = true
@@ -24,18 +24,16 @@ var is_input = true
 func _ready():
 	main_menu = $Menu/Main
 	main_list = $Menu/Main/List
-	print(main_menu)
 	
-	options_menu = $Menu/Options
-	options_list = $Menu/Options/List
+	quit_menu = $Menu/Quit
+	quit_list = $Menu/Quit/List
 	
 	menu_list = main_list
 	
 	node_cursor = $Menu/Cursor
 	node_audio = $AudioStreamPlayer2D
 	
-	switch_menu("paused")
-	write_menu()
+	switch_menu("main")
 
 func _process(delta):
 	pass
@@ -43,7 +41,10 @@ func _process(delta):
 func _input(event):
 	if !is_input:
 		return
-	if event.is_action_pressed("jump"):
+	if event.is_action_pressed("action"):
+		if menu_list == quit_list:
+			switch_menu("paused")
+	elif event.is_action_pressed("jump"):
 		menu_select()
 	elif event.is_action_pressed("down") or event.is_action_pressed("up"):
 		var btny = btn.p("down") - btn.p("up")
@@ -56,44 +57,49 @@ func write_menu():
 	for i in menu_items.size():
 		if cursor == i:
 			menu_list.text += "-" + menu_items[i] + "-" + "\n"
-			node_cursor.position.y = menu_list.rect_position.y + 4 +  i * 11
-			node_cursor.scale.x = menu_items[i].length() * 0.6
+			node_cursor.rect_position.y = -1 +  i * 11
+			node_cursor.rect_position.x = 0
+			node_cursor.rect_size.x = menu_list.rect_size.x - 1
 		else:
 			menu_list.text += menu_items[i] + "\n"
 
 func menu_select():
-	match menu_items[cursor]:
+	match menu_items[cursor].to_lower():
 		"play":
 			Shared.scene_path = Shared.level_select_path
 			Shared.do_reset()
 			is_input = false
 		"options":
-			switch_menu("options")
+			Shared.scene_path = Shared.options_menu_path
+			Shared.do_reset()
+			is_input = false
 		"quit":
+			switch_menu("quit")
+		"yes":
 			get_tree().quit()
-		"back":
-			switch_menu("paused")
-		"fullscreen":
-			OS.window_fullscreen = !OS.window_fullscreen
-		"volume":
-			pass
-		"delete save data":
-			Shared.delete_save()
-			node_audio.play()
-		"unlock all":
-			Shared.unlock()
+		"no":
+			switch_menu("main")
+			cursor = 2
+			write_menu()
+		
 
 func switch_menu(arg):
 	cursor = 0
 	match arg:
-		"paused":
+		"main":
 			main_menu.visible = true
-			options_menu.visible = false
+			quit_menu.visible = false
 			menu_list = main_list
 			menu_items = main_items
-		"options":
-			main_menu.visible = false
-			options_menu.visible = true
-			menu_list = options_list
-			menu_items = options_items
+			
+			node_cursor.get_parent().remove_child(node_cursor)
+			main_list.add_child(node_cursor)
+		"quit":
+			quit_menu.visible = true
+			menu_list = quit_list
+			menu_items = quit_items
+			cursor = 1
+			
+			node_cursor.get_parent().remove_child(node_cursor)
+			quit_list.add_child(node_cursor)
 	write_menu()
