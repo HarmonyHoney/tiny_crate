@@ -8,7 +8,7 @@ var main_items := ["play", "options", "quit"]
 
 var options_menu : Control
 var options_list : Label
-var options_items := ["back", "fullscreen", "window size", "volume", "delete save data", "unlock all"]
+var options_items := ["back", "SFX volume", "Music volume", "fullscreen", "window size", "delete save data", "unlock all"]
 
 var cursor := 0
 var menu_items := []
@@ -18,6 +18,8 @@ var clock := 0.0
 
 var node_cursor : Node2D
 var node_audio : AudioStreamPlayer2D
+
+var is_input = true
 
 func _ready():
 	main_menu = $Menu/Main
@@ -39,6 +41,8 @@ func _process(delta):
 	pass
 
 func _input(event):
+	if !is_input:
+		return
 	if event.is_action_pressed("jump"):
 		menu_select()
 	elif event.is_action_pressed("down") or event.is_action_pressed("up"):
@@ -52,7 +56,7 @@ func write_menu():
 	for i in menu_items.size():
 		if cursor == i:
 			menu_list.text += "-" + menu_items[i] + "-" + "\n"
-			node_cursor.position.y = 40 + i * 11
+			node_cursor.position.y = menu_list.rect_position.y + 4 +  i * 11
 			node_cursor.scale.x = menu_items[i].length() * 0.6
 		else:
 			menu_list.text += menu_items[i] + "\n"
@@ -62,6 +66,7 @@ func menu_select():
 		"play":
 			Shared.scene_path = Shared.level_select_path
 			Shared.do_reset()
+			is_input = false
 		"options":
 			switch_menu("options")
 		"quit":

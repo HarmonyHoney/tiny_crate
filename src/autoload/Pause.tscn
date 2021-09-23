@@ -1,16 +1,15 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://media/font/m3x6.tres" type="DynamicFont" id=1]
 [ext_resource path="res://media/image/9slice.png" type="Texture" id=2]
 [ext_resource path="res://src/autoload/Pause.gd" type="Script" id=3]
 [ext_resource path="res://media/image/8pixel.png" type="Texture" id=4]
 [ext_resource path="res://media/font/m6x11.ttf" type="DynamicFontData" id=5]
-[ext_resource path="res://src/menu/Buttons/bSelect.tscn" type="PackedScene" id=6]
+[ext_resource path="res://media/font/m6x11.tres" type="DynamicFont" id=6]
 [ext_resource path="res://media/audio/sfx/sfx5.wav" type="AudioStream" id=7]
+[ext_resource path="res://media/image/btn.png" type="Texture" id=8]
 
 [sub_resource type="DynamicFont" id=1]
-outline_size = 1
-outline_color = Color( 0, 0, 0, 1 )
 extra_spacing_bottom = -1
 font_data = ExtResource( 5 )
 
@@ -22,20 +21,121 @@ __meta__ = {
 }
 
 [node name="Menu" type="Control" parent="."]
-margin_left = 31.0
-margin_top = 34.0
-margin_right = 103.0
-margin_bottom = 106.0
+margin_right = 72.0
+margin_bottom = 72.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Buttons" parent="Menu" instance=ExtResource( 6 )]
-position = Vector2( -92, -36 )
+[node name="Buttons" type="Node2D" parent="Menu"]
+
+[node name="Unused" type="Node2D" parent="Menu/Buttons"]
+visible = false
+
+[node name="esc" type="Sprite" parent="Menu/Buttons/Unused"]
+position = Vector2( 28, 19 )
+texture = ExtResource( 8 )
+hframes = 3
+vframes = 4
+frame = 6
+region_rect = Rect2( 0, 0, 18, 18 )
+
+[node name="esc_label" type="Label" parent="Menu/Buttons/Unused"]
+margin_left = 49.0
+margin_top = 13.0
+margin_right = 79.0
+margin_bottom = 26.0
+custom_fonts/font = ExtResource( 6 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_as_outline = 1
+text = "menu"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ent" type="Sprite" parent="Menu/Buttons/Unused"]
+position = Vector2( -52, 18 )
+texture = ExtResource( 8 )
+hframes = 3
+vframes = 4
+frame = 7
+region_rect = Rect2( 0, 0, 18, 18 )
+
+[node name="return" type="Sprite" parent="Menu/Buttons/Unused"]
+position = Vector2( -56, 43 )
+texture = ExtResource( 8 )
+hframes = 3
+vframes = 4
+frame = 10
+region_rect = Rect2( 0, 0, 18, 18 )
+
+[node name="c" type="Sprite" parent="Menu/Buttons"]
+position = Vector2( 12, 96 )
+texture = ExtResource( 8 )
+hframes = 6
+vframes = 4
+region_rect = Rect2( 0, 0, 18, 18 )
+
+[node name="c_label" type="Label" parent="Menu/Buttons/c"]
+margin_left = 11.0
+margin_top = -6.0
+margin_right = 39.0
+margin_bottom = 7.0
+custom_fonts/font = ExtResource( 6 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_as_outline = 1
+text = "back"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="x" type="Sprite" parent="Menu/Buttons"]
+position = Vector2( 12, 116 )
+texture = ExtResource( 8 )
+hframes = 6
+vframes = 4
+frame = 1
+region_rect = Rect2( 0, 0, 18, 18 )
+
+[node name="x_label" type="Label" parent="Menu/Buttons/x"]
+margin_left = 11.0
+margin_top = -7.0
+margin_right = 49.0
+margin_bottom = 6.0
+custom_fonts/font = ExtResource( 6 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_as_outline = 1
+text = "select"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="arrows" type="Sprite" parent="Menu/Buttons"]
+position = Vector2( 216, 116 )
+texture = ExtResource( 8 )
+hframes = 6
+vframes = 4
+frame = 7
+region_rect = Rect2( 0, 0, 18, 18 )
+
+[node name="arrows_label" type="Label" parent="Menu/Buttons/arrows"]
+margin_left = -40.0
+margin_top = -7.0
+margin_right = -10.0
+margin_bottom = 6.0
+custom_fonts/font = ExtResource( 6 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_as_outline = 1
+text = "move"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Paused" type="NinePatchRect" parent="Menu"]
-margin_right = 72.0
-margin_bottom = 72.0
+margin_left = 78.0
+margin_top = 35.0
+margin_right = 150.0
+margin_bottom = 80.0
 rect_min_size = Vector2( 24, 24 )
 texture = ExtResource( 2 )
 patch_margin_left = 8
@@ -61,9 +161,7 @@ margin_bottom = 64.0
 custom_fonts/font = ExtResource( 1 )
 text = "resume
 reset
-options
-level select
-quit game"
+exit"
 align = 1
 __meta__ = {
 "_edit_use_anchors_": false
@@ -74,6 +172,8 @@ margin_top = -24.0
 margin_right = 72.0
 margin_bottom = -9.0
 custom_fonts/font = SubResource( 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_as_outline = 1
 text = "PAUSED"
 align = 1
 __meta__ = {
@@ -81,6 +181,7 @@ __meta__ = {
 }
 
 [node name="Options" type="NinePatchRect" parent="Menu"]
+visible = false
 margin_right = 72.0
 margin_bottom = 88.0
 grow_horizontal = 2

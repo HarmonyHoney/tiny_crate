@@ -9,7 +9,7 @@ var screen : Control
 var screen_dist = 105
 var columns = 4
 
-var wait = 0
+var is_input := true
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -28,7 +28,6 @@ func _ready():
 			var sy = i / columns
 			var sx = i % columns
 			new.rect_position += Vector2(sx + (sy % 2) * 0.5, sy) * screen_dist
-			#new.rect_position += Vector2(i, 0) * screen_dist
 			new.get_node("Label").text = Shared.maps[i]
 			screens.add_child(new)
 			view_scene(new.get_node("ViewportContainer/Viewport"), Shared.map_path + Shared.maps[i])
@@ -36,19 +35,24 @@ func _ready():
 	scroll(Shared.current_map)
 
 func _process(delta):
-	if wait > 0:
-		wait -= delta
-		if wait < 0:
-			HUD.wipe.connect("finish", self, "load_level")
-			HUD.wipe.start()
+	pass
+
+func _input(event):
+	if !is_input:
 		return
 	
-	var btnx = btn.p("right") - btn.p("left")
-	var btny = btn.p("down") - btn.p("up")
-	if btn.p("jump"):
+	if event.is_action_pressed("action"):
+		Shared.scene_path = Shared.main_menu_path
+		Shared.do_reset()
+		is_input = false
+	elif event.is_action_pressed("jump"):
 		open_map()
-	if btnx or btny:
-		scroll(btnx + (btny * columns))
+		is_input = false
+	else:
+		var btnx = btn.p("right") - btn.p("left")
+		var btny = btn.p("down") - btn.p("up")
+		if btnx or btny:
+			scroll(btnx + (btny * columns))
 
 # view a scene inside the viewport by path
 func view_scene(port, path):

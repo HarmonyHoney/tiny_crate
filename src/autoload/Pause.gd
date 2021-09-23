@@ -11,7 +11,7 @@ var options_list : Label
 var cursor := 0
 var menu_items := []
 var selection := ""
-var paused_items := ["resume", "reset", "options", "exit"]
+var paused_items := ["resume", "reset", "exit"]
 var options_items := ["back", "fullscreen", "window size", "volume"]
 
 var timer := 0.1
@@ -43,11 +43,13 @@ func _process(delta):
 				get_tree().paused = false
 
 func _input(event):
-	if clock == 0 and not dev.is_open:
+	if clock == 0 and Shared.is_in_game and not dev.is_open:
 		if event.is_action_pressed("pause"):
 			toggle_pause()
 		if is_paused:
-			if event.is_action_pressed("jump"):
+			if event.is_action_pressed("action"):
+				toggle_pause()
+			elif event.is_action_pressed("jump"):
 				menu_select()
 			elif event.is_action_pressed("down") or event.is_action_pressed("up"):
 				var btny = btn.p("down") - btn.p("up")

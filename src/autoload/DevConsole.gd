@@ -18,7 +18,7 @@ func _ready():
 	node_hint = $Control/Hint
 	
 	node_control.visible = is_open
-	out("untitled project by Harmony Monroe")
+	out("untitled project by Harmony Honey")
 	out("developer console initialized")
 
 func _process(delta):
