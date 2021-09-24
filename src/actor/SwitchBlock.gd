@@ -6,7 +6,7 @@ export var color := "red"
 export var frame_on := 10
 export var frame_off := 8
 
-var node_sprite : Sprite
+onready var node_sprite : Sprite = $Sprite
 
 var is_switch = false
 
@@ -15,8 +15,6 @@ func _ready():
 		return
 	
 	add_to_group("switch_block_" + color)
-	
-	node_sprite = $Sprite
 
 func _process(delta):
 	if Engine.editor_hint:

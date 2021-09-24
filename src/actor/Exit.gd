@@ -2,11 +2,11 @@ tool
 extends Actor
 class_name Exit
 
-var node_dust : Node2D
+onready var node_dust : Node2D = $Dust
 export var dust_count := 5
 export var dust_speed := 0.13
 
-var node_stars : Node2D
+onready var node_stars : Node2D = $Stars
 export var star_count := 5
 export var star_speed := 6
 export var star_orbit := 10
@@ -18,7 +18,6 @@ func _ready():
 		return
 	
 	# create dust
-	node_dust = $Dust
 	for i in dust_count - 1:
 		node_dust.add_child($Dust/dust.duplicate())
 	var j = 0
@@ -28,7 +27,6 @@ func _ready():
 		j += 2
 	
 	# create stars
-	node_stars = $Stars
 	for i in star_count - 1:
 		node_stars.add_child($Stars/Star.duplicate())
 

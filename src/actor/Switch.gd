@@ -7,17 +7,14 @@ export var color := "red"
 var is_on := false
 var is_last := false
 
-var node_sprite : Sprite
-var node_audio : AudioStreamPlayer2D
+onready var node_sprite : Sprite = $Sprite
+onready var node_audio : AudioStreamPlayer2D = $AudioStreamPlayer2D
 
 func _ready():
 	if Engine.editor_hint:
 		return
 	
 	add_to_group("switch_" + color)
-	
-	node_sprite = $Sprite
-	node_audio = $AudioStreamPlayer2D
 
 
 func _process(delta):

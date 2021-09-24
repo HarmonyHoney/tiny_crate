@@ -1,9 +1,9 @@
 extends CanvasLayer
 
-var node_control : Control
-var node_log : RichTextLabel
-var node_input : LineEdit
-var node_hint : RichTextLabel
+onready var node_control : Control = $Control
+onready var node_log : RichTextLabel = $Control/Log
+onready var node_input : LineEdit = $Control/Input
+onready var node_hint : RichTextLabel = $Control/Hint
 
 var is_open := false
 var last_text = ""
@@ -11,13 +11,8 @@ var last_text = ""
 export var is_draw_collider := false
 
 func _ready():
-	node_control= $Control
-	node_log = $Control/Log
-	node_log.clear()
-	node_input = $Control/Input
-	node_hint = $Control/Hint
-	
 	node_control.visible = is_open
+	node_log.clear()
 	out("untitled project by Harmony Honey")
 	out("developer console initialized")
 
@@ -27,7 +22,6 @@ func _process(delta):
 	
 	if btn.p("ui_cancel"):
 		close()
-
 
 func _input(event):
 	if is_open:

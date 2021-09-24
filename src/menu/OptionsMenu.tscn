@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://media/font/m3x6.tres" type="DynamicFont" id=1]
 [ext_resource path="res://media/image/9slice.png" type="Texture" id=2]
@@ -8,29 +8,35 @@
 [ext_resource path="res://media/font/m6x11.tres" type="DynamicFont" id=6]
 [ext_resource path="res://media/audio/sfx/sfx5.wav" type="AudioStream" id=7]
 [ext_resource path="res://src/stage/DetailTileMap.tscn" type="PackedScene" id=8]
-[ext_resource path="res://media/audio/sfx/hit14.wav" type="AudioStream" id=9]
+[ext_resource path="res://media/audio/sfx/portal7.wav" type="AudioStream" id=9]
+[ext_resource path="res://media/audio/sfx/Randomize103.wav" type="AudioStream" id=10]
 [ext_resource path="res://src/stage/SolidTileMap.tscn" type="PackedScene" id=11]
+[ext_resource path="res://media/audio/sfx/btn0.wav" type="AudioStream" id=12]
 [ext_resource path="res://src/stage/GameCamera.tscn" type="PackedScene" id=13]
+[ext_resource path="res://media/audio/sfx/hit1.wav" type="AudioStream" id=14]
 [ext_resource path="res://media/image/btn.png" type="Texture" id=16]
+[ext_resource path="res://media/audio/sfx/sfx3.wav" type="AudioStream" id=17]
+[ext_resource path="res://media/audio/sfx/sfx14.wav" type="AudioStream" id=18]
 
 [sub_resource type="DynamicFont" id=1]
 extra_spacing_bottom = -1
 font_data = ExtResource( 5 )
 
-[sub_resource type="GDScript" id=8]
+[sub_resource type="GDScript" id=2]
 script/source = "extends Node2D
 
 func act():
 	Shared.scene_path = Shared.main_menu_path
 	Shared.do_reset()
 	owner.is_input = false
+	$AudioStreamPlayer.play()
 "
 
-[sub_resource type="GDScript" id=6]
+[sub_resource type="GDScript" id=3]
 script/source = "extends Node2D
 
 func _ready():
-	scroll(0)
+	set_color()
 
 func select():
 	$Arrows.visible = true
@@ -39,21 +45,25 @@ func deselect():
 	$Arrows.visible = false
 
 func scroll(arg = 1):
-	Shared.sfx_volume = clamp(Shared.sfx_volume + arg, 0, 10)
+	Shared.set_volume_sfx(Shared.sfx_volume + arg)
+	set_color()
+	$AudioStreamPlayer.pitch_scale = 1 + rand_range(-0.2, 0.2)
+	$AudioStreamPlayer.play()
+
+func set_color():
 	var meter = $Meter.get_children()
 	for i in 10: # 0 - 9
 		if i < Shared.sfx_volume:
 			meter[i].color = Color(\"00e436\")
 		else:
 			meter[i].color = Color(\"ff004d\")
-	print(Shared.sfx_volume)
 "
 
-[sub_resource type="GDScript" id=7]
+[sub_resource type="GDScript" id=4]
 script/source = "extends Node2D
 
 func _ready():
-	scroll(0)
+	set_color()
 
 func select():
 	$Arrows.visible = true
@@ -62,58 +72,68 @@ func deselect():
 	$Arrows.visible = false
 
 func scroll(arg = 1):
-	Shared.music_volume = clamp(Shared.music_volume + arg, 0, 10)
+	Shared.set_volume_music(Shared.music_volume + arg)
+	set_color()
+	$AudioStreamPlayer.pitch_scale = 1 + rand_range(-0.2, 0.2)
+	$AudioStreamPlayer.play()
+
+func set_color():
 	var meter = $Meter.get_children()
 	for i in 10: # 0 - 9
 		if i < Shared.music_volume:
 			meter[i].color = Color(\"00e436\")
 		else:
 			meter[i].color = Color(\"ff004d\")
-	print(Shared.music_volume)
-"
-
-[sub_resource type="GDScript" id=2]
-script/source = "extends Node2D
-
-var fill
-
-func _ready():
-	fill = $Box/Fill
-	fill.visible = OS.window_fullscreen
-
-func act():
-	OS.window_fullscreen = !OS.window_fullscreen
-	fill.visible = OS.window_fullscreen
 "
 
 [sub_resource type="GDScript" id=5]
 script/source = "extends Node2D
 
+onready var fill = $Box/Fill
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
-	scroll(0)
+	fill.visible = OS.window_fullscreen
+
+func act():
+	OS.window_fullscreen = !OS.window_fullscreen
+	Shared.set_window_scale()
+	fill.visible = OS.window_fullscreen
+	$AudioStreamPlayer.play()
+"
+
+[sub_resource type="GDScript" id=6]
+script/source = "extends Node2D
+
+func _ready():
+	set_text()
 
 func scroll(arg = 1):
 	Shared.set_window_scale(clamp(Shared.window_scale + arg, 1, 12))
+	set_text()
+	$AudioStreamPlayer.pitch_scale = 1 + rand_range(-0.3, 0.4)
+	$AudioStreamPlayer.play()
+
+func set_text():
 	$Scale.text = str(Shared.window_scale) + \"x\"
 	$Resolution.text = str(228 * Shared.window_scale) + \" x \" + str(128 * Shared.window_scale)
 "
 
-[sub_resource type="GDScript" id=3]
+[sub_resource type="GDScript" id=7]
 script/source = "extends Node2D
 
 func act():
 	Shared.delete_save()
 	$AudioStreamPlayer.play()
+	Shared.node_camera_game.shake(5)
 "
 
-[sub_resource type="GDScript" id=4]
+[sub_resource type="GDScript" id=8]
 script/source = "extends Node2D
 
 func act():
 	Shared.unlock()
 	$AudioStreamPlayer.play()
+	Shared.node_camera_game.shake(10)
 "
 
 [node name="OptionsMenu" type="Node2D"]
@@ -212,10 +232,11 @@ __meta__ = {
 
 [node name="NinePatchRect" type="NinePatchRect" parent="."]
 visible = false
-margin_left = -18.0
-margin_top = 8.0
-margin_right = 54.0
-margin_bottom = 80.0
+show_behind_parent = true
+margin_left = 51.0
+margin_top = 18.0
+margin_right = 201.0
+margin_bottom = 108.0
 rect_min_size = Vector2( 24, 24 )
 texture = ExtResource( 2 )
 patch_margin_left = 8
@@ -228,6 +249,11 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="AudioScroll" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 14 )
+volume_db = -7.0
+bus = "SFX"
+
 [node name="MenuItems" type="Node2D" parent="."]
 position = Vector2( 14, 0 )
 z_index = 20
@@ -235,7 +261,7 @@ z_as_relative = false
 
 [node name="Back" type="Node2D" parent="MenuItems"]
 position = Vector2( 50, 24 )
-script = SubResource( 8 )
+script = SubResource( 2 )
 
 [node name="Label" type="Label" parent="MenuItems/Back"]
 margin_top = 1.0
@@ -248,9 +274,13 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="MenuItems/Back"]
+stream = ExtResource( 10 )
+bus = "SFX"
+
 [node name="SFXVolume" type="Node2D" parent="MenuItems"]
 position = Vector2( 50, 36 )
-script = SubResource( 6 )
+script = SubResource( 3 )
 
 [node name="Label" type="Label" parent="MenuItems/SFXVolume"]
 margin_top = 1.0
@@ -367,9 +397,13 @@ position = Vector2( 41, 4 )
 texture = ExtResource( 4 )
 flip_h = true
 
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="MenuItems/SFXVolume"]
+stream = ExtResource( 18 )
+bus = "SFX"
+
 [node name="MusicVolume" type="Node2D" parent="MenuItems"]
 position = Vector2( 50, 48 )
-script = SubResource( 7 )
+script = SubResource( 4 )
 
 [node name="Label" type="Label" parent="MenuItems/MusicVolume"]
 margin_top = 1.0
@@ -486,9 +520,13 @@ position = Vector2( 41, 4 )
 texture = ExtResource( 4 )
 flip_h = true
 
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="MenuItems/MusicVolume"]
+stream = ExtResource( 12 )
+bus = "Music"
+
 [node name="Fullscreen" type="Node2D" parent="MenuItems"]
 position = Vector2( 50, 60 )
-script = SubResource( 2 )
+script = SubResource( 5 )
 
 [node name="Label" type="Label" parent="MenuItems/Fullscreen"]
 margin_top = 1.0
@@ -530,9 +568,13 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="MenuItems/Fullscreen"]
+stream = ExtResource( 17 )
+bus = "SFX"
+
 [node name="WindowSize" type="Node2D" parent="MenuItems"]
 position = Vector2( 50, 72 )
-script = SubResource( 5 )
+script = SubResource( 6 )
 
 [node name="Label" type="Label" parent="MenuItems/WindowSize"]
 margin_top = 1.0
@@ -568,9 +610,13 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="MenuItems/WindowSize"]
+stream = ExtResource( 18 )
+bus = "SFX"
+
 [node name="DeleteSaveData" type="Node2D" parent="MenuItems"]
 position = Vector2( 50, 84 )
-script = SubResource( 3 )
+script = SubResource( 7 )
 
 [node name="Label" type="Label" parent="MenuItems/DeleteSaveData"]
 margin_top = 1.0
@@ -589,7 +635,7 @@ bus = "SFX"
 
 [node name="UnlockAll" type="Node2D" parent="MenuItems"]
 position = Vector2( 50, 96 )
-script = SubResource( 4 )
+script = SubResource( 8 )
 
 [node name="Label" type="Label" parent="MenuItems/UnlockAll"]
 margin_top = 1.0

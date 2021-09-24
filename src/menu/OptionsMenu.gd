@@ -1,23 +1,15 @@
 extends Node2D
 
-var menu_items := []
+onready var menu_items : Array = $MenuItems.get_children()
 var cursor := 0
 
-var node_cursor : ColorRect
-var node_audio : AudioStreamPlayer2D
+onready var node_cursor : ColorRect = $Cursor
+onready var node_audio_scroll : AudioStreamPlayer = $AudioScroll
 
 var is_input = true
 
 func _ready():
-	node_cursor = $Cursor
-	menu_items = $MenuItems.get_children()
-	
-	node_audio = $AudioStreamPlayer2D
-	
 	select_item(0)
-
-func _process(delta):
-	pass
 
 func _input(event):
 	if !is_input:
@@ -33,6 +25,8 @@ func _input(event):
 		var btny = btn.p("down") - btn.p("up")
 		if btny:
 			select_item(cursor + btny)
+			node_audio_scroll.pitch_scale = 1 + rand_range(-0.2, 0.2)
+			node_audio_scroll.play()
 
 func select_item(arg := 0):
 	if menu_items[cursor].has_method("deselect"):

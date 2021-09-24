@@ -85,6 +85,7 @@ dev="*res://src/autoload/DevConsole.tscn"
 Shared="*res://src/autoload/Shared.gd"
 HUD="*res://src/autoload/HUD.tscn"
 Pause="*res://src/autoload/Pause.tscn"
+Music="*res://src/autoload/Music.tscn"
 
 [display]
 

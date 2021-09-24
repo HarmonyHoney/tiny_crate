@@ -1,6 +1,6 @@
 extends Node2D
 
-var p : Player
+onready var p : Player = $Player
 var box := []
 
 var a_step := -1 # attract step
@@ -13,8 +13,6 @@ func _ready():
 	box.append($Box1)
 	box.append($Box2)
 	box.append($Box3)
-	
-	p = $Player
 
 func _process(delta):
 	p.btnp_jump = false

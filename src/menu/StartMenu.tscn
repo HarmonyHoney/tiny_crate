@@ -1,11 +1,12 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://media/font/m3x6.tres" type="DynamicFont" id=1]
 [ext_resource path="res://media/image/9slice.png" type="Texture" id=2]
 [ext_resource path="res://src/menu/StartMenu.gd" type="Script" id=3]
+[ext_resource path="res://media/font/m3x6.ttf" type="DynamicFontData" id=4]
 [ext_resource path="res://media/font/m6x11.ttf" type="DynamicFontData" id=5]
 [ext_resource path="res://media/font/m6x11.tres" type="DynamicFont" id=6]
-[ext_resource path="res://media/audio/sfx/sfx5.wav" type="AudioStream" id=7]
+[ext_resource path="res://media/audio/sfx/hit1.wav" type="AudioStream" id=7]
 [ext_resource path="res://src/stage/DetailTileMap.tscn" type="PackedScene" id=8]
 [ext_resource path="res://src/actor/Box.tscn" type="PackedScene" id=9]
 [ext_resource path="res://src/menu/AttractMode.gd" type="Script" id=10]
@@ -16,33 +17,39 @@
 [ext_resource path="res://src/actor/SwitchBlue.tscn" type="PackedScene" id=15]
 [ext_resource path="res://media/image/btn.png" type="Texture" id=16]
 [ext_resource path="res://media/font/m5x7.tres" type="DynamicFont" id=17]
+[ext_resource path="res://media/audio/sfx/sfx3.wav" type="AudioStream" id=18]
+[ext_resource path="res://media/audio/sfx/sfx18.wav" type="AudioStream" id=19]
+[ext_resource path="res://media/audio/sfx/sfx13.wav" type="AudioStream" id=20]
+[ext_resource path="res://media/audio/sfx/portal9.wav" type="AudioStream" id=21]
+[ext_resource path="res://media/audio/sfx/Randomize105.wav" type="AudioStream" id=22]
 
 [sub_resource type="DynamicFont" id=1]
 extra_spacing_bottom = -1
 font_data = ExtResource( 5 )
 
+[sub_resource type="DynamicFont" id=2]
+extra_spacing_top = -5
+extra_spacing_bottom = -2
+font_data = ExtResource( 4 )
+
 [node name="StartMenu" type="Node2D"]
 pause_mode = 2
 script = ExtResource( 3 )
 
-[node name="Menu" type="Node2D" parent="."]
+[node name="Buttons" type="Node2D" parent="."]
 position = Vector2( -18, 8 )
-z_index = 20
-z_as_relative = false
 
-[node name="Buttons" type="Node2D" parent="Menu"]
-
-[node name="Unused" type="Node2D" parent="Menu/Buttons"]
+[node name="Unused" type="Node2D" parent="Buttons"]
 visible = false
 
-[node name="c" type="Sprite" parent="Menu/Buttons/Unused"]
+[node name="c" type="Sprite" parent="Buttons/Unused"]
 position = Vector2( -70, 107 )
 texture = ExtResource( 16 )
 hframes = 6
 vframes = 4
 region_rect = Rect2( 0, 0, 18, 18 )
 
-[node name="c_label" type="Label" parent="Menu/Buttons/Unused"]
+[node name="c_label" type="Label" parent="Buttons/Unused"]
 margin_left = -58.0
 margin_top = 101.0
 margin_right = -30.0
@@ -55,7 +62,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="esc" type="Sprite" parent="Menu/Buttons/Unused"]
+[node name="esc" type="Sprite" parent="Buttons/Unused"]
 position = Vector2( -78, 75 )
 texture = ExtResource( 16 )
 hframes = 3
@@ -63,7 +70,7 @@ vframes = 4
 frame = 6
 region_rect = Rect2( 0, 0, 18, 18 )
 
-[node name="esc_label" type="Label" parent="Menu/Buttons/Unused"]
+[node name="esc_label" type="Label" parent="Buttons/Unused"]
 margin_left = -57.0
 margin_top = 69.0
 margin_right = -27.0
@@ -76,7 +83,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="ent" type="Sprite" parent="Menu/Buttons/Unused"]
+[node name="ent" type="Sprite" parent="Buttons/Unused"]
 position = Vector2( -52, 18 )
 texture = ExtResource( 16 )
 hframes = 3
@@ -84,7 +91,7 @@ vframes = 4
 frame = 7
 region_rect = Rect2( 0, 0, 18, 18 )
 
-[node name="return" type="Sprite" parent="Menu/Buttons/Unused"]
+[node name="return" type="Sprite" parent="Buttons/Unused"]
 position = Vector2( -56, 43 )
 texture = ExtResource( 16 )
 hframes = 3
@@ -92,7 +99,7 @@ vframes = 4
 frame = 10
 region_rect = Rect2( 0, 0, 18, 18 )
 
-[node name="x" type="Sprite" parent="Menu/Buttons"]
+[node name="x" type="Sprite" parent="Buttons"]
 position = Vector2( 12, 116 )
 texture = ExtResource( 16 )
 hframes = 6
@@ -100,7 +107,7 @@ vframes = 4
 frame = 1
 region_rect = Rect2( 0, 0, 18, 18 )
 
-[node name="x_label" type="Label" parent="Menu/Buttons/x"]
+[node name="x_label" type="Label" parent="Buttons/x"]
 margin_left = 11.0
 margin_top = -7.0
 margin_right = 49.0
@@ -113,7 +120,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="arrows" type="Sprite" parent="Menu/Buttons"]
+[node name="arrows" type="Sprite" parent="Buttons"]
 position = Vector2( 216, 116 )
 texture = ExtResource( 16 )
 hframes = 6
@@ -121,7 +128,7 @@ vframes = 4
 frame = 7
 region_rect = Rect2( 0, 0, 18, 18 )
 
-[node name="arrows_label" type="Label" parent="Menu/Buttons/arrows"]
+[node name="arrows_label" type="Label" parent="Buttons/arrows"]
 margin_left = -40.0
 margin_top = -7.0
 margin_right = -10.0
@@ -134,6 +141,11 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Menu" type="Node2D" parent="."]
+position = Vector2( -18, 8 )
+z_index = 20
+z_as_relative = false
+
 [node name="Cursor" type="ColorRect" parent="Menu"]
 show_behind_parent = true
 margin_left = 15.0
@@ -141,19 +153,6 @@ margin_top = 47.0
 margin_right = 44.0
 margin_bottom = 57.0
 color = Color( 0.113725, 0.168627, 0.32549, 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Header" type="Label" parent="Menu"]
-margin_top = 9.0
-margin_right = 114.0
-margin_bottom = 22.0
-custom_fonts/font = SubResource( 1 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
-custom_constants/shadow_as_outline = 1
-text = "TINY CRATE"
-align = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -251,8 +250,56 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+[node name="Header" type="Label" parent="."]
+margin_left = -33.0
+margin_top = 24.0
+margin_right = 81.0
+margin_bottom = 37.0
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_as_outline = 1
+text = "TINY CRATE"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Signature" type="Label" parent="Header"]
+margin_left = 26.0
+margin_top = -10.0
+margin_right = 87.0
+margin_bottom = -4.0
+custom_fonts/font = SubResource( 2 )
+text = "Harmony Honey's"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AudioScroll" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 7 )
+volume_db = -7.0
+bus = "SFX"
+
+[node name="AudioPlay" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 21 )
+bus = "SFX"
+
+[node name="AudioOptions" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 20 )
+bus = "SFX"
+
+[node name="AudioQuit" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 18 )
+bus = "SFX"
+
+[node name="AudioYes" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 22 )
+bus = "SFX"
+
+[node name="AudioNo" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 19 )
+bus = "SFX"
 
 [node name="Stage" type="Node2D" parent="."]
 

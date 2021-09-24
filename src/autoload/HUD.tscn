@@ -1,72 +1,11 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://media/font/m3x6.tres" type="DynamicFont" id=1]
-[ext_resource path="res://media/image/timer.png" type="Texture" id=2]
 [ext_resource path="res://src/autoload/HUD.gd" type="Script" id=3]
-[ext_resource path="res://media/image/hud2.png" type="Texture" id=4]
 [ext_resource path="res://src/fx/Wipe.tscn" type="PackedScene" id=5]
 
 [node name="HUD" type="CanvasLayer"]
 pause_mode = 2
+layer = 10
 script = ExtResource( 3 )
-
-[node name="Control" type="Control" parent="."]
-margin_right = 40.0
-margin_bottom = 40.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Timer" type="TextureRect" parent="Control"]
-visible = false
-margin_left = 9.0
-margin_top = 9.0
-margin_right = 41.0
-margin_bottom = 41.0
-texture = ExtResource( 2 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Label" type="Label" parent="Control/Timer"]
-margin_left = 27.0
-margin_top = 12.0
-margin_right = 53.0
-margin_bottom = 20.0
-custom_fonts/font = ExtResource( 1 )
-custom_colors/font_color = Color( 1, 0.945098, 0.909804, 1 )
-text = "12.3456"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Death" type="Label" parent="Control"]
-visible = false
-margin_left = 5.0
-margin_top = 16.0
-margin_right = 77.0
-margin_bottom = 24.0
-custom_fonts/font = ExtResource( 1 )
-text = "testing 123"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="hud2" type="Sprite" parent="Control"]
-visible = false
-texture = ExtResource( 4 )
-centered = false
-
-[node name="test_label" type="Label" parent="Control"]
-visible = false
-margin_left = 5.0
-margin_top = 16.0
-margin_right = 77.0
-margin_bottom = 24.0
-custom_fonts/font = ExtResource( 1 )
-text = "testing 123"
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Wipe" parent="." instance=ExtResource( 5 )]

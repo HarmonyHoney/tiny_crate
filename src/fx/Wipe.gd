@@ -1,7 +1,7 @@
 extends Node2D
 
 var sprite : Sprite
-var sprites : Node2D
+onready var sprites : Node2D = $Sprites
 
 export var act = false
 export var backwards = false
@@ -15,14 +15,11 @@ export var last = 14
 
 signal finish
 
-var audio : AudioStreamPlayer2D
+onready var audio : AudioStreamPlayer2D = $AudioStreamPlayer2D
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
 	sprite = $Sprites/Sprite.duplicate()
 	$Sprites/Sprite.queue_free()
-	sprites = $Sprites
-	audio = $AudioStreamPlayer2D
 	
 	for y in 12:
 		for x in 21:
@@ -54,7 +51,6 @@ func start(_backwards = false):
 	backwards = _backwards
 	sprites.visible = true
 	if !backwards:
-		audio.pitch_scale = 0.6
 		audio.play()
 
 func stop(_emit_signal = true):

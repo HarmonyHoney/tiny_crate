@@ -25,12 +25,12 @@ export var speed_throw := Vector2(1, -2.6)
 
 var dir = 1
 
-var node_sprite : Sprite
-var node_anim : AnimationPlayer
-var node_audio_jump : AudioStreamPlayer2D
-var node_audio_pickup : AudioStreamPlayer2D
-var node_audio_drop : AudioStreamPlayer2D
-var node_audio_throw : AudioStreamPlayer2D
+onready var node_sprite : Sprite = $Sprite
+onready var node_anim : AnimationPlayer = $AnimationPlayer
+onready var node_audio_jump : AudioStreamPlayer2D = $AudioJump
+onready var node_audio_pickup : AudioStreamPlayer2D = $AudioPickup
+onready var node_audio_drop : AudioStreamPlayer2D = $AudioDrop
+onready var node_audio_throw : AudioStreamPlayer2D = $AudioThrow
 
 var scene_box = preload("res://src/actor/Box.tscn")
 var scene_explosion = preload("res://src/fx/Explosion.tscn")
@@ -55,14 +55,6 @@ func _ready():
 	#btnx_array size
 	for i in 8:
 		btnx_array.append(0)
-	
-	# ref nodes
-	node_sprite = $Sprite
-	node_anim = $AnimationPlayer
-	node_audio_jump = $AudioJump
-	node_audio_pickup = $AudioPickup
-	node_audio_drop = $AudioDrop
-	node_audio_throw = $AudioThrow
 	
 	# assign camera target
 	if Shared.node_camera_game:

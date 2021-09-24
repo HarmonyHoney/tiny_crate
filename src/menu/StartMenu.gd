@@ -3,12 +3,12 @@ extends Node2D
 var menu_list : Label
 var menu_items := []
 
-var main_menu : Control
-var main_list : Label
-var main_items := ["play", "options", "quit"]
+onready var main_menu : Control = $Menu/Main
+onready var main_list : Label = $Menu/Main/List
+onready var main_items := ["play", "options", "quit"]
 
-var quit_menu : Control
-var quit_list : Label
+onready var quit_menu : Control = $Menu/Quit
+onready var quit_list : Label = $Menu/Quit/List
 var quit_items := ["yes", "no"]
 
 var cursor := 0
@@ -16,27 +16,19 @@ var cursor := 0
 var timer := 0.1
 var clock := 0.0
 
-var node_cursor : ColorRect
-var node_audio : AudioStreamPlayer2D
+onready var node_cursor : ColorRect = $Menu/Cursor
+onready var node_audio_scroll : AudioStreamPlayer = $AudioScroll
+onready var node_audio_play : AudioStreamPlayer = $AudioPlay
+onready var node_audio_options : AudioStreamPlayer = $AudioOptions
+onready var node_audio_quit : AudioStreamPlayer = $AudioQuit
+onready var node_audio_yes : AudioStreamPlayer = $AudioYes
+onready var node_audio_no : AudioStreamPlayer = $AudioNo
 
 var is_input = true
 
 func _ready():
-	main_menu = $Menu/Main
-	main_list = $Menu/Main/List
-	
-	quit_menu = $Menu/Quit
-	quit_list = $Menu/Quit/List
-	
 	menu_list = main_list
-	
-	node_cursor = $Menu/Cursor
-	node_audio = $AudioStreamPlayer2D
-	
 	switch_menu("main")
-
-func _process(delta):
-	pass
 
 func _input(event):
 	if !is_input:
@@ -51,6 +43,8 @@ func _input(event):
 		if btny:
 			cursor = clamp(cursor + btny, 0, menu_items.size() - 1)
 			write_menu()
+			node_audio_scroll.pitch_scale = 1 + rand_range(-0.2, 0.2)
+			node_audio_scroll.play()
 
 func write_menu():
 	menu_list.text = ""
@@ -69,19 +63,25 @@ func menu_select():
 			Shared.scene_path = Shared.level_select_path
 			Shared.do_reset()
 			is_input = false
+			node_audio_play.play()
 		"options":
 			Shared.scene_path = Shared.options_menu_path
 			Shared.do_reset()
 			is_input = false
+			node_audio_options.play()
 		"quit":
+			cursor = -1
+			write_menu()
 			switch_menu("quit")
+			node_audio_quit.play()
 		"yes":
-			get_tree().quit()
+			Shared.quit_wipe()
+			node_audio_yes.play()
 		"no":
 			switch_menu("main")
 			cursor = 2
 			write_menu()
-		
+			node_audio_no.play()
 
 func switch_menu(arg):
 	cursor = 0

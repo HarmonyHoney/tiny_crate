@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://src/stage/SolidTileMap.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/actor/Box.tscn" type="PackedScene" id=2]
@@ -8,10 +8,12 @@
 [ext_resource path="res://src/stage/SpikeTileMap.tscn" type="PackedScene" id=6]
 [ext_resource path="res://src/actor/Player.tscn" type="PackedScene" id=7]
 [ext_resource path="res://src/stage/Stage.gd" type="Script" id=8]
+[ext_resource path="res://media/font/m6x11.tres" type="DynamicFont" id=9]
+[ext_resource path="res://media/image/btn.png" type="Texture" id=10]
+[ext_resource path="res://src/menu/hide_on_level_select.gd" type="Script" id=11]
 
 [node name="Stage" type="Node2D"]
 script = ExtResource( 8 )
-stage_name = "1-1"
 
 [node name="SolidTileMap" parent="." instance=ExtResource( 1 )]
 tile_data = PoolIntArray( -458762, 536870912, 0, -458761, 0, 1, -458760, 0, 0, -458759, 0, 1, -458758, 536870912, 0, -458757, 0, 1, -458756, 0, 1, -458755, 0, 0, -458754, 0, 1, -458753, 536870912, 0, -524288, 0, 1, -524287, 0, 1, -524286, 536870912, 0, -524285, 0, 1, -524284, 0, 0, -393226, 0, 1, -458748, 0, 1, -327690, 536870912, 0, -393212, 0, 0, -393211, 0, 1, -393210, 536870912, 0, -262154, 536870912, 0, -262153, 0, 1, -262152, 0, 1, -262151, 0, 0, -262150, 0, 1, -262149, 536870912, 0, -327674, 536870912, 0, -196616, 536870912, 0, -262138, 0, 1, -131080, 0, 1, -196602, 536870912, 0, -65549, 536870912, 0, -65548, 0, 1, -65547, 0, 0, -65546, 0, 1, -65545, 536870912, 0, -65544, 536870912, 0, -131066, 0, 1, -13, 536870912, 0, -65530, 536870912, 0, 65523, 0, 1, 65534, 536870912, 0, 65535, 0, 1, 0, 0, 0, 1, 0, 1, 2, 536870912, 0, 3, 0, 1, 4, 0, 0, 5, 0, 1, 6, 536870912, 0, 131059, 0, 0, 131070, 0, 1, 196595, 0, 1, 196606, 0, 0, 262131, 536870912, 0, 262142, 0, 1, 327667, 536870912, 0, 327668, 0, 1, 327669, 0, 0, 327670, 0, 1, 327671, 536870912, 0, 327672, 0, 1, 327673, 0, 1, 327674, 0, 0, 327675, 0, 1, 327676, 536870912, 0, 327677, 0, 1, 327678, 536870912, 0 )
@@ -41,5 +43,27 @@ position = Vector2( 14, -8 )
 
 [node name="Box3" parent="Actors" instance=ExtResource( 2 )]
 position = Vector2( 11, -16 )
+
+[node name="return" type="Sprite" parent="."]
+position = Vector2( 15, 36 )
+texture = ExtResource( 10 )
+hframes = 3
+vframes = 4
+frame = 10
+region_rect = Rect2( 0, 0, 18, 18 )
+script = ExtResource( 11 )
+
+[node name="esc_label" type="Label" parent="return"]
+margin_left = 15.0
+margin_top = -6.0
+margin_right = 45.0
+margin_bottom = 7.0
+custom_fonts/font = ExtResource( 9 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_as_outline = 1
+text = "menu"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [editable path="GameCamera"]

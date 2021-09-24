@@ -55,6 +55,7 @@ frame = 1
 
 [node name="AudioHit" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 2 )
+bus = "SFX"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/hit = SubResource( 1 )

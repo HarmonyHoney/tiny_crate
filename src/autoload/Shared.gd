@@ -96,12 +96,21 @@ func do_reset():
 	is_reset = false
 	HUD.wipe.connect("finish", self, "change_map")
 	HUD.wipe.start()
+	Pause.set_process_input(false)
+
+func quit_wipe():
+	HUD.wipe.connect("finish", self, "quit")
+	HUD.wipe.start()
+
+func quit():
+	get_tree().quit()
 
 func change_map():
 	get_tree().change_scene(scene_path)
 	is_level_select = scene_path == level_select_path
 	is_in_game = scene_path.begins_with(map_path) or scene_path.begins_with(win_screen_path)
 	HUD.wipe.start(true)
+	Pause.set_process_input(true)
 
 func set_map(arg):
 	current_map = clamp(arg, 0, Shared.maps.size() - 1)
@@ -123,7 +132,6 @@ func win_save():
 	save_file(save_filename, JSON.print(save_data, "\t"))
 	print("save_data: ", save_data)
 
-
 func save_file(fname, arg):
 	var file = File.new()
 	file.open("user://" + str(fname), File.WRITE)
@@ -144,4 +152,12 @@ func delete_save():
 func unlock():
 	save_data["map"] = 99
 	save_file(save_filename, JSON.print(save_data, "\t"))
+
+func set_volume_sfx(arg = 0):
+	sfx_volume = clamp(arg, 0, 10)
+	AudioServer.set_bus_volume_db(1, linear2db(sfx_volume / 10.0))
+
+func set_volume_music(arg = 0):
+	music_volume = clamp(arg, 0, 10)
+	AudioServer.set_bus_volume_db(2, linear2db(music_volume / 10.0))
 

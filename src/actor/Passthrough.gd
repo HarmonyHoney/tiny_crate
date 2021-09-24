@@ -5,16 +5,12 @@ class_name Passthrough
 var is_hit := false
 var is_done := false
 
-var node_sprite : Sprite
-var node_audio : AudioStreamPlayer2D
+onready var node_sprite : Sprite = $Sprite
+onready var node_audio : AudioStreamPlayer2D = $Audio
 
 func _ready():
 	if Engine.editor_hint:
 		return
-	
-	node_sprite = $Sprite
-	node_audio = $Audio
-	
 
 func _process(delta):
 	if Engine.editor_hint:

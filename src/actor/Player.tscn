@@ -208,15 +208,19 @@ anims/run = SubResource( 6 )
 [node name="AudioJump" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 2 )
 attenuation = 0.101532
+bus = "SFX"
 
 [node name="AudioPickup" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 4 )
+bus = "SFX"
 
 [node name="AudioDrop" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 6 )
+bus = "SFX"
 
 [node name="AudioThrow" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 5 )
+bus = "SFX"
 
 [node name="idkbb" type="Sprite" parent="."]
 visible = false

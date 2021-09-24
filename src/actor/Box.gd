@@ -4,9 +4,9 @@ class_name Box
 
 var is_push = false
 
-var node_audio : AudioStreamPlayer2D
-var node_anim : AnimationPlayer
-var node_sprite : Sprite
+onready var node_audio : AudioStreamPlayer2D = $AudioHit
+onready var node_anim : AnimationPlayer = $AnimationPlayer
+onready var node_sprite : Sprite = $Sprite
 var spr_pos := Vector2.ZERO
 
 var push_clock := 0.0
@@ -23,19 +23,11 @@ func _ready():
 		set_process(false)
 		return
 	
-	node_audio = $AudioHit
-	node_anim = $AnimationPlayer
-	node_sprite = $Sprite
 	spr_pos = node_sprite.position
 	
 	if is_area_solid(position.x, position.y + 1):
 		is_on_floor = true
 		shake_dist = 1
-
-func just_moved():
-	if !is_push:
-		pass
-		#node_sprite.position = spr_pos + (Vector2.ZERO if is_on_floor else remainder * tile_size)
 
 func hit_floor():
 	speed.x = 0
