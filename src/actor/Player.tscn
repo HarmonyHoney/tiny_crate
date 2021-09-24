@@ -178,7 +178,7 @@ tracks/1/keys = {
 "player",
 "solid",
 ]]
-z_index = 5
+z_index = 15
 z_as_relative = false
 script = ExtResource( 1 )
 is_moving = true

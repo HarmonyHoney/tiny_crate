@@ -98,6 +98,10 @@ func act():
 	OS.window_fullscreen = !OS.window_fullscreen
 	Shared.set_window_scale()
 	fill.visible = OS.window_fullscreen
+	if OS.window_fullscreen:
+		Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
+	else:
+		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	$AudioStreamPlayer.play()
 "
 
@@ -220,9 +224,9 @@ __meta__ = {
 
 [node name="Header" type="Label" parent="."]
 margin_left = 14.0
-margin_top = 4.0
+margin_top = 7.0
 margin_right = 242.0
-margin_bottom = 17.0
+margin_bottom = 20.0
 custom_fonts/font = SubResource( 1 )
 custom_colors/font_color = Color( 1, 0.945098, 0.909804, 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )

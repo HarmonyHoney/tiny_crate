@@ -16,16 +16,13 @@ func _ready():
 	out("untitled project by Harmony Honey")
 	out("developer console initialized")
 
-func _process(delta):
-	if btn.p("dev_console"):
-		close() if is_open else open()
-	
-	if btn.p("ui_cancel"):
-		close()
-
 func _input(event):
-	if is_open:
-		if event is InputEventKey and event.pressed:
+	if Input.is_action_just_pressed("dev_console"):
+		close() if is_open else open()
+	elif is_open:
+		if Input.is_action_just_pressed("ui_cancel"):
+			close()
+		elif event is InputEventKey and event.pressed:
 			if node_input.has_focus():
 				# press up
 				if event.scancode == KEY_UP:
