@@ -3,9 +3,8 @@ extends Node2D
 var menu_list : Label
 var menu_items := []
 
-onready var main_menu : Control = $Menu/Main
-onready var main_list : Label = $Menu/Main/List
-onready var main_items := ["play", "options", "quit"]
+onready var main_list : Label = $Menu/List
+var main_items := ["play", "options", "credits", "quit"]
 
 onready var quit_menu : Control = $Menu/Quit
 onready var quit_list : Label = $Menu/Quit/List
@@ -20,6 +19,7 @@ onready var node_cursor : ColorRect = $Menu/Cursor
 onready var node_audio_scroll : AudioStreamPlayer = $AudioScroll
 onready var node_audio_play : AudioStreamPlayer = $AudioPlay
 onready var node_audio_options : AudioStreamPlayer = $AudioOptions
+onready var node_audio_credits : AudioStreamPlayer = $AudioCredits
 onready var node_audio_quit : AudioStreamPlayer = $AudioQuit
 onready var node_audio_yes : AudioStreamPlayer = $AudioYes
 onready var node_audio_no : AudioStreamPlayer = $AudioNo
@@ -69,6 +69,11 @@ func menu_select():
 			Shared.do_reset()
 			is_input = false
 			node_audio_options.play()
+		"credits":
+			Shared.scene_path = Shared.credits_path
+			Shared.do_reset()
+			is_input = false
+			node_audio_credits.play()
 		"quit":
 			cursor = -1
 			write_menu()
@@ -76,10 +81,11 @@ func menu_select():
 			node_audio_quit.play()
 		"yes":
 			Shared.quit_wipe()
+			is_input = false
 			node_audio_yes.play()
 		"no":
 			switch_menu("main")
-			cursor = 2
+			cursor = 3
 			write_menu()
 			node_audio_no.play()
 
@@ -87,7 +93,6 @@ func switch_menu(arg):
 	cursor = 0
 	match arg:
 		"main":
-			main_menu.visible = true
 			quit_menu.visible = false
 			menu_list = main_list
 			menu_items = main_items

@@ -15,6 +15,7 @@ var main_menu_path := "res://src/menu/StartMenu.tscn"
 var options_menu_path := "res://src/menu/OptionsMenu.tscn"
 var level_select_path := "res://src/menu/select.tscn"
 var win_screen_path := "res://src/menu/WinScreen.tscn"
+var credits_path := "res://src/menu/credits.tscn"
 
 var window_scale := 1
 

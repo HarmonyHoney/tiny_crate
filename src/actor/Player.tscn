@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://src/actor/Player.gd" type="Script" id=1]
 [ext_resource path="res://media/audio/sfx/player_jump.wav" type="AudioStream" id=2]
@@ -6,7 +6,6 @@
 [ext_resource path="res://media/audio/sfx/btn3.wav" type="AudioStream" id=4]
 [ext_resource path="res://media/audio/sfx/sfx10.wav" type="AudioStream" id=5]
 [ext_resource path="res://media/audio/sfx/box_drop.wav" type="AudioStream" id=6]
-[ext_resource path="res://media/image/idkbb.png" type="Texture" id=7]
 
 [sub_resource type="Animation" id=1]
 length = 0.6
@@ -221,8 +220,3 @@ bus = "SFX"
 [node name="AudioThrow" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 5 )
 bus = "SFX"
-
-[node name="idkbb" type="Sprite" parent="."]
-visible = false
-position = Vector2( 2, 2 )
-texture = ExtResource( 7 )
