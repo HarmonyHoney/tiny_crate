@@ -90,13 +90,13 @@ func _process(delta):
 	
 	# hit exit
 	for a in check_area_actors("exit"):
-		dev.out(name + " hit exit")
+		print(name + " hit exit")
 		win()
 		return
 	
 	# hit spike
 	if speed.y > -1 and is_area_actor("spike"):
-		dev.out(name + " hit spike")
+		print(name + " hit spike")
 		death()
 		return
 	
@@ -230,7 +230,7 @@ func death():
 	# reset scene
 	Shared.start_reset()
 	remove_player()
-	dev.out(name + " died")
+	print(name + " died")
 
 func win():
 	# explosion
@@ -254,4 +254,4 @@ func debug_box(arg = null):
 	var box = scene_box.instance()
 	box.position = arg if arg is Vector2 else Vector2(position.x, position.y - 8)
 	get_parent().add_child(box)
-	dev.out("(box) spawned at: " + str(box.position))
+	print("(box) spawned at: " + str(box.position))

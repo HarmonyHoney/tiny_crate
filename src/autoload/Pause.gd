@@ -36,7 +36,7 @@ func _process(delta):
 				get_tree().paused = false
 
 func _input(event):
-	if clock == 0 and Shared.is_in_game and not dev.is_open:
+	if clock == 0 and Shared.is_in_game:
 		if event.is_action_pressed("pause"):
 			toggle_pause()
 		if is_paused:

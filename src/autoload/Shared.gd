@@ -33,7 +33,7 @@ var sfx_volume = 10
 var music_volume = 10
 
 func _ready():	
-	dev.out("Shared._ready(): ", false)
+	print("Shared._ready(): ")
 	
 	# get world maps
 	maps = dir_list(map_path)
@@ -47,11 +47,11 @@ func _ready():
 	# load save data
 	if load_file(save_filename):
 		save_data = JSON.parse(load_file(save_filename)).result
-		dev.out("save_data: " + JSON.print(save_data, "\t"))
+		print("save_data: " + JSON.print(save_data, "\t"))
 		if !save_data.has("map"):
 			create_save()
 	else:
-		dev.out(save_filename + " not found")
+		print(save_filename + " not found")
 		create_save()
 
 func _process(delta):
@@ -124,7 +124,7 @@ func win():
 	win_save()
 	set_map(current_map + 1)
 	start_reset()
-	dev.out("map complete")
+	print("map complete")
 
 func win_save():
 	if save_data["map"] < current_map + 1:

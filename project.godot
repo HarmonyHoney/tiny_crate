@@ -84,7 +84,6 @@ config/windows_native_icon="res://media/image/icon_gimp.ico"
 [autoload]
 
 btn="*res://src/autoload/btn.gd"
-dev="*res://src/autoload/DevConsole.tscn"
 Shared="*res://src/autoload/Shared.gd"
 HUD="*res://src/autoload/HUD.tscn"
 Pause="*res://src/autoload/Pause.tscn"

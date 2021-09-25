@@ -85,7 +85,7 @@ func set_active(arg := false):
 
 # draw hitbox in editor
 func _draw():
-	if Engine.editor_hint or dev.is_draw_collider:
+	if Engine.editor_hint:
 		draw_rect(Rect2(0, 0, hitbox_x, hitbox_y), Color(1, 0, 0.75, 0.5))
 
 # axis aligned bounding box
