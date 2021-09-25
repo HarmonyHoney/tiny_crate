@@ -81,9 +81,13 @@ func menu_select():
 			switch_menu("quit")
 			node_audio_quit.play()
 		"yes":
-			Shared.quit_wipe()
 			is_input = false
 			node_audio_yes.play()
+			if OS.get_name() == "HTML5":
+				Shared.scene_path = Shared.splash_path
+				Shared.do_reset()
+			else:
+				Shared.quit_wipe()
 		"no":
 			switch_menu("main")
 			cursor = 3

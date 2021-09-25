@@ -6,14 +6,10 @@ var cursor := 0
 onready var node_cursor : ColorRect = $Cursor
 onready var node_audio_scroll : AudioStreamPlayer = $AudioScroll
 
-var is_input = true
-
 func _ready():
 	select_item(0)
 
 func _input(event):
-	if !is_input:
-		return
 	if event.is_action_pressed("action"):
 		if menu_items[0].has_method("act"):
 			menu_items[0].act()

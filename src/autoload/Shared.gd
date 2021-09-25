@@ -82,11 +82,11 @@ func dir_list(path : String):
 	return array
 
 func set_window_scale(arg := window_scale):
-	window_scale = arg if arg else window_scale
-	window_scale = max(1, window_scale)
-	OS.window_size = Vector2(view_size.x * window_scale, view_size.y * window_scale)
-	# center window
-	OS.set_window_position(OS.get_screen_size() * 0.5 - OS.get_window_size() * 0.5)
+	window_scale = max(1, arg if arg else window_scale)
+	if OS.get_name() != "HTML5":
+		OS.window_size = Vector2(view_size.x * window_scale, view_size.y * window_scale)
+		# center window
+		OS.set_window_position(OS.get_screen_size() * 0.5 - OS.get_window_size() * 0.5)
 	return "window_scale: " + str(window_scale) + " - resolution: " + str(OS.get_window_size())
 
 func start_reset():
