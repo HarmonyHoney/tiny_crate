@@ -79,7 +79,7 @@ config/description="a game by Harmony Honey
 HarmonyHunnie.com"
 run/main_scene="res://src/menu/StartMenu.tscn"
 config/icon="res://media/image/icon.png"
-config/windows_native_icon="res://media/image/icon.ico"
+config/windows_native_icon="res://media/image/icon_gimp.ico"
 
 [autoload]
 
