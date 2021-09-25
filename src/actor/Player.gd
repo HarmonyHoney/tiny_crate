@@ -31,6 +31,11 @@ onready var node_audio_jump : AudioStreamPlayer2D = $AudioJump
 onready var node_audio_pickup : AudioStreamPlayer2D = $AudioPickup
 onready var node_audio_drop : AudioStreamPlayer2D = $AudioDrop
 onready var node_audio_throw : AudioStreamPlayer2D = $AudioThrow
+onready var node_audio_push : AudioStreamPlayer2D = $AudioPush
+
+var is_push = false
+var push_clock = 0.0
+var push_fade = 0.0
 
 var scene_box = preload("res://src/actor/Box.tscn")
 var scene_explosion = preload("res://src/fx/Explosion.tscn")
@@ -163,6 +168,19 @@ func _process(delta):
 				# slow movement when pushing
 				speed.x = clamp(speed.x, -push_speed, push_speed)
 				move_x(dir)
+				push_clock = 0.1
+				push_fade = 0.2
+				node_audio_push.volume_db = 0
+				if !node_audio_push.playing:
+					node_audio_push.play()
+	
+	# push audio
+	push_clock = max(0, push_clock - delta)
+	if push_clock == 0 and node_audio_push.playing:
+		push_fade = max(0, push_fade - delta)
+		node_audio_push.volume_db = linear2db(push_fade / 0.2)
+		if push_fade == 0:
+			node_audio_push.stop()
 
 func box_release(sx := 0.0, sy := 0.0):
 	is_pickup = false

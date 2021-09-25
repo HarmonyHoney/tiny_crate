@@ -177,7 +177,6 @@ __meta__ = {
 }
 
 [node name="Quit" type="Control" parent="Menu"]
-visible = false
 margin_left = 80.0
 margin_top = 44.0
 margin_right = 120.0
@@ -224,6 +223,7 @@ margin_top = 4.0
 margin_right = 121.0
 margin_bottom = 17.0
 custom_fonts/font = ExtResource( 17 )
+custom_colors/font_color = Color( 1, 0.945098, 0.909804, 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 custom_constants/shadow_as_outline = 1
 text = "Quit Game?"
