@@ -35,7 +35,8 @@ func _input(event):
 		return
 	if event.is_action_pressed("action"):
 		if menu_list == quit_list:
-			switch_menu("paused")
+			cursor = 1
+			menu_select()
 	elif event.is_action_pressed("jump"):
 		menu_select()
 	elif event.is_action_pressed("down") or event.is_action_pressed("up"):

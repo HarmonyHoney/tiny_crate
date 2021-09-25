@@ -14,7 +14,10 @@ func _ready():
 func _input(event):
 	if !is_input:
 		return
-	if event.is_action_pressed("jump"):
+	if event.is_action_pressed("action"):
+		if menu_items[0].has_method("act"):
+			menu_items[0].act()
+	elif event.is_action_pressed("jump"):
 		if menu_items[cursor].has_method("act"):
 			menu_items[cursor].act()
 	elif event.is_action_pressed("left") or event.is_action_pressed("right"):

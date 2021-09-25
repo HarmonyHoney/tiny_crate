@@ -255,7 +255,7 @@ frame = 10
 region_rect = Rect2( 0, 0, 18, 18 )
 
 [node name="c" type="Sprite" parent="HUD/Buttons"]
-position = Vector2( 12, 96 )
+position = Vector2( 12, 12 )
 texture = ExtResource( 3 )
 hframes = 6
 vframes = 4

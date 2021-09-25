@@ -148,8 +148,7 @@ script = ExtResource( 3 )
 position = Vector2( 14, 0 )
 
 [node name="c" type="Sprite" parent="Buttons"]
-visible = false
-position = Vector2( 103, 116 )
+position = Vector2( 12, 12 )
 texture = ExtResource( 16 )
 hframes = 6
 vframes = 4
@@ -214,9 +213,9 @@ __meta__ = {
 
 [node name="Cursor" type="ColorRect" parent="."]
 margin_left = 56.0
-margin_top = 22.0
+margin_top = 23.0
 margin_right = 200.0
-margin_bottom = 34.0
+margin_bottom = 35.0
 color = Color( 0.113725, 0.168627, 0.32549, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -267,7 +266,7 @@ z_index = 20
 z_as_relative = false
 
 [node name="Back" type="Node2D" parent="MenuItems"]
-position = Vector2( 50, 24 )
+position = Vector2( 50, 25 )
 script = SubResource( 2 )
 
 [node name="Label" type="Label" parent="MenuItems/Back"]
@@ -287,7 +286,7 @@ stream = ExtResource( 10 )
 bus = "SFX"
 
 [node name="SFXVolume" type="Node2D" parent="MenuItems"]
-position = Vector2( 50, 36 )
+position = Vector2( 50, 37 )
 script = SubResource( 3 )
 
 [node name="Label" type="Label" parent="MenuItems/SFXVolume"]
@@ -411,7 +410,7 @@ stream = ExtResource( 18 )
 bus = "SFX"
 
 [node name="MusicVolume" type="Node2D" parent="MenuItems"]
-position = Vector2( 50, 48 )
+position = Vector2( 50, 49 )
 script = SubResource( 4 )
 
 [node name="Label" type="Label" parent="MenuItems/MusicVolume"]
@@ -535,7 +534,7 @@ stream = ExtResource( 12 )
 bus = "Music"
 
 [node name="Fullscreen" type="Node2D" parent="MenuItems"]
-position = Vector2( 50, 60 )
+position = Vector2( 50, 61 )
 script = SubResource( 5 )
 
 [node name="Label" type="Label" parent="MenuItems/Fullscreen"]
@@ -584,7 +583,7 @@ stream = ExtResource( 17 )
 bus = "SFX"
 
 [node name="WindowSize" type="Node2D" parent="MenuItems"]
-position = Vector2( 50, 72 )
+position = Vector2( 50, 73 )
 script = SubResource( 6 )
 
 [node name="Label" type="Label" parent="MenuItems/WindowSize"]
@@ -629,7 +628,7 @@ stream = ExtResource( 18 )
 bus = "SFX"
 
 [node name="DeleteSaveData" type="Node2D" parent="MenuItems"]
-position = Vector2( 50, 84 )
+position = Vector2( 50, 85 )
 script = SubResource( 7 )
 
 [node name="Label" type="Label" parent="MenuItems/DeleteSaveData"]
@@ -649,7 +648,7 @@ stream = ExtResource( 7 )
 bus = "SFX"
 
 [node name="UnlockAll" type="Node2D" parent="MenuItems"]
-position = Vector2( 50, 96 )
+position = Vector2( 50, 97 )
 script = SubResource( 8 )
 
 [node name="Label" type="Label" parent="MenuItems/UnlockAll"]
