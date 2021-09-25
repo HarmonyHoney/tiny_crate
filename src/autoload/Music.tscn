@@ -6,7 +6,6 @@
 [node name="AudioStreamPlayer" type="AudioStreamPlayer"]
 pause_mode = 2
 stream = ExtResource( 1 )
-autoplay = true
 bus = "Music"
 script = ExtResource( 2 )
 

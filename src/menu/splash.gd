@@ -7,6 +7,7 @@ onready var audio = $AudioStreamPlayer
 
 func _ready():
 	logo.visible = false
+	Music.play()
 
 func _process(delta):
 	timer = max(0, timer - delta)
