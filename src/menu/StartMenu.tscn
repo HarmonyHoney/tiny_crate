@@ -40,66 +40,6 @@ script = ExtResource( 3 )
 [node name="Buttons" type="Node2D" parent="."]
 position = Vector2( -18, 8 )
 
-[node name="Unused" type="Node2D" parent="Buttons"]
-visible = false
-
-[node name="c" type="Sprite" parent="Buttons/Unused"]
-position = Vector2( -70, 107 )
-texture = ExtResource( 16 )
-hframes = 6
-vframes = 4
-region_rect = Rect2( 0, 0, 18, 18 )
-
-[node name="c_label" type="Label" parent="Buttons/Unused"]
-margin_left = -58.0
-margin_top = 101.0
-margin_right = -30.0
-margin_bottom = 114.0
-custom_fonts/font = ExtResource( 6 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
-custom_constants/shadow_as_outline = 1
-text = "back"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="esc" type="Sprite" parent="Buttons/Unused"]
-position = Vector2( -78, 75 )
-texture = ExtResource( 16 )
-hframes = 3
-vframes = 4
-frame = 6
-region_rect = Rect2( 0, 0, 18, 18 )
-
-[node name="esc_label" type="Label" parent="Buttons/Unused"]
-margin_left = -57.0
-margin_top = 69.0
-margin_right = -27.0
-margin_bottom = 82.0
-custom_fonts/font = ExtResource( 6 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
-custom_constants/shadow_as_outline = 1
-text = "menu"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="ent" type="Sprite" parent="Buttons/Unused"]
-position = Vector2( -52, 18 )
-texture = ExtResource( 16 )
-hframes = 3
-vframes = 4
-frame = 7
-region_rect = Rect2( 0, 0, 18, 18 )
-
-[node name="return" type="Sprite" parent="Buttons/Unused"]
-position = Vector2( -56, 43 )
-texture = ExtResource( 16 )
-hframes = 3
-vframes = 4
-frame = 10
-region_rect = Rect2( 0, 0, 18, 18 )
-
 [node name="x" type="Sprite" parent="Buttons"]
 position = Vector2( 12, 116 )
 texture = ExtResource( 16 )
@@ -177,6 +117,7 @@ __meta__ = {
 }
 
 [node name="Quit" type="Control" parent="Menu"]
+visible = false
 margin_left = 80.0
 margin_top = 44.0
 margin_right = 120.0

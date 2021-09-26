@@ -75,7 +75,7 @@ _global_script_class_icons={
 [application]
 
 config/name="Tiny Crate"
-config/description="a game by Harmony Honey
+config/description="Tiny Crate by Harmony Honey
 HarmonyHunnie.com"
 run/main_scene="res://src/menu/splash.tscn"
 config/icon="res://media/image/icon.png"
