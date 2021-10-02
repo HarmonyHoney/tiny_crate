@@ -16,7 +16,7 @@ func _ready():
 	node_audio.pitch_scale = 1 + rand_range(-0.2, 0.2)
 	node_audio.play()
 
-func _process(delta):
+func _physics_process(delta):
 	position = position.linear_interpolate(target_pos, lerp_speed)
 
 func anim_finish():

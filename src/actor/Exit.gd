@@ -31,7 +31,7 @@ func _ready():
 		node_stars.add_child($Stars/Star.duplicate())
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _physics_process(delta):
 	if Engine.editor_hint:
 		return
 	

@@ -21,7 +21,7 @@ extends Node2D
 #			if i.has("death"):
 #				metric_death = i.death
 #
-#func _process(delta):
+#func _physics_process(delta):
 #	if is_timer:
 #		timer += delta
 #		HUD.set_time(timer)

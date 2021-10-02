@@ -12,7 +12,7 @@ func _ready():
 	if Engine.editor_hint:
 		return
 
-func _process(delta):
+func _physics_process(delta):
 	if Engine.editor_hint:
 		return
 	

@@ -66,7 +66,7 @@ func view_scene(port, path):
 		port.add_child(m)
 		for i in get_tree().get_nodes_in_group("actor"):
 			if !i.is_in_group("exit"):
-				i.set_process(false) # dont process actors
+				i.set_physics_process(false) # dont process actors
 
 func scroll(arg = 0):
 	cursor = clamp(cursor + arg, 0, screens.get_child_count() - 1)

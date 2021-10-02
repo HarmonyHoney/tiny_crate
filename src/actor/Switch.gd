@@ -17,7 +17,7 @@ func _ready():
 	add_to_group("switch_" + color)
 
 
-func _process(delta):
+func _physics_process(delta):
 	if Engine.editor_hint:
 		return
 	

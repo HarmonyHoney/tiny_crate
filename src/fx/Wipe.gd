@@ -29,7 +29,7 @@ func _ready():
 	
 	start() if act else stop(false)
 
-func _process(delta):
+func _physics_process(delta):
 	clock -= delta
 	if clock < 0:
 		clock += tick
@@ -45,7 +45,7 @@ func _process(delta):
 
 func start(_backwards = false):
 	act = true
-	set_process(true)
+	set_physics_process(true)
 	frame = 0
 	clock = tick
 	backwards = _backwards
@@ -55,7 +55,7 @@ func start(_backwards = false):
 
 func stop(_emit_signal = true):
 	act = false
-	set_process(false)
+	set_physics_process(false)
 	sprites.visible = false
 	
 	if _emit_signal:

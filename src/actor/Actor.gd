@@ -40,7 +40,7 @@ var ignore_actor : Actor
 func _ready():
 	position = position.floor()
 
-func _process(delta):
+func _physics_process(delta):
 	if Engine.editor_hint:
 		return
 	
@@ -70,7 +70,7 @@ func set_solid(arg := false):
 
 func set_active(arg := false):
 	#is_active = arg
-	set_process(arg)
+	set_physics_process(arg)
 	if arg:
 		add_to_group("actor")
 	else:

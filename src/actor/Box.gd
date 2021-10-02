@@ -20,7 +20,7 @@ var scene_slam = preload("res://src/fx/Slam.tscn")
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	if Engine.editor_hint or Shared.is_level_select:
-		set_process(false)
+		set_physics_process(false)
 		return
 	
 	spr_pos = node_sprite.position
@@ -44,7 +44,7 @@ func hit_floor():
 	get_parent().add_child(inst)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _physics_process(delta):
 	if Engine.editor_hint:
 		return
 	

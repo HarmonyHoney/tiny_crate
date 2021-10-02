@@ -14,7 +14,7 @@ func _ready():
 	box.append($Box2)
 	box.append($Box3)
 
-func _process(delta):
+func _physics_process(delta):
 	p.btnp_jump = false
 	p.btnp_pick = false
 	if !p.is_jump:

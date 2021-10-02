@@ -27,7 +27,7 @@ func _ready():
 	if randf() > 0.5:
 		rot_speed = -rot_speed
 
-func _process(delta):
+func _physics_process(delta):
 	counter += delta
 	var sx = sin(counter * speed) * orbit
 	var vec := Vector2(sx, 0)

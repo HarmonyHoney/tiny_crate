@@ -21,7 +21,7 @@ export var bounds := Rect2(0, 0, 0, 0) setget _set_bounds
 
 func _ready():
 	if Engine.editor_hint or Shared.is_level_select:
-		set_process(false)
+		set_physics_process(false)
 		return
 	
 	Shared.node_camera_game = self
@@ -37,7 +37,7 @@ func _ready():
 	lerp_pos = position
 	pos_target = position
 
-func _process(delta):
+func _physics_process(delta):
 	if !is_moving or Engine.editor_hint:
 		return
 	

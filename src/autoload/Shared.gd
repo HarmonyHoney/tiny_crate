@@ -55,7 +55,7 @@ func _ready():
 		print(save_filename + " not found")
 		create_save()
 
-func _process(delta):
+func _physics_process(delta):
 	# reset timer
 	if is_reset:
 		reset_clock -= delta

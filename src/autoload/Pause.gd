@@ -26,7 +26,7 @@ func _ready():
 	set_cursor()
 	write_menu()
 
-func _process(delta):
+func _physics_process(delta):
 	if clock != 0:
 		clock = max(0, clock - delta)
 		if clock == 0:

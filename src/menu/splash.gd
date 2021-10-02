@@ -9,7 +9,7 @@ func _ready():
 	logo.visible = false
 	Music.play()
 
-func _process(delta):
+func _physics_process(delta):
 	timer = max(0, timer - delta)
 	if timer == 0:
 		if step == 0:
@@ -20,4 +20,4 @@ func _process(delta):
 		else:
 			Shared.scene_path = Shared.main_menu_path
 			Shared.do_reset()
-			set_process(false)
+			set_physics_process(false)
