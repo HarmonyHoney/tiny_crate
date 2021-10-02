@@ -35,9 +35,6 @@ func _ready():
 	
 	scroll(Shared.current_map)
 
-func _process(delta):
-	pass
-
 func _input(event):
 	if !is_input:
 		return

@@ -33,10 +33,6 @@ var is_on_floor := false
 var is_on_floor_last := false
 var time_since_floor := 0
 
-# treadmill
-export var is_using_tread := false
-var is_on_tread := false
-
 # ignore this actor's solidity
 var ignore_actor : Actor
 
@@ -49,9 +45,6 @@ func _process(delta):
 		return
 	
 	if is_moving:
-		if is_using_tread:
-			tread_move()
-		
 		move()
 		
 		if is_using_gravity:
@@ -207,14 +200,6 @@ func wiggle_y(step):
 		if not is_area_solid(position.x + i, position.y + step):
 			return i
 	return null
-
-# move on treadmill
-func tread_move():
-	is_on_tread = false
-	for a in check_area_actors("treadmill", position.x, position.y + 1):
-		is_on_tread = true
-		remainder.x += a.tread_speed
-		break
 
 # check area for solid tiles
 func is_area_solid_tile(x1, y1, width, height):
