@@ -33,6 +33,7 @@ shape = SubResource( 1 )
 shape_centered = false
 passby_press = true
 action = "left"
+visibility_mode = 1
 
 [node name="Node2D" type="Node2D" parent="Node2D/Left"]
 modulate = Color( 1, 1, 1, 0.0784314 )
@@ -50,6 +51,7 @@ shape = SubResource( 2 )
 shape_centered = false
 passby_press = true
 action = "right"
+visibility_mode = 1
 
 [node name="Node2D" type="Node2D" parent="Node2D/Right"]
 modulate = Color( 1, 1, 1, 0.0784314 )
@@ -67,6 +69,7 @@ shape = SubResource( 3 )
 shape_centered = false
 passby_press = true
 action = "action"
+visibility_mode = 1
 
 [node name="Node2D" type="Node2D" parent="Node2D/C"]
 modulate = Color( 1, 1, 1, 0.0784314 )
@@ -92,6 +95,7 @@ shape = SubResource( 4 )
 shape_centered = false
 passby_press = true
 action = "jump"
+visibility_mode = 1
 
 [node name="Node2D" type="Node2D" parent="Node2D/X"]
 modulate = Color( 1, 1, 1, 0.0784314 )
@@ -117,6 +121,7 @@ shape = SubResource( 5 )
 shape_centered = false
 passby_press = true
 action = "pause"
+visibility_mode = 1
 
 [node name="Node2D" type="Node2D" parent="Node2D/Pause"]
 modulate = Color( 1, 1, 1, 0.0784314 )

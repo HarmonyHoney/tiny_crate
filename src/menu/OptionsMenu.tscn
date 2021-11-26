@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://media/font/m3x6.tres" type="DynamicFont" id=1]
 [ext_resource path="res://media/image/9slice.png" type="Texture" id=2]
@@ -133,6 +133,22 @@ func set_text():
 	$Resolution.text = str(Shared.view_size.x * Shared.window_scale) + \" x \" + str(Shared.view_size.y * Shared.window_scale)
 "
 
+[sub_resource type="GDScript" id=9]
+script/source = "extends Node2D
+
+onready var fill = $Box/Fill
+
+var is_selected = false
+
+func _ready():
+	fill.visible = TouchScreen.node.visible
+
+func act():
+	var is_touch = !TouchScreen.vis
+	TouchScreen.vis = is_touch
+	fill.visible = is_touch
+"
+
 [sub_resource type="GDScript" id=7]
 script/source = "extends Node2D
 
@@ -170,10 +186,10 @@ margin_left = 11.0
 margin_top = -6.0
 margin_right = 39.0
 margin_bottom = 7.0
-custom_fonts/font = ExtResource( 6 )
 custom_colors/font_color = Color( 1, 0.945098, 0.909804, 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 custom_constants/shadow_as_outline = 1
+custom_fonts/font = ExtResource( 6 )
 text = "back"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -192,10 +208,10 @@ margin_left = 11.0
 margin_top = -7.0
 margin_right = 49.0
 margin_bottom = 6.0
-custom_fonts/font = ExtResource( 6 )
 custom_colors/font_color = Color( 1, 0.945098, 0.909804, 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 custom_constants/shadow_as_outline = 1
+custom_fonts/font = ExtResource( 6 )
 text = "select"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -214,9 +230,9 @@ margin_left = -40.0
 margin_top = -7.0
 margin_right = -10.0
 margin_bottom = 6.0
-custom_fonts/font = ExtResource( 6 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 custom_constants/shadow_as_outline = 1
+custom_fonts/font = ExtResource( 6 )
 text = "move"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -237,10 +253,10 @@ margin_left = 14.0
 margin_top = 7.0
 margin_right = 242.0
 margin_bottom = 20.0
-custom_fonts/font = SubResource( 1 )
 custom_colors/font_color = Color( 1, 0.945098, 0.909804, 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 custom_constants/shadow_as_outline = 1
+custom_fonts/font = SubResource( 1 )
 text = "OPTIONS"
 align = 1
 __meta__ = {
@@ -284,8 +300,8 @@ script = SubResource( 2 )
 margin_top = 1.0
 margin_right = 128.0
 margin_bottom = 9.0
-custom_fonts/font = ExtResource( 1 )
 custom_colors/font_color = Color( 1, 0.945098, 0.909804, 1 )
+custom_fonts/font = ExtResource( 1 )
 text = "Back to Menu"
 align = 1
 __meta__ = {
@@ -304,8 +320,8 @@ script = SubResource( 3 )
 margin_top = 1.0
 margin_right = 42.0
 margin_bottom = 9.0
-custom_fonts/font = ExtResource( 1 )
 custom_colors/font_color = Color( 1, 0.945098, 0.909804, 1 )
+custom_fonts/font = ExtResource( 1 )
 text = "SFX Volume"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -428,8 +444,8 @@ script = SubResource( 4 )
 margin_top = 1.0
 margin_right = 50.0
 margin_bottom = 9.0
-custom_fonts/font = ExtResource( 1 )
 custom_colors/font_color = Color( 1, 0.945098, 0.909804, 1 )
+custom_fonts/font = ExtResource( 1 )
 text = "Music Volume"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -552,8 +568,8 @@ script = SubResource( 5 )
 margin_top = 1.0
 margin_right = 50.0
 margin_bottom = 9.0
-custom_fonts/font = ExtResource( 1 )
 custom_colors/font_color = Color( 1, 0.945098, 0.909804, 1 )
+custom_fonts/font = ExtResource( 1 )
 text = "Fullscreen"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -601,8 +617,8 @@ script = SubResource( 6 )
 margin_top = 1.0
 margin_right = 50.0
 margin_bottom = 9.0
-custom_fonts/font = ExtResource( 1 )
 custom_colors/font_color = Color( 1, 0.945098, 0.909804, 1 )
+custom_fonts/font = ExtResource( 1 )
 text = "Window Size"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -613,8 +629,8 @@ margin_left = 48.0
 margin_top = 1.0
 margin_right = 80.0
 margin_bottom = 9.0
-custom_fonts/font = ExtResource( 1 )
 custom_colors/font_color = Color( 1, 0.945098, 0.909804, 1 )
+custom_fonts/font = ExtResource( 1 )
 text = "1x"
 align = 1
 __meta__ = {
@@ -626,8 +642,8 @@ margin_left = 72.0
 margin_top = 1.0
 margin_right = 136.0
 margin_bottom = 9.0
-custom_fonts/font = ExtResource( 1 )
 custom_colors/font_color = Color( 1, 0.945098, 0.909804, 1 )
+custom_fonts/font = ExtResource( 1 )
 text = "228 x 128"
 align = 1
 __meta__ = {
@@ -638,16 +654,65 @@ __meta__ = {
 stream = ExtResource( 18 )
 bus = "SFX"
 
-[node name="DeleteSaveData" type="Node2D" parent="MenuItems"]
+[node name="TouchControls" type="Node2D" parent="MenuItems"]
 position = Vector2( 50, 85 )
+script = SubResource( 9 )
+
+[node name="Label" type="Label" parent="MenuItems/TouchControls"]
+margin_top = 1.0
+margin_right = 56.0
+margin_bottom = 9.0
+custom_colors/font_color = Color( 1, 0.945098, 0.909804, 1 )
+custom_fonts/font = ExtResource( 1 )
+text = "Touch Controls"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Box" type="ColorRect" parent="MenuItems/TouchControls"]
+margin_left = 99.0
+margin_top = -1.0
+margin_right = 109.0
+margin_bottom = 9.0
+color = Color( 1, 0.945098, 0.909804, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Back" type="ColorRect" parent="MenuItems/TouchControls/Box"]
+margin_left = 1.0
+margin_top = 1.0
+margin_right = 9.0
+margin_bottom = 9.0
+color = Color( 0, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Fill" type="ColorRect" parent="MenuItems/TouchControls/Box"]
+margin_left = 2.0
+margin_top = 2.0
+margin_right = 8.0
+margin_bottom = 8.0
+color = Color( 1, 0.945098, 0.909804, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="MenuItems/TouchControls"]
+stream = ExtResource( 17 )
+bus = "SFX"
+
+[node name="DeleteSaveData" type="Node2D" parent="MenuItems"]
+position = Vector2( 50, 97 )
 script = SubResource( 7 )
 
 [node name="Label" type="Label" parent="MenuItems/DeleteSaveData"]
 margin_top = 1.0
 margin_right = 128.0
 margin_bottom = 9.0
-custom_fonts/font = ExtResource( 1 )
 custom_colors/font_color = Color( 1, 0.945098, 0.909804, 1 )
+custom_fonts/font = ExtResource( 1 )
 text = "Delete Save Data"
 align = 1
 __meta__ = {
@@ -659,15 +724,15 @@ stream = ExtResource( 7 )
 bus = "SFX"
 
 [node name="UnlockAll" type="Node2D" parent="MenuItems"]
-position = Vector2( 50, 97 )
+position = Vector2( 50, 109 )
 script = SubResource( 8 )
 
 [node name="Label" type="Label" parent="MenuItems/UnlockAll"]
 margin_top = 1.0
 margin_right = 128.0
 margin_bottom = 9.0
-custom_fonts/font = ExtResource( 1 )
 custom_colors/font_color = Color( 1, 0.945098, 0.909804, 1 )
+custom_fonts/font = ExtResource( 1 )
 text = "Unlock All"
 align = 1
 __meta__ = {

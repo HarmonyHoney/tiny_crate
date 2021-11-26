@@ -10,22 +10,41 @@ func _ready():
 	select_item(0)
 
 func _input(event):
-	if event.is_action_pressed("action"):
-		if menu_items[0].has_method("act"):
-			menu_items[0].act()
-	elif event.is_action_pressed("jump"):
-		if menu_items[cursor].has_method("act"):
-			menu_items[cursor].act()
-	elif event.is_action_pressed("left") or event.is_action_pressed("right"):
-		var btnx = btn.p("right") - btn.p("left")
-		if menu_items[cursor].has_method("scroll"):
-			menu_items[cursor].scroll(btnx)
-	elif event.is_action_pressed("down") or event.is_action_pressed("up"):
-		var btny = btn.p("down") - btn.p("up")
-		if btny:
-			select_item(cursor + btny)
+	var up = event.is_action_pressed("up")
+	var down = event.is_action_pressed("down")
+	var left = event.is_action_pressed("left")
+	var right = event.is_action_pressed("right")
+	
+	var yes = event.is_action_pressed("jump")
+	var no = event.is_action_pressed("action")
+	
+	if TouchScreen.vis:
+		if left or right:
+			select_item(cursor + (-1 if left else 1))
 			node_audio_scroll.pitch_scale = 1 + rand_range(-0.2, 0.2)
 			node_audio_scroll.play()
+		elif yes or no:
+			var btnx = -1 if no else 1
+			if menu_items[cursor].has_method("scroll"):
+				menu_items[cursor].scroll(btnx)
+				
+			if menu_items[cursor].has_method("act"):
+				menu_items[cursor].act()
+	else:
+		if up or down:
+			select_item(cursor + (-1 if up else 1))
+			node_audio_scroll.pitch_scale = 1 + rand_range(-0.2, 0.2)
+			node_audio_scroll.play()
+		elif yes:
+			if menu_items[cursor].has_method("act"):
+				menu_items[cursor].act()
+		elif left or right:
+			var btnx = -1 if left else 1
+			if menu_items[cursor].has_method("scroll"):
+				menu_items[cursor].scroll(btnx)
+		elif no:
+			if menu_items[0].has_method("act"):
+				menu_items[0].act()
 
 func select_item(arg := 0):
 	if menu_items[cursor].has_method("deselect"):
