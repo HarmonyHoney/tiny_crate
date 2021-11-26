@@ -39,10 +39,11 @@ func _input(event):
 			menu_select()
 	elif event.is_action_pressed("jump"):
 		menu_select()
-	elif event.is_action_pressed("down") or event.is_action_pressed("up"):
-		var btny = btn.p("down") - btn.p("up")
-		if btny:
-			cursor = clamp(cursor + btny, 0, menu_items.size() - 1)
+	else:
+		var up = event.is_action_pressed("up") or event.is_action_pressed("left")
+		var down = event.is_action_pressed("down") or event.is_action_pressed("right")
+		if up or down:
+			cursor = clamp(cursor + (-1 if up else 1), 0, menu_items.size() - 1)
 			write_menu()
 			node_audio_scroll.pitch_scale = 1 + rand_range(-0.2, 0.2)
 			node_audio_scroll.play()

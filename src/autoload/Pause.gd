@@ -40,14 +40,16 @@ func _input(event):
 		if event.is_action_pressed("pause"):
 			toggle_pause()
 		if is_paused:
+			
 			if event.is_action_pressed("action"):
 				toggle_pause()
 			elif event.is_action_pressed("jump"):
 				select()
-			elif event.is_action_pressed("down") or event.is_action_pressed("up"):
-				var btny = btn.p("down") - btn.p("up")
-				if btny:
-					set_cursor(cursor + btny)
+			else:
+				var up = event.is_action_pressed("up") or event.is_action_pressed("left")
+				var down = event.is_action_pressed("down") or event.is_action_pressed("right")
+				if up or down:
+					set_cursor(cursor + (-1 if up else 1))
 					write_menu()
 					node_audio_scroll.pitch_scale = 1 + rand_range(-0.2, 0.2)
 					node_audio_scroll.play()

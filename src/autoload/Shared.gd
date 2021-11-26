@@ -111,6 +111,7 @@ func change_map():
 	get_tree().change_scene(scene_path)
 	is_level_select = scene_path == level_select_path
 	is_in_game = scene_path.begins_with(map_path) or scene_path.begins_with(win_screen_path)
+	TouchScreen.pause.visible = is_in_game
 	HUD.wipe.start(true)
 	Pause.set_process_input(true)
 
