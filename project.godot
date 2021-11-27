@@ -95,7 +95,7 @@ TouchScreen="*res://src/autoload/touch_screen.tscn"
 window/size/width=228
 window/size/height=128
 window/dpi/allow_hidpi=true
-window/stretch/mode="2d"
+window/stretch/mode="viewport"
 window/stretch/aspect="keep"
 
 [editor_plugins]
