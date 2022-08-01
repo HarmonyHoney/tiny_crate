@@ -9,9 +9,10 @@ export var lerp_speed := 0.1
 func _ready():
 	target_pos = position
 	
-	for a in get_tree().get_nodes_in_group("exit"):
-		target_pos = a.position + Vector2(3, 3)
-		break
+	for a in Shared.actors:
+		if a.tag == "exit":
+			target_pos = a.position + Vector2(3, 3)
+			break
 	
 	node_audio.pitch_scale = 1 + rand_range(-0.2, 0.2)
 	node_audio.play()

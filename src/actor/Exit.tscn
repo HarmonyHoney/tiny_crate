@@ -34,15 +34,13 @@ tracks/1/keys = {
 "values": [ Vector2( 0, 0 ), Vector2( 0, 0 ), Vector2( 0, 0 ), Vector2( 0, 0 ), Vector2( 0, 0 ), Vector2( 0, 0 ), Vector2( 0, 0 ), Vector2( 0, 0 ) ]
 }
 
-[node name="Exit" type="Node2D" groups=[
-"actor",
-"exit",
-]]
+[node name="Exit" type="Node2D"]
 z_index = 10
 z_as_relative = false
 script = ExtResource( 2 )
 hitbox_x = 6
 hitbox_y = 6
+tag = "exit"
 dust_speed = 0.1
 
 [node name="Sprite" type="Sprite" parent="."]

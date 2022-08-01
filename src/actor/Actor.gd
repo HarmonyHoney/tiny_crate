@@ -13,6 +13,8 @@ var term_vel := 16
 var remainder := Vector2.ZERO
 
 # movement and collision
+export var tag := "actor"
+export var is_solid := false
 export var is_moving := false
 export var is_colliding := false
 export var is_using_gravity := false
@@ -35,6 +37,12 @@ var time_since_floor := 0
 
 # ignore this actor's solidity
 var ignore_actor : Actor
+
+func _enter_tree():
+	Shared.actors.append(self)
+
+func _exit_tree():
+	Shared.actors.erase(self)
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -60,21 +68,6 @@ func _set_hit_x(value):
 func _set_hit_y(value):
 	hitbox_y = value
 	update()
-
-func set_solid(arg := false):
-	#is_solid = arg
-	if arg:
-		add_to_group("solid")
-	else:
-		remove_from_group("solid")
-
-func set_active(arg := false):
-	#is_active = arg
-	set_physics_process(arg)
-	if arg:
-		add_to_group("actor")
-	else:
-		remove_from_group("actor")
 
 # draw hitbox in editor
 func _draw():
@@ -219,8 +212,8 @@ func is_area_solid_tile(x1, y1, width, height):
 
 # check area for solid actors
 func is_area_solid_actor(x, y, width = hitbox_x, height = hitbox_y, ignore = null) -> bool:
-	for a in get_tree().get_nodes_in_group("solid"):
-		if a != self and a != ignore and a != ignore_actor:
+	for a in Shared.actors:
+		if a.is_solid and a != self and a != ignore and a != ignore_actor:
 			if aabb(x, y, width, height, a.position.x, a.position.y, a.hitbox_x, a.hitbox_y):
 				return true
 	return false
@@ -232,21 +225,21 @@ func is_area_solid(x = position.x, y = position.y, width = hitbox_x, height = hi
 	return is_area_solid_actor(x, y, width, height, ignore)
 
 # is overlapping any actor?
-func is_area_actor(group_name = "actor", x = position.x, y = position.y, width = hitbox_x, height = hitbox_y, ignore = null):
-	for a in get_tree().get_nodes_in_group(group_name if group_name else "actor"):
-		if a != self and a != ignore and aabb(x, y, width, height, a.position.x, a.position.y, a.hitbox_x, a.hitbox_y):
+func is_area_actor(_tag = "", x = position.x, y = position.y, width = hitbox_x, height = hitbox_y, ignore = null):
+	for a in Shared.actors:
+		if a != self and a != ignore and (_tag != "" and a.tag == _tag) and aabb(x, y, width, height, a.position.x, a.position.y, a.hitbox_x, a.hitbox_y):
 			return true
 	return false
 
 # return array of actors
-func check_area_actors(group_name = "actor", x = position.x, y = position.y, width = hitbox_x, height = hitbox_y, ignore = null):
+func check_area_actors(_tag = "", x = position.x, y = position.y, width = hitbox_x, height = hitbox_y, ignore = null):
 	var act = []
-	for a in get_tree().get_nodes_in_group(group_name if group_name else "actor"):
-		if a != self and a != ignore and aabb(x, y, width, height, a.position.x, a.position.y, a.hitbox_x, a.hitbox_y):
+	for a in Shared.actors:
+		if a != self and a != ignore and (_tag != "" and a.tag == _tag) and aabb(x, y, width, height, a.position.x, a.position.y, a.hitbox_x, a.hitbox_y):
 			act.append(a)
 	return act
 
-func check_area_first_actor(group_name = "actor", x = position.x, y = position.y, width = hitbox_x, height = hitbox_y, ignore = null):
-	for a in get_tree().get_nodes_in_group(group_name if group_name else "actor"):
-		if a != self and a != ignore and aabb(x, y, width, height, a.position.x, a.position.y, a.hitbox_x, a.hitbox_y):
+func check_area_first_actor(_tag = "", x = position.x, y = position.y, width = hitbox_x, height = hitbox_y, ignore = null):
+	for a in Shared.actors:
+		if a != self and a != ignore and (_tag != "" and a.tag == _tag) and aabb(x, y, width, height, a.position.x, a.position.y, a.hitbox_x, a.hitbox_y):
 			return a

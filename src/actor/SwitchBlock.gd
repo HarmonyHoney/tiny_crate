@@ -20,18 +20,16 @@ func _physics_process(delta):
 	if Engine.editor_hint:
 		return
 	
-	if is_switch:
-		if not is_in_group("solid"):
-			if not is_area_solid_actor(position.x, position.y):
-				set_solid(true)
-				node_sprite.frame = frame_on
+	if is_switch and !is_solid and !is_area_solid_actor(position.x, position.y):
+		is_solid = true
+		node_sprite.frame = frame_on
 
 func switch_on():
 	is_switch = true
 
 func switch_off():
 	is_switch = false
-	set_solid(false)
+	is_solid = false
 	node_sprite.frame = frame_off
 
 

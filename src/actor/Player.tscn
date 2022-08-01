@@ -174,18 +174,15 @@ tracks/1/keys = {
 "values": [ Vector2( 0, 0 ), Vector2( 0, 0 ), Vector2( 0, 0 ), Vector2( 0, 0 ) ]
 }
 
-[node name="Player" type="Node2D" groups=[
-"actor",
-"player",
-"solid",
-]]
+[node name="Player" type="Node2D"]
 z_index = 15
 z_as_relative = false
 script = ExtResource( 1 )
+tag = "player"
+is_solid = true
 is_moving = true
 is_colliding = true
 is_using_gravity = true
-is_using_tread = true
 move_speed = 0.9
 jump_speed = 1.4
 jump_frames = 16

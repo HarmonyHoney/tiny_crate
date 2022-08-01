@@ -32,18 +32,15 @@ tracks/1/keys = {
 "values": [ Vector2( 0, 0 ), Vector2( 0, 0 ), Vector2( 0, 0 ), Vector2( 0, 0 ), Vector2( 0, 0 ), Vector2( 0, 0 ), Vector2( 0, 0 ) ]
 }
 
-[node name="Box" type="Node2D" groups=[
-"actor",
-"box",
-"solid",
-]]
+[node name="Box" type="Node2D"]
 z_index = 4
 z_as_relative = false
 script = ExtResource( 3 )
+tag = "box"
+is_solid = true
 is_moving = true
 is_colliding = true
 is_using_gravity = true
-is_using_tread = true
 push_dur = 0.04
 
 [node name="Sprite" type="Sprite" parent="."]

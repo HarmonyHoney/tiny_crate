@@ -181,6 +181,9 @@ func _physics_process(delta):
 		node_audio_push.volume_db = linear2db(push_fade / 0.2)
 		if push_fade == 0:
 			node_audio_push.stop()
+	
+	
+	node_sprite.position = Vector2(4,-4) + remainder
 
 func box_release(sx := 0.0, sy := 0.0):
 	is_pickup = false

@@ -33,6 +33,8 @@ var is_in_game := false
 var sfx_volume = 10
 var music_volume = 10
 
+var actors := []
+
 func _ready():	
 	print("Shared._ready(): ")
 	

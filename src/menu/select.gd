@@ -64,8 +64,8 @@ func view_scene(port, path):
 	if ResourceLoader.exists(path + ".tscn"):
 		var m = load(path + ".tscn").instance()
 		port.add_child(m)
-		for i in get_tree().get_nodes_in_group("actor"):
-			if !i.is_in_group("exit"):
+		for i in Shared.actors:
+			if !i.tag == "exit":
 				i.set_physics_process(false) # dont process actors
 
 func scroll(arg = 0):

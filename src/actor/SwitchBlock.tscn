@@ -3,9 +3,7 @@
 [ext_resource path="res://media/image/crate.png" type="Texture" id=1]
 [ext_resource path="res://src/actor/SwitchBlock.gd" type="Script" id=2]
 
-[node name="SwitchBlock" type="Node2D" groups=[
-"actor",
-]]
+[node name="SwitchBlock" type="Node2D" groups=["actor"]]
 script = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="."]
