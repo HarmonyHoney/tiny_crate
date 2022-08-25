@@ -263,6 +263,8 @@ position = Vector2( 64, 40 )
 
 [node name="SwitchBlue" parent="Stage/Actors" instance=ExtResource( 15 )]
 position = Vector2( 64, 44 )
+tag = "False"
+is_solid = false
 
 [node name="SwitchBlockBlue" parent="Stage/Actors" instance=ExtResource( 14 )]
 position = Vector2( 104, 96 )

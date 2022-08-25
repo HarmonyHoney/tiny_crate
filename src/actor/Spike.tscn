@@ -3,7 +3,7 @@
 [ext_resource path="res://media/image/crate_tiles.png" type="Texture" id=1]
 [ext_resource path="res://src/actor/Actor.gd" type="Script" id=2]
 
-[node name="Spike" type="Node2D" groups=["actor", "spike"]]
+[node name="Spike" type="Node2D"]
 z_index = 5
 z_as_relative = false
 script = ExtResource( 2 )

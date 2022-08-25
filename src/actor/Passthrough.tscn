@@ -4,7 +4,7 @@
 [ext_resource path="res://media/image/crate.png" type="Texture" id=2]
 [ext_resource path="res://media/audio/sfx/hit0.wav" type="AudioStream" id=3]
 
-[node name="Passthrough" type="Node2D" groups=["actor", "passthrough"]]
+[node name="Passthrough" type="Node2D"]
 script = ExtResource( 1 )
 tag = "passthrough"
 

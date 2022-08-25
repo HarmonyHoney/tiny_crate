@@ -181,9 +181,6 @@ func _physics_process(delta):
 		node_audio_push.volume_db = linear2db(push_fade / 0.2)
 		if push_fade == 0:
 			node_audio_push.stop()
-	
-	
-	node_sprite.position = Vector2(4,-4) + remainder
 
 func box_release(sx := 0.0, sy := 0.0):
 	is_pickup = false
@@ -197,9 +194,10 @@ func box_pickup(dx := 0, dy := 0):
 		var a = ignore_actor if is_instance_valid(ignore_actor) else check_area_first_actor("box", position.x + dx, position.y + dy)
 		if !is_instance_valid(a):
 			var b = check_area_actors("box", position.x - 2, position.y - 2, hitbox_x + 4, hitbox_y + 4)
-			b.sort_custom(self, "sort_x")
-			b.sort_custom(self, "sort_y_descent")
-			a = b.front()
+			if b.size() > 1:
+				b.sort_custom(self, "sort_x")
+				b.sort_custom(self, "sort_y_descent")
+				a = b.front()
 		if is_instance_valid(a):
 			is_pickup = true
 			a.ignore_actor = self

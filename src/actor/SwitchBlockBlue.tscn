@@ -3,8 +3,6 @@
 [ext_resource path="res://src/actor/SwitchBlock.tscn" type="PackedScene" id=1]
 
 [node name="SwitchBlockBlue" instance=ExtResource( 1 )]
-tag = "False"
-is_solid = false
 color = "blue"
 frame_on = 14
 frame_off = 12

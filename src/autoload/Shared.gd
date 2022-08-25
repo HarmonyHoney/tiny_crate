@@ -3,10 +3,11 @@ extends Node
 var node_map_solid : TileMap
 var node_camera_game : Camera2D
 
-var is_reset = false
+var is_quit := false
+var is_reset := false
 var reset_clock := 0.0
 var reset_time := 1.0
-var is_clear = false
+var is_clear := false
 
 var map_path := "res://src/map/"
 var current_map := 0
@@ -35,6 +36,7 @@ var music_volume = 10
 
 var actors := []
 
+
 func _ready():	
 	print("Shared._ready(): ")
 	
@@ -56,6 +58,9 @@ func _ready():
 	else:
 		print(save_filename + " not found")
 		create_save()
+	
+	yield(get_tree(), "idle_frame")
+	HUD.wipe.connect("finish", self, "wipe_finish")
 
 func _physics_process(delta):
 	# reset timer
@@ -98,16 +103,18 @@ func start_reset():
 
 func do_reset():
 	is_reset = false
-	HUD.wipe.connect("finish", self, "change_map")
 	HUD.wipe.start()
 	Pause.set_process_input(false)
 
 func quit_wipe():
-	HUD.wipe.connect("finish", self, "quit")
+	is_quit = true
 	HUD.wipe.start()
 
-func quit():
-	get_tree().quit()
+func wipe_finish():
+	if is_quit:
+		get_tree().quit()
+	else:
+		change_map()
 
 func change_map():
 	get_tree().change_scene(scene_path)

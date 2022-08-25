@@ -39,9 +39,11 @@ var time_since_floor := 0
 var ignore_actor : Actor
 
 func _enter_tree():
+	if Engine.editor_hint: return
 	Shared.actors.append(self)
 
 func _exit_tree():
+	if Engine.editor_hint: return
 	Shared.actors.erase(self)
 
 # Called when the node enters the scene tree for the first time.
