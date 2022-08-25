@@ -76,7 +76,7 @@ _global_script_class_icons={
 
 config/name="Tiny Crate"
 config/description="Tiny Crate by Harmony Honey
-HarmonyHunnie.com"
+hhoney.net"
 run/main_scene="res://src/menu/splash.tscn"
 config/icon="res://media/image/icon.png"
 config/windows_native_icon="res://media/image/icon_gimp.ico"
