@@ -194,7 +194,7 @@ func box_pickup(dx := 0, dy := 0):
 		var a = ignore_actor if is_instance_valid(ignore_actor) else check_area_first_actor("box", position.x + dx, position.y + dy)
 		if !is_instance_valid(a):
 			var b = check_area_actors("box", position.x - 2, position.y - 2, hitbox_x + 4, hitbox_y + 4)
-			if b.size() > 1:
+			if b.size() > 0:
 				b.sort_custom(self, "sort_x")
 				b.sort_custom(self, "sort_y_descent")
 				a = b.front()
