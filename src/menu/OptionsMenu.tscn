@@ -685,6 +685,7 @@ z_index = -11
 
 [node name="GameCamera" parent="Stage" instance=ExtResource( 13 )]
 position = Vector2( 128, 64 )
+current = false
 
 [node name="Buttons" type="Node2D" parent="."]
 position = Vector2( 14, 0 )
@@ -745,12 +746,10 @@ margin_left = -40.0
 margin_top = -7.0
 margin_right = -10.0
 margin_bottom = 6.0
+custom_colors/font_color = Color( 1, 0.945098, 0.909804, 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 custom_constants/shadow_as_outline = 1
 custom_fonts/font = ExtResource( 6 )
 text = "move"
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [editable path="Stage/GameCamera"]
