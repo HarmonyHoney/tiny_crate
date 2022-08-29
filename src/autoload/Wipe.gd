@@ -21,10 +21,11 @@ func _ready():
 func _physics_process(delta):
 	if is_wipe:
 		easing.count(delta)
-		var f = lerp(0.0, last + 1, easing.frac())
+		var f = lerp(0.0, last, easing.frac())
 		mat.set_shader_param("frame", (last - f) if is_reverse else f)
 		
 		if easing.is_complete:
+			print(f)
 			stop()
 
 func start(_reverse = false):
@@ -39,11 +40,11 @@ func start(_reverse = false):
 func stop():
 	is_wipe = false
 	if is_reverse:
-		pass
-		#image.visible = false
+		image.visible = false
 	else:
+		for i in 2:
+			yield(get_tree(),"idle_frame")
 		emit_signal("finish")
-		yield(get_tree(),"idle_frame")
 		start(true)
 
 
