@@ -1,8 +1,6 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://media/font/m3x6.tres" type="DynamicFont" id=1]
-[ext_resource path="res://media/font/m6x11.tres" type="DynamicFont" id=2]
-[ext_resource path="res://media/image/btn.png" type="Texture" id=3]
 [ext_resource path="res://src/menu/credits.gd" type="Script" id=4]
 [ext_resource path="res://media/audio/sfx/Randomize103.wav" type="AudioStream" id=5]
 
@@ -30,24 +28,3 @@ by Daniel Linssen
 
 visit hhoney.net for more! <3"
 align = 1
-
-[node name="c" type="Sprite" parent="."]
-position = Vector2( 12, 12 )
-texture = ExtResource( 3 )
-hframes = 6
-vframes = 4
-region_rect = Rect2( 0, 0, 18, 18 )
-
-[node name="c_label" type="Label" parent="c"]
-margin_left = 11.0
-margin_top = -6.0
-margin_right = 39.0
-margin_bottom = 7.0
-custom_colors/font_color = Color( 1, 0.945098, 0.909804, 1 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
-custom_constants/shadow_as_outline = 1
-custom_fonts/font = ExtResource( 2 )
-text = "back"
-__meta__ = {
-"_edit_use_anchors_": false
-}

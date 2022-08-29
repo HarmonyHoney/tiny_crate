@@ -57,6 +57,7 @@ func _input(event):
 func toggle_pause():
 	is_paused = !is_paused
 	menu.visible = is_paused
+	UI.keys(is_paused, is_paused)
 	clock = timer
 	
 	if is_paused:

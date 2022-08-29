@@ -1,5 +1,8 @@
 extends Node2D
 
+func _ready():
+	UI.keys(false, true)
+
 func _input(event):
 	if event.is_action_pressed("action"):
 		Shared.scene_path = Shared.main_menu_path

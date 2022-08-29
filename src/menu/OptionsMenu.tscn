@@ -1,11 +1,11 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=26 format=2]
 
 [ext_resource path="res://media/font/m3x6.tres" type="DynamicFont" id=1]
 [ext_resource path="res://media/image/9slice.png" type="Texture" id=2]
 [ext_resource path="res://src/menu/OptionsMenu.gd" type="Script" id=3]
 [ext_resource path="res://media/image/tinyArrow.png" type="Texture" id=4]
 [ext_resource path="res://media/font/m6x11.ttf" type="DynamicFontData" id=5]
-[ext_resource path="res://media/font/m6x11.tres" type="DynamicFont" id=6]
+[ext_resource path="res://src/actor/Exit.tscn" type="PackedScene" id=6]
 [ext_resource path="res://media/audio/sfx/sfx5.wav" type="AudioStream" id=7]
 [ext_resource path="res://src/stage/DetailTileMap.tscn" type="PackedScene" id=8]
 [ext_resource path="res://media/audio/sfx/portal7.wav" type="AudioStream" id=9]
@@ -14,7 +14,6 @@
 [ext_resource path="res://media/audio/sfx/btn0.wav" type="AudioStream" id=12]
 [ext_resource path="res://src/stage/GameCamera.tscn" type="PackedScene" id=13]
 [ext_resource path="res://media/audio/sfx/hit1.wav" type="AudioStream" id=14]
-[ext_resource path="res://media/image/btn.png" type="Texture" id=16]
 [ext_resource path="res://media/audio/sfx/sfx3.wav" type="AudioStream" id=17]
 [ext_resource path="res://media/audio/sfx/sfx14.wav" type="AudioStream" id=18]
 
@@ -141,11 +140,11 @@ onready var fill = $Box/Fill
 var is_selected = false
 
 func _ready():
-	fill.visible = TouchScreen.node.visible
+	fill.visible = TouchScreen.visible
 
 func act():
-	var is_touch = !TouchScreen.vis
-	TouchScreen.vis = is_touch
+	var is_touch = !TouchScreen.visible
+	TouchScreen.visible = is_touch
 	fill.visible = is_touch
 "
 
@@ -177,9 +176,6 @@ margin_top = 23.0
 margin_right = 200.0
 margin_bottom = 35.0
 color = Color( 0.113725, 0.168627, 0.32549, 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Header" type="Label" parent="."]
 margin_left = 14.0
@@ -679,77 +675,18 @@ bus = "SFX"
 [node name="Stage" type="Node2D" parent="."]
 
 [node name="SolidTileMap" parent="Stage" instance=ExtResource( 11 )]
+tile_data = PoolIntArray( -131061, 0, 1, -131052, 0, 0, -65525, 0, 0, -65516, 0, 1, 11, 0, 1, 20, 0, 0, 65542, 0, 0, 65543, 0, 1, 65544, 0, 1, 65545, 0, 0, 65546, 0, 1, 65547, 536870912, 0, 65556, 0, 0, 65557, 0, 1, 65558, 536870912, 1, 65559, 536870912, 0, 65560, 0, 1, 65561, 536870912, 0, 131078, 0, 1, 131097, 0, 1, 196610, 0, 0, 196611, 0, 1, 196612, 0, 0, 196613, 0, 1, 196614, 536870912, 0, 196633, 536870912, 0, 262146, 0, 1, 262169, 0, 0, 327682, 536870912, 0, 327705, 0, 1, 393218, 536870912, 0, 393241, 0, 0, 393242, 0, 1, 393243, 536870912, 0, 393244, 0, 1, 393245, 536870912, 0, 458754, 0, 1, 458781, 0, 1, 524290, 0, 0, 524317, 0, 0, 589826, 0, 1, 589853, 0, 1, 655362, 0, 0, 655363, 0, 1, 655364, 536870912, 0, 655365, 0, 1, 655366, 536870912, 0, 655389, 0, 0, 720902, 0, 0, 720925, 536870912, 0, 786438, 0, 1, 786461, 0, 1, 851974, 0, 0, 851993, 0, 0, 851994, 0, 1, 851995, 0, 0, 851996, 0, 1, 851997, 536870912, 0, 917510, 0, 0, 917529, 0, 1, 983046, 0, 1, 983065, 536870912, 0, 1048582, 0, 1, 1048601, 0, 0 )
 
 [node name="DetailTileMap" parent="Stage" instance=ExtResource( 8 )]
 z_index = -11
+tile_data = PoolIntArray( -131062, 5, 0, -131051, 5, 0, -65526, 5, 0, -65515, 5, 0, 8, 5, 2, 9, 5, 0, 10, -1073741819, 0, 21, -1610612731, 0, 22, 5, 0, 23, 536870917, 2, 131075, 5, 2, 131076, 5, 0, 131077, 5, 0, 131079, 5, 0, 131080, 1610612741, 2, 131095, 1073741829, 2, 131096, 5, 0, 131098, -1610612731, 2, 196615, 1610612741, 2, 196632, 1073741829, 2, 196634, 1610612741, 0, 262147, 1610612741, 2, 262170, -1610612731, 0, 327684, 5, 2, 327685, 5, 0, 327686, -1610612731, 2, 327706, 5, 0, 327707, 536870917, 2, 393220, 5, 0, 393221, 5, 0, 393222, 5, 0, 458756, -1073741819, 2, 458757, 5, 0, 458758, 1610612741, 2, 458778, 5, 1, 458779, 1610612741, 2, 524293, 1610612741, 1, 524314, 5, 1, 589828, 5, 2, 589829, 1610612741, 1, 589849, 5, 2, 589850, 5, 0, 589851, -1610612731, 2, 655385, 5, 0, 655386, 5, 0, 655387, 5, 0, 720900, 1073741829, 2, 720901, 5, 0, 720903, -1610612731, 2, 720921, -1073741819, 2, 720922, 5, 0, 720923, 1610612741, 2, 786439, 1610612741, 0, 786460, 5, 2, 851975, 1610612741, 0, 917511, 1610612741, 0, 917528, -2147483643, 2, 917530, 5, 0, 917531, 5, 0, 917532, 1610612741, 2, 983047, 1610612741, 0, 983064, -2147483643, 0, 1048583, 1610612741, 0, 1048600, -2147483643, 0 )
 
 [node name="GameCamera" parent="Stage" instance=ExtResource( 13 )]
 position = Vector2( 128, 64 )
-current = false
 
-[node name="Buttons" type="Node2D" parent="."]
-position = Vector2( 14, 0 )
+[node name="Actors" type="Node2D" parent="Stage"]
 
-[node name="c" type="Sprite" parent="Buttons"]
-position = Vector2( 12, 12 )
-texture = ExtResource( 16 )
-hframes = 6
-vframes = 4
-region_rect = Rect2( 0, 0, 18, 18 )
-
-[node name="c_label" type="Label" parent="Buttons/c"]
-margin_left = 11.0
-margin_top = -6.0
-margin_right = 39.0
-margin_bottom = 7.0
-custom_colors/font_color = Color( 1, 0.945098, 0.909804, 1 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
-custom_constants/shadow_as_outline = 1
-custom_fonts/font = ExtResource( 6 )
-text = "back"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="x" type="Sprite" parent="Buttons"]
-position = Vector2( 12, 116 )
-texture = ExtResource( 16 )
-hframes = 6
-vframes = 4
-frame = 1
-region_rect = Rect2( 0, 0, 18, 18 )
-
-[node name="x_label" type="Label" parent="Buttons/x"]
-margin_left = 11.0
-margin_top = -7.0
-margin_right = 49.0
-margin_bottom = 6.0
-custom_colors/font_color = Color( 1, 0.945098, 0.909804, 1 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
-custom_constants/shadow_as_outline = 1
-custom_fonts/font = ExtResource( 6 )
-text = "select"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="arrows" type="Sprite" parent="Buttons"]
-position = Vector2( 216, 116 )
-texture = ExtResource( 16 )
-hframes = 6
-vframes = 4
-frame = 7
-region_rect = Rect2( 0, 0, 18, 18 )
-
-[node name="arrows_label" type="Label" parent="Buttons/arrows"]
-margin_left = -40.0
-margin_top = -7.0
-margin_right = -10.0
-margin_bottom = 6.0
-custom_colors/font_color = Color( 1, 0.945098, 0.909804, 1 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
-custom_constants/shadow_as_outline = 1
-custom_fonts/font = ExtResource( 6 )
-text = "move"
+[node name="Exit" parent="Stage/Actors" instance=ExtResource( 6 )]
+position = Vector2( 221, 21 )
 
 [editable path="Stage/GameCamera"]

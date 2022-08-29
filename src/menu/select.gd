@@ -18,6 +18,7 @@ onready var node_audio_back : AudioStreamPlayer = $AudioBack
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	Shared.is_level_select = true
+	UI.keys()
 	
 	# make screens
 	screen = $Control/Screen.duplicate()

@@ -1,0 +1,68 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://media/font/m6x11.tres" type="DynamicFont" id=1]
+[ext_resource path="res://media/image/btn.png" type="Texture" id=2]
+[ext_resource path="res://src/autoload/UI.gd" type="Script" id=3]
+
+[node name="UI" type="CanvasLayer"]
+layer = 5
+script = ExtResource( 3 )
+
+[node name="Buttons" type="Node2D" parent="."]
+
+[node name="X" type="Sprite" parent="Buttons"]
+position = Vector2( 12, 116 )
+texture = ExtResource( 2 )
+hframes = 6
+vframes = 4
+frame = 1
+region_rect = Rect2( 0, 0, 18, 18 )
+
+[node name="Label" type="Label" parent="Buttons/X"]
+margin_left = 11.0
+margin_top = -7.0
+margin_right = 49.0
+margin_bottom = 6.0
+custom_colors/font_color = Color( 1, 0.945098, 0.909804, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_as_outline = 1
+custom_fonts/font = ExtResource( 1 )
+text = "select"
+
+[node name="C" type="Sprite" parent="Buttons"]
+position = Vector2( 216, 116 )
+texture = ExtResource( 2 )
+hframes = 6
+vframes = 4
+region_rect = Rect2( 0, 0, 18, 18 )
+
+[node name="Label" type="Label" parent="Buttons/C"]
+margin_left = -38.0
+margin_top = -7.0
+margin_right = -10.0
+margin_bottom = 6.0
+custom_colors/font_color = Color( 1, 0.945098, 0.909804, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_as_outline = 1
+custom_fonts/font = ExtResource( 1 )
+text = "back"
+
+[node name="Arrows" type="Sprite" parent="Buttons"]
+visible = false
+position = Vector2( 216, 116 )
+texture = ExtResource( 2 )
+hframes = 6
+vframes = 4
+frame = 7
+region_rect = Rect2( 0, 0, 18, 18 )
+
+[node name="Label" type="Label" parent="Buttons/Arrows"]
+margin_left = -40.0
+margin_top = -7.0
+margin_right = -10.0
+margin_bottom = 6.0
+custom_colors/font_color = Color( 1, 0.945098, 0.909804, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_as_outline = 1
+custom_fonts/font = ExtResource( 1 )
+text = "move"

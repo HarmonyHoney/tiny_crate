@@ -29,6 +29,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/actor/Box.gd"
 }, {
+"base": "Reference",
+"class": "EaseMover",
+"language": "GDScript",
+"path": "res://src/class/EaseMover.gd"
+}, {
 "base": "Node",
 "class": "EditorTheme",
 "language": "GDScript",
@@ -64,6 +69,7 @@ _global_script_class_icons={
 "AsepriteImportData": "",
 "AsepriteImporter": "",
 "Box": "",
+"EaseMover": "",
 "EditorTheme": "",
 "Exit": "",
 "Passthrough": "",
@@ -85,10 +91,11 @@ config/windows_native_icon="res://media/image/icon_gimp.ico"
 
 btn="*res://src/autoload/btn.gd"
 Shared="*res://src/autoload/Shared.gd"
-HUD="*res://src/autoload/HUD.tscn"
 Pause="*res://src/autoload/Pause.tscn"
 Music="*res://src/autoload/Music.tscn"
 TouchScreen="*res://src/autoload/touch_screen.tscn"
+Wipe="*res://src/autoload/Wipe.tscn"
+UI="*res://src/autoload/UI.tscn"
 
 [display]
 

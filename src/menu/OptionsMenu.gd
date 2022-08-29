@@ -8,6 +8,7 @@ onready var node_audio_scroll : AudioStreamPlayer = $AudioScroll
 
 func _ready():
 	select_item(0)
+	UI.keys()
 
 func _input(event):
 	var up = event.is_action_pressed("up")
@@ -18,7 +19,7 @@ func _input(event):
 	var yes = event.is_action_pressed("jump")
 	var no = event.is_action_pressed("action")
 	
-	if TouchScreen.vis:
+	if TouchScreen.visible:
 		if left or right:
 			select_item(cursor + (-1 if left else 1))
 			node_audio_scroll.pitch_scale = 1 + rand_range(-0.2, 0.2)

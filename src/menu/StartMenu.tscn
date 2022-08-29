@@ -1,11 +1,10 @@
-[gd_scene load_steps=26 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://media/font/m3x6.tres" type="DynamicFont" id=1]
 [ext_resource path="res://media/image/9slice.png" type="Texture" id=2]
 [ext_resource path="res://src/menu/StartMenu.gd" type="Script" id=3]
 [ext_resource path="res://media/font/m3x6.ttf" type="DynamicFontData" id=4]
 [ext_resource path="res://media/font/m6x11.ttf" type="DynamicFontData" id=5]
-[ext_resource path="res://media/font/m6x11.tres" type="DynamicFont" id=6]
 [ext_resource path="res://media/audio/sfx/hit1.wav" type="AudioStream" id=7]
 [ext_resource path="res://src/stage/DetailTileMap.tscn" type="PackedScene" id=8]
 [ext_resource path="res://src/actor/Box.tscn" type="PackedScene" id=9]
@@ -15,7 +14,6 @@
 [ext_resource path="res://src/stage/GameCamera.tscn" type="PackedScene" id=13]
 [ext_resource path="res://src/actor/SwitchBlockBlue.tscn" type="PackedScene" id=14]
 [ext_resource path="res://src/actor/SwitchBlue.tscn" type="PackedScene" id=15]
-[ext_resource path="res://media/image/btn.png" type="Texture" id=16]
 [ext_resource path="res://media/font/m5x7.tres" type="DynamicFont" id=17]
 [ext_resource path="res://media/audio/sfx/sfx3.wav" type="AudioStream" id=18]
 [ext_resource path="res://media/audio/sfx/sfx18.wav" type="AudioStream" id=19]
@@ -36,53 +34,6 @@ font_data = ExtResource( 4 )
 [node name="StartMenu" type="Node2D"]
 pause_mode = 2
 script = ExtResource( 3 )
-
-[node name="Buttons" type="Node2D" parent="."]
-position = Vector2( -18, 8 )
-
-[node name="x" type="Sprite" parent="Buttons"]
-position = Vector2( 12, 116 )
-texture = ExtResource( 16 )
-hframes = 6
-vframes = 4
-frame = 1
-region_rect = Rect2( 0, 0, 18, 18 )
-
-[node name="x_label" type="Label" parent="Buttons/x"]
-margin_left = 11.0
-margin_top = -7.0
-margin_right = 49.0
-margin_bottom = 6.0
-custom_colors/font_color = Color( 1, 0.945098, 0.909804, 1 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
-custom_constants/shadow_as_outline = 1
-custom_fonts/font = ExtResource( 6 )
-text = "select"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="arrows" type="Sprite" parent="Buttons"]
-position = Vector2( 216, 116 )
-texture = ExtResource( 16 )
-hframes = 6
-vframes = 4
-frame = 7
-region_rect = Rect2( 0, 0, 18, 18 )
-
-[node name="arrows_label" type="Label" parent="Buttons/arrows"]
-margin_left = -40.0
-margin_top = -7.0
-margin_right = -10.0
-margin_bottom = 6.0
-custom_colors/font_color = Color( 1, 0.945098, 0.909804, 1 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
-custom_constants/shadow_as_outline = 1
-custom_fonts/font = ExtResource( 6 )
-text = "move"
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Menu" type="Node2D" parent="."]
 position = Vector2( -18, 8 )
@@ -263,8 +214,6 @@ position = Vector2( 64, 40 )
 
 [node name="SwitchBlue" parent="Stage/Actors" instance=ExtResource( 15 )]
 position = Vector2( 64, 44 )
-tag = "False"
-is_solid = false
 
 [node name="SwitchBlockBlue" parent="Stage/Actors" instance=ExtResource( 14 )]
 position = Vector2( 104, 96 )

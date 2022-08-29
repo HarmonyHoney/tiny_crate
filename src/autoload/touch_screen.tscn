@@ -111,9 +111,6 @@ custom_fonts/font = ExtResource( 2 )
 text = "x"
 align = 1
 valign = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Pause" type="TouchScreenButton" parent="Node2D"]
 position = Vector2( 208, 20 )

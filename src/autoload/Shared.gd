@@ -59,8 +59,7 @@ func _ready():
 		print(save_filename + " not found")
 		create_save()
 	
-	yield(get_tree(), "idle_frame")
-	HUD.wipe.connect("finish", self, "wipe_finish")
+	Wipe.connect("finish", self, "wipe_finish")
 
 func _physics_process(delta):
 	# reset timer
@@ -103,12 +102,12 @@ func start_reset():
 
 func do_reset():
 	is_reset = false
-	HUD.wipe.start()
+	Wipe.start()
 	Pause.set_process_input(false)
 
 func quit_wipe():
 	is_quit = true
-	HUD.wipe.start()
+	Wipe.start()
 
 func wipe_finish():
 	if is_quit:
@@ -121,8 +120,9 @@ func change_map():
 	is_level_select = scene_path == level_select_path
 	is_in_game = scene_path.begins_with(map_path) or scene_path.begins_with(win_screen_path)
 	TouchScreen.pause.visible = is_in_game
-	HUD.wipe.start(true)
 	Pause.set_process_input(true)
+	
+	UI.keys(false, false)
 
 func set_map(arg):
 	current_map = clamp(arg, 0, Shared.maps.size() - 1)

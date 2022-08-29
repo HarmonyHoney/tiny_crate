@@ -1,9 +1,7 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://media/image/corner.png" type="Texture" id=1]
 [ext_resource path="res://media/font/m3x6.tres" type="DynamicFont" id=2]
-[ext_resource path="res://media/image/btn.png" type="Texture" id=3]
-[ext_resource path="res://media/font/m6x11.tres" type="DynamicFont" id=4]
 [ext_resource path="res://media/audio/sfx/Randomize103.wav" type="AudioStream" id=5]
 [ext_resource path="res://src/shader/outline2D_outer.shader" type="Shader" id=6]
 [ext_resource path="res://src/menu/select.gd" type="Script" id=7]
@@ -206,115 +204,6 @@ z_as_relative = false
 margin_right = 320.0
 margin_bottom = 180.0
 color = Color( 0.113725, 0.168627, 0.32549, 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="HUD" type="CanvasLayer" parent="."]
-
-[node name="Buttons" type="Node2D" parent="HUD"]
-
-[node name="Unused" type="Node2D" parent="HUD/Buttons"]
-visible = false
-
-[node name="esc" type="Sprite" parent="HUD/Buttons/Unused"]
-position = Vector2( 28, 19 )
-texture = ExtResource( 3 )
-hframes = 3
-vframes = 4
-frame = 6
-region_rect = Rect2( 0, 0, 18, 18 )
-
-[node name="esc_label" type="Label" parent="HUD/Buttons/Unused"]
-margin_left = 49.0
-margin_top = 13.0
-margin_right = 79.0
-margin_bottom = 26.0
-custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
-custom_constants/shadow_as_outline = 1
-custom_fonts/font = ExtResource( 4 )
-text = "menu"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="ent" type="Sprite" parent="HUD/Buttons/Unused"]
-position = Vector2( -52, 18 )
-texture = ExtResource( 3 )
-hframes = 3
-vframes = 4
-frame = 7
-region_rect = Rect2( 0, 0, 18, 18 )
-
-[node name="return" type="Sprite" parent="HUD/Buttons/Unused"]
-position = Vector2( -56, 43 )
-texture = ExtResource( 3 )
-hframes = 3
-vframes = 4
-frame = 10
-region_rect = Rect2( 0, 0, 18, 18 )
-
-[node name="c" type="Sprite" parent="HUD/Buttons"]
-position = Vector2( 12, 12 )
-texture = ExtResource( 3 )
-hframes = 6
-vframes = 4
-region_rect = Rect2( 0, 0, 18, 18 )
-
-[node name="c_label" type="Label" parent="HUD/Buttons/c"]
-margin_left = 11.0
-margin_top = -6.0
-margin_right = 39.0
-margin_bottom = 7.0
-custom_colors/font_color = Color( 1, 0.945098, 0.909804, 1 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
-custom_constants/shadow_as_outline = 1
-custom_fonts/font = ExtResource( 4 )
-text = "back"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="x" type="Sprite" parent="HUD/Buttons"]
-position = Vector2( 12, 116 )
-texture = ExtResource( 3 )
-hframes = 6
-vframes = 4
-frame = 1
-region_rect = Rect2( 0, 0, 18, 18 )
-
-[node name="x_label" type="Label" parent="HUD/Buttons/x"]
-margin_left = 11.0
-margin_top = -7.0
-margin_right = 49.0
-margin_bottom = 6.0
-custom_colors/font_color = Color( 1, 0.945098, 0.909804, 1 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
-custom_constants/shadow_as_outline = 1
-custom_fonts/font = ExtResource( 4 )
-text = "select"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="arrows" type="Sprite" parent="HUD/Buttons"]
-position = Vector2( 216, 116 )
-texture = ExtResource( 3 )
-hframes = 6
-vframes = 4
-frame = 7
-region_rect = Rect2( 0, 0, 18, 18 )
-
-[node name="arrows_label" type="Label" parent="HUD/Buttons/arrows"]
-margin_left = -40.0
-margin_top = -7.0
-margin_right = -10.0
-margin_bottom = 6.0
-custom_colors/font_color = Color( 1, 0.945098, 0.909804, 1 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
-custom_constants/shadow_as_outline = 1
-custom_fonts/font = ExtResource( 4 )
-text = "move"
 __meta__ = {
 "_edit_use_anchors_": false
 }
