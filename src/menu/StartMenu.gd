@@ -29,7 +29,7 @@ var is_input = true
 func _ready():
 	menu_list = main_list
 	switch_menu("main")
-	UI.keys()
+	UI.keys(true, false)
 
 func _input(event):
 	if !is_input:
@@ -63,18 +63,15 @@ func write_menu():
 func menu_select():
 	match menu_items[cursor].to_lower():
 		"play":
-			Shared.scene_path = Shared.level_select_path
-			Shared.do_reset()
+			Shared.wipe_scene(Shared.level_select_path)
 			is_input = false
 			node_audio_play.play()
 		"options":
-			Shared.scene_path = Shared.options_menu_path
-			Shared.do_reset()
+			Shared.wipe_scene(Shared.options_menu_path)
 			is_input = false
 			node_audio_options.play()
 		"credits":
-			Shared.scene_path = Shared.credits_path
-			Shared.do_reset()
+			Shared.wipe_scene(Shared.credits_path)
 			is_input = false
 			node_audio_credits.play()
 		"quit":
@@ -86,8 +83,7 @@ func menu_select():
 			is_input = false
 			node_audio_yes.play()
 			if OS.get_name() == "HTML5":
-				Shared.scene_path = Shared.splash_path
-				Shared.do_reset()
+				Shared.wipe_scene(Shared.splash_path)
 			else:
 				Shared.quit_wipe()
 		"no":

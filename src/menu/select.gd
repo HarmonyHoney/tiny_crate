@@ -41,8 +41,7 @@ func _input(event):
 		return
 	
 	if event.is_action_pressed("action"):
-		Shared.scene_path = Shared.main_menu_path
-		Shared.do_reset()
+		Shared.wipe_scene(Shared.main_menu_path)
 		is_input = false
 		node_audio_back.play()
 	elif event.is_action_pressed("jump"):

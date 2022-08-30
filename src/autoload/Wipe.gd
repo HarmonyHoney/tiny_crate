@@ -25,7 +25,6 @@ func _physics_process(delta):
 		mat.set_shader_param("frame", (last - f) if is_reverse else f)
 		
 		if easing.is_complete:
-			print(f)
 			stop()
 
 func start(_reverse = false):

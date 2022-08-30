@@ -109,6 +109,10 @@ func quit_wipe():
 	is_quit = true
 	Wipe.start()
 
+func wipe_scene(arg := ""):
+	scene_path = arg
+	do_reset()
+
 func wipe_finish():
 	if is_quit:
 		get_tree().quit()

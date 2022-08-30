@@ -18,6 +18,5 @@ func _physics_process(delta):
 			step = 1
 			timer = 1.5
 		else:
-			Shared.scene_path = Shared.main_menu_path
-			Shared.do_reset()
+			Shared.wipe_scene(Shared.main_menu_path)
 			set_physics_process(false)

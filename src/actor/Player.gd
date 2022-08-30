@@ -240,6 +240,8 @@ func remove_player():
 	queue_free()
 
 func death():
+	print(name + " died")
+	
 	# explosion
 	var inst = scene_explosion.instance()
 	inst.position = center()
@@ -247,9 +249,8 @@ func death():
 	Shared.node_camera_game.shake(8)
 	
 	# reset scene
-	Shared.start_reset()
 	remove_player()
-	print(name + " died")
+	Shared.start_reset()
 
 func win():
 	# explosion

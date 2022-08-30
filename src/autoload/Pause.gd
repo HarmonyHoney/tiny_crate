@@ -91,7 +91,6 @@ func select():
 			toggle_pause()
 			node_audio_reset.play()
 		"exit":
-			Shared.scene_path = Shared.level_select_path
-			Shared.do_reset()
+			Shared.wipe_scene(Shared.level_select_path)
 			toggle_pause()
 			node_audio_exit.play()
