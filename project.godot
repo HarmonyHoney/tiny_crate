@@ -105,9 +105,17 @@ window/dpi/allow_hidpi=true
 window/stretch/mode="viewport"
 window/stretch/aspect="keep"
 
+[editor]
+
+search_in_file_extensions=PoolStringArray( "gd", "gdshader", "shader", "tscn" )
+
 [editor_plugins]
 
 enabled=PoolStringArray( "aseprite_importer" )
+
+[global]
+
+extension=false
 
 [importer_defaults]
 

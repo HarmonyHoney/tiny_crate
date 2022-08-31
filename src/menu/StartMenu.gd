@@ -85,7 +85,7 @@ func menu_select():
 			if OS.get_name() == "HTML5":
 				Shared.wipe_scene(Shared.splash_path)
 			else:
-				Shared.quit_wipe()
+				Shared.wipe_quit()
 		"no":
 			switch_menu("main")
 			cursor = 3
