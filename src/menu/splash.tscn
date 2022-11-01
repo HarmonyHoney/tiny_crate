@@ -12,9 +12,6 @@ margin_left = 14.0
 margin_right = 242.0
 margin_bottom = 128.0
 color = Color( 1, 0.945098, 0.909804, 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Logo" type="Sprite" parent="."]
 modulate = Color( 0, 0, 0, 1 )

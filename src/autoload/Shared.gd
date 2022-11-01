@@ -30,6 +30,7 @@ var current_map := 0
 var maps := []
 
 var actors := []
+var player
 
 func _ready():
 	print("Shared._ready(): ")
