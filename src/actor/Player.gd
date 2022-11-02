@@ -52,6 +52,8 @@ var btnp_pick = false
 export var is_attract_mode = false
 
 func _enter_tree():
+	if Engine.editor_hint: return
+	
 	Shared.player = self
 
 # Called when the node enters the scene tree for the first time.
