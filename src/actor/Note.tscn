@@ -11,6 +11,7 @@ script = ExtResource( 1 )
 hitbox_x = 10
 hitbox_y = 10
 tag = "note"
+palette = PoolColorArray( 1, 0.945098, 0.909804, 1, 0.113725, 0.168627, 0.32549, 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( 5, 5 )

@@ -25,7 +25,7 @@ func _ready():
 	$Control/Screen.queue_free()
 	
 	for i in Shared.maps.size():
-		if i <= Shared.save_data["map"]:
+		if i <= Shared.map_save:
 			var new = screen.duplicate()
 			var sy = i / columns
 			var sx = i % columns
@@ -73,6 +73,6 @@ func scroll(arg = 0):
 	cam.position = screens.get_children()[cursor].rect_position + Vector2(50, 50)
 
 func open_map():
-	if cursor <= Shared.save_data["map"]:
+	if cursor <= Shared.map_save:
 		Shared.set_map(cursor)
 		Shared.do_reset()

@@ -28,9 +28,13 @@ var bus_volume = [10, 10, 10]
 
 var current_map := 0
 var maps := []
+var map_save := 0
 
 var actors := []
 var player
+
+var is_note := false
+var notes := []
 
 func _ready():
 	print("Shared._ready(): ")
@@ -49,10 +53,15 @@ func _ready():
 	print("maps: ", maps)
 	
 	# load save data
-	if load_file(save_filename):
-		save_data = JSON.parse(load_file(save_filename)).result
+	var l = load_file(save_filename)
+	if l:
+		save_data = JSON.parse(l).result
 		print("save_data: " + JSON.print(save_data, "\t"))
-		if !save_data.has("map"):
+		if save_data.has("map"):
+			map_save = save_data["map"]
+			if save_data.has("notes"):
+				notes = save_data["notes"]
+		else:
 			create_save()
 	else:
 		print(save_filename + " not found")
@@ -106,6 +115,9 @@ func change_map():
 	is_in_game = scene_path.begins_with(map_path) or scene_path.begins_with(win_screen_path)
 	TouchScreen.pause.visible = is_in_game
 	Pause.set_process_input(true)
+	is_note = false
+	UI.notes.visible = is_level_select
+	UI.notes_label.text = str(notes.size())
 	UI.keys(false, false)
 
 ### Saving and Loading
@@ -126,6 +138,7 @@ func load_file(fname = "box.save"):
 func create_save():
 	save_data = {}
 	save_data["map"] = 0
+	save_data["notes"] = []
 	save_file(save_filename, JSON.print(save_data, "\t"))
 
 func delete_save():
@@ -133,21 +146,26 @@ func delete_save():
 	create_save()
 
 func unlock():
-	save_data["map"] = 99
+	map_save = 99
+	save_data["map"] = map_save
 	save_file(save_filename, JSON.print(save_data, "\t"))
 
 func win():
-	win_save()
-	set_map(current_map + 1)
-	start_reset()
-	print("map complete")
-
-func win_save():
-	if save_data["map"] < current_map + 1:
-		save_data["map"]  = current_map + 1
+	if map_save < current_map + 1:
+		map_save = current_map + 1
+	
+	if is_note and !notes.has(current_map):
+		notes.append(current_map)
+		notes.sort()
+	
+	save_data["map"] = map_save
+	save_data["notes"] = notes
 	
 	save_file(save_filename, JSON.print(save_data, "\t"))
-	print("save_data: ", save_data)
+	print("map complete, save_data: ", save_data)
+	
+	set_map(current_map + 1)
+	start_reset()
 
 # look into a folder and return a list of filenames without file extension
 func dir_list(path : String):

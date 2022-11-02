@@ -7,6 +7,14 @@ var bounce := 0.0
 
 var explosion := preload("res://src/fx/Explosion.tscn")
 
+export var palette : PoolColorArray
+
+func _ready():
+	if Engine.editor_hint: return
+	
+	if Shared.notes.has(Shared.current_map):
+		modulate = palette[1]
+
 func _physics_process(delta):
 	if Engine.editor_hint: return
 	
@@ -20,4 +28,6 @@ func collect():
 	var e = explosion.instance()
 	e.position = center()
 	get_parent().add_child(e)
+	
+	Shared.is_note = true
 	queue_free()

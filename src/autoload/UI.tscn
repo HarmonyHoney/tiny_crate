@@ -1,8 +1,20 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://media/font/m6x11.tres" type="DynamicFont" id=1]
 [ext_resource path="res://media/image/btn.png" type="Texture" id=2]
 [ext_resource path="res://src/autoload/UI.gd" type="Script" id=3]
+[ext_resource path="res://media/image/HarmonyHoneyLogo.png" type="Texture" id=4]
+[ext_resource path="res://media/font/m6x11.ttf" type="DynamicFontData" id=5]
+[ext_resource path="res://src/shader/outline2D_outer.shader" type="Shader" id=6]
+
+[sub_resource type="DynamicFont" id=1]
+extra_spacing_bottom = -1
+font_data = ExtResource( 5 )
+
+[sub_resource type="ShaderMaterial" id=2]
+shader = ExtResource( 6 )
+shader_param/line_color = Color( 0, 0, 0, 1 )
+shader_param/line_thickness = 1.0
 
 [node name="UI" type="CanvasLayer"]
 layer = 5
@@ -66,3 +78,25 @@ custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 custom_constants/shadow_as_outline = 1
 custom_fonts/font = ExtResource( 1 )
 text = "move"
+
+[node name="Notes" type="Node2D" parent="."]
+position = Vector2( 218, 11 )
+
+[node name="Label" type="Label" parent="Notes"]
+margin_left = -70.0
+margin_top = -6.0
+margin_right = -9.0
+margin_bottom = 7.0
+custom_colors/font_color = Color( 1, 0.945098, 0.909804, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_as_outline = 1
+custom_fonts/font = SubResource( 1 )
+text = "13"
+align = 2
+
+[node name="Sprite" type="Sprite" parent="Notes"]
+modulate = Color( 1, 0.945098, 0.909804, 1 )
+material = SubResource( 2 )
+texture = ExtResource( 4 )
+region_enabled = true
+region_rect = Rect2( 4, 2, 14, 14 )
