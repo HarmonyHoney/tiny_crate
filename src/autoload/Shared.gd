@@ -58,9 +58,9 @@ func _ready():
 		save_data = JSON.parse(l).result
 		print("save_data: " + JSON.print(save_data, "\t"))
 		if save_data.has("map"):
-			map_save = save_data["map"]
+			map_save = int(save_data["map"])
 			if save_data.has("notes"):
-				notes = save_data["notes"]
+				notes = PoolIntArray(save_data["notes"])
 		else:
 			create_save()
 	else:
