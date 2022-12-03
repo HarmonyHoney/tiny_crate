@@ -86,6 +86,9 @@ hhoney.net"
 run/main_scene="res://src/menu/splash.tscn"
 config/use_custom_user_dir=true
 config/custom_user_dir_name="tiny_crate"
+boot_splash/image="res://media/image/splash.png"
+boot_splash/use_filter=false
+boot_splash/bg_color=Color( 0, 0, 0, 1 )
 config/icon="res://media/image/icon.png"
 config/windows_native_icon="res://media/image/icon_gimp.ico"
 
@@ -103,6 +106,8 @@ UI="*res://src/autoload/UI.tscn"
 
 window/size/width=228
 window/size/height=128
+window/size/test_width=1280
+window/size/test_height=720
 window/dpi/allow_hidpi=true
 window/stretch/mode="viewport"
 window/stretch/aspect="keep"

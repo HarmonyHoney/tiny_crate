@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://src/actor/Note.gd" type="Script" id=1]
-[ext_resource path="res://media/image/HarmonyHoneyLogo.png" type="Texture" id=2]
+[ext_resource path="res://media/image/note.png" type="Texture" id=2]
 
 [node name="Note" type="Node2D"]
 modulate = Color( 1, 0.945098, 0.909804, 1 )
@@ -16,5 +16,3 @@ palette = PoolColorArray( 1, 0.945098, 0.909804, 1, 0.113725, 0.168627, 0.32549,
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( 5, 5 )
 texture = ExtResource( 2 )
-region_enabled = true
-region_rect = Rect2( 4, 2, 14, 14 )

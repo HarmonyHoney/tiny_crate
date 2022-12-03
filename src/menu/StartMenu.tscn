@@ -135,9 +135,6 @@ custom_constants/shadow_as_outline = 1
 custom_fonts/font = SubResource( 1 )
 text = "TINY CRATE"
 align = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Signature" type="Label" parent="Header"]
 margin_left = 26.0

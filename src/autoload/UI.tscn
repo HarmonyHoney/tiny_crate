@@ -3,7 +3,7 @@
 [ext_resource path="res://media/font/m6x11.tres" type="DynamicFont" id=1]
 [ext_resource path="res://media/image/btn.png" type="Texture" id=2]
 [ext_resource path="res://src/autoload/UI.gd" type="Script" id=3]
-[ext_resource path="res://media/image/HarmonyHoneyLogo.png" type="Texture" id=4]
+[ext_resource path="res://media/image/note.png" type="Texture" id=4]
 [ext_resource path="res://media/font/m6x11.ttf" type="DynamicFontData" id=5]
 [ext_resource path="res://src/shader/outline2D_outer.shader" type="Shader" id=6]
 
@@ -98,5 +98,3 @@ align = 2
 modulate = Color( 1, 0.945098, 0.909804, 1 )
 material = SubResource( 2 )
 texture = ExtResource( 4 )
-region_enabled = true
-region_rect = Rect2( 4, 2, 14, 14 )

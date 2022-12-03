@@ -8,18 +8,17 @@
 script = ExtResource( 3 )
 
 [node name="ColorRect" type="ColorRect" parent="."]
-margin_left = 14.0
-margin_right = 242.0
+margin_right = 228.0
 margin_bottom = 128.0
 color = Color( 1, 0.945098, 0.909804, 1 )
 
 [node name="Logo" type="Sprite" parent="."]
 modulate = Color( 0, 0, 0, 1 )
-position = Vector2( 126, 71 )
+position = Vector2( 114, 64 )
 texture = ExtResource( 1 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2( 128, 64 )
+position = Vector2( 114, 64 )
 current = true
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
