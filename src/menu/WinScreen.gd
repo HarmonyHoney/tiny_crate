@@ -1,6 +1,6 @@
 extends Node2D
 
-onready var p = $Player
+@onready var p = $Player
 
 func _physics_process(delta):
 	if p.position.y > 128:

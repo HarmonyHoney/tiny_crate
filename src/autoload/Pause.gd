@@ -1,8 +1,8 @@
 extends CanvasLayer
 
 var is_paused := false
-onready var menu : Control = $Menu
-onready var menu_list : Label = $Menu/List
+@onready var menu : Control = $Menu
+@onready var menu_list : Label = $Menu/List
 
 var cursor := 0
 var menu_items := ["resume", "reset", "exit"]
@@ -10,12 +10,12 @@ var menu_items := ["resume", "reset", "exit"]
 var timer := 0.1 # prevent input overlap
 var clock := 0.0
 
-onready var node_cursor : ColorRect = $Menu/Cursor
-onready var node_audio_pause : AudioStreamPlayer = $AudioPause
-onready var node_audio_scroll : AudioStreamPlayer = $AudioScroll
-onready var node_audio_resume : AudioStreamPlayer = $AudioResume
-onready var node_audio_reset : AudioStreamPlayer = $AudioReset
-onready var node_audio_exit : AudioStreamPlayer = $AudioExit
+@onready var node_cursor : ColorRect = $Menu/Cursor
+@onready var node_audio_pause : AudioStreamPlayer = $AudioPause
+@onready var node_audio_scroll : AudioStreamPlayer = $AudioScroll
+@onready var node_audio_resume : AudioStreamPlayer = $AudioResume
+@onready var node_audio_reset : AudioStreamPlayer = $AudioReset
+@onready var node_audio_exit : AudioStreamPlayer = $AudioExit
 
 signal pause
 signal unpause
@@ -51,7 +51,7 @@ func _input(event):
 				if up or down:
 					set_cursor(cursor + (-1 if up else 1))
 					write_menu()
-					node_audio_scroll.pitch_scale = 1 + rand_range(-0.2, 0.2)
+					node_audio_scroll.pitch_scale = 1 + randf_range(-0.2, 0.2)
 					node_audio_scroll.play()
 
 func toggle_pause():
@@ -80,7 +80,7 @@ func write_menu():
 
 func set_cursor(arg = 0):
 	cursor = clamp(arg, 0, menu_items.size() - 1)
-	node_cursor.rect_position.y = menu_list.rect_position.y - 2 + cursor * 11
+	node_cursor.position.y = menu_list.position.y - 2 + cursor * 11
 
 func select():
 	match menu_items[cursor]:

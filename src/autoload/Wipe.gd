@@ -3,16 +3,16 @@ extends CanvasLayer
 signal finish
 
 var is_wipe := false
-export var is_reverse = false
+@export var is_reverse = false
 
 var frame = 0
 # last frame
-export var last = 14
+@export var last = 14
 
-onready var easing := EaseMover.new(0.45)
-onready var audio : AudioStreamPlayer2D = $AudioStreamPlayer2D
-onready var image := $ColorRect
-onready var mat : ShaderMaterial = $ColorRect.material
+@onready var easing := EaseMover.new(0.45)
+@onready var audio : AudioStreamPlayer2D = $AudioStreamPlayer2D
+@onready var image := $ColorRect
+@onready var mat : ShaderMaterial = $ColorRect.material
 
 func _ready():
 	image.visible = false
@@ -22,7 +22,7 @@ func _physics_process(delta):
 	if is_wipe:
 		easing.count(delta)
 		var f = lerp(0.0, last, easing.frac())
-		mat.set_shader_param("frame", (last - f) if is_reverse else f)
+		mat.set_shader_parameter("frame", (last - f) if is_reverse else f)
 		
 		if easing.is_complete:
 			stop()
@@ -42,7 +42,7 @@ func stop():
 		image.visible = false
 	else:
 		for i in 2:
-			yield(get_tree(),"idle_frame")
+			await get_tree().idle_frame
 		emit_signal("finish")
 		start(true)
 

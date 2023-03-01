@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=2]
 
-[ext_resource path="res://media/image/crate_tiles.png" type="Texture" id=1]
+[ext_resource path="res://media/image/crate_tiles.png" type="Texture2D" id=1]
 [ext_resource path="res://src/actor/Actor.gd" type="Script" id=2]
 
 [node name="Spike" type="Node2D"]
@@ -10,7 +10,7 @@ script = ExtResource( 2 )
 hitbox_y = 3
 tag = "spike"
 
-[node name="Sprite" type="Sprite" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2( 4, -1 )
 texture = ExtResource( 1 )
 hframes = 4

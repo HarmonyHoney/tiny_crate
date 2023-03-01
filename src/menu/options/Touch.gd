@@ -1,6 +1,6 @@
 extends Node2D
 
-onready var fill = $Box/Fill
+@onready var fill = $Box/Fill
 
 var is_selected = false
 

@@ -1,14 +1,14 @@
 extends Node2D
 
-export var bus := 1
+@export var bus := 1
 
-onready var arrows := $Arrows
-onready var audio := $AudioStreamPlayer
-onready var meter := $Meter
-onready var label := $Label
+@onready var arrows := $Arrows
+@onready var audio := $AudioStreamPlayer
+@onready var meter := $Meter
+@onready var label := $Label
 
-export var col_on := Color("00e436")
-export var col_off := Color("ff004d")
+@export var col_on := Color("00e436")
+@export var col_off := Color("ff004d")
 
 func _ready():
 	set_color()
@@ -23,7 +23,7 @@ func deselect():
 func scroll(arg = 1):
 	Shared.set_bus_volume(bus, Shared.bus_volume[bus] + arg)
 	set_color()
-	audio.pitch_scale = 1 + rand_range(-0.2, 0.2)
+	audio.pitch_scale = 1 + randf_range(-0.2, 0.2)
 	audio.play()
 
 func set_color():

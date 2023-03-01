@@ -40,7 +40,7 @@ func _ready():
 	print("Shared._ready(): ")
 	
 	# scale window
-	window_scale = floor(OS.get_screen_size().x / get_viewport().size.x)
+	window_scale = floor(DisplayServer.screen_get_size().x / get_viewport().size.x)
 	window_scale = max(1, floor(window_scale * 0.9))
 	set_window_scale()
 	
@@ -55,19 +55,21 @@ func _ready():
 	# load save data
 	var l = load_file(save_filename)
 	if l:
-		save_data = JSON.parse(l).result
-		print("save_data: " + JSON.print(save_data, "\t"))
+		var test_json_conv = JSON.new()
+		test_json_conv.parse(l).result
+		save_data = test_json_conv.get_data()
+		print("save_data: " + JSON.stringify(save_data, "\t"))
 		if save_data.has("map"):
 			map_save = int(save_data["map"])
 			if save_data.has("notes"):
-				notes = PoolIntArray(save_data["notes"])
+				notes = PackedInt32Array(save_data["notes"])
 		else:
 			create_save()
 	else:
 		print(save_filename + " not found")
 		create_save()
 	
-	Wipe.connect("finish", self, "wipe_finish")
+	Wipe.connect("finish",Callable(self,"wipe_finish"))
 
 func _physics_process(delta):
 	# reset timer
@@ -110,7 +112,7 @@ func set_map(arg):
 		scene_path = map_path + maps[current_map] + ".tscn"
 
 func change_map():
-	get_tree().change_scene(scene_path)
+	get_tree().change_scene_to_file(scene_path)
 	is_level_select = scene_path == level_select_path
 	is_in_game = scene_path.begins_with(map_path) or scene_path.begins_with(win_screen_path)
 	TouchScreen.pause.visible = is_in_game
@@ -139,7 +141,7 @@ func create_save():
 	save_data = {}
 	save_data["map"] = 0
 	save_data["notes"] = []
-	save_file(save_filename, JSON.print(save_data, "\t"))
+	save_file(save_filename, JSON.stringify(save_data, "\t"))
 
 func delete_save():
 	print("delete save")
@@ -148,7 +150,7 @@ func delete_save():
 func unlock():
 	map_save = 99
 	save_data["map"] = map_save
-	save_file(save_filename, JSON.print(save_data, "\t"))
+	save_file(save_filename, JSON.stringify(save_data, "\t"))
 
 func win():
 	if map_save < current_map + 1:
@@ -161,7 +163,7 @@ func win():
 	save_data["map"] = map_save
 	save_data["notes"] = notes
 	
-	save_file(save_filename, JSON.print(save_data, "\t"))
+	save_file(save_filename, JSON.stringify(save_data, "\t"))
 	print("map complete, save_data: ", save_data)
 	
 	set_map(current_map + 1)
@@ -172,7 +174,7 @@ func dir_list(path : String):
 	var array = []
 	var dir = Directory.new()
 	if dir.open(path) == OK:
-		dir.list_dir_begin(true, true)
+		dir.list_dir_begin() # TODOGODOT4 fill missing arguments https://github.com/godotengine/godot/pull/40547
 		var file_name = dir.get_next()
 		while file_name:
 			array.append(file_name.split(".")[0])
@@ -185,12 +187,12 @@ func dir_list(path : String):
 
 func set_bus_volume(_bus := 1, _vol := 5):
 	bus_volume[_bus] = clamp(_vol, 0, 10)
-	AudioServer.set_bus_volume_db(_bus, linear2db(bus_volume[_bus] / 10.0))
+	AudioServer.set_bus_volume_db(_bus, linear_to_db(bus_volume[_bus] / 10.0))
 
 func set_window_scale(arg := window_scale):
 	window_scale = max(1, arg if arg else window_scale)
 	if OS.get_name() != "HTML5":
-		OS.window_size = Vector2(view_size.x * window_scale, view_size.y * window_scale)
+		get_window().size = Vector2(view_size.x * window_scale, view_size.y * window_scale)
 		# center window
-		OS.set_window_position(OS.get_screen_size() * 0.5 - OS.get_window_size() * 0.5)
-	return "window_scale: " + str(window_scale) + " - resolution: " + str(OS.get_window_size())
+		get_window().set_position(DisplayServer.screen_get_size() * 0.5 - get_window().get_size() * 0.5)
+	return "window_scale: " + str(window_scale) + " - resolution: " + str(get_window().get_size())

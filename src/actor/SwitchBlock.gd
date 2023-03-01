@@ -1,12 +1,12 @@
-tool
+@tool
 extends Actor
 class_name SwitchBlock
 
-export var color := "red"
-export var frame_on := 10
-export var frame_off := 8
+@export var color := "red"
+@export var frame_on := 10
+@export var frame_off := 8
 
-onready var node_sprite : Sprite = $Sprite
+@onready var node_sprite : Sprite2D = $Sprite2D
 
 var is_switch = false
 

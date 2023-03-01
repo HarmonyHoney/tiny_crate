@@ -1,14 +1,14 @@
 [gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://src/actor/Passthrough.gd" type="Script" id=1]
-[ext_resource path="res://media/image/crate.png" type="Texture" id=2]
+[ext_resource path="res://media/image/crate.png" type="Texture2D" id=2]
 [ext_resource path="res://media/audio/sfx/hit0.wav" type="AudioStream" id=3]
 
 [node name="Passthrough" type="Node2D"]
 script = ExtResource( 1 )
 tag = "passthrough"
 
-[node name="Sprite" type="Sprite" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2( 4, 4 )
 texture = ExtResource( 2 )
 hframes = 16

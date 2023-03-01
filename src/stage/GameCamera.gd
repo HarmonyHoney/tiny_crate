@@ -1,23 +1,23 @@
-tool
+@tool
 extends Camera2D
 
-export var is_moving := true
+@export var is_moving := true
 
 var node_target : Node2D
 var pos_target := Vector2.ZERO
 var pos_target_offset := Vector2.ZERO
-export var lerp_step := 0.1
+@export var lerp_step := 0.1
 var lerp_pos := Vector2.ZERO
 
-export var is_focal_point := false
+@export var is_focal_point := false
 # between 0.0 and 1.0, distance of lerp between focal point and target
-export var target_influence := 0.5
+@export var target_influence := 0.5
 
 var node_bounds : ColorRect
 var bounds_upper := Vector2.ZERO
 var bounds_lower := Vector2.ZERO
 
-export var bounds := Rect2(0, 0, 0, 0) setget _set_bounds
+@export var bounds := Rect2(0, 0, 0, 0) : set = _set_bounds
 
 func _ready():
 	if Engine.editor_hint or Shared.is_level_select:
@@ -47,7 +47,7 @@ func _physics_process(delta):
 	pos_target.y = clamp(pos_target.y, bounds_upper.y, bounds_lower.y)
 	
 	# smoothing
-	lerp_pos = lerp_pos.linear_interpolate(pos_target, lerp_step)
+	lerp_pos = lerp_pos.lerp(pos_target, lerp_step)
 	position = lerp_pos.round()
 
 func _set_bounds(arg):
@@ -59,7 +59,7 @@ func _set_bounds(arg):
 
 func _draw():
 	if Engine.editor_hint:
-		draw_rect(Rect2(-bounds.position.x - 228/2, -bounds.position.y - 128/2, 228 + bounds.size.x + bounds.position.x, 128 + bounds.size.y + bounds.position.y), Color.red, false)
+		draw_rect(Rect2(-bounds.position.x - 228/2, -bounds.position.y - 128/2, 228 + bounds.size.x + bounds.position.x, 128 + bounds.size.y + bounds.position.y), Color.RED, false)
 
 # super simple screen shake
 func shake(dist : int):

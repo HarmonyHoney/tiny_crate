@@ -1,14 +1,14 @@
-tool
+@tool
 extends Actor
 class_name Switch
 
-export var color := "red"
+@export var color := "red"
 
 var is_on := false
 var is_last := false
 
-onready var node_sprite : Sprite = $Sprite
-onready var node_audio : AudioStreamPlayer2D = $AudioStreamPlayer2D
+@onready var node_sprite : Sprite2D = $Sprite2D
+@onready var node_audio : AudioStreamPlayer2D = $AudioStreamPlayer2D
 
 func _ready():
 	if Engine.editor_hint:
@@ -36,7 +36,7 @@ func _physics_process(delta):
 			pass
 
 func noise():
-	node_audio.pitch_scale = 1 + rand_range(-0.2, 0.2)
+	node_audio.pitch_scale = 1 + randf_range(-0.2, 0.2)
 	node_audio.play()
 
 func press():

@@ -1,11 +1,11 @@
-extends Sprite
+extends Sprite2D
 
 func _ready():
 	if Shared.is_level_select or TouchScreen.visible:
 		visible = false
 	
-	Pause.connect("pause", self, "pause")
-	Pause.connect("unpause", self, "unpause")
+	Pause.connect("pause",Callable(self,"pause"))
+	Pause.connect("unpause",Callable(self,"unpause"))
 
 func pause():
 	visible = false

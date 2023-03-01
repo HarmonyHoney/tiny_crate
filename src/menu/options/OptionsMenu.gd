@@ -1,10 +1,10 @@
 extends Node2D
 
-onready var menu_items : Array = $MenuItems.get_children()
+@onready var menu_items : Array = $MenuItems.get_children()
 var cursor := 0
 
-onready var node_cursor : ColorRect = $Cursor
-onready var node_audio_scroll : AudioStreamPlayer = $AudioScroll
+@onready var node_cursor : ColorRect = $Cursor
+@onready var node_audio_scroll : AudioStreamPlayer = $AudioScroll
 
 func _ready():
 	select_item(0)
@@ -22,7 +22,7 @@ func _input(event):
 	if TouchScreen.visible:
 		if left or right:
 			select_item(cursor + (-1 if left else 1))
-			node_audio_scroll.pitch_scale = 1 + rand_range(-0.2, 0.2)
+			node_audio_scroll.pitch_scale = 1 + randf_range(-0.2, 0.2)
 			node_audio_scroll.play()
 		elif yes or no:
 			var btnx = -1 if no else 1
@@ -34,7 +34,7 @@ func _input(event):
 	else:
 		if up or down:
 			select_item(cursor + (-1 if up else 1))
-			node_audio_scroll.pitch_scale = 1 + rand_range(-0.2, 0.2)
+			node_audio_scroll.pitch_scale = 1 + randf_range(-0.2, 0.2)
 			node_audio_scroll.play()
 		elif yes:
 			if menu_items[cursor].has_method("act"):
@@ -52,7 +52,7 @@ func select_item(arg := 0):
 		menu_items[cursor].deselect()
 		
 	cursor = clamp(arg, 0, menu_items.size() - 1)
-	node_cursor.rect_position.y = menu_items[cursor].position.y - 2
+	node_cursor.position.y = menu_items[cursor].position.y - 2
 	
 	if menu_items[cursor].has_method("select"):
 		menu_items[cursor].select()

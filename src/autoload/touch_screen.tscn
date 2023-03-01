@@ -1,8 +1,8 @@
 [gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://src/autoload/touch_screen.gd" type="Script" id=1]
-[ext_resource path="res://media/font/m6x11.tres" type="DynamicFont" id=2]
-[ext_resource path="res://media/font/m3x6.tres" type="DynamicFont" id=3]
+[ext_resource path="res://media/font/m6x11.tres" type="FontFile" id=2]
+[ext_resource path="res://media/font/m3x6.tres" type="FontFile" id=3]
 [ext_resource path="res://src/autoload/touch_screen_button.gd" type="Script" id=4]
 
 [sub_resource type="CircleShape2D" id=1]
@@ -21,7 +21,7 @@ radius = 14.5
 radius = 14.5
 
 [node name="TouchScreen" type="CanvasLayer"]
-pause_mode = 2
+process_mode = 2
 layer = 15
 script = ExtResource( 1 )
 
@@ -43,7 +43,7 @@ circle_size = 12.0
 [node name="Polygon2D" type="Polygon2D" parent="Node2D/Left"]
 scale = Vector2( 0.3, 0.3 )
 offset = Vector2( -12.5, 0 )
-polygon = PoolVector2Array( 0, 0, 25, -25, 25, 25 )
+polygon = PackedVector2Array( 0, 0, 25, -25, 25, 25 )
 
 [node name="Right" type="TouchScreenButton" parent="Node2D"]
 position = Vector2( 50, 108 )
@@ -61,7 +61,7 @@ circle_size = 12.0
 [node name="Polygon2D" type="Polygon2D" parent="Node2D/Right"]
 scale = Vector2( 0.3, 0.3 )
 offset = Vector2( 12.5, 0 )
-polygon = PoolVector2Array( 0, 0, -25, -25, -25, 25 )
+polygon = PackedVector2Array( 0, 0, -25, -25, -25, 25 )
 
 [node name="C" type="TouchScreenButton" parent="Node2D"]
 position = Vector2( 178, 108 )
@@ -77,10 +77,10 @@ script = ExtResource( 4 )
 circle_size = 12.0
 
 [node name="Label" type="Label" parent="Node2D/C"]
-margin_left = -12.0
-margin_top = -12.0
-margin_right = 12.0
-margin_bottom = 12.0
+offset_left = -12.0
+offset_top = -12.0
+offset_right = 12.0
+offset_bottom = 12.0
 custom_fonts/font = ExtResource( 2 )
 text = "c"
 align = 1
@@ -103,10 +103,10 @@ script = ExtResource( 4 )
 circle_size = 12.0
 
 [node name="Label" type="Label" parent="Node2D/X"]
-margin_left = -12.0
-margin_top = -12.0
-margin_right = 12.0
-margin_bottom = 12.0
+offset_left = -12.0
+offset_top = -12.0
+offset_right = 12.0
+offset_bottom = 12.0
 custom_fonts/font = ExtResource( 2 )
 text = "x"
 align = 1
@@ -126,10 +126,10 @@ script = ExtResource( 4 )
 circle_size = 12.0
 
 [node name="Label" type="Label" parent="Node2D/Pause"]
-margin_left = -12.0
-margin_top = -12.0
-margin_right = 12.0
-margin_bottom = 12.0
+offset_left = -12.0
+offset_top = -12.0
+offset_right = 12.0
+offset_bottom = 12.0
 custom_fonts/font = ExtResource( 3 )
 text = "pause"
 align = 1

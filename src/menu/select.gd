@@ -1,19 +1,19 @@
 extends Node2D
 
-onready var cam : Camera2D = $Camera2D
+@onready var cam : Camera2D = $Camera2D
 
 var cursor = 0
 
-onready var screens : Control = $Control/Screens
+@onready var screens : Control = $Control/Screens
 var screen : Control
 var screen_dist = 105
 var columns = 4
 
 var is_input := true
 
-onready var node_audio_scroll : AudioStreamPlayer = $AudioScroll
-onready var node_audio_select : AudioStreamPlayer = $AudioSelect
-onready var node_audio_back : AudioStreamPlayer = $AudioBack
+@onready var node_audio_scroll : AudioStreamPlayer = $AudioScroll
+@onready var node_audio_select : AudioStreamPlayer = $AudioSelect
+@onready var node_audio_back : AudioStreamPlayer = $AudioBack
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -29,11 +29,11 @@ func _ready():
 			var new = screen.duplicate()
 			var sy = i / columns
 			var sx = i % columns
-			new.rect_position += Vector2(sx + (sy % 2) * 0.5, sy) * screen_dist
+			new.position += Vector2(sx + (sy % 2) * 0.5, sy) * screen_dist
 			new.get_node("Label").text = Shared.maps[i]
 			new.get_node("Note").visible = Shared.notes.has(i)
 			screens.add_child(new)
-			view_scene(new.get_node("ViewportContainer/Viewport"), Shared.map_path + Shared.maps[i])
+			view_scene(new.get_node("SubViewportContainer/SubViewport"), Shared.map_path + Shared.maps[i])
 	
 	scroll(Shared.current_map)
 
@@ -54,7 +54,7 @@ func _input(event):
 		var btny = btn.p("down") - btn.p("up")
 		if btnx or btny:
 			scroll(btnx + (btny * columns))
-			node_audio_scroll.pitch_scale = 1 + rand_range(-0.1, 0.5)
+			node_audio_scroll.pitch_scale = 1 + randf_range(-0.1, 0.5)
 			node_audio_scroll.play()
 
 # view a scene inside the viewport by path
@@ -63,7 +63,7 @@ func view_scene(port, path):
 		i.queue_free()
 	
 	if ResourceLoader.exists(path + ".tscn"):
-		var m = load(path + ".tscn").instance()
+		var m = load(path + ".tscn").instantiate()
 		port.add_child(m)
 		for i in Shared.actors:
 			if !i.tag == "exit":
@@ -71,7 +71,7 @@ func view_scene(port, path):
 
 func scroll(arg = 0):
 	cursor = clamp(cursor + arg, 0, screens.get_child_count() - 1)
-	cam.position = screens.get_children()[cursor].rect_position + Vector2(50, 50)
+	cam.position = screens.get_children()[cursor].position + Vector2(50, 50)
 
 func open_map():
 	if cursor <= Shared.map_save:

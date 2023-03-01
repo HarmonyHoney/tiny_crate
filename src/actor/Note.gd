@@ -1,13 +1,13 @@
-tool
+@tool
 extends Actor
 
-onready var sprite := $Sprite
+@onready var sprite := $Sprite2D
 
 var bounce := 0.0
 
 var explosion := preload("res://src/fx/Explosion.tscn")
 
-export var palette : PoolColorArray
+@export var palette : PackedColorArray
 
 func _ready():
 	if Engine.editor_hint: return
@@ -25,7 +25,7 @@ func _physics_process(delta):
 		collect()
 
 func collect():
-	var e = explosion.instance()
+	var e = explosion.instantiate()
 	e.position = center()
 	get_parent().add_child(e)
 	

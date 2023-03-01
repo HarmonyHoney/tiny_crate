@@ -1,6 +1,6 @@
 extends Node2D
 
-onready var p : Player = $Player
+@onready var p : Player = $Player
 var box := []
 
 var a_step := -1 # attract step

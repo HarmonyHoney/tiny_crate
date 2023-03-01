@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://media/image/HarmonyHoneyLogo.png" type="Texture" id=1]
+[ext_resource path="res://media/image/HarmonyHoneyLogo.png" type="Texture2D" id=1]
 [ext_resource path="res://src/menu/splash.gd" type="Script" id=3]
 [ext_resource path="res://media/audio/sfx/bell1.wav" type="AudioStream" id=4]
 
@@ -8,11 +8,11 @@
 script = ExtResource( 3 )
 
 [node name="ColorRect" type="ColorRect" parent="."]
-margin_right = 228.0
-margin_bottom = 128.0
+offset_right = 228.0
+offset_bottom = 128.0
 color = Color( 1, 0.945098, 0.909804, 1 )
 
-[node name="Logo" type="Sprite" parent="."]
+[node name="Logo" type="Sprite2D" parent="."]
 modulate = Color( 0, 0, 0, 1 )
 position = Vector2( 114, 64 )
 texture = ExtResource( 1 )

@@ -1,16 +1,16 @@
-tool
+@tool
 extends Actor
 class_name Box
 
 var is_push = false
 
-onready var node_audio : AudioStreamPlayer2D = $AudioHit
-onready var node_anim : AnimationPlayer = $AnimationPlayer
-onready var node_sprite : Sprite = $Sprite
+@onready var node_audio : AudioStreamPlayer2D = $AudioHit
+@onready var node_anim : AnimationPlayer = $AnimationPlayer
+@onready var node_sprite : Sprite2D = $Sprite2D
 var spr_pos := Vector2.ZERO
 
 var push_clock := 0.0
-export var push_dur := 0.3
+@export var push_dur := 0.3
 var push_dir = -1
 
 var shake_dist = 0
@@ -31,7 +31,7 @@ func _ready():
 
 func hit_floor():
 	speed.x = 0
-	node_audio.pitch_scale = 1 + rand_range(-0.2, 0.2)
+	node_audio.pitch_scale = 1 + randf_range(-0.2, 0.2)
 	node_audio.play()
 	Shared.node_camera_game.shake(shake_dist)
 	node_anim.play("hit")
@@ -39,7 +39,7 @@ func hit_floor():
 	shake_dist = 1
 	
 	# slam
-	var inst = scene_slam.instance()
+	var inst = scene_slam.instantiate()
 	inst.position = center()
 	get_parent().add_child(inst)
 

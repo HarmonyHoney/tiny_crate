@@ -1,15 +1,15 @@
-tool
+@tool
 extends Actor
 class_name Player
 
-export var move_speed = 0.75
+@export var move_speed = 0.75
 var move_slow = 0.75
 var move_accel = 0.12
 var move_last = 0
 var push_speed = 0.3
 
-export var jump_speed = 1.5
-export var jump_frames = 15
+@export var jump_speed = 1.5
+@export var jump_frames = 15
 var jump_count = 0
 var is_jump = false
 var coyote_time = 5
@@ -21,17 +21,17 @@ var pickup_offset := -5
 var pickup_target := Vector2.ZERO
 var pickup_lerp := 0.3
 
-export var speed_throw := Vector2(1, -2.6)
+@export var speed_throw := Vector2(1, -2.6)
 
 var dir = 1
 
-onready var node_sprite : Sprite = $Sprite
-onready var node_anim : AnimationPlayer = $AnimationPlayer
-onready var node_audio_jump : AudioStreamPlayer2D = $AudioJump
-onready var node_audio_pickup : AudioStreamPlayer2D = $AudioPickup
-onready var node_audio_drop : AudioStreamPlayer2D = $AudioDrop
-onready var node_audio_throw : AudioStreamPlayer2D = $AudioThrow
-onready var node_audio_push : AudioStreamPlayer2D = $AudioPush
+@onready var node_sprite : Sprite2D = $Sprite2D
+@onready var node_anim : AnimationPlayer = $AnimationPlayer
+@onready var node_audio_jump : AudioStreamPlayer2D = $AudioJump
+@onready var node_audio_pickup : AudioStreamPlayer2D = $AudioPickup
+@onready var node_audio_drop : AudioStreamPlayer2D = $AudioDrop
+@onready var node_audio_throw : AudioStreamPlayer2D = $AudioThrow
+@onready var node_audio_push : AudioStreamPlayer2D = $AudioPush
 
 var is_push = false
 var push_clock = 0.0
@@ -49,7 +49,7 @@ var btnp_jump = false
 var btnd_jump = false
 var btnp_pick = false
 
-export var is_attract_mode = false
+@export var is_attract_mode = false
 
 func _enter_tree():
 	if Engine.editor_hint: return
@@ -150,11 +150,11 @@ func _physics_process(delta):
 		if is_pickup:
 			if btnx_array.has(-1) or btnx_array.has(1):
 				box_release(speed_throw.x * btnx_last, speed_throw.y)
-				node_audio_throw.pitch_scale = 1 + rand_range(-0.1, 0.1)
+				node_audio_throw.pitch_scale = 1 + randf_range(-0.1, 0.1)
 				node_audio_throw.play()
 			else:
 				box_release(0, 0)
-				node_audio_drop.pitch_scale = 1 + rand_range(-0.1, 0.1)
+				node_audio_drop.pitch_scale = 1 + randf_range(-0.1, 0.1)
 				node_audio_drop.play()
 		else:
 			if btny:
@@ -166,7 +166,7 @@ func _physics_process(delta):
 	if !is_pickup and is_on_floor and move_get_dist().x:
 		var a = check_area_actors("box", position.x + dir)
 		if a.size():
-			a.sort_custom(self, "sort_y_ascent")
+			a.sort_custom(Callable(self,"sort_y_ascent"))
 			var b = a.front()
 			if is_instance_valid(b) and b != ignore_actor:
 				b.push(dir)
@@ -183,7 +183,7 @@ func _physics_process(delta):
 	push_clock = max(0, push_clock - delta)
 	if push_clock == 0 and node_audio_push.playing:
 		push_fade = max(0, push_fade - delta)
-		node_audio_push.volume_db = linear2db(push_fade / 0.2)
+		node_audio_push.volume_db = linear_to_db(push_fade / 0.2)
 		if push_fade == 0:
 			node_audio_push.stop()
 
@@ -200,8 +200,8 @@ func box_pickup(dx := 0, dy := 0):
 		if !is_instance_valid(a):
 			var b = check_area_actors("box", position.x - 2, position.y - 2, hitbox_x + 4, hitbox_y + 4)
 			if b.size() > 0:
-				b.sort_custom(self, "sort_x")
-				b.sort_custom(self, "sort_y_descent")
+				b.sort_custom(Callable(self,"sort_x"))
+				b.sort_custom(Callable(self,"sort_y_descent"))
 				a = b.front()
 		if is_instance_valid(a):
 			is_pickup = true
@@ -211,7 +211,7 @@ func box_pickup(dx := 0, dy := 0):
 			pickup_box = a
 			move_box()
 			
-			node_audio_pickup.pitch_scale = 1 + rand_range(-0.2, 0.2)
+			node_audio_pickup.pitch_scale = 1 + randf_range(-0.2, 0.2)
 			node_audio_pickup.play()
 
 # custom array sorting for boxes
@@ -236,7 +236,7 @@ func move_box():
 		if !is_area_solid(p.x, p.y):
 			pickup_target = p
 			break
-	pickup_box.position = pickup_box.position.linear_interpolate(pickup_target, pickup_lerp)
+	pickup_box.position = pickup_box.position.lerp(pickup_target, pickup_lerp)
 
 func remove_player():
 	# drop box
@@ -248,7 +248,7 @@ func death():
 	print(name + " died")
 	
 	# explosion
-	var inst = scene_explosion.instance()
+	var inst = scene_explosion.instantiate()
 	inst.position = center()
 	get_parent().add_child(inst)
 	Shared.node_camera_game.shake(8)
@@ -259,7 +259,7 @@ func death():
 
 func win():
 	# explosion
-	var inst = scene_explosion2.instance()
+	var inst = scene_explosion2.instantiate()
 	inst.position = position + (Vector2(4, 8) if is_pickup else Vector2(4, 4))
 	get_parent().add_child(inst)
 	Shared.node_camera_game.shake(4)
@@ -276,7 +276,7 @@ func try_anim(arg : String):
 
 # spawn box
 func debug_box(arg = null):
-	var box = scene_box.instance()
+	var box = scene_box.instantiate()
 	box.position = arg if arg is Vector2 else Vector2(position.x, position.y - 8)
 	get_parent().add_child(box)
 	print("(box) spawned at: " + str(box.position))

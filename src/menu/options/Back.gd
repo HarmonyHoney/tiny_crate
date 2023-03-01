@@ -1,6 +1,6 @@
 extends Node2D
 
-onready var audio := $AudioStreamPlayer
+@onready var audio := $AudioStreamPlayer
 
 func act():
 	Shared.scene_path = Shared.main_menu_path

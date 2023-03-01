@@ -3,11 +3,11 @@ extends Node2D
 var menu_list : Label
 var menu_items := []
 
-onready var main_list : Label = $Menu/List
+@onready var main_list : Label = $Menu/List
 var main_items := ["play", "options", "credits", "quit"]
 
-onready var quit_menu : Control = $Menu/Quit
-onready var quit_list : Label = $Menu/Quit/List
+@onready var quit_menu : Control = $Menu/Quit
+@onready var quit_list : Label = $Menu/Quit/List
 var quit_items := ["yes", "no"]
 
 var cursor := 0
@@ -15,14 +15,14 @@ var cursor := 0
 var timer := 0.1
 var clock := 0.0
 
-onready var node_cursor : ColorRect = $Menu/Cursor
-onready var node_audio_scroll : AudioStreamPlayer = $AudioScroll
-onready var node_audio_play : AudioStreamPlayer = $AudioPlay
-onready var node_audio_options : AudioStreamPlayer = $AudioOptions
-onready var node_audio_credits : AudioStreamPlayer = $AudioCredits
-onready var node_audio_quit : AudioStreamPlayer = $AudioQuit
-onready var node_audio_yes : AudioStreamPlayer = $AudioYes
-onready var node_audio_no : AudioStreamPlayer = $AudioNo
+@onready var node_cursor : ColorRect = $Menu/Cursor
+@onready var node_audio_scroll : AudioStreamPlayer = $AudioScroll
+@onready var node_audio_play : AudioStreamPlayer = $AudioPlay
+@onready var node_audio_options : AudioStreamPlayer = $AudioOptions
+@onready var node_audio_credits : AudioStreamPlayer = $AudioCredits
+@onready var node_audio_quit : AudioStreamPlayer = $AudioQuit
+@onready var node_audio_yes : AudioStreamPlayer = $AudioYes
+@onready var node_audio_no : AudioStreamPlayer = $AudioNo
 
 var is_input = true
 
@@ -46,7 +46,7 @@ func _input(event):
 		if up or down:
 			cursor = clamp(cursor + (-1 if up else 1), 0, menu_items.size() - 1)
 			write_menu()
-			node_audio_scroll.pitch_scale = 1 + rand_range(-0.2, 0.2)
+			node_audio_scroll.pitch_scale = 1 + randf_range(-0.2, 0.2)
 			node_audio_scroll.play()
 
 func write_menu():
@@ -54,9 +54,9 @@ func write_menu():
 	for i in menu_items.size():
 		if cursor == i:
 			menu_list.text += "-" + menu_items[i] + "-" + "\n"
-			node_cursor.rect_position.y = -1 +  i * 11
-			node_cursor.rect_position.x = 0
-			node_cursor.rect_size.x = menu_list.rect_size.x - 1
+			node_cursor.position.y = -1 +  i * 11
+			node_cursor.position.x = 0
+			node_cursor.size.x = menu_list.size.x - 1
 		else:
 			menu_list.text += menu_items[i] + "\n"
 

@@ -1,5 +1,3 @@
-# import and export
-.import/
-*.import
+.godot/
 [Ee]xport/
 [Bb]uild/

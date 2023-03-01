@@ -1,12 +1,12 @@
-tool
+@tool
 extends Actor
 class_name Passthrough
 
 var is_hit := false
 var is_done := false
 
-onready var node_sprite : Sprite = $Sprite
-onready var node_audio : AudioStreamPlayer2D = $Audio
+@onready var node_sprite : Sprite2D = $Sprite2D
+@onready var node_audio : AudioStreamPlayer2D = $Audio
 
 func _ready():
 	if Engine.editor_hint:

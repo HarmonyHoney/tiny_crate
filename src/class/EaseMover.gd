@@ -8,9 +8,9 @@ var to := Vector2.ZERO
 var current := Vector2.ZERO
 var node
 
-var is_complete setget , get_complete
+var is_complete : get = get_complete
 
-func _init(_time := time, _from := from, _to := to, _node := node):
+func _init(_time := time,_from := from,_to := to,_node := node):
 	time = _time
 	from = _from
 	to = _to
@@ -31,10 +31,10 @@ func get_complete():
 
 func move(delta, arg := show):
 	count(delta, arg)
-	current = from.linear_interpolate(to, smooth())
+	current = from.lerp(to, smooth())
 	
 	if node:
-		node.rect_position = current
+		node.position = current
 	
 	return current
 

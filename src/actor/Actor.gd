@@ -1,23 +1,23 @@
-tool
+@tool
 extends Node2D
 class_name Actor
 
 # hitbox
-export var hitbox_x := 8 setget _set_hit_x
-export var hitbox_y := 8 setget _set_hit_y
+@export var hitbox_x := 8 : set = _set_hit_x
+@export var hitbox_y := 8 : set = _set_hit_y
 
 # speed
 var speed := Vector2.ZERO
-export var gravity := 0.2
+@export var gravity := 0.2
 var term_vel := 16
 var remainder := Vector2.ZERO
 
 # movement and collision
-export var tag := "actor"
-export var is_solid := false
-export var is_moving := false
-export var is_colliding := false
-export var is_using_gravity := false
+@export var tag := "actor"
+@export var is_solid := false
+@export var is_moving := false
+@export var is_colliding := false
+@export var is_using_gravity := false
 
 # has moved
 var has_moved_x := false
@@ -198,7 +198,7 @@ func wiggle_y(step):
 
 # check area for solid tiles
 func is_area_solid_tile(x1, y1, width, height):
-	var w2m = Shared.node_map_solid.world_to_map(Vector2(x1, y1))
+	var w2m = Shared.node_map_solid.local_to_map(Vector2(x1, y1))
 	var cell = Shared.node_map_solid.cell_size.x
 	
 	# check more than four points if hitbox is longer than 8 pixels

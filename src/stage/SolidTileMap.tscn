@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://media/image/8pixel.png" type="Texture" id=1]
-[ext_resource path="res://media/image/solid_bricks.png" type="Texture" id=2]
+[ext_resource path="res://media/image/8pixel.png" type="Texture2D" id=1]
+[ext_resource path="res://media/image/solid_bricks.png" type="Texture2D" id=2]
 
 [sub_resource type="TileSet" id=1]
 0/name = "solid_bricks.png 0"
@@ -45,7 +45,7 @@ script/source = "extends TileMap
 
 func _ready():
 	Shared.node_map_solid = self
-	tile_set.tile_set_modulate(1, Color.transparent)
+	tile_set.tile_set_modulate(1, Color.TRANSPARENT)
 "
 
 [node name="SolidTileMap" type="TileMap"]

@@ -7,5 +7,5 @@ color = "blue"
 frame_on = 14
 frame_off = 12
 
-[node name="Sprite" parent="." index="0"]
+[node name="Sprite2D" parent="." index="0"]
 frame = 12
