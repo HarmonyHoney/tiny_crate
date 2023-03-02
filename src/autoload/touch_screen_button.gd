@@ -6,11 +6,11 @@ extends Node2D
 
 func set_is_var(arg):
 	is_var = arg
-	update()
+	#update()
 
 func set_circle(arg):
 	circle_size = arg
-	update()
+	#update()
 
 func _draw():
 	draw_circle(Vector2.ZERO, circle_size, Color.WHITE)

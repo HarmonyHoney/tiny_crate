@@ -1,19 +1,19 @@
-[gd_scene load_steps=6 format=3 uid="uid://btk4fot4xrepn"]
+[gd_scene load_steps=6 format=3 uid="uid://c3tsbvbfy7tmu"]
 
-[ext_resource type="Texture2D" uid="uid://c5i8t4kb7gg22" path="res://media/image/crate_tiles.png" id="1"]
-[ext_resource type="Texture2D" uid="uid://c4ge5csn4jbsp" path="res://media/image/bricks.png" id="2"]
+[ext_resource type="Texture2D" uid="uid://cgxirc4lig8kr" path="res://media/image/crate_tiles.png" id="1"]
+[ext_resource type="Texture2D" uid="uid://dvqls6evsnna5" path="res://media/image/bricks.png" id="2"]
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lv6wq"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_u50pt"]
 texture = ExtResource("2")
-texture_region_size = Vector2i(8, 8)
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_qa1yd"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_s8eh7"]
 texture = ExtResource("1")
-texture_region_size = Vector2i(8, 8)
+margins = Vector2i(0, 16)
 
 [sub_resource type="TileSet" id="1"]
-sources/2 = SubResource("TileSetAtlasSource_lv6wq")
-sources/3 = SubResource("TileSetAtlasSource_qa1yd")
+tile_size = Vector2i(8, 8)
+sources/0 = SubResource("TileSetAtlasSource_u50pt")
+sources/1 = SubResource("TileSetAtlasSource_s8eh7")
 
 [node name="DetailTileMap" type="TileMap"]
 z_index = -10

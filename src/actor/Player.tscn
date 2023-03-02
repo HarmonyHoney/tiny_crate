@@ -1,224 +1,229 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=3 uid="uid://bleh1qiiufduy"]
 
-[ext_resource path="res://src/actor/Player.gd" type="Script" id=1]
-[ext_resource path="res://media/audio/sfx/player_jump.wav" type="AudioStream" id=2]
-[ext_resource path="res://media/image/player.png" type="Texture2D" id=3]
-[ext_resource path="res://media/audio/sfx/btn3.wav" type="AudioStream" id=4]
-[ext_resource path="res://media/audio/sfx/sfx10.wav" type="AudioStream" id=5]
-[ext_resource path="res://media/audio/sfx/box_drop.wav" type="AudioStream" id=6]
-[ext_resource path="res://media/audio/sfx/push.wav" type="AudioStream" id=7]
+[ext_resource type="Script" path="res://src/actor/Player.gd" id="1"]
+[ext_resource type="AudioStream" uid="uid://dv5dxf1jhm2hq" path="res://media/audio/sfx/player_jump.wav" id="2"]
+[ext_resource type="Texture2D" uid="uid://nljl62d6pb5b" path="res://media/image/player.png" id="3"]
+[ext_resource type="AudioStream" uid="uid://ckn802p7r0h4s" path="res://media/audio/sfx/btn3.wav" id="4"]
+[ext_resource type="AudioStream" uid="uid://dr27v7uymtocf" path="res://media/audio/sfx/sfx10.wav" id="5"]
+[ext_resource type="AudioStream" uid="uid://c0ocrcymlhdtu" path="res://media/audio/sfx/box_drop.wav" id="6"]
+[ext_resource type="AudioStream" uid="uid://dlybl1756ddur" path="res://media/audio/sfx/push.wav" id="7"]
 
-[sub_resource type="Animation" id=1]
+[sub_resource type="Animation" id="1"]
 length = 0.6
-loop = true
 tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
 tracks/0/path = NodePath("Sprite2D:region_rect")
 tracks/0/interp = 0
 tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
 tracks/0/keys = {
-"times": PackedFloat32Array( 0, 0.4 ),
-"transitions": PackedFloat32Array( 1, 1 ),
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [ Rect2( 56, 0, 8, 24 ), Rect2( 64, 0, 8, 24 ) ]
+"values": [Rect2(56, 0, 8, 24), Rect2(64, 0, 8, 24)]
 }
 tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
 tracks/1/path = NodePath("Sprite2D:offset")
 tracks/1/interp = 0
 tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
 tracks/1/keys = {
-"times": PackedFloat32Array( 0, 0.4 ),
-"transitions": PackedFloat32Array( 1, 1 ),
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [ Vector2( 0, 0 ), Vector2( 0, 0 ) ]
+"values": [Vector2(0, 0), Vector2(0, 0)]
 }
 
-[sub_resource type="Animation" id=2]
+[sub_resource type="Animation" id="2"]
 length = 0.1
 tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
 tracks/0/path = NodePath("Sprite2D:region_rect")
 tracks/0/interp = 0
 tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
 tracks/0/keys = {
-"times": PackedFloat32Array( 0 ),
-"transitions": PackedFloat32Array( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [ Rect2( 104, 0, 8, 24 ) ]
+"values": [Rect2(104, 0, 8, 24)]
 }
 tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
 tracks/1/path = NodePath("Sprite2D:offset")
 tracks/1/interp = 0
 tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
 tracks/1/keys = {
-"times": PackedFloat32Array( 0 ),
-"transitions": PackedFloat32Array( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [ Vector2( 0, 0 ) ]
+"values": [Vector2(0, 0)]
 }
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id="3"]
 length = 0.6
-loop = true
 tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
 tracks/0/path = NodePath("Sprite2D:region_rect")
 tracks/0/interp = 0
 tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
 tracks/0/keys = {
-"times": PackedFloat32Array( 0, 0.2, 0.3, 0.5 ),
-"transitions": PackedFloat32Array( 1, 1, 1, 1 ),
+"times": PackedFloat32Array(0, 0.2, 0.3, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
-"values": [ Rect2( 72, 0, 8, 24 ), Rect2( 80, 0, 8, 24 ), Rect2( 88, 0, 8, 24 ), Rect2( 96, 0, 8, 24 ) ]
+"values": [Rect2(72, 0, 8, 24), Rect2(80, 0, 8, 24), Rect2(88, 0, 8, 24), Rect2(96, 0, 8, 24)]
 }
 tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
 tracks/1/path = NodePath("Sprite2D:offset")
 tracks/1/interp = 0
 tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
 tracks/1/keys = {
-"times": PackedFloat32Array( 0, 0.2, 0.3, 0.5 ),
-"transitions": PackedFloat32Array( 1, 1, 1, 1 ),
+"times": PackedFloat32Array(0, 0.2, 0.3, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
-"values": [ Vector2( 0, 0 ), Vector2( 0, 0 ), Vector2( 0, 0 ), Vector2( 0, 0 ) ]
+"values": [Vector2(0, 0), Vector2(0, 0), Vector2(0, 0), Vector2(0, 0)]
 }
 
-[sub_resource type="Animation" id=4]
+[sub_resource type="Animation" id="4"]
 length = 0.6
-loop = true
+loop_mode = 1
 tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
 tracks/0/path = NodePath("Sprite2D:region_rect")
 tracks/0/interp = 0
 tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
 tracks/0/keys = {
-"times": PackedFloat32Array( 0, 0.4 ),
-"transitions": PackedFloat32Array( 1, 1 ),
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [ Rect2( 0, 0, 8, 24 ), Rect2( 8, 0, 8, 24 ) ]
+"values": [Rect2(0, 0, 8, 24), Rect2(8, 0, 8, 24)]
 }
 tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
 tracks/1/path = NodePath("Sprite2D:offset")
 tracks/1/interp = 0
 tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
 tracks/1/keys = {
-"times": PackedFloat32Array( 0, 0.4 ),
-"transitions": PackedFloat32Array( 1, 1 ),
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [ Vector2( 0, 0 ), Vector2( 0, 0 ) ]
+"values": [Vector2(0, 0), Vector2(0, 0)]
 }
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id="5"]
 length = 0.1
 tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
 tracks/0/path = NodePath("Sprite2D:region_rect")
 tracks/0/interp = 0
 tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
 tracks/0/keys = {
-"times": PackedFloat32Array( 0 ),
-"transitions": PackedFloat32Array( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [ Rect2( 48, 0, 8, 24 ) ]
+"values": [Rect2(48, 0, 8, 24)]
 }
 tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
 tracks/1/path = NodePath("Sprite2D:offset")
 tracks/1/interp = 0
 tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
 tracks/1/keys = {
-"times": PackedFloat32Array( 0 ),
-"transitions": PackedFloat32Array( 1 ),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [ Vector2( 0, 0 ) ]
+"values": [Vector2(0, 0)]
 }
 
-[sub_resource type="Animation" id=6]
+[sub_resource type="Animation" id="6"]
 length = 0.6
-loop = true
+loop_mode = 1
 tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
 tracks/0/path = NodePath("Sprite2D:region_rect")
 tracks/0/interp = 0
 tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
 tracks/0/keys = {
-"times": PackedFloat32Array( 0, 0.2, 0.3, 0.5 ),
-"transitions": PackedFloat32Array( 1, 1, 1, 1 ),
+"times": PackedFloat32Array(0, 0.2, 0.3, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
-"values": [ Rect2( 16, 0, 8, 24 ), Rect2( 24, 0, 8, 24 ), Rect2( 32, 0, 8, 24 ), Rect2( 40, 0, 8, 24 ) ]
+"values": [Rect2(16, 0, 8, 24), Rect2(24, 0, 8, 24), Rect2(32, 0, 8, 24), Rect2(40, 0, 8, 24)]
 }
 tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
 tracks/1/path = NodePath("Sprite2D:offset")
 tracks/1/interp = 0
 tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
 tracks/1/keys = {
-"times": PackedFloat32Array( 0, 0.2, 0.3, 0.5 ),
-"transitions": PackedFloat32Array( 1, 1, 1, 1 ),
+"times": PackedFloat32Array(0, 0.2, 0.3, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
-"values": [ Vector2( 0, 0 ), Vector2( 0, 0 ), Vector2( 0, 0 ), Vector2( 0, 0 ) ]
+"values": [Vector2(0, 0), Vector2(0, 0), Vector2(0, 0), Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_lmet5"]
+_data = {
+"box_idle": SubResource("1"),
+"box_jump": SubResource("2"),
+"box_run": SubResource("3"),
+"idle": SubResource("4"),
+"jump": SubResource("5"),
+"run": SubResource("6")
 }
 
 [node name="Player" type="Node2D"]
 z_index = 15
 z_as_relative = false
-script = ExtResource( 1 )
+script = ExtResource("1")
+move_speed = 0.9
+jump_speed = 1.4
+jump_frames = 16
 tag = "player"
 is_solid = true
 is_moving = true
 is_colliding = true
 is_using_gravity = true
-move_speed = 0.9
-jump_speed = 1.4
-jump_frames = 16
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2( 4, -4 )
-texture = ExtResource( 3 )
+position = Vector2(4, -4)
+texture = ExtResource("3")
 region_enabled = true
-region_rect = Rect2( 0, 0, 8, 24 )
+region_rect = Rect2(0, 0, 8, 24)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "idle"
-anims/box_idle = SubResource( 1 )
-anims/box_jump = SubResource( 2 )
-anims/box_run = SubResource( 3 )
-anims/idle = SubResource( 4 )
-anims/jump = SubResource( 5 )
-anims/run = SubResource( 6 )
+libraries = {
+"": SubResource("AnimationLibrary_lmet5")
+}
 
 [node name="AudioJump" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource( 2 )
+stream = ExtResource("2")
 attenuation = 0.101532
-bus = "SFX"
+bus = &"SFX"
 
 [node name="AudioPickup" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource( 4 )
-bus = "SFX"
+stream = ExtResource("4")
+bus = &"SFX"
 
 [node name="AudioDrop" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource( 6 )
-bus = "SFX"
+stream = ExtResource("6")
+bus = &"SFX"
 
 [node name="AudioThrow" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource( 5 )
-bus = "SFX"
+stream = ExtResource("5")
+bus = &"SFX"
 
 [node name="AudioPush" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource( 7 )
-bus = "SFX"
+stream = ExtResource("7")
+bus = &"SFX"

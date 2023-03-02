@@ -1,15 +1,20 @@
-[gd_scene load_steps=4 format=3 uid="uid://clv8k7ufdvb64"]
+[gd_scene load_steps=4 format=3 uid="uid://sb3d7qipc01"]
 
-[ext_resource type="Texture2D" uid="uid://dkt7moln5kuv6" path="res://media/image/HarmonyHoneyLogo.png" id="1"]
+[ext_resource type="Texture2D" uid="uid://dfjueli3quv6r" path="res://media/image/HarmonyHoneyLogo.png" id="1"]
 [ext_resource type="Script" path="res://src/menu/splash.gd" id="3"]
-[ext_resource type="AudioStream" uid="uid://b0w5cue6n55pg" path="res://media/audio/sfx/bell1.wav" id="4"]
+[ext_resource type="AudioStream" uid="uid://p6e1cf5igeb4" path="res://media/audio/sfx/bell1.wav" id="4"]
 
 [node name="Splash" type="Node2D"]
 script = ExtResource("3")
 
 [node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 offset_right = 228.0
 offset_bottom = 128.0
+grow_horizontal = 2
+grow_vertical = 2
 color = Color(1, 0.945098, 0.909804, 1)
 
 [node name="Logo" type="Sprite2D" parent="."]

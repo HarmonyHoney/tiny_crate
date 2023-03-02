@@ -55,9 +55,7 @@ func _ready():
 	# load save data
 	var l = load_file(save_filename)
 	if l:
-		var test_json_conv = JSON.new()
-		test_json_conv.parse(l).result
-		save_data = test_json_conv.get_data()
+		save_data = JSON.parse_string(l)
 		print("save_data: " + JSON.stringify(save_data, "\t"))
 		if save_data.has("map"):
 			map_save = int(save_data["map"])
@@ -125,16 +123,12 @@ func change_map():
 ### Saving and Loading
 
 func save_file(fname, arg):
-	var file = File.new()
-	file.open("user://" + str(fname), File.WRITE)
+	var file = FileAccess.open("user://" + str(fname), FileAccess.WRITE)
 	file.store_string(arg)
-	file.close()
 
 func load_file(fname = "box.save"):
-	var file = File.new()
-	file.open("user://" + str(fname), File.READ)
+	var file = FileAccess.open("user://" + str(fname), FileAccess.READ)
 	var content = file.get_as_text()
-	file.close()
 	return content
 
 func create_save():
@@ -172,8 +166,10 @@ func win():
 # look into a folder and return a list of filenames without file extension
 func dir_list(path : String):
 	var array = []
-	var dir = Directory.new()
-	if dir.open(path) == OK:
+	var dir = DirAccess.open(path)
+	if dir:
+		dir.include_hidden = false
+		dir.include_navigational = false
 		dir.list_dir_begin() # TODOGODOT4 fill missing arguments https://github.com/godotengine/godot/pull/40547
 		var file_name = dir.get_next()
 		while file_name:
@@ -192,7 +188,7 @@ func set_bus_volume(_bus := 1, _vol := 5):
 func set_window_scale(arg := window_scale):
 	window_scale = max(1, arg if arg else window_scale)
 	if OS.get_name() != "HTML5":
-		get_window().size = Vector2(view_size.x * window_scale, view_size.y * window_scale)
+
 		# center window
 		get_window().set_position(DisplayServer.screen_get_size() * 0.5 - get_window().get_size() * 0.5)
 	return "window_scale: " + str(window_scale) + " - resolution: " + str(get_window().get_size())

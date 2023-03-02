@@ -20,7 +20,7 @@ var bounds_lower := Vector2.ZERO
 @export var bounds := Rect2(0, 0, 0, 0) : set = _set_bounds
 
 func _ready():
-	if Engine.editor_hint or Shared.is_level_select:
+	if Engine.is_editor_hint() or Shared.is_level_select:
 		set_physics_process(false)
 		return
 	
@@ -38,7 +38,7 @@ func _ready():
 	pos_target = position
 
 func _physics_process(delta):
-	if !is_moving or Engine.editor_hint:
+	if !is_moving or Engine.is_editor_hint():
 		return
 	
 	if is_instance_valid(node_target):
@@ -55,10 +55,10 @@ func _set_bounds(arg):
 	bounds.position.y = abs(arg.position.y)
 	bounds.size.x = abs(arg.size.x)
 	bounds.size.y = abs(arg.size.y)
-	update()
+	#update()
 
 func _draw():
-	if Engine.editor_hint:
+	if Engine.is_editor_hint():
 		draw_rect(Rect2(-bounds.position.x - 228/2, -bounds.position.y - 128/2, 228 + bounds.size.x + bounds.position.x, 128 + bounds.size.y + bounds.position.y), Color.RED, false)
 
 # super simple screen shake

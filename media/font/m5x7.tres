@@ -1,8 +1,6 @@
-[gd_resource type="FontFile" load_steps=2 format=2]
+[gd_resource type="FontVariation" load_steps=2 format=3 uid="uid://3vc5iho8ho52"]
 
-[ext_resource path="res://media/font/m5x7.ttf" type="FontFile" id=1]
+[ext_resource type="FontFile" uid="uid://ck1vpy11ysfyl" path="res://media/font/m5x7.ttf" id="1_lvycn"]
 
 [resource]
-extra_spacing_top = -4
-extra_spacing_bottom = -1
-font_data = ExtResource( 1 )
+base_font = ExtResource("1_lvycn")

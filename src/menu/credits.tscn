@@ -1,97 +1,265 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=19 format=3 uid="uid://csbr4jwfdxfd1"]
 
-[ext_resource path="res://media/font/m3x6.tres" type="FontFile" id=1]
-[ext_resource path="res://src/stage/DetailTileMap.tscn" type="PackedScene" id=2]
-[ext_resource path="res://src/stage/SolidTileMap.tscn" type="PackedScene" id=3]
-[ext_resource path="res://src/menu/credits.gd" type="Script" id=4]
-[ext_resource path="res://media/audio/sfx/Randomize103.wav" type="AudioStream" id=5]
-[ext_resource path="res://src/stage/GameCamera.tscn" type="PackedScene" id=6]
-[ext_resource path="res://src/actor/Exit.tscn" type="PackedScene" id=7]
-[ext_resource path="res://src/actor/Box.tscn" type="PackedScene" id=8]
-[ext_resource path="res://src/actor/Player.tscn" type="PackedScene" id=9]
-[ext_resource path="res://media/font/m6x11.ttf" type="FontFile" id=10]
-[ext_resource path="res://media/image/HarmonyHoneyLogo.png" type="Texture2D" id=11]
+[ext_resource type="FontVariation" uid="uid://culrlsi316p0y" path="res://media/font/m3x6.tres" id="1"]
+[ext_resource type="PackedScene" uid="uid://c3tsbvbfy7tmu" path="res://src/stage/DetailTileMap.tscn" id="2"]
+[ext_resource type="PackedScene" uid="uid://ccgl186gosdcp" path="res://src/stage/SolidTileMap.tscn" id="3"]
+[ext_resource type="FontVariation" uid="uid://cntu078xgj2oj" path="res://media/font/m6x11.tres" id="3_4x86d"]
+[ext_resource type="Script" path="res://src/menu/credits.gd" id="4"]
+[ext_resource type="AudioStream" uid="uid://lmsmr8cqqx8i" path="res://media/audio/sfx/Randomize103.wav" id="5"]
+[ext_resource type="PackedScene" path="res://src/stage/GameCamera.tscn" id="6"]
+[ext_resource type="PackedScene" path="res://src/actor/Exit.tscn" id="7"]
+[ext_resource type="PackedScene" path="res://src/actor/Box.tscn" id="8"]
+[ext_resource type="PackedScene" uid="uid://bleh1qiiufduy" path="res://src/actor/Player.tscn" id="9"]
+[ext_resource type="Texture2D" uid="uid://dfjueli3quv6r" path="res://media/image/HarmonyHoneyLogo.png" id="11"]
 
-[sub_resource type="FontFile" id=1]
-spacing_bottom = -1
-font_data = ExtResource( 10 )
+[sub_resource type="Animation" id="1"]
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:region_rect")
+tracks/0/interp = 0
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Rect2(56, 0, 8, 24), Rect2(64, 0, 8, 24)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:offset")
+tracks/1/interp = 0
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="2"]
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:region_rect")
+tracks/0/interp = 0
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Rect2(104, 0, 8, 24)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:offset")
+tracks/1/interp = 0
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="3"]
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:region_rect")
+tracks/0/interp = 0
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.3, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Rect2(72, 0, 8, 24), Rect2(80, 0, 8, 24), Rect2(88, 0, 8, 24), Rect2(96, 0, 8, 24)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:offset")
+tracks/1/interp = 0
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.3, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 0), Vector2(0, 0), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="4"]
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:region_rect")
+tracks/0/interp = 0
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Rect2(0, 0, 8, 24), Rect2(8, 0, 8, 24)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:offset")
+tracks/1/interp = 0
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.4),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="5"]
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:region_rect")
+tracks/0/interp = 0
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Rect2(48, 0, 8, 24)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:offset")
+tracks/1/interp = 0
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="6"]
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:region_rect")
+tracks/0/interp = 0
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.3, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Rect2(16, 0, 8, 24), Rect2(24, 0, 8, 24), Rect2(32, 0, 8, 24), Rect2(40, 0, 8, 24)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:offset")
+tracks/1/interp = 0
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.3, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 0), Vector2(0, 0), Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_yihc7"]
+_data = {
+"box_idle": SubResource("1"),
+"box_jump": SubResource("2"),
+"box_run": SubResource("3"),
+"idle": SubResource("4"),
+"jump": SubResource("5"),
+"run": SubResource("6")
+}
 
 [node name="Credits" type="Node2D"]
-script = ExtResource( 4 )
+script = ExtResource("4")
 
 [node name="AudioBack" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 5 )
-bus = "SFX"
+stream = ExtResource("5")
+bus = &"SFX"
 
 [node name="Header" type="Label" parent="."]
+modulate = Color(1, 0.945098, 0.909804, 1)
 offset_left = -2.0
 offset_top = 11.0
 offset_right = 226.0
 offset_bottom = 24.0
-custom_colors/font_color = Color( 1, 0.945098, 0.909804, 1 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
-custom_constants/shadow_as_outline = 1
-custom_fonts/font = SubResource( 1 )
+theme_override_fonts/font = ExtResource("3_4x86d")
 text = "TINY CRATE"
-align = 1
+horizontal_alignment = 1
 
 [node name="By" type="Label" parent="."]
+modulate = Color(1, 0.945098, 0.909804, 1)
 offset_left = 103.0
 offset_top = 25.0
 offset_right = 113.0
 offset_bottom = 35.0
-custom_colors/font_color = Color( 1, 0.945098, 0.909804, 1 )
-custom_fonts/font = ExtResource( 1 )
+theme_override_fonts/font = ExtResource("1")
 text = "by"
-align = 1
-valign = 1
+horizontal_alignment = 1
 
 [node name="HarmonyHoneyLogo" type="Sprite2D" parent="."]
-modulate = Color( 1, 0.945098, 0.909804, 1 )
-position = Vector2( 112, 49 )
-texture = ExtResource( 11 )
+modulate = Color(1, 0.945098, 0.909804, 1)
+position = Vector2(112, 49)
+texture = ExtResource("11")
 
 [node name="List" type="Label" parent="."]
+modulate = Color(1, 0.945098, 0.909804, 1)
 offset_left = -2.0
 offset_top = 59.0
 offset_right = 226.0
 offset_bottom = 128.0
-custom_colors/font_color = Color( 1, 0.945098, 0.909804, 1 )
-custom_fonts/font = ExtResource( 1 )
+theme_override_fonts/font = ExtResource("1")
 text = "hhoney.net
 
 Made with Godot Engine
 
 Fonts by Daniel Linssen"
-align = 1
-valign = 1
+horizontal_alignment = 1
 
 [node name="Stage" type="Node2D" parent="."]
 
-[node name="SolidTileMap" parent="Stage" instance=ExtResource( 3 )]
-tile_data = PackedInt32Array( -65531, 0, 1, 5, 536870912, 0, 65541, 0, 1, 131077, 0, 0, 196613, 0, 1, 262149, 536870912, 0, 327685, 0, 0, 393221, 0, 1, 524287, 0, 1, 458752, 0, 0, 458753, 0, 1, 458754, 536870912, 0, 458755, 0, 1, 458756, 0, 1, 458757, 0, 0, 458758, 0, 1, 458759, 536870912, 0, 589845, 536870912, 0, 589846, 0, 1, 589847, 0, 0, 589848, 0, 1, 589849, 0, 1, 589850, 536870912, 0, 589851, 0, 1, 589852, 0, 1, 655381, 0, 1, 720917, 536870912, 0, 786453, 0, 0, 786454, 0, 1, 786455, 536870912, 0, 851991, 0, 1, 917527, 0, 0, 983063, 536870912, 0, 1048599, 0, 1 )
+[node name="SolidTileMap" parent="Stage" instance=ExtResource("3")]
+layer_0/tile_data = PackedInt32Array(-65531, 0, 1, 5, 536870912, 0, 65541, 0, 1, 131077, 0, 0, 196613, 0, 1, 262149, 536870912, 0, 327685, 0, 0, 393221, 0, 1, 524287, 0, 1, 458752, 0, 0, 458753, 0, 1, 458754, 536870912, 0, 458755, 0, 1, 458756, 0, 1, 458757, 0, 0, 458758, 0, 1, 458759, 536870912, 0, 589845, 536870912, 0, 589846, 0, 1, 589847, 0, 0, 589848, 0, 1, 589849, 0, 1, 589850, 536870912, 0, 589851, 0, 1, 589852, 0, 1, 655381, 0, 1, 720917, 536870912, 0, 786453, 0, 0, 786454, 0, 1, 786455, 536870912, 0, 851991, 0, 1, 917527, 0, 0, 983063, 536870912, 0, 1048599, 0, 1)
 
-[node name="DetailTileMap" parent="Stage" instance=ExtResource( 2 )]
+[node name="DetailTileMap" parent="Stage" instance=ExtResource("2")]
 z_index = -11
-tile_data = PackedInt32Array( -1, 4, 0, -65536, 536870916, 1, -65535, 4, 0, -65532, 5, 0, -65529, 536870916, 3, -65528, 536870916, 1, -65527, 536870916, 0, -65526, 4, 3, -65510, 536870916, 0, -65509, 4, 1, -65508, 4, 1, 65535, 536870916, 1, 0, 536870916, 0, 1, 536870916, 2, 4, -1073741819, 0, 7, 4, 2, 8, 4, 0, 9, 536870916, 1, 10, 536870916, 2, 17, 4, 2, 18, 536870916, 0, 19, 4, 1, 20, 4, 1, 21, 4, 0, 22, 536870916, 2, 26, 4, 2, 27, 4, 0, 28, 4, 1, 131071, 4, 0, 65536, 536870916, 2, 65540, -1073741819, 0, 65543, 536870916, 3, 65544, 536870916, 2, 65555, 4, 2, 65556, 4, 1, 65557, 536870916, 2, 65563, 4, 2, 65564, 536870916, 0, 131076, -1073741819, 0, 131095, 5, 2, 131096, 5, 0, 131097, -1610612731, 2, 196612, -1073741819, 2, 196614, 536870917, 2, 196631, 5, 0, 196632, 5, 0, 196633, 5, 0, 196634, -1610612731, 2, 262150, -1610612731, 0, 262166, -1610612731, 0, 262167, 5, 0, 262168, 5, 0, 262169, 5, 0, 262170, -1073741819, 0, 327686, -1610612731, 0, 327702, -1073741819, 2, 327703, 5, 0, 327704, 5, 0, 327705, 5, 0, 458751, 5, 0, 393216, 5, 0, 393217, 536870917, 2, 393220, 5, 2, 393222, -536870907, 2, 393239, -1073741819, 2, 393240, 5, 0, 393241, 1610612741, 2, 393242, 536870916, 3, 393243, 536870916, 1, 393244, 536870916, 1, 458776, 5, 1, 458778, 4, 2, 458779, 536870916, 0, 458780, 536870916, 1, 524289, 1073741829, 2, 524290, 5, 0, 524291, 5, 1, 524292, 1610612741, 2, 524312, 5, 1, 524313, 536870917, 2, 655359, 536870916, 1, 589824, 4, 3, 589827, 5, 1, 720895, 536870916, 1, 655360, 536870916, 2, 655362, 5, 2, 655363, 5, 1, 655364, 5, 0, 655365, -1610612731, 2, 655380, 5, 2, 655382, 5, 0, 655383, 5, 0, 655384, 5, 0, 655385, 1610612741, 2, 720897, 5, 2, 720898, 5, 0, 720899, 5, 0, 720900, -1610612731, 1, 720901, -1610612731, 1, 720902, -1610612731, 1, 720903, -1610612731, 2, 720916, -1073741819, 0, 720922, 4, 2, 720923, 4, 0, 720924, 4, 1, 786433, 5, 0, 786434, 1073741829, 1, 786435, 5, 0, 786436, 5, 0, 786452, -1073741819, 2, 786456, -1610612731, 2, 786459, 4, 2, 786460, 536870916, 1, 851969, -1073741819, 2, 851970, 5, 0, 851971, -2147483643, 1, 851972, -536870907, 1, 851973, -536870907, 2, 851992, 5, 0, 983039, 536870916, 0, 917504, 4, 3, 917506, -1073741819, 2, 917507, 5, 0, 917508, 1610612741, 2, 917528, 5, 0, 917531, 536870916, 3, 917532, 4, 0, 1048575, 4, 1, 983040, 4, 0, 983041, 4, 3, 983052, 536870916, 3, 983053, 4, 1, 983054, 4, 0, 983055, 4, 3, 983062, -2147483643, 2, 983064, 1610612741, 2, 983066, 536870916, 3, 983067, 536870916, 0, 983068, 536870916, 1, 1114111, 4, 1, 1048576, 4, 1, 1048577, 536870916, 0, 1048588, 4, 2, 1048589, 536870916, 1, 1048590, 536870916, 1, 1048591, 536870916, 2, 1048598, -2147483643, 0, 1048602, 4, 0, 1048603, 536870916, 1, 1048604, 4, 0 )
 
-[node name="GameCamera" parent="Stage" instance=ExtResource( 6 )]
-position = Vector2( 112, 64 )
+[node name="GameCamera" parent="Stage" instance=ExtResource("6")]
+position = Vector2(112, 64)
 
 [node name="Actors" type="Node2D" parent="Stage"]
 
-[node name="Exit" parent="Stage/Actors" instance=ExtResource( 7 )]
-position = Vector2( 13, 21 )
+[node name="Exit" parent="Stage/Actors" instance=ExtResource("7")]
+position = Vector2(13, 21)
 
-[node name="Box" parent="Stage/Actors" instance=ExtResource( 8 )]
-position = Vector2( 19, 48 )
+[node name="Box" parent="Stage/Actors" instance=ExtResource("8")]
+position = Vector2(19, 48)
 
-[node name="Player" parent="Stage/Actors" instance=ExtResource( 9 )]
-position = Vector2( 172, 64 )
+[node name="Player" parent="Stage/Actors" instance=ExtResource("9")]
+position = Vector2(172, 64)
 is_attract_mode = true
 
 [node name="Sprite2D" parent="Stage/Actors/Player" index="0"]
 flip_h = true
+
+[node name="AnimationPlayer" parent="Stage/Actors/Player" index="1"]
+libraries = {
+"": SubResource("AnimationLibrary_yihc7")
+}
 
 [editable path="Stage/GameCamera"]
 [editable path="Stage/Actors/Player"]

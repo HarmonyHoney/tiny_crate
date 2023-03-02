@@ -11,14 +11,14 @@ var is_last := false
 @onready var node_audio : AudioStreamPlayer2D = $AudioStreamPlayer2D
 
 func _ready():
-	if Engine.editor_hint:
+	if Engine.is_editor_hint():
 		return
 	
 	add_to_group("switch_" + color)
 
 
 func _physics_process(delta):
-	if Engine.editor_hint:
+	if Engine.is_editor_hint():
 		return
 	
 	is_last = is_on

@@ -9,11 +9,11 @@ var is_done := false
 @onready var node_audio : AudioStreamPlayer2D = $Audio
 
 func _ready():
-	if Engine.editor_hint:
+	if Engine.is_editor_hint():
 		return
 
 func _physics_process(delta):
-	if Engine.editor_hint:
+	if Engine.is_editor_hint():
 		return
 	
 	if is_done:

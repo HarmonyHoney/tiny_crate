@@ -1,7 +1,6 @@
-[gd_resource type="FontFile" load_steps=2 format=2]
+[gd_resource type="FontVariation" load_steps=2 format=3 uid="uid://cntu078xgj2oj"]
 
-[ext_resource path="res://media/font/m6x11.ttf" type="FontFile" id=1]
+[ext_resource type="FontFile" uid="uid://bipw1r1lw7y25" path="res://media/font/m6x11.ttf" id="1"]
 
 [resource]
-extra_spacing_bottom = -1
-font_data = ExtResource( 1 )
+base_font = ExtResource("1")

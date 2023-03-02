@@ -10,7 +10,7 @@ var node
 
 var is_complete : get = get_complete
 
-func _init(_time := time,_from := from,_to := to,_node := node):
+func _init(_time := time,_from := from,_to := to, _node = node):
 	time = _time
 	from = _from
 	to = _to

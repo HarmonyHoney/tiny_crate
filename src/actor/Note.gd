@@ -10,13 +10,13 @@ var explosion := preload("res://src/fx/Explosion.tscn")
 @export var palette : PackedColorArray
 
 func _ready():
-	if Engine.editor_hint: return
+	if Engine.is_editor_hint(): return
 	
 	if Shared.notes.has(Shared.current_map):
 		modulate = palette[1]
 
 func _physics_process(delta):
-	if Engine.editor_hint: return
+	if Engine.is_editor_hint(): return
 	
 	bounce += delta * 2.5
 	sprite.offset.y = sin(bounce) * 1.5

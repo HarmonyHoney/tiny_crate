@@ -52,13 +52,13 @@ var btnp_pick = false
 @export var is_attract_mode = false
 
 func _enter_tree():
-	if Engine.editor_hint: return
+	if Engine.is_editor_hint(): return
 	
 	Shared.player = self
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	if Engine.editor_hint or Shared.is_level_select:
+	if Engine.is_editor_hint() or Shared.is_level_select:
 		set_physics_process(false)
 		return
 	
@@ -82,7 +82,7 @@ func just_moved():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
-	if Engine.editor_hint:
+	if Engine.is_editor_hint():
 		return
 	
 	# input

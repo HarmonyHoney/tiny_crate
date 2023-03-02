@@ -1,111 +1,93 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=10 format=3 uid="uid://cmqisifc4h7nl"]
 
-[ext_resource path="res://media/font/m3x6.tres" type="FontFile" id=1]
-[ext_resource path="res://media/image/9slice.png" type="Texture2D" id=2]
-[ext_resource path="res://src/autoload/Pause.gd" type="Script" id=3]
-[ext_resource path="res://media/audio/sfx/sfx3.wav" type="AudioStream" id=4]
-[ext_resource path="res://media/font/m6x11.ttf" type="FontFile" id=5]
-[ext_resource path="res://media/audio/sfx/hit1.wav" type="AudioStream" id=7]
-[ext_resource path="res://media/audio/sfx/sfx18.wav" type="AudioStream" id=9]
-[ext_resource path="res://media/audio/sfx/portal7.wav" type="AudioStream" id=10]
-[ext_resource path="res://media/audio/sfx/portal9.wav" type="AudioStream" id=11]
-
-[sub_resource type="FontFile" id=1]
-spacing_bottom = -1
-font_data = ExtResource( 5 )
+[ext_resource type="FontVariation" uid="uid://culrlsi316p0y" path="res://media/font/m3x6.tres" id="1"]
+[ext_resource type="Texture2D" uid="uid://s7e12rs806hl" path="res://media/image/9slice.png" id="2"]
+[ext_resource type="Script" path="res://src/autoload/Pause.gd" id="3"]
+[ext_resource type="AudioStream" uid="uid://3d7jvhtcwlpd" path="res://media/audio/sfx/sfx3.wav" id="4"]
+[ext_resource type="FontVariation" uid="uid://cntu078xgj2oj" path="res://media/font/m6x11.tres" id="4_m13mo"]
+[ext_resource type="AudioStream" uid="uid://c0sja8q4h5lm4" path="res://media/audio/sfx/hit1.wav" id="7"]
+[ext_resource type="AudioStream" uid="uid://dv7i1pd4dhxoi" path="res://media/audio/sfx/sfx18.wav" id="9"]
+[ext_resource type="AudioStream" uid="uid://bd5iht8uibqik" path="res://media/audio/sfx/portal7.wav" id="10"]
+[ext_resource type="AudioStream" uid="uid://gqspthpv6a4l" path="res://media/audio/sfx/portal9.wav" id="11"]
 
 [node name="Pause" type="CanvasLayer"]
-process_mode = 2
-script = ExtResource( 3 )
-__meta__ = {
-"_edit_horizontal_guides_": [ -19.0 ]
-}
+process_mode = 3
+script = ExtResource("3")
 
 [node name="Menu" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
 offset_right = 72.0
 offset_bottom = 72.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Paused" type="NinePatchRect" parent="Menu"]
+custom_minimum_size = Vector2(24, 24)
+layout_mode = 0
 offset_left = 87.0
 offset_top = 28.0
 offset_right = 141.0
 offset_bottom = 89.0
-custom_minimum_size = Vector2( 24, 24 )
-texture = ExtResource( 2 )
+texture = ExtResource("2")
 patch_margin_left = 8
 patch_margin_top = 8
 patch_margin_right = 8
 patch_margin_bottom = 8
 axis_stretch_horizontal = 1
 axis_stretch_vertical = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Cursor" type="ColorRect" parent="Menu"]
+layout_mode = 0
 offset_left = 92.0
 offset_top = 50.0
 offset_right = 136.0
 offset_bottom = 61.0
-color = Color( 0.113725, 0.168627, 0.32549, 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+color = Color(0.113725, 0.168627, 0.32549, 1)
 
 [node name="List" type="Label" parent="Menu"]
+modulate = Color(1, 0.945098, 0.909804, 1)
+layout_mode = 0
 offset_left = 87.0
 offset_top = 52.0
 offset_right = 141.0
 offset_bottom = 82.0
-custom_colors/font_color = Color( 1, 0.945098, 0.909804, 1 )
-custom_fonts/font = ExtResource( 1 )
+theme_override_fonts/font = ExtResource("1")
 text = "resume
 reset
 exit"
-align = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
+horizontal_alignment = 1
 
 [node name="Header" type="Label" parent="Menu"]
+modulate = Color(1, 0.945098, 0.909804, 1)
+layout_mode = 0
 offset_left = 88.0
 offset_top = 35.0
 offset_right = 140.0
 offset_bottom = 50.0
-custom_colors/font_color = Color( 1, 0.945098, 0.909804, 1 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
-custom_constants/shadow_as_outline = 1
-custom_fonts/font = SubResource( 1 )
+theme_override_fonts/font = ExtResource("4_m13mo")
 text = "PAUSED"
-align = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
+horizontal_alignment = 1
 
 [node name="AudioPause" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 4 )
+stream = ExtResource("4")
 volume_db = -5.0
-bus = "SFX"
+bus = &"SFX"
 
 [node name="AudioScroll" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 7 )
+stream = ExtResource("7")
 volume_db = -7.0
-bus = "SFX"
+bus = &"SFX"
 
 [node name="AudioResume" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 10 )
+stream = ExtResource("10")
 volume_db = -2.0
-bus = "SFX"
+bus = &"SFX"
 
 [node name="AudioReset" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 11 )
+stream = ExtResource("11")
 volume_db = -4.0
-bus = "SFX"
+bus = &"SFX"
 
 [node name="AudioExit" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 9 )
+stream = ExtResource("9")
 volume_db = -1.0
-bus = "SFX"
+bus = &"SFX"

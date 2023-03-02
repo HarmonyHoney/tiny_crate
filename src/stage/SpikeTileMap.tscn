@@ -1,20 +1,40 @@
-[gd_scene load_steps=5 format=3 uid="uid://crwacm1scsjcf"]
+[gd_scene load_steps=5 format=3 uid="uid://bvc7mxf7gpij4"]
 
-[ext_resource type="Texture2D" uid="uid://c5i8t4kb7gg22" path="res://media/image/crate_tiles.png" id="1"]
+[ext_resource type="Texture2D" uid="uid://cgxirc4lig8kr" path="res://media/image/crate_tiles.png" id="1"]
 [ext_resource type="Script" path="res://src/stage/SpikeTileMap.gd" id="2"]
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_h2cg5"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_vmo4d"]
 texture = ExtResource("1")
 texture_region_size = Vector2i(8, 8)
+2:0/next_alternative_id = 8
 2:0/0 = 0
+2:0/1 = 1
+2:0/1/flip_h = true
+2:0/2 = 2
+2:0/2/flip_v = true
+2:0/3 = 3
+2:0/3/flip_h = true
+2:0/3/flip_v = true
+2:0/4 = 4
+2:0/4/transpose = true
+2:0/5 = 5
+2:0/5/flip_h = true
+2:0/5/transpose = true
+2:0/6 = 6
+2:0/6/flip_v = true
+2:0/6/transpose = true
+2:0/7 = 7
+2:0/7/flip_h = true
+2:0/7/flip_v = true
+2:0/7/transpose = true
 
-[sub_resource type="TileSet" id="TileSet_47e5o"]
+[sub_resource type="TileSet" id="1"]
 tile_size = Vector2i(8, 8)
-sources/0 = SubResource("TileSetAtlasSource_h2cg5")
+sources/1 = SubResource("TileSetAtlasSource_vmo4d")
 
 [node name="SpikeTileMap" type="TileMap"]
 z_index = 5
 z_as_relative = false
-tile_set = SubResource("TileSet_47e5o")
+tile_set = SubResource("1")
 format = 2
 script = ExtResource("2")

@@ -1,44 +1,33 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=21 format=3 uid="uid://crnn0nqwx21rh"]
 
-[ext_resource path="res://media/font/m3x6.tres" type="FontFile" id=1]
-[ext_resource path="res://media/image/9slice.png" type="Texture2D" id=2]
-[ext_resource path="res://src/menu/StartMenu.gd" type="Script" id=3]
-[ext_resource path="res://media/font/m3x6.ttf" type="FontFile" id=4]
-[ext_resource path="res://media/font/m6x11.ttf" type="FontFile" id=5]
-[ext_resource path="res://media/audio/sfx/hit1.wav" type="AudioStream" id=7]
-[ext_resource path="res://src/stage/DetailTileMap.tscn" type="PackedScene" id=8]
-[ext_resource path="res://src/actor/Box.tscn" type="PackedScene" id=9]
-[ext_resource path="res://src/menu/AttractMode.gd" type="Script" id=10]
-[ext_resource path="res://src/stage/SolidTileMap.tscn" type="PackedScene" id=11]
-[ext_resource path="res://src/actor/Player.tscn" type="PackedScene" id=12]
-[ext_resource path="res://src/stage/GameCamera.tscn" type="PackedScene" id=13]
-[ext_resource path="res://src/actor/SwitchBlockBlue.tscn" type="PackedScene" id=14]
-[ext_resource path="res://src/actor/SwitchBlue.tscn" type="PackedScene" id=15]
-[ext_resource path="res://media/font/m5x7.tres" type="FontFile" id=17]
-[ext_resource path="res://media/audio/sfx/sfx3.wav" type="AudioStream" id=18]
-[ext_resource path="res://media/audio/sfx/sfx18.wav" type="AudioStream" id=19]
-[ext_resource path="res://media/audio/sfx/sfx13.wav" type="AudioStream" id=20]
-[ext_resource path="res://media/audio/sfx/portal9.wav" type="AudioStream" id=21]
-[ext_resource path="res://media/audio/sfx/Randomize105.wav" type="AudioStream" id=22]
-[ext_resource path="res://media/audio/sfx/portal7.wav" type="AudioStream" id=23]
-
-[sub_resource type="FontFile" id=1]
-spacing_bottom = -1
-font_data = ExtResource( 5 )
-
-[sub_resource type="FontFile" id=2]
-spacing_top = -5
-spacing_bottom = -2
-font_data = ExtResource( 4 )
+[ext_resource type="FontVariation" uid="uid://culrlsi316p0y" path="res://media/font/m3x6.tres" id="1"]
+[ext_resource type="Texture2D" uid="uid://s7e12rs806hl" path="res://media/image/9slice.png" id="2"]
+[ext_resource type="Script" path="res://src/menu/StartMenu.gd" id="3"]
+[ext_resource type="FontVariation" uid="uid://cntu078xgj2oj" path="res://media/font/m6x11.tres" id="3_k8w8k"]
+[ext_resource type="AudioStream" uid="uid://c0sja8q4h5lm4" path="res://media/audio/sfx/hit1.wav" id="7"]
+[ext_resource type="PackedScene" uid="uid://c3tsbvbfy7tmu" path="res://src/stage/DetailTileMap.tscn" id="8"]
+[ext_resource type="PackedScene" path="res://src/actor/Box.tscn" id="9"]
+[ext_resource type="Script" path="res://src/menu/AttractMode.gd" id="10"]
+[ext_resource type="PackedScene" uid="uid://ccgl186gosdcp" path="res://src/stage/SolidTileMap.tscn" id="11"]
+[ext_resource type="PackedScene" uid="uid://bleh1qiiufduy" path="res://src/actor/Player.tscn" id="12"]
+[ext_resource type="PackedScene" path="res://src/stage/GameCamera.tscn" id="13"]
+[ext_resource type="PackedScene" path="res://src/actor/SwitchBlockBlue.tscn" id="14"]
+[ext_resource type="PackedScene" path="res://src/actor/SwitchBlue.tscn" id="15"]
+[ext_resource type="FontVariation" uid="uid://3vc5iho8ho52" path="res://media/font/m5x7.tres" id="17"]
+[ext_resource type="AudioStream" uid="uid://3d7jvhtcwlpd" path="res://media/audio/sfx/sfx3.wav" id="18"]
+[ext_resource type="AudioStream" uid="uid://dv7i1pd4dhxoi" path="res://media/audio/sfx/sfx18.wav" id="19"]
+[ext_resource type="AudioStream" uid="uid://djqicpqqb3c3t" path="res://media/audio/sfx/sfx13.wav" id="20"]
+[ext_resource type="AudioStream" uid="uid://gqspthpv6a4l" path="res://media/audio/sfx/portal9.wav" id="21"]
+[ext_resource type="AudioStream" uid="uid://daloj1lhr4ev3" path="res://media/audio/sfx/Randomize105.wav" id="22"]
+[ext_resource type="AudioStream" uid="uid://bd5iht8uibqik" path="res://media/audio/sfx/portal7.wav" id="23"]
 
 [node name="StartMenu" type="Node2D"]
-process_mode = 2
-script = ExtResource( 3 )
+script = ExtResource("3")
 
 [node name="Menu" type="Node2D" parent="."]
-position = Vector2( -18, 8 )
 z_index = 20
 z_as_relative = false
+position = Vector2(-18, 8)
 
 [node name="Cursor" type="ColorRect" parent="Menu"]
 show_behind_parent = true
@@ -46,179 +35,156 @@ offset_left = 15.0
 offset_top = 47.0
 offset_right = 44.0
 offset_bottom = 57.0
-color = Color( 0.113725, 0.168627, 0.32549, 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+color = Color(0.113725, 0.168627, 0.32549, 1)
 
 [node name="List" type="Label" parent="Menu"]
+modulate = Color(1, 0.945098, 0.909804, 1)
 offset_left = 12.0
 offset_top = 48.0
 offset_right = 48.0
 offset_bottom = 89.0
-custom_colors/font_color = Color( 1, 0.945098, 0.909804, 1 )
-custom_fonts/font = ExtResource( 1 )
+theme_override_fonts/font = ExtResource("1")
 text = "play
 options
 credits
 quit"
-align = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
+horizontal_alignment = 1
 
 [node name="Quit" type="Control" parent="Menu"]
-visible = false
+layout_mode = 3
+anchors_preset = 0
 offset_left = 80.0
 offset_top = 44.0
 offset_right = 120.0
 offset_bottom = 84.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="NinePatchRect" type="NinePatchRect" parent="Menu/Quit"]
+layout_mode = 0
 offset_left = -1.0
 offset_top = -1.0
 offset_right = 69.0
 offset_bottom = 41.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource( 2 )
+texture = ExtResource("2")
 patch_margin_left = 8
 patch_margin_top = 8
 patch_margin_right = 8
 patch_margin_bottom = 8
 axis_stretch_horizontal = 1
 axis_stretch_vertical = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="List" type="Label" parent="Menu/Quit"]
+modulate = Color(1, 0.945098, 0.909804, 1)
+layout_mode = 0
 offset_left = 18.0
 offset_top = 17.0
 offset_right = 50.0
 offset_bottom = 36.0
-custom_colors/font_color = Color( 1, 0.945098, 0.909804, 1 )
-custom_fonts/font = ExtResource( 1 )
+theme_override_fonts/font = ExtResource("1")
 text = "yes
 no"
-align = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
+horizontal_alignment = 1
 
 [node name="Header" type="Label" parent="Menu/Quit"]
+modulate = Color(1, 0.945098, 0.909804, 1)
+layout_mode = 0
 offset_left = -53.0
 offset_top = 4.0
 offset_right = 121.0
 offset_bottom = 17.0
-custom_colors/font_color = Color( 1, 0.945098, 0.909804, 1 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
-custom_constants/shadow_as_outline = 1
-custom_fonts/font = ExtResource( 17 )
+theme_override_fonts/font = ExtResource("17")
 text = "Quit Game?"
-align = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
+horizontal_alignment = 1
 
 [node name="Header" type="Label" parent="."]
+modulate = Color(1, 0.945098, 0.909804, 1)
 offset_left = -33.0
 offset_top = 24.0
 offset_right = 81.0
 offset_bottom = 37.0
-custom_colors/font_color = Color( 1, 0.945098, 0.909804, 1 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
-custom_constants/shadow_as_outline = 1
-custom_fonts/font = SubResource( 1 )
+theme_override_fonts/font = ExtResource("3_k8w8k")
 text = "TINY CRATE"
-align = 1
+horizontal_alignment = 1
 
 [node name="Signature" type="Label" parent="Header"]
+layout_mode = 0
 offset_left = 26.0
 offset_top = -10.0
 offset_right = 87.0
 offset_bottom = -4.0
-custom_colors/font_color = Color( 1, 0.945098, 0.909804, 1 )
-custom_fonts/font = SubResource( 2 )
+theme_override_fonts/font = ExtResource("1")
 text = "Harmony Honey's"
-align = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="AudioScroll" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 7 )
+stream = ExtResource("7")
 volume_db = -7.0
-bus = "SFX"
+bus = &"SFX"
 
 [node name="AudioPlay" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 21 )
-bus = "SFX"
+stream = ExtResource("21")
+bus = &"SFX"
 
 [node name="AudioOptions" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 20 )
-bus = "SFX"
+stream = ExtResource("20")
+bus = &"SFX"
 
 [node name="AudioCredits" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 23 )
-bus = "SFX"
+stream = ExtResource("23")
+bus = &"SFX"
 
 [node name="AudioQuit" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 18 )
-bus = "SFX"
+stream = ExtResource("18")
+bus = &"SFX"
 
 [node name="AudioYes" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 22 )
-bus = "SFX"
+stream = ExtResource("22")
+bus = &"SFX"
 
 [node name="AudioNo" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 19 )
-bus = "SFX"
+stream = ExtResource("19")
+bus = &"SFX"
 
 [node name="Stage" type="Node2D" parent="."]
 
-[node name="SolidTileMap" parent="Stage" instance=ExtResource( 11 )]
-tile_data = PackedInt32Array( 393222, 0, 0, 393223, 0, 1, 393224, 0, 0, 393225, 0, 1, 393226, 536870912, 0, 458758, 0, 1, 524294, 0, 0, 589830, 0, 1, 655366, 536870912, 0, 720902, 0, 1, 786438, 0, 0, 786442, 0, 0, 786443, 0, 1, 786444, 536870912, 0, 786448, 0, 0, 786449, 0, 1, 786450, 536870912, 0, 786451, 0, 1, 786452, 0, 0, 786453, 0, 1, 786454, 536870912, 0 )
+[node name="SolidTileMap" parent="Stage" instance=ExtResource("11")]
+layer_0/tile_data = PackedInt32Array(393222, 0, 0, 393223, 0, 1, 393224, 0, 0, 393225, 0, 1, 393226, 536870912, 0, 458758, 0, 1, 524294, 0, 0, 589830, 0, 1, 655366, 536870912, 0, 720902, 0, 1, 786438, 0, 0, 786442, 0, 0, 786443, 0, 1, 786444, 536870912, 0, 786448, 0, 0, 786449, 0, 1, 786450, 536870912, 0, 786451, 0, 1, 786452, 0, 0, 786453, 0, 1, 786454, 536870912, 0)
 
-[node name="DetailTileMap" parent="Stage" instance=ExtResource( 8 )]
+[node name="DetailTileMap" parent="Stage" instance=ExtResource("8")]
 z_index = -11
-tile_data = PackedInt32Array( 131093, 536870916, 3, 131094, 4, 1, 131095, 4, 0, 131096, 4, 3, 196624, 5, 2, 196625, 5, 0, 196626, -1610612731, 2, 196630, 536870916, 0, 196631, 4, 1, 196632, 4, 0, 262154, 536870916, 3, 262155, 536870916, 0, 262156, 4, 3, 262159, 5, 2, 262160, 5, 0, 262161, 5, 0, 262162, 5, 0, 262163, -1610612731, 2, 262166, 4, 1, 262167, 4, 0, 262168, 4, 1, 327685, 5, 2, 327686, 5, 0, 327687, 5, 0, 327688, 5, 0, 327689, 536870917, 2, 327690, 536870916, 0, 327691, 4, 1, 327692, 4, 0, 327695, -1610612731, 0, 327696, 5, 0, 327697, 5, 0, 327698, 5, 0, 327699, -1073741819, 0, 327701, 536870916, 3, 327702, 4, 0, 327703, 4, 1, 327704, 536870916, 2, 393221, -1073741819, 0, 393227, 4, 1, 393228, 4, 0, 393229, 4, 3, 393231, -1073741819, 2, 393232, 5, 0, 393233, 5, 0, 393234, 5, 0, 393235, -536870907, 2, 393237, 536870916, 0, 393238, 4, 1, 393239, 536870916, 0, 458757, -1073741819, 2, 458759, -1610612731, 2, 458762, 4, 1, 458763, 536870916, 0, 458764, 4, 1, 458765, 4, 0, 458768, -1073741819, 2, 458769, 5, 0, 458770, 1610612741, 2, 458773, 4, 2, 458774, 4, 0, 458775, 4, 1, 458776, 4, 3, 524295, -1610612731, 0, 524298, 4, 2, 524299, 4, 1, 524300, 536870916, 0, 524301, 4, 1, 524302, 4, 3, 524305, 5, 1, 524310, 4, 2, 524311, 536870916, 0, 524312, 536870916, 2, 589831, -1073741819, 1, 589832, -1610612731, 0, 589836, 4, 2, 589837, 4, 1, 589838, 4, 0, 589839, 4, 3, 589841, 5, 1, 589842, -536870907, 2, 655367, -1610612731, 0, 655373, 536870916, 3, 655374, 4, 1, 655375, 536870916, 0, 655377, 5, 1, 720901, -2147483643, 2, 720903, -536870907, 2, 720905, 5, 2, 720906, 5, 0, 720907, 5, 0, 720908, 536870917, 2, 720909, 536870916, 3, 720910, 536870916, 0, 720911, 536870916, 2, 720912, 5, 2, 720913, 5, 1, 720914, 5, 0, 720915, 536870917, 2, 720917, 5, 2, 720918, 5, 0, 720919, 536870917, 2, 786437, -2147483643, 0, 786441, -1073741819, 0, 786455, -1610612731, 0, 851973, -1073741819, 2, 851974, 1610612741, 2, 851977, 1073741829, 2, 851978, 5, 0, 851979, 1610612741, 2, 851981, 536870916, 3, 851982, 4, 1, 851983, 4, 0, 851987, 1073741829, 2, 851988, 5, 0, 851989, 5, 1, 851990, 5, 0, 851991, -536870907, 2, 917517, 536870916, 0, 917518, 4, 1, 917519, 536870916, 2, 917525, 1610612741, 2, 983053, 4, 2, 983054, 4, 0, 983055, 536870916, 2 )
 
-[node name="GameCamera" parent="Stage" instance=ExtResource( 13 )]
-position = Vector2( 96, 72 )
+[node name="GameCamera" parent="Stage" instance=ExtResource("13")]
+position = Vector2(96, 72)
 
 [node name="Actors" type="Node2D" parent="Stage"]
-script = ExtResource( 10 )
+script = ExtResource("10")
 
-[node name="Player" parent="Stage/Actors" instance=ExtResource( 12 )]
-position = Vector2( 88, 88 )
+[node name="Player" parent="Stage/Actors" instance=ExtResource("12")]
+position = Vector2(88, 88)
 is_attract_mode = true
 
-[node name="Box0" parent="Stage/Actors" instance=ExtResource( 9 )]
-position = Vector2( 160, 88 )
+[node name="Box0" parent="Stage/Actors" instance=ExtResource("9")]
+position = Vector2(160, 88)
 
-[node name="Box1" parent="Stage/Actors" instance=ExtResource( 9 )]
-position = Vector2( 164, 80 )
+[node name="Box1" parent="Stage/Actors" instance=ExtResource("9")]
+position = Vector2(164, 80)
 
-[node name="Box2" parent="Stage/Actors" instance=ExtResource( 9 )]
-position = Vector2( 160, 72 )
+[node name="Box2" parent="Stage/Actors" instance=ExtResource("9")]
+position = Vector2(160, 72)
 
-[node name="Box3" parent="Stage/Actors" instance=ExtResource( 9 )]
-position = Vector2( 64, 40 )
+[node name="Box3" parent="Stage/Actors" instance=ExtResource("9")]
+position = Vector2(64, 40)
 
-[node name="SwitchBlue" parent="Stage/Actors" instance=ExtResource( 15 )]
-position = Vector2( 64, 44 )
+[node name="SwitchBlue" parent="Stage/Actors" instance=ExtResource("15")]
+position = Vector2(64, 44)
 
-[node name="SwitchBlockBlue" parent="Stage/Actors" instance=ExtResource( 14 )]
-position = Vector2( 104, 96 )
+[node name="SwitchBlockBlue" parent="Stage/Actors" instance=ExtResource("14")]
+position = Vector2(104, 96)
 
-[node name="SwitchBlockBlue2" parent="Stage/Actors" instance=ExtResource( 14 )]
-position = Vector2( 112, 96 )
+[node name="SwitchBlockBlue2" parent="Stage/Actors" instance=ExtResource("14")]
+position = Vector2(112, 96)
 
-[node name="SwitchBlockBlue3" parent="Stage/Actors" instance=ExtResource( 14 )]
-position = Vector2( 120, 96 )
+[node name="SwitchBlockBlue3" parent="Stage/Actors" instance=ExtResource("14")]
+position = Vector2(120, 96)
 
 [editable path="Stage/GameCamera"]

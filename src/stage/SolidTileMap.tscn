@@ -1,9 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://c5yiq8sj5roql"]
+[gd_scene load_steps=7 format=3 uid="uid://ccgl186gosdcp"]
 
-[ext_resource type="Texture2D" uid="uid://dmnj3egifwv41" path="res://media/image/8pixel.png" id="1"]
-[ext_resource type="Texture2D" uid="uid://euui07kbltye" path="res://media/image/solid_bricks.png" id="2"]
+[ext_resource type="Texture2D" uid="uid://msfqee07s5gy" path="res://media/image/8pixel.png" id="1"]
+[ext_resource type="Texture2D" uid="uid://c2pkx12yvks5v" path="res://media/image/solid_bricks.png" id="2"]
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4hy5o"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_l13wt"]
 texture = ExtResource("2")
 texture_region_size = Vector2i(8, 8)
 0:0/next_alternative_id = 8
@@ -49,7 +49,7 @@ texture_region_size = Vector2i(8, 8)
 1:0/7/flip_v = true
 1:0/7/transpose = true
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_bde1n"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_u5eox"]
 texture = ExtResource("1")
 texture_region_size = Vector2i(8, 8)
 0:0/next_alternative_id = 8
@@ -84,15 +84,15 @@ texture_region_size = Vector2i(8, 8)
 
 [sub_resource type="TileSet" id="1"]
 tile_size = Vector2i(8, 8)
-sources/0 = SubResource("TileSetAtlasSource_4hy5o")
-sources/1 = SubResource("TileSetAtlasSource_bde1n")
+sources/0 = SubResource("TileSetAtlasSource_l13wt")
+sources/1 = SubResource("TileSetAtlasSource_u5eox")
 
 [sub_resource type="GDScript" id="2"]
 script/source = "extends TileMap
 
 func _ready():
 	Shared.node_map_solid = self
-	tile_set.tile_set_modulate(1, Color.TRANSPARENT)
+	#tile_set.tile_set_modulate(1, Color.TRANSPARENT)
 "
 
 [node name="SolidTileMap" type="TileMap"]

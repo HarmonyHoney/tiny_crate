@@ -19,7 +19,7 @@ var scene_slam = preload("res://src/fx/Slam.tscn")
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	if Engine.editor_hint or Shared.is_level_select:
+	if Engine.is_editor_hint() or Shared.is_level_select:
 		set_physics_process(false)
 		return
 	
@@ -45,7 +45,7 @@ func hit_floor():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
-	if Engine.editor_hint:
+	if Engine.is_editor_hint():
 		return
 	
 	is_push = false

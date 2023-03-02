@@ -39,11 +39,11 @@ var time_since_floor := 0
 var ignore_actor : Actor
 
 func _enter_tree():
-	if Engine.editor_hint: return
+	if Engine.is_editor_hint(): return
 	Shared.actors.append(self)
 
 func _exit_tree():
-	if Engine.editor_hint: return
+	if Engine.is_editor_hint(): return
 	Shared.actors.erase(self)
 
 # Called when the node enters the scene tree for the first time.
@@ -51,7 +51,7 @@ func _ready():
 	position = position.floor()
 
 func _physics_process(delta):
-	if Engine.editor_hint:
+	if Engine.is_editor_hint():
 		return
 	
 	if is_moving:
@@ -62,18 +62,18 @@ func _physics_process(delta):
 		if not is_on_floor:
 			time_since_floor += 1
 
-# update() the _draw() when hitbox values are changed (in the editor)
+# #update the _draw when hitbox values are changed (in the editor)
 func _set_hit_x(value):
 	hitbox_x = value
-	update()
+	#update()
 
 func _set_hit_y(value):
 	hitbox_y = value
-	update()
+	#update()
 
 # draw hitbox in editor
 func _draw():
-	if Engine.editor_hint:
+	if Engine.is_editor_hint():
 		draw_rect(Rect2(0, 0, hitbox_x, hitbox_y), Color(1, 0, 0.75, 0.5))
 
 # axis aligned bounding box
@@ -199,14 +199,14 @@ func wiggle_y(step):
 # check area for solid tiles
 func is_area_solid_tile(x1, y1, width, height):
 	var w2m = Shared.node_map_solid.local_to_map(Vector2(x1, y1))
-	var cell = Shared.node_map_solid.cell_size.x
+	var cell = Shared.node_map_solid.tile_set.tile_size.x
 	
 	# check more than four points if hitbox is longer than 8 pixels
 	var points = max(2, (width / cell) + 1)
 	for ix in points:
 		for iy in points:
 			var check = Vector2(w2m.x + ix, w2m.y + iy)
-			if Shared.node_map_solid.get_cellv(check) != -1:
+			if Shared.node_map_solid.get_cell_source_id(0, check) != -1:
 				check *= cell
 				if aabb(x1, y1, width, height, check.x, check.y, cell, cell):
 					return true
