@@ -43,7 +43,7 @@ func stop():
 		image.visible = false
 	else:
 		for i in 2:
-			await get_tree().physics_frame
+			await get_tree().process_frame
 		emit_signal("finish")
 		start(true)
 

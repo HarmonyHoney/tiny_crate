@@ -1,9 +1,8 @@
 extends TileMap
 
 func _ready():
-	pass
-#	tile_set.tile_set_modulate(0, Color.BLACK)
-#	tile_set.tile_set_modulate(1, Color.TRANSPARENT)
+	tile_set.get_source(0).get_tile_data(Vector2i(0, 0), 0).modulate = Color.BLACK
+	tile_set.get_source(1).get_tile_data(Vector2i(0, 0), 0).modulate = Color.TRANSPARENT
 
 func _physics_process(delta):
 	if is_instance_valid(Shared.player):

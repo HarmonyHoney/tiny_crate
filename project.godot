@@ -13,7 +13,7 @@ config_version=5
 config/name="Tiny Crate"
 config/description="Tiny Crate by Harmony Honey
 hhoney.net"
-run/main_scene="res://src/menu/splash.tscn"
+run/main_scene="res://src/map/1-1.tscn"
 config/use_custom_user_dir=true
 config/custom_user_dir_name="tiny_crate"
 config/features=PackedStringArray("4.0")

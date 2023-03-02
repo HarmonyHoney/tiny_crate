@@ -62,14 +62,14 @@ func _physics_process(delta):
 		if not is_on_floor:
 			time_since_floor += 1
 
-# #update the _draw when hitbox values are changed (in the editor)
+# queue_redraw when hitbox values are changed (in the editor)
 func _set_hit_x(value):
 	hitbox_x = value
-	#update()
+	queue_redraw()
 
 func _set_hit_y(value):
 	hitbox_y = value
-	#update()
+	queue_redraw()
 
 # draw hitbox in editor
 func _draw():

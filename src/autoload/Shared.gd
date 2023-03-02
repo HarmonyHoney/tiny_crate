@@ -170,7 +170,7 @@ func dir_list(path : String):
 	if dir:
 		dir.include_hidden = false
 		dir.include_navigational = false
-		dir.list_dir_begin() # TODOGODOT4 fill missing arguments https://github.com/godotengine/godot/pull/40547
+		dir.list_dir_begin()
 		var file_name = dir.get_next()
 		while file_name:
 			array.append(file_name.split(".")[0])

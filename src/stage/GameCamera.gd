@@ -55,7 +55,7 @@ func _set_bounds(arg):
 	bounds.position.y = abs(arg.position.y)
 	bounds.size.x = abs(arg.size.x)
 	bounds.size.y = abs(arg.size.y)
-	#update()
+	queue_redraw()
 
 func _draw():
 	if Engine.is_editor_hint():

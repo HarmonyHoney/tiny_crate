@@ -1,66 +1,40 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=3 uid="uid://bj7wygouppym4"]
 
-[ext_resource path="res://media/image/solid_bricks.png" type="Texture2D" id=3]
-[ext_resource path="res://media/image/8pixel.png" type="Texture2D" id=4]
-[ext_resource path="res://src/stage/ObscureMap.gd" type="Script" id=5]
-[ext_resource path="res://media/image/wipe.png" type="Texture2D" id=6]
+[ext_resource type="Texture2D" uid="uid://c2pkx12yvks5v" path="res://media/image/solid_bricks.png" id="3"]
+[ext_resource type="Texture2D" uid="uid://msfqee07s5gy" path="res://media/image/8pixel.png" id="4"]
+[ext_resource type="Script" path="res://src/stage/ObscureMap.gd" id="5"]
 
-[sub_resource type="TileSet" id=1]
-0/name = "8pixel.png 0"
-0/texture = ExtResource( 4 )
-0/tex_offset = Vector2( 0, 0 )
-0/modulate = Color( 0, 1, 0.06, 0.33 )
-0/region = Rect2( 0, 0, 8, 8 )
-0/tile_mode = 0
-0/occluder_offset = Vector2( 0, 0 )
-0/navigation_offset = Vector2( 0, 0 )
-0/shape_offset = Vector2( 0, 0 )
-0/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
-0/shape_one_way = false
-0/shape_one_way_margin = 0.0
-0/shapes = [  ]
-0/z_index = 0
-1/name = "wipe.png 1"
-1/texture = ExtResource( 6 )
-1/tex_offset = Vector2( 0, 0 )
-1/modulate = Color( 0, 1, 0, 0.2 )
-1/region = Rect2( 32, 48, 8, 8 )
-1/tile_mode = 0
-1/occluder_offset = Vector2( 0, 0 )
-1/navigation_offset = Vector2( 0, 0 )
-1/shape_offset = Vector2( 0, 0 )
-1/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
-1/shape_one_way = false
-1/shape_one_way_margin = 0.0
-1/shapes = [  ]
-1/z_index = 0
-2/name = "solid_bricks.png 2"
-2/texture = ExtResource( 3 )
-2/tex_offset = Vector2( 0, 0 )
-2/modulate = Color( 1, 1, 1, 1 )
-2/region = Rect2( 0, 0, 16, 8 )
-2/tile_mode = 2
-2/autotile/icon_coordinate = Vector2( 0, 0 )
-2/autotile/tile_size = Vector2( 8, 8 )
-2/autotile/spacing = 0
-2/autotile/occluder_map = [  ]
-2/autotile/navpoly_map = [  ]
-2/autotile/priority_map = [  ]
-2/autotile/z_index_map = [  ]
-2/occluder_offset = Vector2( 0, 0 )
-2/navigation_offset = Vector2( 0, 0 )
-2/shape_offset = Vector2( 0, 0 )
-2/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
-2/shape_one_way = false
-2/shape_one_way_margin = 0.0
-2/shapes = [  ]
-2/z_index = 0
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6h4hm"]
+texture = ExtResource("4")
+texture_region_size = Vector2i(8, 8)
+0:0/next_alternative_id = 9
+0:0/0 = 0
+0:0/0/modulate = Color(0, 1, 0.06, 0.33)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_78nr0"]
+texture = ExtResource("4")
+texture_region_size = Vector2i(8, 8)
+0:0/next_alternative_id = 8
+0:0/0 = 0
+0:0/0/modulate = Color(0, 1, 0, 0.2)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_o3qlt"]
+texture = ExtResource("3")
+texture_region_size = Vector2i(8, 8)
+0:0/next_alternative_id = 5
+0:0/0 = 0
+1:0/0 = 0
+
+[sub_resource type="TileSet" id="1"]
+tile_size = Vector2i(8, 8)
+sources/0 = SubResource("TileSetAtlasSource_6h4hm")
+sources/1 = SubResource("TileSetAtlasSource_78nr0")
+sources/2 = SubResource("TileSetAtlasSource_o3qlt")
 
 [node name="ObscureMap" type="TileMap"]
 light_mask = 4
 z_index = 12
 z_as_relative = false
-tile_set = SubResource( 1 )
-cell_size = Vector2( 8, 8 )
-format = 1
-script = ExtResource( 5 )
+tile_set = SubResource("1")
+format = 2
+script = ExtResource("5")

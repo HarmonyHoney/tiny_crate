@@ -4,5 +4,5 @@ extends Node2D
 
 func act():
 	audio.play()
-	false # Shared.unlock() # TODOConverter40, Image no longer requires locking, `false` helps to not break one line if/else, so it can freely be removed
+	Shared.unlock()
 	Shared.node_camera_game.shake(10)
