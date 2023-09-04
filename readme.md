@@ -5,3 +5,6 @@ Play now at [harmonyhoney.itch.io/tinycrate](https://harmonyhoney.itch.io/tinycr
 
 # License
 This is free and unencumbered software released into the public domain, see [UNLICENSE](UNLICENSE) for more information.
+
+# Privacy Policy
+No user data is colleced! ^.^
