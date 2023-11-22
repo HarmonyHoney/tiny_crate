@@ -1,6 +1,6 @@
 extends CanvasLayer
 
-onready var pause : TouchScreenButton = $Node2D/Pause
+onready var pause : TouchScreenButton = $Control/HBoxTop/Pause/Control/Button
 
 func _ready():
 	connect("visibility_changed", self, "vis")
