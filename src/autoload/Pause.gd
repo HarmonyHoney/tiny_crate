@@ -1,8 +1,8 @@
 extends CanvasLayer
 
 var is_paused := false
-onready var menu : Control = $Menu
-onready var menu_list : Label = $Menu/List
+onready var menu : Control = $Center/Menu
+onready var menu_list : Label = $Center/Menu/List
 
 var cursor := 0
 var menu_items := ["resume", "reset", "exit"]
@@ -10,12 +10,12 @@ var menu_items := ["resume", "reset", "exit"]
 var timer := 0.1 # prevent input overlap
 var clock := 0.0
 
-onready var node_cursor : ColorRect = $Menu/Cursor
-onready var node_audio_pause : AudioStreamPlayer = $AudioPause
-onready var node_audio_scroll : AudioStreamPlayer = $AudioScroll
-onready var node_audio_resume : AudioStreamPlayer = $AudioResume
-onready var node_audio_reset : AudioStreamPlayer = $AudioReset
-onready var node_audio_exit : AudioStreamPlayer = $AudioExit
+onready var node_cursor : ColorRect = $Center/Menu/Cursor
+onready var node_audio_pause : AudioStreamPlayer = $Audio/Pause
+onready var node_audio_scroll : AudioStreamPlayer = $Audio/Scroll
+onready var node_audio_resume : AudioStreamPlayer = $Audio/Resume
+onready var node_audio_reset : AudioStreamPlayer = $Audio/Reset
+onready var node_audio_exit : AudioStreamPlayer = $Audio/Exit
 
 signal pause
 signal unpause

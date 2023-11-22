@@ -20,9 +20,18 @@ shader_param/line_thickness = 1.0
 layer = 5
 script = ExtResource( 3 )
 
-[node name="Buttons" type="Node2D" parent="."]
+[node name="Center" type="CenterContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
 
-[node name="X" type="Sprite" parent="Buttons"]
+[node name="Control" type="Control" parent="Center"]
+margin_right = 228.0
+margin_bottom = 128.0
+rect_min_size = Vector2( 228, 128 )
+
+[node name="Buttons" type="Node2D" parent="Center/Control"]
+
+[node name="X" type="Sprite" parent="Center/Control/Buttons"]
 position = Vector2( 12, 116 )
 texture = ExtResource( 2 )
 hframes = 6
@@ -30,7 +39,7 @@ vframes = 4
 frame = 1
 region_rect = Rect2( 0, 0, 18, 18 )
 
-[node name="Label" type="Label" parent="Buttons/X"]
+[node name="Label" type="Label" parent="Center/Control/Buttons/X"]
 margin_left = 11.0
 margin_top = -7.0
 margin_right = 49.0
@@ -41,14 +50,14 @@ custom_constants/shadow_as_outline = 1
 custom_fonts/font = ExtResource( 1 )
 text = "select"
 
-[node name="C" type="Sprite" parent="Buttons"]
+[node name="C" type="Sprite" parent="Center/Control/Buttons"]
 position = Vector2( 216, 116 )
 texture = ExtResource( 2 )
 hframes = 6
 vframes = 4
 region_rect = Rect2( 0, 0, 18, 18 )
 
-[node name="Label" type="Label" parent="Buttons/C"]
+[node name="Label" type="Label" parent="Center/Control/Buttons/C"]
 margin_left = -38.0
 margin_top = -7.0
 margin_right = -10.0
@@ -59,7 +68,7 @@ custom_constants/shadow_as_outline = 1
 custom_fonts/font = ExtResource( 1 )
 text = "back"
 
-[node name="Arrows" type="Sprite" parent="Buttons"]
+[node name="Arrows" type="Sprite" parent="Center/Control/Buttons"]
 visible = false
 position = Vector2( 216, 116 )
 texture = ExtResource( 2 )
@@ -68,7 +77,7 @@ vframes = 4
 frame = 7
 region_rect = Rect2( 0, 0, 18, 18 )
 
-[node name="Label" type="Label" parent="Buttons/Arrows"]
+[node name="Label" type="Label" parent="Center/Control/Buttons/Arrows"]
 margin_left = -40.0
 margin_top = -7.0
 margin_right = -10.0
@@ -79,10 +88,10 @@ custom_constants/shadow_as_outline = 1
 custom_fonts/font = ExtResource( 1 )
 text = "move"
 
-[node name="Notes" type="Node2D" parent="."]
+[node name="Notes" type="Node2D" parent="Center/Control"]
 position = Vector2( 218, 11 )
 
-[node name="Label" type="Label" parent="Notes"]
+[node name="Label" type="Label" parent="Center/Control/Notes"]
 margin_left = -70.0
 margin_top = -6.0
 margin_right = -9.0
@@ -94,7 +103,7 @@ custom_fonts/font = SubResource( 1 )
 text = "13"
 align = 2
 
-[node name="Sprite" type="Sprite" parent="Notes"]
+[node name="Sprite" type="Sprite" parent="Center/Control/Notes"]
 modulate = Color( 1, 0.945098, 0.909804, 1 )
 material = SubResource( 2 )
 texture = ExtResource( 4 )

@@ -17,6 +17,9 @@ onready var mat : ShaderMaterial = $ColorRect.material
 func _ready():
 	image.visible = false
 	easing.clock = easing.time
+	
+	image.connect("item_rect_changed", self, "item_rect")
+	item_rect()
 
 func _physics_process(delta):
 	if is_wipe:
@@ -46,4 +49,9 @@ func stop():
 		emit_signal("finish")
 		start(true)
 
+func item_rect():
+	mat.set_shader_param("size", (image.rect_size / Vector2(228, 128)) * Vector2(14.25, 8))
+	mat.set_shader_param("offset", Vector2(fposmod(image.rect_size.x / 32, 1.0), 0))
+	
+	print(mat.get_shader_param("size"), " / ", mat.get_shader_param("offset"))
 

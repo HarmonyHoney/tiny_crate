@@ -1,10 +1,10 @@
 extends CanvasLayer
 
-onready var x := $Buttons/X
-onready var c := $Buttons/C
+onready var x := $Center/Control/Buttons/X
+onready var c := $Center/Control/Buttons/C
 
-onready var notes := $Notes
-onready var notes_label := $Notes/Label
+onready var notes := $Center/Control/Notes
+onready var notes_label := $Center/Control/Notes/Label
 
 func _ready():
 	keys(false, false)

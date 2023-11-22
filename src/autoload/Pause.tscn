@@ -21,14 +21,19 @@ __meta__ = {
 "_edit_horizontal_guides_": [ -19.0 ]
 }
 
-[node name="Menu" type="Control" parent="."]
-margin_right = 72.0
-margin_bottom = 72.0
+[node name="Center" type="CenterContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Menu" type="Control" parent="Center"]
+margin_right = 228.0
+margin_bottom = 128.0
+rect_min_size = Vector2( 228, 128 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Paused" type="NinePatchRect" parent="Menu"]
+[node name="Paused" type="NinePatchRect" parent="Center/Menu"]
 margin_left = 87.0
 margin_top = 28.0
 margin_right = 141.0
@@ -45,7 +50,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Cursor" type="ColorRect" parent="Menu"]
+[node name="Cursor" type="ColorRect" parent="Center/Menu"]
 margin_left = 92.0
 margin_top = 50.0
 margin_right = 136.0
@@ -55,7 +60,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="List" type="Label" parent="Menu"]
+[node name="List" type="Label" parent="Center/Menu"]
 margin_left = 87.0
 margin_top = 52.0
 margin_right = 141.0
@@ -70,7 +75,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Header" type="Label" parent="Menu"]
+[node name="Header" type="Label" parent="Center/Menu"]
 margin_left = 88.0
 margin_top = 35.0
 margin_right = 140.0
@@ -85,27 +90,29 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="AudioPause" type="AudioStreamPlayer" parent="."]
+[node name="Audio" type="Node" parent="."]
+
+[node name="Pause" type="AudioStreamPlayer" parent="Audio"]
 stream = ExtResource( 4 )
 volume_db = -5.0
 bus = "SFX"
 
-[node name="AudioScroll" type="AudioStreamPlayer" parent="."]
+[node name="Scroll" type="AudioStreamPlayer" parent="Audio"]
 stream = ExtResource( 7 )
 volume_db = -7.0
 bus = "SFX"
 
-[node name="AudioResume" type="AudioStreamPlayer" parent="."]
+[node name="Resume" type="AudioStreamPlayer" parent="Audio"]
 stream = ExtResource( 10 )
 volume_db = -2.0
 bus = "SFX"
 
-[node name="AudioReset" type="AudioStreamPlayer" parent="."]
+[node name="Reset" type="AudioStreamPlayer" parent="Audio"]
 stream = ExtResource( 11 )
 volume_db = -4.0
 bus = "SFX"
 
-[node name="AudioExit" type="AudioStreamPlayer" parent="."]
+[node name="Exit" type="AudioStreamPlayer" parent="Audio"]
 stream = ExtResource( 9 )
 volume_db = -1.0
 bus = "SFX"
