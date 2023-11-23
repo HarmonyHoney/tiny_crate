@@ -30,10 +30,10 @@ func _ready():
 			var sy = i / columns
 			var sx = i % columns
 			new.rect_position += Vector2(sx + (sy % 2) * 0.5, sy) * screen_dist
-			new.get_node("Label").text = Shared.maps[i]
-			new.get_node("Note").visible = Shared.notes.has(i)
+			new.get_node("Overlay/Label").text = Shared.maps[i]
+			new.get_node("Overlay/Note").visible = Shared.notes.has(i)
 			screens.add_child(new)
-			view_scene(new.get_node("ViewportContainer/Viewport"), Shared.map_path + Shared.maps[i])
+			view_scene(new.get_node("Vis/ViewportContainer/Viewport"), Shared.map_path + Shared.maps[i])
 	
 	scroll(Shared.current_map)
 

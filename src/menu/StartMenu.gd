@@ -29,7 +29,7 @@ var is_input = true
 func _ready():
 	menu_list = main_list
 	switch_menu("main")
-	UI.keys(true, false)
+	UI.keys(true, true, false)
 
 func _input(event):
 	if !is_input:
