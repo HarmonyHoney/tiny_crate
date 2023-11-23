@@ -45,37 +45,9 @@ pause_mode = 2
 script = ExtResource( 3 )
 
 [node name="Menu" type="Node2D" parent="."]
-visible = false
 position = Vector2( -18, 8 )
 z_index = 20
 z_as_relative = false
-
-[node name="Cursor" type="ColorRect" parent="Menu"]
-show_behind_parent = true
-margin_left = 15.0
-margin_top = 47.0
-margin_right = 44.0
-margin_bottom = 57.0
-color = Color( 0.113725, 0.168627, 0.32549, 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="List" type="Label" parent="Menu"]
-margin_left = 12.0
-margin_top = 48.0
-margin_right = 48.0
-margin_bottom = 89.0
-custom_colors/font_color = Color( 1, 0.945098, 0.909804, 1 )
-custom_fonts/font = ExtResource( 1 )
-text = "play
-options
-credits
-quit"
-align = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Quit" type="Control" parent="Menu"]
 visible = false

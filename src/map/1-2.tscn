@@ -55,13 +55,9 @@ margin_left = 12.0
 margin_top = -7.0
 margin_right = 50.0
 margin_bottom = 6.0
-custom_colors/font_color = Color( 1, 0.945098, 0.909804, 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 custom_constants/shadow_as_outline = 1
 custom_fonts/font = ExtResource( 8 )
 text = "jump"
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [editable path="GameCamera"]

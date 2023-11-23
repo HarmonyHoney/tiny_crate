@@ -66,7 +66,6 @@ margin_left = 15.0
 margin_top = -6.0
 margin_right = 45.0
 margin_bottom = 7.0
-custom_colors/font_color = Color( 1, 0.945098, 0.909804, 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 custom_constants/shadow_as_outline = 1
 custom_fonts/font = ExtResource( 9 )
