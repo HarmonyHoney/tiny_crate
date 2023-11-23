@@ -1,7 +1,5 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=25 format=2]
 
-[ext_resource path="res://media/font/m3x6.tres" type="DynamicFont" id=1]
-[ext_resource path="res://media/image/9slice.png" type="Texture" id=2]
 [ext_resource path="res://src/menu/StartMenu.gd" type="Script" id=3]
 [ext_resource path="res://media/image/HarmonyHoneyLogo.png" type="Texture" id=4]
 [ext_resource path="res://media/font/ThaleahFat.ttf" type="DynamicFontData" id=5]
@@ -16,7 +14,6 @@
 [ext_resource path="res://src/actor/SwitchBlockBlue.tscn" type="PackedScene" id=14]
 [ext_resource path="res://src/actor/SwitchBlue.tscn" type="PackedScene" id=15]
 [ext_resource path="res://media/image/menu.png" type="Texture" id=16]
-[ext_resource path="res://media/font/m5x7.tres" type="DynamicFont" id=17]
 [ext_resource path="res://media/audio/sfx/sfx3.wav" type="AudioStream" id=18]
 [ext_resource path="res://media/audio/sfx/sfx18.wav" type="AudioStream" id=19]
 [ext_resource path="res://media/audio/sfx/sfx13.wav" type="AudioStream" id=20]
@@ -44,68 +41,6 @@ font_data = ExtResource( 24 )
 pause_mode = 2
 script = ExtResource( 3 )
 
-[node name="Menu" type="Node2D" parent="."]
-position = Vector2( -18, 8 )
-z_index = 20
-z_as_relative = false
-
-[node name="Quit" type="Control" parent="Menu"]
-visible = false
-margin_left = 80.0
-margin_top = 44.0
-margin_right = 120.0
-margin_bottom = 84.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="NinePatchRect" type="NinePatchRect" parent="Menu/Quit"]
-margin_left = -1.0
-margin_top = -1.0
-margin_right = 69.0
-margin_bottom = 41.0
-grow_horizontal = 2
-grow_vertical = 2
-texture = ExtResource( 2 )
-patch_margin_left = 8
-patch_margin_top = 8
-patch_margin_right = 8
-patch_margin_bottom = 8
-axis_stretch_horizontal = 1
-axis_stretch_vertical = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="List" type="Label" parent="Menu/Quit"]
-margin_left = 18.0
-margin_top = 17.0
-margin_right = 50.0
-margin_bottom = 36.0
-custom_colors/font_color = Color( 1, 0.945098, 0.909804, 1 )
-custom_fonts/font = ExtResource( 1 )
-text = "yes
-no"
-align = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Header" type="Label" parent="Menu/Quit"]
-margin_left = -53.0
-margin_top = 4.0
-margin_right = 121.0
-margin_bottom = 17.0
-custom_colors/font_color = Color( 1, 0.945098, 0.909804, 1 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
-custom_constants/shadow_as_outline = 1
-custom_fonts/font = ExtResource( 17 )
-text = "Quit Game?"
-align = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="Control" type="Control" parent="."]
 margin_left = -24.0
 margin_top = 12.0
@@ -113,6 +48,7 @@ margin_right = 204.0
 margin_bottom = 140.0
 
 [node name="Menu" type="VBoxContainer" parent="Control"]
+visible = false
 margin_left = 2.0
 margin_top = 32.0
 margin_right = 66.0
@@ -206,6 +142,30 @@ custom_fonts/font = SubResource( 3 )
 text = "credit"
 uppercase = true
 
+[node name="Quit" type="VBoxContainer" parent="Control"]
+margin_left = 12.0
+margin_top = 32.0
+margin_right = 81.0
+margin_bottom = 104.0
+custom_constants/separation = 9
+alignment = 1
+
+[node name="Label" type="Label" parent="Control/Quit"]
+margin_top = 23.0
+margin_right = 69.0
+margin_bottom = 31.0
+custom_fonts/font = SubResource( 3 )
+text = "quit?"
+uppercase = true
+
+[node name="No" type="Label" parent="Control/Quit"]
+margin_top = 40.0
+margin_right = 69.0
+margin_bottom = 48.0
+custom_fonts/font = SubResource( 3 )
+text = "no"
+uppercase = true
+
 [node name="Header" type="Label" parent="Control"]
 margin_top = 5.0
 margin_right = 228.0
@@ -234,32 +194,34 @@ text = "hhoney.net"
 align = 2
 valign = 2
 
-[node name="AudioScroll" type="AudioStreamPlayer" parent="."]
+[node name="Audio" type="Node" parent="."]
+
+[node name="Scroll" type="AudioStreamPlayer" parent="Audio"]
 stream = ExtResource( 7 )
 volume_db = -7.0
 bus = "SFX"
 
-[node name="AudioPlay" type="AudioStreamPlayer" parent="."]
+[node name="Play" type="AudioStreamPlayer" parent="Audio"]
 stream = ExtResource( 21 )
 bus = "SFX"
 
-[node name="AudioOptions" type="AudioStreamPlayer" parent="."]
+[node name="Options" type="AudioStreamPlayer" parent="Audio"]
 stream = ExtResource( 20 )
 bus = "SFX"
 
-[node name="AudioCredits" type="AudioStreamPlayer" parent="."]
+[node name="Credits" type="AudioStreamPlayer" parent="Audio"]
 stream = ExtResource( 23 )
 bus = "SFX"
 
-[node name="AudioQuit" type="AudioStreamPlayer" parent="."]
+[node name="Quit" type="AudioStreamPlayer" parent="Audio"]
 stream = ExtResource( 18 )
 bus = "SFX"
 
-[node name="AudioYes" type="AudioStreamPlayer" parent="."]
+[node name="Yes" type="AudioStreamPlayer" parent="Audio"]
 stream = ExtResource( 22 )
 bus = "SFX"
 
-[node name="AudioNo" type="AudioStreamPlayer" parent="."]
+[node name="No" type="AudioStreamPlayer" parent="Audio"]
 stream = ExtResource( 19 )
 bus = "SFX"
 

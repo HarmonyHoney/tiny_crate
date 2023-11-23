@@ -1,31 +1,25 @@
 extends Node2D
 
-var menu_list : Label
-var menu_items := []
-
-onready var menu_stuff := $Control/Menu.get_children()
-var main_items := ["play", "options", "credits"]
-
-onready var quit_menu : Control = $Menu/Quit
-var quit_items := ["yes", "no"]
+onready var main_menu := $Control/Menu
+onready var menu_stuff := main_menu.get_children()
+onready var quit_menu := $Control/Quit
 
 var cursor := 0
-
-var timer := 0.1
-var clock := 0.0
-
-onready var node_audio_scroll : AudioStreamPlayer = $AudioScroll
-onready var node_audio_play : AudioStreamPlayer = $AudioPlay
-onready var node_audio_options : AudioStreamPlayer = $AudioOptions
-onready var node_audio_credits : AudioStreamPlayer = $AudioCredits
-onready var node_audio_quit : AudioStreamPlayer = $AudioQuit
-onready var node_audio_yes : AudioStreamPlayer = $AudioYes
-onready var node_audio_no : AudioStreamPlayer = $AudioNo
-
+var menu_items := []
+var main_items := ["play", "options", "credits"]
+var quit_items := ["yes", "no"]
 var is_input = true
 
+onready var node_audio_scroll : AudioStreamPlayer = $Audio/Scroll
+onready var node_audio_play : AudioStreamPlayer = $Audio/Play
+onready var node_audio_options : AudioStreamPlayer = $Audio/Options
+onready var node_audio_credits : AudioStreamPlayer = $Audio/Credits
+onready var node_audio_quit : AudioStreamPlayer = $Audio/Quit
+onready var node_audio_yes : AudioStreamPlayer = $Audio/Yes
+onready var node_audio_no : AudioStreamPlayer = $Audio/No
+
 func _ready():
-	switch_menu("main")
+	switch_menu("main", true)
 	UI.keys(true, true, false)
 
 func _input(event):
@@ -33,13 +27,9 @@ func _input(event):
 		return
 	if event.is_action_pressed("action"):
 		if menu_items == quit_items:
-			cursor = 1
-			menu_select()
+			switch_menu("main")
 		else:
-			cursor = 0
-			write_menu()
 			switch_menu("quit")
-			node_audio_quit.play()
 	elif event.is_action_pressed("jump"):
 		menu_select()
 	else:
@@ -52,7 +42,7 @@ func _input(event):
 			node_audio_scroll.play()
 
 func write_menu():
-	for i in 3:
+	for i in menu_items.size():
 		menu_stuff[i].modulate = Color("ff004d") if i == cursor else Color("83769c")
 
 func menu_select():
@@ -75,21 +65,20 @@ func menu_select():
 			if OS.get_name() == "HTML5":
 				Shared.wipe_scene(Shared.splash_path)
 			else:
+				menu_stuff[cursor].text = "quit!!"
 				Shared.wipe_quit()
 		"no":
 			switch_menu("main")
-			cursor = 3
-			write_menu()
-			node_audio_no.play()
 
-func switch_menu(arg):
-	cursor = 0
-	match arg:
-		"main":
-			quit_menu.visible = false
-			menu_items = main_items
-		"quit":
-			quit_menu.visible = true
-			menu_items = quit_items
-			cursor = 1
+func switch_menu(arg, silent := false):
+	var is_main : bool = arg == "main"
+	cursor = 0 if is_main else 1
+	quit_menu.visible = !is_main
+	main_menu.visible = is_main
+	menu_items = main_items if is_main else quit_items
+	menu_stuff = (main_menu if is_main else quit_menu).get_children()
+	
+	if !silent:
+		(node_audio_no if is_main else node_audio_quit).play()
+	
 	write_menu()
