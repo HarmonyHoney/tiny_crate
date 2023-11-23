@@ -44,7 +44,6 @@ margin_left = 14.0
 margin_top = 7.0
 margin_right = 242.0
 margin_bottom = 20.0
-custom_colors/font_color = Color( 1, 0.945098, 0.909804, 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 custom_constants/shadow_as_outline = 1
 custom_fonts/font = SubResource( 1 )
@@ -91,7 +90,6 @@ script = ExtResource( 19 )
 margin_top = 1.0
 margin_right = 128.0
 margin_bottom = 9.0
-custom_colors/font_color = Color( 1, 0.945098, 0.909804, 1 )
 custom_fonts/font = ExtResource( 9 )
 text = "Back to Menu"
 align = 1
@@ -124,7 +122,6 @@ script = ExtResource( 20 )
 margin_top = 1.0
 margin_right = 50.0
 margin_bottom = 9.0
-custom_colors/font_color = Color( 1, 0.945098, 0.909804, 1 )
 custom_fonts/font = ExtResource( 9 )
 text = "Fullscreen"
 __meta__ = {
@@ -136,7 +133,6 @@ margin_left = 99.0
 margin_top = -1.0
 margin_right = 109.0
 margin_bottom = 9.0
-color = Color( 1, 0.945098, 0.909804, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -147,16 +143,12 @@ margin_top = 1.0
 margin_right = 9.0
 margin_bottom = 9.0
 color = Color( 0, 0, 0, 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Fill" type="ColorRect" parent="MenuItems/Fullscreen/Box"]
 margin_left = 2.0
 margin_top = 2.0
 margin_right = 8.0
 margin_bottom = 8.0
-color = Color( 1, 0.945098, 0.909804, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -173,7 +165,6 @@ script = ExtResource( 21 )
 margin_top = 1.0
 margin_right = 50.0
 margin_bottom = 9.0
-custom_colors/font_color = Color( 1, 0.945098, 0.909804, 1 )
 custom_fonts/font = ExtResource( 9 )
 text = "Window Size"
 __meta__ = {
@@ -185,7 +176,6 @@ margin_left = 48.0
 margin_top = 1.0
 margin_right = 80.0
 margin_bottom = 9.0
-custom_colors/font_color = Color( 1, 0.945098, 0.909804, 1 )
 custom_fonts/font = ExtResource( 9 )
 text = "1x"
 align = 1
@@ -198,7 +188,6 @@ margin_left = 72.0
 margin_top = 1.0
 margin_right = 136.0
 margin_bottom = 9.0
-custom_colors/font_color = Color( 1, 0.945098, 0.909804, 1 )
 custom_fonts/font = ExtResource( 9 )
 text = "228 x 128"
 align = 1
@@ -218,7 +207,6 @@ script = ExtResource( 22 )
 margin_top = 1.0
 margin_right = 56.0
 margin_bottom = 9.0
-custom_colors/font_color = Color( 1, 0.945098, 0.909804, 1 )
 custom_fonts/font = ExtResource( 9 )
 text = "Touch Controls"
 __meta__ = {
@@ -230,7 +218,6 @@ margin_left = 99.0
 margin_top = -1.0
 margin_right = 109.0
 margin_bottom = 9.0
-color = Color( 1, 0.945098, 0.909804, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -250,7 +237,6 @@ margin_left = 2.0
 margin_top = 2.0
 margin_right = 8.0
 margin_bottom = 8.0
-color = Color( 1, 0.945098, 0.909804, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -267,7 +253,6 @@ script = ExtResource( 23 )
 margin_top = 1.0
 margin_right = 128.0
 margin_bottom = 9.0
-custom_colors/font_color = Color( 1, 0.945098, 0.909804, 1 )
 custom_fonts/font = ExtResource( 9 )
 text = "Delete Save Data"
 align = 1
@@ -287,7 +272,6 @@ script = ExtResource( 24 )
 margin_top = 1.0
 margin_right = 128.0
 margin_bottom = 9.0
-custom_colors/font_color = Color( 1, 0.945098, 0.909804, 1 )
 custom_fonts/font = ExtResource( 9 )
 text = "Unlock All"
 align = 1

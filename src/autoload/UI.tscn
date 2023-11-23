@@ -1,10 +1,10 @@
 [gd_scene load_steps=11 format=2]
 
+[ext_resource path="res://media/font/QuinqueFive.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://src/autoload/UI.gd" type="Script" id=3]
 [ext_resource path="res://media/image/note.png" type="Texture" id=4]
 [ext_resource path="res://media/font/m6x11.ttf" type="DynamicFontData" id=5]
 [ext_resource path="res://src/shader/outline2D_outer.shader" type="Shader" id=6]
-[ext_resource path="res://media/font/NicoPups-Regular.ttf" type="DynamicFontData" id=7]
 [ext_resource path="res://media/font/NicoPaint-Regular.ttf" type="DynamicFontData" id=8]
 
 [sub_resource type="DynamicFont" id=4]
@@ -14,10 +14,11 @@ extra_spacing_bottom = -1
 font_data = ExtResource( 8 )
 
 [sub_resource type="DynamicFont" id=3]
+size = 5
 outline_size = 1
 outline_color = Color( 0, 0, 0, 1 )
 extra_spacing_bottom = -1
-font_data = ExtResource( 7 )
+font_data = ExtResource( 1 )
 
 [sub_resource type="DynamicFont" id=5]
 outline_size = 1
@@ -35,7 +36,6 @@ layer = 5
 script = ExtResource( 3 )
 
 [node name="Center" type="CenterContainer" parent="."]
-modulate = Color( 1, 0.945098, 0.909804, 1 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 
@@ -49,10 +49,12 @@ margin_left = 5.0
 margin_top = 110.0
 margin_right = 223.0
 margin_bottom = 125.0
+custom_constants/separation = 0
 
 [node name="X" type="HBoxContainer" parent="Center/Control/List"]
-margin_right = 50.0
+margin_right = 48.0
 margin_bottom = 15.0
+custom_constants/separation = 2
 
 [node name="Key" type="Label" parent="Center/Control/List/X"]
 margin_right = 10.0
@@ -61,22 +63,24 @@ custom_fonts/font = SubResource( 4 )
 text = "x"
 
 [node name="Desc" type="Label" parent="Center/Control/List/X"]
-margin_left = 14.0
-margin_right = 50.0
-margin_bottom = 15.0
+margin_left = 12.0
+margin_top = 4.0
+margin_right = 48.0
+margin_bottom = 10.0
 custom_fonts/font = SubResource( 3 )
 text = "select"
 
 [node name="Spacer" type="Control" parent="Center/Control/List"]
-margin_left = 54.0
-margin_right = 168.0
+margin_left = 48.0
+margin_right = 52.0
 margin_bottom = 15.0
-size_flags_horizontal = 3
+rect_min_size = Vector2( 4, 0 )
 
 [node name="C" type="HBoxContainer" parent="Center/Control/List"]
-margin_left = 172.0
-margin_right = 218.0
+margin_left = 52.0
+margin_right = 91.0
 margin_bottom = 15.0
+custom_constants/separation = 2
 
 [node name="Key" type="Label" parent="Center/Control/List/C"]
 margin_right = 13.0
@@ -85,9 +89,10 @@ custom_fonts/font = SubResource( 4 )
 text = "C"
 
 [node name="Desc" type="Label" parent="Center/Control/List/C"]
-margin_left = 17.0
-margin_right = 46.0
-margin_bottom = 15.0
+margin_left = 15.0
+margin_top = 4.0
+margin_right = 39.0
+margin_bottom = 10.0
 custom_fonts/font = SubResource( 3 )
 text = "back"
 

@@ -126,7 +126,6 @@ handle_input_locally = false
 render_target_update_mode = 3
 
 [node name="Overlay" type="Control" parent="Control/Screen"]
-modulate = Color( 1, 0.945098, 0.909804, 1 )
 margin_right = 100.0
 margin_bottom = 100.0
 

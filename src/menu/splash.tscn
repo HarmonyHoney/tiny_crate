@@ -17,7 +17,6 @@ layer = 9
 [node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-color = Color( 1, 0.945098, 0.909804, 1 )
 
 [node name="Logo" type="Sprite" parent="CanvasLayer"]
 modulate = Color( 0, 0, 0, 1 )

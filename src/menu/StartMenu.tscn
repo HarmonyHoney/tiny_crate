@@ -1,11 +1,11 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://media/font/m3x6.tres" type="DynamicFont" id=1]
 [ext_resource path="res://media/image/9slice.png" type="Texture" id=2]
 [ext_resource path="res://src/menu/StartMenu.gd" type="Script" id=3]
 [ext_resource path="res://media/image/HarmonyHoneyLogo.png" type="Texture" id=4]
 [ext_resource path="res://media/font/ThaleahFat.ttf" type="DynamicFontData" id=5]
-[ext_resource path="res://media/font/CompassPro.ttf" type="DynamicFontData" id=6]
+[ext_resource path="res://media/font/ExpressionPro.ttf" type="DynamicFontData" id=6]
 [ext_resource path="res://media/audio/sfx/hit1.wav" type="AudioStream" id=7]
 [ext_resource path="res://src/stage/DetailTileMap.tscn" type="PackedScene" id=8]
 [ext_resource path="res://src/actor/Box.tscn" type="PackedScene" id=9]
@@ -15,6 +15,7 @@
 [ext_resource path="res://src/stage/GameCamera.tscn" type="PackedScene" id=13]
 [ext_resource path="res://src/actor/SwitchBlockBlue.tscn" type="PackedScene" id=14]
 [ext_resource path="res://src/actor/SwitchBlue.tscn" type="PackedScene" id=15]
+[ext_resource path="res://media/image/menu.png" type="Texture" id=16]
 [ext_resource path="res://media/font/m5x7.tres" type="DynamicFont" id=17]
 [ext_resource path="res://media/audio/sfx/sfx3.wav" type="AudioStream" id=18]
 [ext_resource path="res://media/audio/sfx/sfx18.wav" type="AudioStream" id=19]
@@ -22,6 +23,7 @@
 [ext_resource path="res://media/audio/sfx/portal9.wav" type="AudioStream" id=21]
 [ext_resource path="res://media/audio/sfx/Randomize105.wav" type="AudioStream" id=22]
 [ext_resource path="res://media/audio/sfx/portal7.wav" type="AudioStream" id=23]
+[ext_resource path="res://media/font/QuinqueFive.ttf" type="DynamicFontData" id=24]
 
 [sub_resource type="DynamicFont" id=3]
 font_data = ExtResource( 6 )
@@ -31,6 +33,10 @@ size = 48
 extra_spacing_top = -11
 extra_spacing_bottom = -12
 font_data = ExtResource( 5 )
+
+[sub_resource type="DynamicFont" id=5]
+size = 5
+font_data = ExtResource( 24 )
 
 [node name="StartMenu" type="Node2D"]
 pause_mode = 2
@@ -127,33 +133,94 @@ __meta__ = {
 }
 
 [node name="Control" type="Control" parent="."]
-modulate = Color( 1, 0.945098, 0.909804, 1 )
 margin_left = -24.0
 margin_top = 12.0
 margin_right = 204.0
 margin_bottom = 140.0
 
-[node name="Menu2" type="VBoxContainer" parent="Control"]
+[node name="Menu" type="VBoxContainer" parent="Control"]
 margin_left = 2.0
 margin_top = 32.0
 margin_right = 66.0
 margin_bottom = 104.0
 alignment = 1
 
-[node name="Center" type="CenterContainer" parent="Control/Menu2"]
-margin_top = 10.0
+[node name="Item" type="HBoxContainer" parent="Control/Menu"]
+margin_top = 11.0
+margin_right = 64.0
+margin_bottom = 25.0
+rect_min_size = Vector2( 0, 12 )
+
+[node name="Image" type="Control" parent="Control/Menu/Item"]
+margin_right = 8.0
+margin_bottom = 14.0
+rect_min_size = Vector2( 8, 8 )
+
+[node name="Sprite" type="Sprite" parent="Control/Menu/Item/Image"]
+position = Vector2( 0, 4 )
+texture = ExtResource( 16 )
+centered = false
+hframes = 4
+vframes = 4
+
+[node name="Label" type="Label" parent="Control/Menu/Item"]
+margin_left = 12.0
+margin_right = 39.0
+margin_bottom = 14.0
+custom_fonts/font = SubResource( 3 )
+text = "play"
+
+[node name="Item2" type="HBoxContainer" parent="Control/Menu"]
+margin_top = 29.0
+margin_right = 64.0
+margin_bottom = 43.0
+rect_min_size = Vector2( 0, 12 )
+
+[node name="Image" type="Control" parent="Control/Menu/Item2"]
+margin_right = 8.0
+margin_bottom = 14.0
+rect_min_size = Vector2( 8, 8 )
+
+[node name="Sprite" type="Sprite" parent="Control/Menu/Item2/Image"]
+position = Vector2( 0, 4 )
+texture = ExtResource( 16 )
+centered = false
+hframes = 4
+vframes = 4
+frame = 1
+
+[node name="Label" type="Label" parent="Control/Menu/Item2"]
+margin_left = 12.0
+margin_right = 58.0
+margin_bottom = 14.0
+custom_fonts/font = SubResource( 3 )
+text = "options"
+
+[node name="Item3" type="HBoxContainer" parent="Control/Menu"]
+margin_top = 47.0
 margin_right = 64.0
 margin_bottom = 61.0
 rect_min_size = Vector2( 0, 12 )
 
-[node name="Label" type="Label" parent="Control/Menu2/Center"]
-margin_left = 9.0
-margin_right = 54.0
-margin_bottom = 51.0
+[node name="Image" type="Control" parent="Control/Menu/Item3"]
+margin_right = 8.0
+margin_bottom = 14.0
+rect_min_size = Vector2( 8, 8 )
+
+[node name="Sprite" type="Sprite" parent="Control/Menu/Item3/Image"]
+position = Vector2( 0, 4 )
+texture = ExtResource( 16 )
+centered = false
+hframes = 4
+vframes = 4
+frame = 2
+
+[node name="Label" type="Label" parent="Control/Menu/Item3"]
+margin_left = 12.0
+margin_right = 58.0
+margin_bottom = 14.0
 custom_fonts/font = SubResource( 3 )
-text = "play
-options
-credits"
+text = "credits"
 
 [node name="Header" type="Label" parent="Control"]
 margin_top = 5.0
@@ -166,10 +233,20 @@ align = 1
 
 [node name="Logo" type="TextureRect" parent="Control"]
 margin_left = 115.0
-margin_top = 97.0
+margin_top = 95.0
 margin_right = 192.0
-margin_bottom = 125.0
+margin_bottom = 123.0
 texture = ExtResource( 4 )
+
+[node name="Website" type="Label" parent="Control"]
+margin_left = 158.0
+margin_top = 112.0
+margin_right = 227.0
+margin_bottom = 127.0
+custom_fonts/font = SubResource( 5 )
+text = "hhoney.net"
+align = 2
+valign = 2
 
 [node name="AudioScroll" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 7 )

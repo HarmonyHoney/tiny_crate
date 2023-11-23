@@ -57,7 +57,6 @@ anims/Loop = SubResource( 1 )
 position = Vector2( 3, 3 )
 
 [node name="dust" type="Sprite" parent="Dust"]
-modulate = Color( 1, 0.945098, 0.909804, 1 )
 texture = ExtResource( 3 )
 centered = false
 
