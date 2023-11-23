@@ -1,6 +1,7 @@
 extends Node2D
 
 onready var cam : Camera2D = $Camera2D
+onready var cursor_node := $Cursor
 
 var cursor = 0
 
@@ -71,7 +72,9 @@ func view_scene(port, path):
 
 func scroll(arg = 0):
 	cursor = clamp(cursor + arg, 0, screens.get_child_count() - 1)
-	cam.position = screens.get_children()[cursor].rect_position + Vector2(50, 50)
+	var pos = screens.get_children()[cursor].rect_position + Vector2(50, 50)
+	cam.position = pos
+	cursor_node.position = pos
 
 func open_map():
 	if cursor <= Shared.map_save:

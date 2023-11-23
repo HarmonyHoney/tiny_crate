@@ -3,8 +3,10 @@ extends Node2D
 var menu_list : Label
 var menu_items := []
 
+onready var menu_stuff := $Control/Menu.get_children()
+
 onready var main_list : Label = $Menu/List
-var main_items := ["play", "options", "credits", "quit"]
+var main_items := ["play", "options", "credits"]
 
 onready var quit_menu : Control = $Menu/Quit
 onready var quit_list : Label = $Menu/Quit/List
@@ -50,15 +52,8 @@ func _input(event):
 			node_audio_scroll.play()
 
 func write_menu():
-	menu_list.text = ""
-	for i in menu_items.size():
-		if cursor == i:
-			menu_list.text += "-" + menu_items[i] + "-" + "\n"
-			node_cursor.rect_position.y = -1 +  i * 11
-			node_cursor.rect_position.x = 0
-			node_cursor.rect_size.x = menu_list.rect_size.x - 1
-		else:
-			menu_list.text += menu_items[i] + "\n"
+	for i in 3:
+		menu_stuff[i].modulate = Color("ff004d") if i == cursor else Color("83769c")
 
 func menu_select():
 	match menu_items[cursor].to_lower():

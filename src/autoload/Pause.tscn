@@ -46,9 +46,6 @@ patch_margin_right = 8
 patch_margin_bottom = 8
 axis_stretch_horizontal = 1
 axis_stretch_vertical = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Cursor" type="ColorRect" parent="Center/Menu"]
 margin_left = 92.0
@@ -65,22 +62,17 @@ margin_left = 87.0
 margin_top = 52.0
 margin_right = 141.0
 margin_bottom = 82.0
-custom_colors/font_color = Color( 1, 0.945098, 0.909804, 1 )
 custom_fonts/font = ExtResource( 1 )
 text = "resume
 reset
 exit"
 align = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Header" type="Label" parent="Center/Menu"]
 margin_left = 88.0
 margin_top = 35.0
 margin_right = 140.0
 margin_bottom = 50.0
-custom_colors/font_color = Color( 1, 0.945098, 0.909804, 1 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 custom_constants/shadow_as_outline = 1
 custom_fonts/font = SubResource( 1 )
