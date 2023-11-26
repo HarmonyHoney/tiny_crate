@@ -18,11 +18,20 @@ layer = 9
 anchor_right = 1.0
 anchor_bottom = 1.0
 
-[node name="Logo" type="Sprite" parent="CanvasLayer"]
+[node name="Center" type="CenterContainer" parent="CanvasLayer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Control" type="Control" parent="CanvasLayer/Center"]
+margin_right = 228.0
+margin_bottom = 128.0
+rect_min_size = Vector2( 228, 128 )
+
+[node name="Logo" type="Sprite" parent="CanvasLayer/Center/Control"]
 modulate = Color( 0, 0, 0, 1 )
 position = Vector2( 114, 64 )
 texture = ExtResource( 1 )
 
-[node name="Camera2D" type="Camera2D" parent="CanvasLayer"]
+[node name="Camera2D" type="Camera2D" parent="CanvasLayer/Center/Control"]
 position = Vector2( 114, 64 )
 current = true
