@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://media/image/corner.png" type="Texture" id=1]
 [ext_resource path="res://media/font/QuinqueFive.ttf" type="DynamicFontData" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://src/menu/select.gd" type="Script" id=7]
 [ext_resource path="res://media/audio/sfx/Randomize104.wav" type="AudioStream" id=8]
 [ext_resource path="res://media/audio/sfx/portal7.wav" type="AudioStream" id=9]
+[ext_resource path="res://media/image/menu.png" type="Texture" id=10]
 
 [sub_resource type="DynamicFont" id=4]
 size = 5
@@ -96,9 +97,6 @@ bus = "SFX"
 [node name="Control" type="Control" parent="."]
 margin_right = 320.0
 margin_bottom = 180.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Screens" type="Control" parent="Control"]
 margin_right = 40.0
@@ -145,6 +143,26 @@ align = 1
 material = SubResource( 3 )
 position = Vector2( 90, 10 )
 texture = ExtResource( 3 )
+
+[node name="Time" type="Control" parent="Control/Screen/Overlay"]
+margin_top = 100.0
+margin_bottom = 100.0
+
+[node name="Clock" type="Sprite" parent="Control/Screen/Overlay/Time"]
+material = SubResource( 3 )
+position = Vector2( 8, -8 )
+texture = ExtResource( 10 )
+region_enabled = true
+region_rect = Rect2( 15, 7, 10, 10 )
+
+[node name="Label" type="Label" parent="Control/Screen/Overlay/Time"]
+margin_left = 15.0
+margin_top = -11.0
+margin_right = 100.0
+margin_bottom = -6.0
+grow_horizontal = 2
+custom_fonts/font = SubResource( 4 )
+text = "12:34"
 
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2( 160, 90 )
