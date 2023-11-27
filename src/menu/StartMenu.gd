@@ -1,10 +1,10 @@
 extends Node2D
 
-onready var main_menu := $Control/Menu
+onready var main_menu := $Control/Menu/List
 onready var menu_stuff := main_menu.get_children()
 onready var quit_menu := $Control/Quit
 
-var cursor := 0
+var cursor := 0 setget set_cursor
 var menu_items := []
 var main_items := ["play", "options", "credits"]
 var quit_items := ["yes", "no"]
@@ -21,6 +21,8 @@ onready var node_audio_no : AudioStreamPlayer = $Audio/No
 func _ready():
 	switch_menu("main", true)
 	UI.keys(true, true, false)
+	TouchScreen.turn_arrows(true)
+	TouchScreen.show_keys(true, false, true)
 
 func _input(event):
 	if !is_input:
@@ -36,8 +38,7 @@ func _input(event):
 		var up = event.is_action_pressed("up") or event.is_action_pressed("left")
 		var down = event.is_action_pressed("down") or event.is_action_pressed("right")
 		if up or down:
-			cursor = clamp(cursor + (-1 if up else 1), 0, menu_items.size() - 1)
-			write_menu()
+			self.cursor += -1 if up else 1
 			node_audio_scroll.pitch_scale = 1 + rand_range(-0.2, 0.2)
 			node_audio_scroll.play()
 
@@ -45,8 +46,8 @@ func write_menu():
 	for i in menu_items.size():
 		menu_stuff[i].modulate = Color("ff004d") if i == cursor else Color("83769c")
 
-func menu_select():
-	match menu_items[clamp(cursor, 0, menu_items.size() - 1)].to_lower():
+func menu_select(tag : String = menu_items[cursor].to_lower()):
+	match tag:
 		"play":
 			Shared.wipe_scene(Shared.level_select_path)
 			is_input = false
@@ -72,7 +73,6 @@ func menu_select():
 
 func switch_menu(arg, silent := false):
 	var is_main : bool = arg == "main"
-	cursor = 0 if is_main else 1
 	quit_menu.visible = !is_main
 	main_menu.visible = is_main
 	menu_items = main_items if is_main else quit_items
@@ -81,4 +81,13 @@ func switch_menu(arg, silent := false):
 	if !silent:
 		(node_audio_no if is_main else node_audio_quit).play()
 	
+	self.cursor = 0 if is_main else 1
+
+func find_cursor(arg := ""):
+	if is_input and menu_items.has(arg):
+		self.cursor = menu_items.find(arg)
+		menu_select()
+
+func set_cursor(arg := 0):
+	cursor = clamp(arg, 0, menu_items.size() - 1)
 	write_menu()

@@ -11,4 +11,5 @@ func pause():
 	visible = false
 
 func unpause():
-	visible = true
+	if !TouchScreen.visible:
+		visible = true

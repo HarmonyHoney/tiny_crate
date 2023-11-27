@@ -20,6 +20,8 @@ onready var node_audio_back : AudioStreamPlayer = $AudioBack
 func _ready():
 	Shared.is_level_select = true
 	UI.keys()
+	TouchScreen.turn_arrows(false)
+	TouchScreen.show_keys()
 	
 	# make screens
 	screen = $Control/Screen.duplicate()

@@ -74,10 +74,14 @@ func _ready():
 	SilentWolf.configure({
 		"api_key": str(api_key),
 		"game_id": "TinyCrate",
-		"game_version": "1.0",
+		"game_version": "1.0.0",
 		"log_level": 1})
 
 	SilentWolf.configure_scores({"open_scene_on_close": "res://scenes/MainPage.tscn"})
+	
+#	yield(get_tree(), "idle_frame")
+#	SilentWolf.Players.post_player_data("player_name", {"1-1" : 23}, false)
+#	SilentWolf.Scores.persist_score("player_name", 1)
 
 func _physics_process(delta):
 	# reset timer
@@ -123,7 +127,7 @@ func change_map():
 	get_tree().change_scene(scene_path)
 	is_level_select = scene_path == level_select_path
 	is_in_game = scene_path.begins_with(map_path) or scene_path.begins_with(win_screen_path)
-	TouchScreen.pause.visible = is_in_game
+	#TouchScreen.pause.visible = is_in_game
 	Pause.set_process_input(true)
 	is_note = false
 	UI.notes.visible = is_level_select

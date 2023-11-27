@@ -12,8 +12,8 @@ export var palette : PoolColorArray
 func _ready():
 	if Engine.editor_hint: return
 	
-	if Shared.notes.has(Shared.current_map):
-		modulate = palette[1]
+	var col = 0 if Shared.notes.has(Shared.current_map) else ((randi() % (palette.size() - 1)) + 1)
+	modulate = palette[col]
 
 func _physics_process(delta):
 	if Engine.editor_hint: return

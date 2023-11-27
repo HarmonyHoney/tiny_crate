@@ -40,6 +40,9 @@ font_data = ExtResource( 24 )
 [node name="StartMenu" type="Node2D"]
 pause_mode = 2
 script = ExtResource( 3 )
+__meta__ = {
+"_edit_horizontal_guides_": [  ]
+}
 
 [node name="Control" type="Control" parent="."]
 margin_left = -24.0
@@ -47,7 +50,11 @@ margin_top = 12.0
 margin_right = 204.0
 margin_bottom = 140.0
 
-[node name="Menu" type="VBoxContainer" parent="Control"]
+[node name="Menu" type="Control" parent="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="List" type="VBoxContainer" parent="Control/Menu"]
 margin_left = 2.0
 margin_top = 32.0
 margin_right = 66.0
@@ -55,26 +62,26 @@ margin_bottom = 104.0
 custom_constants/separation = 9
 alignment = 1
 
-[node name="Item" type="HBoxContainer" parent="Control/Menu"]
+[node name="Item" type="HBoxContainer" parent="Control/Menu/List"]
 margin_top = 9.0
 margin_right = 64.0
 margin_bottom = 21.0
 rect_min_size = Vector2( 0, 12 )
 custom_constants/separation = 2
 
-[node name="Image" type="Control" parent="Control/Menu/Item"]
+[node name="Image" type="Control" parent="Control/Menu/List/Item"]
 margin_right = 8.0
 margin_bottom = 12.0
 rect_min_size = Vector2( 8, 8 )
 
-[node name="Sprite" type="Sprite" parent="Control/Menu/Item/Image"]
+[node name="Sprite" type="Sprite" parent="Control/Menu/List/Item/Image"]
 position = Vector2( 0, 2 )
 texture = ExtResource( 16 )
 centered = false
 hframes = 4
 vframes = 4
 
-[node name="Label" type="Label" parent="Control/Menu/Item"]
+[node name="Label" type="Label" parent="Control/Menu/List/Item"]
 margin_left = 10.0
 margin_top = 2.0
 margin_right = 43.0
@@ -83,19 +90,19 @@ custom_fonts/font = SubResource( 3 )
 text = "play"
 uppercase = true
 
-[node name="Item2" type="HBoxContainer" parent="Control/Menu"]
+[node name="Item2" type="HBoxContainer" parent="Control/Menu/List"]
 margin_top = 30.0
 margin_right = 64.0
 margin_bottom = 42.0
 rect_min_size = Vector2( 0, 12 )
 custom_constants/separation = 2
 
-[node name="Image" type="Control" parent="Control/Menu/Item2"]
+[node name="Image" type="Control" parent="Control/Menu/List/Item2"]
 margin_right = 8.0
 margin_bottom = 12.0
 rect_min_size = Vector2( 8, 8 )
 
-[node name="Sprite" type="Sprite" parent="Control/Menu/Item2/Image"]
+[node name="Sprite" type="Sprite" parent="Control/Menu/List/Item2/Image"]
 position = Vector2( 0, 2 )
 texture = ExtResource( 16 )
 centered = false
@@ -103,7 +110,7 @@ hframes = 4
 vframes = 4
 frame = 1
 
-[node name="Label" type="Label" parent="Control/Menu/Item2"]
+[node name="Label" type="Label" parent="Control/Menu/List/Item2"]
 margin_left = 10.0
 margin_top = 2.0
 margin_right = 58.0
@@ -112,19 +119,19 @@ custom_fonts/font = SubResource( 3 )
 text = "option"
 uppercase = true
 
-[node name="Item3" type="HBoxContainer" parent="Control/Menu"]
+[node name="Item3" type="HBoxContainer" parent="Control/Menu/List"]
 margin_top = 51.0
 margin_right = 64.0
 margin_bottom = 63.0
 rect_min_size = Vector2( 0, 12 )
 custom_constants/separation = 2
 
-[node name="Image" type="Control" parent="Control/Menu/Item3"]
+[node name="Image" type="Control" parent="Control/Menu/List/Item3"]
 margin_right = 8.0
 margin_bottom = 12.0
 rect_min_size = Vector2( 8, 8 )
 
-[node name="Sprite" type="Sprite" parent="Control/Menu/Item3/Image"]
+[node name="Sprite" type="Sprite" parent="Control/Menu/List/Item3/Image"]
 position = Vector2( 0, 2 )
 texture = ExtResource( 16 )
 centered = false
@@ -132,7 +139,7 @@ hframes = 4
 vframes = 4
 frame = 2
 
-[node name="Label" type="Label" parent="Control/Menu/Item3"]
+[node name="Label" type="Label" parent="Control/Menu/List/Item3"]
 margin_left = 10.0
 margin_top = 2.0
 margin_right = 58.0

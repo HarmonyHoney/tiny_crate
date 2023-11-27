@@ -9,6 +9,8 @@ onready var node_audio_scroll : AudioStreamPlayer = $AudioScroll
 func _ready():
 	select_item(0)
 	UI.keys()
+	TouchScreen.turn_arrows(true)
+	TouchScreen.show_keys()
 
 func _input(event):
 	var up = event.is_action_pressed("up")
