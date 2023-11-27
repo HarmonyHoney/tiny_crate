@@ -68,6 +68,16 @@ func _ready():
 		create_save()
 	
 	Wipe.connect("finish", self, "wipe_finish")
+	
+	# silent wolf
+	var api_key = load("silent_wolf_api_key.gd").source_code.replace('"', "")
+	SilentWolf.configure({
+		"api_key": str(api_key),
+		"game_id": "TinyCrate",
+		"game_version": "1.0",
+		"log_level": 1})
+
+	SilentWolf.configure_scores({"open_scene_on_close": "res://scenes/MainPage.tscn"})
 
 func _physics_process(delta):
 	# reset timer

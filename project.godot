@@ -101,6 +101,7 @@ Music="*res://src/autoload/Music.tscn"
 TouchScreen="*res://src/autoload/touch_screen.tscn"
 Wipe="*res://src/autoload/Wipe.tscn"
 UI="*res://src/autoload/UI.tscn"
+SilentWolf="*res://addons/silent_wolf/SilentWolf.gd"
 
 [display]
 
@@ -118,7 +119,7 @@ search_in_file_extensions=PoolStringArray( "gd", "gdshader", "shader", "tscn" )
 
 [editor_plugins]
 
-enabled=PoolStringArray( "aseprite_importer" )
+enabled=PoolStringArray( "res://addons/aseprite_importer/plugin.cfg", "res://addons/silent_wolf/plugin.cfg" )
 
 [global]
 
