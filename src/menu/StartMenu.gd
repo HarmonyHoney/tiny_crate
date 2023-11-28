@@ -20,9 +20,6 @@ onready var node_audio_no : AudioStreamPlayer = $Audio/No
 
 func _ready():
 	switch_menu("main", true)
-	UI.keys(true, true, false)
-	TouchScreen.turn_arrows(true)
-	TouchScreen.show_keys(true, false, true)
 
 func _input(event):
 	if !is_input:

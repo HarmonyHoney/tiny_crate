@@ -246,6 +246,7 @@ func remove_player():
 
 func death():
 	print(name + " died")
+	Shared.die()
 	
 	# explosion
 	var inst = scene_explosion.instance()

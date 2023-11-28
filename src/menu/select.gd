@@ -18,11 +18,6 @@ onready var node_audio_back : AudioStreamPlayer = $AudioBack
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	Shared.is_level_select = true
-	UI.keys()
-	TouchScreen.turn_arrows(false)
-	TouchScreen.show_keys()
-	
 	# make screens
 	screen = $Control/Screen.duplicate()
 	$Control/Screen.queue_free()
@@ -35,6 +30,18 @@ func _ready():
 			new.rect_position += Vector2(sx + (sy % 2) * 0.5, sy) * screen_dist
 			new.get_node("Overlay/Label").text = Shared.maps[i]
 			new.get_node("Overlay/Note").visible = Shared.notes.has(i)
+			
+			var map_name = Shared.maps[i].trim_suffix(".tscn")
+			var is_time := Shared.map_times.has(map_name)
+			new.get_node("Overlay/Time").visible = is_time
+			if is_time:
+				new.get_node("Overlay/Time/Label").text = str(Shared.map_times[map_name]).pad_decimals(2)
+			
+			var is_death : bool = Shared.deaths.has(map_name) and Shared.deaths[map_name] > 0
+			new.get_node("Overlay/Death").visible = is_death
+			if is_death:
+				new.get_node("Overlay/Death/Label").text = str(Shared.deaths[map_name])
+			
 			screens.add_child(new)
 			view_scene(new.get_node("Vis/ViewportContainer/Viewport"), Shared.map_path + Shared.maps[i])
 	

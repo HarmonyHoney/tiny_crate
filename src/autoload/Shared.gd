@@ -29,6 +29,10 @@ var bus_volume = [10, 10, 10]
 var current_map := 0
 var maps := []
 var map_save := 0
+var map_name := ""
+var map_clock := 0.0
+var map_times := {}
+var deaths := {}
 
 var actors := []
 var player
@@ -53,19 +57,7 @@ func _ready():
 	print("maps: ", maps)
 	
 	# load save data
-	var l = load_file(save_filename)
-	if l:
-		save_data = JSON.parse(l).result
-		print("save_data: " + JSON.print(save_data, "\t"))
-		if save_data.has("map"):
-			map_save = int(save_data["map"])
-			if save_data.has("notes"):
-				notes = PoolIntArray(save_data["notes"])
-		else:
-			create_save()
-	else:
-		print(save_filename + " not found")
-		create_save()
+	load_save()
 	
 	Wipe.connect("finish", self, "wipe_finish")
 	
@@ -75,7 +67,7 @@ func _ready():
 		"api_key": str(api_key),
 		"game_id": "TinyCrate",
 		"game_version": "1.0.0",
-		"log_level": 1})
+		"log_level": 2})
 
 	SilentWolf.configure_scores({"open_scene_on_close": "res://scenes/MainPage.tscn"})
 	
@@ -89,6 +81,10 @@ func _physics_process(delta):
 		reset_clock -= delta
 		if reset_clock < 0:
 			do_reset()
+	
+	# map time
+	if !Pause.is_paused:
+		map_clock += delta
 
 ### Changing Maps
 
@@ -127,12 +123,33 @@ func change_map():
 	get_tree().change_scene(scene_path)
 	is_level_select = scene_path == level_select_path
 	is_in_game = scene_path.begins_with(map_path) or scene_path.begins_with(win_screen_path)
-	#TouchScreen.pause.visible = is_in_game
+	map_name = "" if !is_in_game else scene_path.split("/")[-1].trim_suffix(".tscn")
+	map_clock = 0.0
+	
 	Pause.set_process_input(true)
 	is_note = false
 	UI.notes.visible = is_level_select
 	UI.notes_label.text = str(notes.size())
 	UI.keys(false, false)
+	
+	if is_in_game:
+		TouchScreen.turn_arrows(false)
+		TouchScreen.show_keys(true, true, true, true, true)
+	elif is_level_select:
+		UI.keys()
+		TouchScreen.turn_arrows(false)
+		TouchScreen.show_keys()
+	elif scene_path == main_menu_path:
+		UI.keys(true, true, false)
+		TouchScreen.turn_arrows(true)
+		TouchScreen.show_keys(true, false, true)
+	elif scene_path == options_menu_path:
+		UI.keys()
+		TouchScreen.turn_arrows(true)
+		TouchScreen.show_keys()
+	elif scene_path == credits_path:
+		UI.keys(false, true)
+		TouchScreen.show_keys(false, true, false)
 
 ### Saving and Loading
 
@@ -149,11 +166,34 @@ func load_file(fname = "box.save"):
 	file.close()
 	return content
 
+func save():
+	save_file(save_filename, JSON.print(save_data, "\t"))
+
 func create_save():
 	save_data = {}
 	save_data["map"] = 0
 	save_data["notes"] = []
-	save_file(save_filename, JSON.print(save_data, "\t"))
+	save_data["times"] = {}
+	save()
+
+func load_save():
+	var l = load_file(save_filename)
+	if l:
+		save_data = JSON.parse(l).result
+		print("save_data: " + JSON.print(save_data, "\t"))
+		if save_data.has("map"):
+			map_save = int(save_data["map"])
+			if save_data.has("notes"):
+				notes = PoolIntArray(save_data["notes"])
+			if save_data.has("times"):
+				map_times = Dictionary(save_data["times"])
+			if save_data.has("deaths"):
+				deaths = Dictionary(save_data["deaths"])
+		else:
+			create_save()
+	else:
+		print(save_filename + " not found")
+		create_save()
 
 func delete_save():
 	print("delete save")
@@ -162,9 +202,10 @@ func delete_save():
 func unlock():
 	map_save = 99
 	save_data["map"] = map_save
-	save_file(save_filename, JSON.print(save_data, "\t"))
+	save()
 
 func win():
+	var ms = map_save
 	if map_save < current_map + 1:
 		map_save = current_map + 1
 	
@@ -172,14 +213,28 @@ func win():
 		notes.append(current_map)
 		notes.sort()
 	
+	if !map_times.has(map_name) or (map_times.has(map_name) and (map_times[map_name] > map_clock)):
+		map_times[map_name] = map_clock
+	
 	save_data["map"] = map_save
 	save_data["notes"] = notes
+	save_data["times"] = map_times
 	
-	save_file(save_filename, JSON.print(save_data, "\t"))
+	save()
 	print("map complete, save_data: ", save_data)
 	
-	set_map(current_map + 1)
+	if map_save > ms:
+		set_map(current_map + 1)
+	else:
+		scene_path = level_select_path
 	start_reset()
+
+func die():
+	deaths[map_name] = 1 if !deaths.has(map_name) else (deaths[map_name] + 1)
+	save_data["deaths"] = deaths
+	save()
+	print("you died, save_data: ", save_data)
+	
 
 # look into a folder and return a list of filenames without file extension
 func dir_list(path : String):

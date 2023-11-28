@@ -1,9 +1,9 @@
 extends Node2D
 
-func _ready():
-	if !Shared.is_level_select:
-		TouchScreen.turn_arrows(false)
-		TouchScreen.show_keys(true, true, true, true, true)
+#func _ready():
+#	if !Shared.is_level_select:
+#		TouchScreen.turn_arrows(false)
+#		TouchScreen.show_keys(true, true, true, true, true)
 	
 #class_name Stage
 #
