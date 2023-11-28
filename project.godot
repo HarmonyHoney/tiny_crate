@@ -95,7 +95,7 @@ config/windows_native_icon="res://media/image/icon_gimp.ico"
 [autoload]
 
 btn="*res://src/autoload/btn.gd"
-Shared="*res://src/autoload/Shared.gd"
+Shared="*res://src/autoload/Shared.tscn"
 Pause="*res://src/autoload/Pause.tscn"
 Music="*res://src/autoload/Music.tscn"
 TouchScreen="*res://src/autoload/touch_screen.tscn"

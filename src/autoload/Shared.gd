@@ -1,5 +1,7 @@
 extends Node
 
+onready var node_ghost := $Ghost
+
 var node_map_solid : TileMap
 var node_camera_game : Camera2D
 
@@ -31,8 +33,13 @@ var maps := []
 var map_save := 0
 var map_name := ""
 var map_clock := 0.0
+var map_frame := 0
 var map_times := {}
 var deaths := {}
+var replays := {}
+var replay := {"time" : 999.0, "pos" : [], "sprite" : []}
+var replaying := {}
+
 
 var actors := []
 var player
@@ -82,9 +89,24 @@ func _physics_process(delta):
 		if reset_clock < 0:
 			do_reset()
 	
-	# map time
-	if !Pause.is_paused:
-		map_clock += delta
+	if is_in_game:
+		# map time
+		if !Pause.is_paused:
+			map_clock += delta
+			map_frame += 1
+			
+			if replaying.has_all(["time", "pos", "sprite"]) and map_frame < replaying["pos"].size():
+				var px = node_ghost.position.x
+				node_ghost.position = replaying["pos"][map_frame]
+				var nx = node_ghost.position.x
+				node_ghost.region_rect = replaying["sprite"][map_frame]
+				
+				if px != nx:
+					node_ghost.flip_h = nx < px
+			
+			if is_instance_valid(player):
+				replay["pos"].append(player.position)
+				replay["sprite"].append(player.node_sprite.region_rect)
 
 ### Changing Maps
 
@@ -125,6 +147,10 @@ func change_map():
 	is_in_game = scene_path.begins_with(map_path) or scene_path.begins_with(win_screen_path)
 	map_name = "" if !is_in_game else scene_path.split("/")[-1].trim_suffix(".tscn")
 	map_clock = 0.0
+	map_frame = 0
+	replay = {"time" : 999.0, "pos" : [], "sprite" : []}
+	replaying = {}
+	node_ghost.visible = false
 	
 	Pause.set_process_input(true)
 	is_note = false
@@ -135,6 +161,14 @@ func change_map():
 	if is_in_game:
 		TouchScreen.turn_arrows(false)
 		TouchScreen.show_keys(true, true, true, true, true)
+		if replays.has(map_name):
+			var r = {"time" : INF}
+			for i in replays[map_name]:
+				if i.has("time") and i["time"] < r["time"]:
+					r = i.duplicate()
+			replaying = r
+			node_ghost.visible = true
+		
 	elif is_level_select:
 		UI.keys()
 		TouchScreen.turn_arrows(false)
@@ -174,6 +208,7 @@ func create_save():
 	save_data["map"] = 0
 	save_data["notes"] = []
 	save_data["times"] = {}
+	save_data["replays"] = {}
 	save()
 
 func load_save():
@@ -189,6 +224,8 @@ func load_save():
 				map_times = Dictionary(save_data["times"])
 			if save_data.has("deaths"):
 				deaths = Dictionary(save_data["deaths"])
+			if save_data.has("replays"):
+				replays = Dictionary(save_data["replays"])
 		else:
 			create_save()
 	else:
@@ -219,6 +256,12 @@ func win():
 	save_data["map"] = map_save
 	save_data["notes"] = notes
 	save_data["times"] = map_times
+	
+	replay["time"] = map_clock
+	if !replays.has(map_name):
+		replays[map_name] = []
+	replays[map_name].append(replay)
+	save_data["replays"] = replays
 	
 	save()
 	print("map complete, save_data: ", save_data)
