@@ -27,15 +27,16 @@ func _ready():
 			var new = screen.duplicate()
 			var sy = i / columns
 			var sx = i % columns
-			new.rect_position += Vector2(sx + (sy % 2) * 0.5, sy) * screen_dist
-			new.get_node("Overlay/Label").text = Shared.maps[i]
-			new.get_node("Overlay/Note").visible = Shared.notes.has(i)
+			var map_name = Shared.maps[i]
 			
-			var map_name = Shared.maps[i].trim_suffix(".tscn")
+			new.rect_position += Vector2(sx + (sy % 2) * 0.5, sy) * screen_dist
+			new.get_node("Overlay/Label").text = map_name
+			new.get_node("Overlay/Note").visible = Shared.notes.has(map_name)
+			
 			var is_time := Shared.map_times.has(map_name)
 			new.get_node("Overlay/Time").visible = is_time
 			if is_time:
-				new.get_node("Overlay/Time/Label").text = str(Shared.map_times[map_name]).pad_decimals(2)
+				new.get_node("Overlay/Time/Label").text = str(float(Shared.map_times[map_name]) * (1.0/60.0)).pad_decimals(2)
 			
 			var is_death : bool = Shared.deaths.has(map_name) and Shared.deaths[map_name] > 0
 			new.get_node("Overlay/Death").visible = is_death

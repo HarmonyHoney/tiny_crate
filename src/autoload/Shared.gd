@@ -32,13 +32,13 @@ var current_map := 0
 var maps := []
 var map_save := 0
 var map_name := ""
-var map_clock := 0.0
 var map_frame := 0
 var map_times := {}
 var deaths := {}
 var replays := {}
-var replay := {"time" : 999.0, "pos" : [], "sprite" : []}
+var replay := {"frames" : 0, "x" : [], "y": [], "sprite" : []}
 var replaying := {}
+var is_win := false
 
 
 var actors := []
@@ -69,18 +69,18 @@ func _ready():
 	Wipe.connect("finish", self, "wipe_finish")
 	
 	# silent wolf
-	var api_key = load("silent_wolf_api_key.gd").source_code.replace('"', "")
+	var api_key = load("silent_wolf_api_key.gd").source_code.strip_edges().replace('"', "")
 	SilentWolf.configure({
-		"api_key": str(api_key),
+		"api_key": api_key,
 		"game_id": "TinyCrate",
 		"game_version": "1.0.0",
-		"log_level": 2})
+		"log_level": 1})
 
 	SilentWolf.configure_scores({"open_scene_on_close": "res://scenes/MainPage.tscn"})
 	
-#	yield(get_tree(), "idle_frame")
+	yield(get_tree(), "idle_frame")
 #	SilentWolf.Players.post_player_data("player_name", {"1-1" : 23}, false)
-#	SilentWolf.Scores.persist_score("player_name", 1)
+	SilentWolf.Scores.persist_score("player_name", 1)
 
 func _physics_process(delta):
 	# reset timer
@@ -92,21 +92,25 @@ func _physics_process(delta):
 	if is_in_game:
 		# map time
 		if !Pause.is_paused:
-			map_clock += delta
 			map_frame += 1
 			
-			if replaying.has_all(["time", "pos", "sprite"]) and map_frame < replaying["pos"].size():
+			if replaying.has_all(["frames", "x", "y", "sprite"]) and map_frame < replaying["frames"]:
 				var px = node_ghost.position.x
-				node_ghost.position = replaying["pos"][map_frame]
+				node_ghost.position.x = replaying["x"][map_frame]
+				node_ghost.position.y = replaying["y"][map_frame]
 				var nx = node_ghost.position.x
-				node_ghost.region_rect = replaying["sprite"][map_frame]
+				node_ghost.frame = replaying["sprite"][map_frame]
 				
 				if px != nx:
 					node_ghost.flip_h = nx < px
+			else:
+				node_ghost.visible = false
 			
-			if is_instance_valid(player):
-				replay["pos"].append(player.position)
-				replay["sprite"].append(player.node_sprite.region_rect)
+			if is_instance_valid(player) and !is_win:
+				replay["frames"] += 1
+				replay["x"].append(player.position.x)
+				replay["y"].append(player.position.y)
+				replay["sprite"].append(player.node_sprite.frame)
 
 ### Changing Maps
 
@@ -146,9 +150,9 @@ func change_map():
 	is_level_select = scene_path == level_select_path
 	is_in_game = scene_path.begins_with(map_path) or scene_path.begins_with(win_screen_path)
 	map_name = "" if !is_in_game else scene_path.split("/")[-1].trim_suffix(".tscn")
-	map_clock = 0.0
+	is_win = false
 	map_frame = 0
-	replay = {"time" : 999.0, "pos" : [], "sprite" : []}
+	replay = {"frames" : 0, "x" : [], "y" : [], "sprite" : []}
 	replaying = {}
 	node_ghost.visible = false
 	
@@ -162,9 +166,9 @@ func change_map():
 		TouchScreen.turn_arrows(false)
 		TouchScreen.show_keys(true, true, true, true, true)
 		if replays.has(map_name):
-			var r = {"time" : INF}
+			var r = {"frames" : INF}
 			for i in replays[map_name]:
-				if i.has("time") and i["time"] < r["time"]:
+				if i.has("frames") and i["frames"] < r["frames"]:
 					r = i.duplicate()
 			replaying = r
 			node_ghost.visible = true
@@ -215,11 +219,21 @@ func load_save():
 	var l = load_file(save_filename)
 	if l:
 		save_data = JSON.parse(l).result
-		print("save_data: " + JSON.print(save_data, "\t"))
+		#print("save_data: " + JSON.print(save_data, "\t"))
 		if save_data.has("map"):
 			map_save = int(save_data["map"])
 			if save_data.has("notes"):
-				notes = PoolIntArray(save_data["notes"])
+				var n = PoolStringArray(save_data["notes"])
+				# convert old saves
+				for i in n:
+					if i.find("-") == -1:
+						var m = maps[int(i)]
+						if !notes.has(m):
+							notes.append(m)
+					elif !notes.has(i):
+						notes.append(i)
+				notes.sort()
+				
 			if save_data.has("times"):
 				map_times = Dictionary(save_data["times"])
 			if save_data.has("deaths"):
@@ -242,29 +256,32 @@ func unlock():
 	save()
 
 func win():
+	is_win = true
 	var ms = map_save
 	if map_save < current_map + 1:
 		map_save = current_map + 1
 	
-	if is_note and !notes.has(current_map):
-		notes.append(current_map)
+	if is_note and !notes.has(map_name):
+		notes.append(map_name)
 		notes.sort()
 	
-	if !map_times.has(map_name) or (map_times.has(map_name) and (map_times[map_name] > map_clock)):
-		map_times[map_name] = map_clock
+	if !map_times.has(map_name) or (map_times.has(map_name) and (map_frame < map_times[map_name])):
+		map_times[map_name] = map_frame
 	
 	save_data["map"] = map_save
 	save_data["notes"] = notes
 	save_data["times"] = map_times
 	
-	replay["time"] = map_clock
 	if !replays.has(map_name):
 		replays[map_name] = []
 	replays[map_name].append(replay)
+	replays[map_name].sort_custom(self, "sort_replays")
+	if replays[map_name].size() > 3:
+		replays[map_name].resize(3)
 	save_data["replays"] = replays
 	
 	save()
-	print("map complete, save_data: ", save_data)
+	print("map complete")#, save_data: ", save_data)
 	
 	if map_save > ms:
 		set_map(current_map + 1)
@@ -272,12 +289,16 @@ func win():
 		scene_path = level_select_path
 	start_reset()
 
+func sort_replays(a, b):
+	if a["frames"] < b["frames"]:
+		return true
+	return false
+
 func die():
 	deaths[map_name] = 1 if !deaths.has(map_name) else (deaths[map_name] + 1)
 	save_data["deaths"] = deaths
 	save()
-	print("you died, save_data: ", save_data)
-	
+	print("you died")#, save_data: ", save_data)
 
 # look into a folder and return a list of filenames without file extension
 func dir_list(path : String):
