@@ -11,6 +11,8 @@ var screen_dist = 105
 var columns = 4
 
 var is_input := true
+var input_count := 0
+var input_wait := 3
 
 onready var node_audio_scroll : AudioStreamPlayer = $AudioScroll
 onready var node_audio_select : AudioStreamPlayer = $AudioSelect
@@ -63,10 +65,14 @@ func _input(event):
 	else:
 		var btnx = btn.p("right") - btn.p("left")
 		var btny = btn.p("down") - btn.p("up")
-		if btnx or btny:
+		if input_count == 0 and (btnx or btny):
+			input_count = input_wait
 			scroll(btnx + (btny * columns))
 			node_audio_scroll.pitch_scale = 1 + rand_range(-0.1, 0.5)
 			node_audio_scroll.play()
+
+func _physics_process(delta):
+	input_count = max(0, input_count - 1)
 
 # view a scene inside the viewport by path
 func view_scene(port, path):

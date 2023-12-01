@@ -1,6 +1,9 @@
 extends Node
 
 onready var node_ghost := $Ghost
+onready var node_ghosts := $Ghosts
+var ghosts := []
+var ghost_count := 3
 
 var node_map_solid : TileMap
 var node_camera_game : Camera2D
@@ -37,7 +40,7 @@ var map_times := {}
 var deaths := {}
 var replays := {}
 var replay := {"frames" : 0, "x" : [], "y": [], "sprite" : []}
-var replaying := {}
+var replaying := []
 var is_win := false
 
 
@@ -49,6 +52,13 @@ var notes := []
 
 func _ready():
 	print("Shared._ready(): ")
+	
+	# ghosts
+	for i in ghost_count:
+		var g = node_ghost.duplicate()
+		node_ghosts.add_child(g)
+		ghosts.append(g)
+	node_ghost.visible = false
 	
 	# scale window
 	window_scale = floor(OS.get_screen_size().x / get_viewport().size.x)
@@ -67,6 +77,7 @@ func _ready():
 	load_save()
 	
 	Wipe.connect("finish", self, "wipe_finish")
+	
 	
 	# silent wolf
 	var api_key = load("silent_wolf_api_key.gd").source_code.strip_edges().replace('"', "")
@@ -94,17 +105,20 @@ func _physics_process(delta):
 		if !Pause.is_paused:
 			map_frame += 1
 			
-			if replaying.has_all(["frames", "x", "y", "sprite"]) and map_frame < replaying["frames"]:
-				var px = node_ghost.position.x
-				node_ghost.position.x = replaying["x"][map_frame]
-				node_ghost.position.y = replaying["y"][map_frame]
-				var nx = node_ghost.position.x
-				node_ghost.frame = replaying["sprite"][map_frame]
-				
-				if px != nx:
-					node_ghost.flip_h = nx < px
-			else:
-				node_ghost.visible = false
+			for i in ghosts.size():
+				var g = ghosts[i]
+				if i < replaying.size():
+					var r = replaying[i]
+					if r.has_all(["frames", "x", "y", "sprite"]) and map_frame < r["frames"]:
+						var px = g.position.x
+						var new_pos = Vector2(r["x"][map_frame], r["y"][map_frame])
+						g.position = new_pos
+						g.frame = r["sprite"][map_frame]
+						
+						if px != new_pos.x:
+							g.flip_h = new_pos.x < px
+					else:
+						g.visible = false
 			
 			if is_instance_valid(player) and !is_win:
 				replay["frames"] += 1
@@ -153,8 +167,9 @@ func change_map():
 	is_win = false
 	map_frame = 0
 	replay = {"frames" : 0, "x" : [], "y" : [], "sprite" : []}
-	replaying = {}
-	node_ghost.visible = false
+	replaying = []
+	for i in ghosts:
+		i.visible = false
 	
 	Pause.set_process_input(true)
 	is_note = false
@@ -165,13 +180,15 @@ func change_map():
 	if is_in_game:
 		TouchScreen.turn_arrows(false)
 		TouchScreen.show_keys(true, true, true, true, true)
+		
 		if replays.has(map_name):
-			var r = {"frames" : INF}
-			for i in replays[map_name]:
-				if i.has("frames") and i["frames"] < r["frames"]:
-					r = i.duplicate()
-			replaying = r
-			node_ghost.visible = true
+			replays[map_name].sort_custom(self, "sort_replays")
+			
+			for i in min(3, replays[map_name].size()):
+				var r = replays[map_name][i].duplicate()
+				if r.has_all(["frames", "x", "y", "sprite"]):
+					replaying.append(r)
+					ghosts[i].visible = true
 		
 	elif is_level_select:
 		UI.keys()

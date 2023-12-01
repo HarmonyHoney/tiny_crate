@@ -17,3 +17,5 @@ texture = ExtResource( 2 )
 offset = Vector2( 4, -4 )
 hframes = 14
 region_rect = Rect2( 0, 0, 8, 24 )
+
+[node name="Ghosts" type="Node2D" parent="."]
