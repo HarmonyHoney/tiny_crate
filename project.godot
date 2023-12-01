@@ -102,6 +102,7 @@ TouchScreen="*res://src/autoload/touch_screen.tscn"
 Wipe="*res://src/autoload/Wipe.tscn"
 UI="*res://src/autoload/UI.tscn"
 SilentWolf="*res://addons/silent_wolf/SilentWolf.gd"
+Leaderboard="*res://src/autoload/Leaderboard.gd"
 
 [display]
 

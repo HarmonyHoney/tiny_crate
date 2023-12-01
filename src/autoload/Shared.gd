@@ -77,21 +77,6 @@ func _ready():
 	load_save()
 	
 	Wipe.connect("finish", self, "wipe_finish")
-	
-	
-	# silent wolf
-	var api_key = load("silent_wolf_api_key.gd").source_code.strip_edges().replace('"', "")
-	SilentWolf.configure({
-		"api_key": api_key,
-		"game_id": "TinyCrate",
-		"game_version": "1.0.0",
-		"log_level": 1})
-
-	SilentWolf.configure_scores({"open_scene_on_close": "res://scenes/MainPage.tscn"})
-	
-	yield(get_tree(), "idle_frame")
-#	SilentWolf.Players.post_player_data("player_name", {"1-1" : 23}, false)
-	SilentWolf.Scores.persist_score("player_name", 1)
 
 func _physics_process(delta):
 	# reset timer
@@ -299,6 +284,8 @@ func win():
 	
 	save()
 	print("map complete")#, save_data: ", save_data)
+	
+	Leaderboard.submit_score(map_name, -map_frame)
 	
 	if map_save > ms:
 		set_map(current_map + 1)

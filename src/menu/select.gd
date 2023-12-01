@@ -18,6 +18,9 @@ onready var node_audio_scroll : AudioStreamPlayer = $AudioScroll
 onready var node_audio_select : AudioStreamPlayer = $AudioSelect
 onready var node_audio_back : AudioStreamPlayer = $AudioBack
 
+onready var score_layer := $ScoreLayer
+onready var score_list := $ScoreLayer/CenterContainer/Control/List
+
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	# make screens
@@ -62,6 +65,17 @@ func _input(event):
 		open_map()
 		node_audio_select.play()
 		is_input = false
+	elif event.is_action_pressed("pause"):
+		var b = Shared.maps[cursor]
+		score_list.text = "loading"
+		yield(SilentWolf.Scores.get_high_scores(0, b), "sw_scores_received")
+		var s = SilentWolf.Scores.leaderboards[b]
+		
+		var t = ""
+		for i in s:
+			t += str(i["player_name"]) + " / " + str(-int(i["score"])) + "\n"
+		
+		score_list.text = t
 	else:
 		var btnx = btn.p("right") - btn.p("left")
 		var btny = btn.p("down") - btn.p("up")

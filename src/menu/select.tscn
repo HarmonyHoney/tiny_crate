@@ -227,3 +227,40 @@ color = Color( 0.160784, 0.678431, 1, 1 )
 __meta__ = {
 "_edit_lock_": true
 }
+
+[node name="ScoreLayer" type="CanvasLayer" parent="."]
+
+[node name="CenterContainer" type="CenterContainer" parent="ScoreLayer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Control" type="Control" parent="ScoreLayer/CenterContainer"]
+margin_left = 65.0
+margin_top = 15.0
+margin_right = 163.0
+margin_bottom = 113.0
+rect_min_size = Vector2( 98, 98 )
+
+[node name="Title" type="Label" parent="ScoreLayer/CenterContainer/Control"]
+margin_right = 100.0
+margin_bottom = 20.0
+custom_fonts/font = SubResource( 4 )
+text = "FASTEST RUNS"
+align = 1
+valign = 1
+
+[node name="List" type="Label" parent="ScoreLayer/CenterContainer/Control"]
+margin_top = 20.0
+margin_right = 100.0
+margin_bottom = 40.0
+custom_fonts/font = SubResource( 4 )
+text = "1.67 / Me
+1.94 / You
+2.54 / Nobody
+4. Everyone
+5. The Rest
+6. that guy
+7. the others
+8. who knows
+9. waahuu
+10. thats it"
