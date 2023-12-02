@@ -42,13 +42,14 @@ var replays := {}
 var replay := {"frames" : 0, "x" : [], "y": [], "sprite" : []}
 var replaying := []
 var is_win := false
-
+var replay_name := ""
 
 var actors := []
 var player
 
 var is_note := false
 var notes := []
+var is_note_replay := false
 
 func _ready():
 	print("Shared._ready(): ")
@@ -166,19 +167,22 @@ func change_map():
 		TouchScreen.turn_arrows(false)
 		TouchScreen.show_keys(true, true, true, true, true)
 		
-		if replays.has(map_name):
-			replays[map_name].sort_custom(self, "sort_replays")
+		var m = map_name + ("-note" if is_note_replay else "")
+		is_note_replay = false
+		
+		if replays.has(m):
+			replays[m].sort_custom(self, "sort_replays")
 			
-			for i in min(3, replays[map_name].size()):
-				var r = replays[map_name][i].duplicate()
+			for i in min(3, replays[m].size()):
+				var r = replays[m][i].duplicate()
 				if r.has_all(["frames", "x", "y", "sprite"]):
 					replaying.append(r)
 					ghosts[i].visible = true
 		
 	elif is_level_select:
-		UI.keys()
+		UI.keys(true, true, true, true)
 		TouchScreen.turn_arrows(false)
-		TouchScreen.show_keys()
+		TouchScreen.show_keys(true, true, true, true)
 	elif scene_path == main_menu_path:
 		UI.keys(true, true, false)
 		TouchScreen.turn_arrows(true)
@@ -274,18 +278,20 @@ func win():
 	save_data["notes"] = notes
 	save_data["times"] = map_times
 	
-	if !replays.has(map_name):
-		replays[map_name] = []
-	replays[map_name].append(replay)
-	replays[map_name].sort_custom(self, "sort_replays")
-	if replays[map_name].size() > 3:
-		replays[map_name].resize(3)
+	var m = map_name + ("-note" if is_note else "")
+	
+	if !replays.has(m):
+		replays[m] = []
+	replays[m].append(replay)
+	replays[m].sort_custom(self, "sort_replays")
+	if replays[m].size() > 10:
+		replays[m].resize(10)
 	save_data["replays"] = replays
 	
 	save()
 	print("map complete")#, save_data: ", save_data)
 	
-	Leaderboard.submit_score(map_name, -map_frame)
+	Leaderboard.submit_score(m, -map_frame)
 	
 	if map_save > ms:
 		set_map(current_map + 1)
@@ -302,6 +308,7 @@ func die():
 	deaths[map_name] = 1 if !deaths.has(map_name) else (deaths[map_name] + 1)
 	save_data["deaths"] = deaths
 	save()
+	Leaderboard.submit_score("death", 1)
 	print("you died")#, save_data: ", save_data)
 
 # look into a folder and return a list of filenames without file extension

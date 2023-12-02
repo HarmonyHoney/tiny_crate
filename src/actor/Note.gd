@@ -12,7 +12,7 @@ export var palette : PoolColorArray
 func _ready():
 	if Engine.editor_hint: return
 	
-	var col = 0 if Shared.notes.has(Shared.current_map) else ((randi() % (palette.size() - 1)) + 1)
+	var col = randi() % (palette.size())
 	modulate = palette[col]
 
 func _physics_process(delta):

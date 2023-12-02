@@ -101,26 +101,54 @@ custom_fonts/font = SubResource( 3 )
 text = "back"
 
 [node name="Notes" type="Control" parent="Center/Control"]
-margin_left = 224.0
+margin_left = 3.0
 margin_top = 5.0
-margin_right = 224.0
+margin_right = 3.0
 margin_bottom = 5.0
 
 [node name="Label" type="Label" parent="Center/Control/Notes"]
-margin_left = -76.0
-margin_right = -15.0
+margin_left = 17.0
+margin_right = 78.0
 margin_bottom = 13.0
 custom_fonts/font = SubResource( 5 )
 text = "13"
-align = 2
 
 [node name="Control" type="Control" parent="Center/Control/Notes"]
-margin_left = -14.0
 margin_top = -2.0
-margin_right = 2.0
+margin_right = 16.0
 margin_bottom = 14.0
 
 [node name="Note" type="Sprite" parent="Center/Control/Notes/Control"]
 material = SubResource( 6 )
 position = Vector2( 8, 8 )
 texture = ExtResource( 4 )
+
+[node name="Top" type="HBoxContainer" parent="Center/Control"]
+margin_left = 5.0
+margin_top = 5.0
+margin_right = 223.0
+margin_bottom = 17.0
+custom_constants/separation = 0
+alignment = 2
+
+[node name="P" type="HBoxContainer" parent="Center/Control/Top"]
+margin_left = 175.0
+margin_right = 218.0
+margin_bottom = 12.0
+custom_constants/separation = 2
+
+[node name="Key" type="Label" parent="Center/Control/Top/P"]
+modulate = Color( 1, 0, 0.301961, 1 )
+margin_right = 11.0
+margin_bottom = 12.0
+custom_fonts/font = SubResource( 4 )
+text = "p"
+uppercase = true
+
+[node name="Desc" type="Label" parent="Center/Control/Top/P"]
+margin_left = 13.0
+margin_top = 3.0
+margin_right = 43.0
+margin_bottom = 9.0
+custom_fonts/font = SubResource( 3 )
+text = "score"

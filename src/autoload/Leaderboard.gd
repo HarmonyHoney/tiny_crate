@@ -4,6 +4,9 @@ onready var api_file = load("silent_wolf_api_key.gd")
 var api_key := ""
 var is_online := false
 var username := "player_name"
+var scores := {}
+
+signal new_score
 
 func _ready():
 	is_online = api_file is Script
@@ -22,23 +25,36 @@ func _ready():
 
 	SilentWolf.configure_scores({"open_scene_on_close": "res://scenes/MainPage.tscn"})
 	
-	yield(get_tree(), "idle_frame")
-#	SilentWolf.Players.post_player_data("player_name", {"1-1" : 23}, false)
-	SilentWolf.Scores.persist_score("player_name", 1)
 	
-	pass # Replace with function body.
+	yield(get_tree(), "idle_frame")
+	SilentWolf.Scores.persist_score(username, 1)
 
+func refresh_scores():
+	if !is_online: return
+	
+	var a = Shared.maps.duplicate()
+	var notes = []
+	for i in a:
+		notes.append(i + "-note")
+	a.append_array(notes)
+	for i in a:
+		yield(SilentWolf.Scores.get_high_scores(0, i), "sw_scores_received")
+		if SilentWolf.Scores.leaderboards.has(i):
+			var s = SilentWolf.Scores.leaderboards[i]
+			scores[i] = s
+
+func refresh_score(map_name):
+	if !is_online: return
+	
+	yield(SilentWolf.Scores.get_high_scores(0, map_name), "sw_scores_received")
+	if SilentWolf.Scores.leaderboards.has(map_name):
+		var s = SilentWolf.Scores.leaderboards[map_name]
+		scores[map_name] = s
+		emit_signal("new_score")
+		print(s)
 
 func submit_score(board_name, score):
-	SilentWolf.Scores.persist_score("not_" + username + "3", score, board_name)
-
-func get_scores(board_name):
-	yield(SilentWolf.Scores.get_high_scores(0, board_name), "sw_scores_received")
-	var s = SilentWolf.Scores.leaderboards[board_name]
+	if !is_online: return
 	
-	print("Scores from the ", board_name, " leaderboard: " + str(s))
-	for i in s:
-		print(i["player_name"], ": ", -int(i["score"]))
-	
-	return s
+	SilentWolf.Scores.persist_score("dinkle_" + username + "", score, board_name)
 	
