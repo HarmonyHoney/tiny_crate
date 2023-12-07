@@ -52,7 +52,7 @@ margin_bottom = 123.0
 custom_constants/separation = 0
 
 [node name="X" type="HBoxContainer" parent="Center/Control/List"]
-margin_right = 51.0
+margin_right = 39.0
 margin_bottom = 12.0
 custom_constants/separation = 2
 
@@ -67,20 +67,21 @@ uppercase = true
 [node name="Desc" type="Label" parent="Center/Control/List/X"]
 margin_left = 15.0
 margin_top = 3.0
-margin_right = 51.0
+margin_right = 39.0
 margin_bottom = 9.0
 custom_fonts/font = SubResource( 3 )
-text = "select"
+text = "pick"
 
 [node name="Spacer" type="Control" parent="Center/Control/List"]
-margin_left = 51.0
-margin_right = 55.0
+margin_left = 39.0
+margin_right = 179.0
 margin_bottom = 12.0
 rect_min_size = Vector2( 4, 0 )
+size_flags_horizontal = 3
 
 [node name="C" type="HBoxContainer" parent="Center/Control/List"]
-margin_left = 55.0
-margin_right = 94.0
+margin_left = 179.0
+margin_right = 218.0
 margin_bottom = 12.0
 custom_constants/separation = 2
 
@@ -132,7 +133,7 @@ custom_constants/separation = 0
 alignment = 2
 
 [node name="P" type="HBoxContainer" parent="Center/Control/Top"]
-margin_left = 175.0
+margin_left = 181.0
 margin_right = 218.0
 margin_bottom = 12.0
 custom_constants/separation = 2
@@ -148,7 +149,7 @@ uppercase = true
 [node name="Desc" type="Label" parent="Center/Control/Top/P"]
 margin_left = 13.0
 margin_top = 3.0
-margin_right = 43.0
+margin_right = 37.0
 margin_bottom = 9.0
 custom_fonts/font = SubResource( 3 )
-text = "score"
+text = "menu"

@@ -41,19 +41,22 @@ position = Vector2( 45, 5 )
 [node name="Note" parent="Actors" instance=ExtResource( 12 )]
 position = Vector2( -5, -37 )
 
-[node name="arrows" type="Sprite" parent="."]
+[node name="Node2D" type="Node2D" parent="."]
 position = Vector2( -13, 42 )
+script = ExtResource( 10 )
+
+[node name="arrows" type="Sprite" parent="Node2D"]
+modulate = Color( 1, 0, 0.301961, 1 )
 texture = ExtResource( 9 )
 hframes = 6
 vframes = 4
 frame = 7
 region_rect = Rect2( 0, 0, 18, 18 )
-script = ExtResource( 10 )
 
-[node name="arrows_label" type="Label" parent="arrows"]
-margin_left = 12.0
+[node name="arrows_label" type="Label" parent="Node2D"]
+margin_left = 13.0
 margin_top = -7.0
-margin_right = 42.0
+margin_right = 43.0
 margin_bottom = 6.0
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 custom_constants/shadow_as_outline = 1

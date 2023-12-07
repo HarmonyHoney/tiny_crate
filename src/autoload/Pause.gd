@@ -1,16 +1,16 @@
 extends CanvasLayer
 
 var is_paused := false
-onready var menu : Control = $Center/Menu
-onready var menu_list : Label = $Center/Menu/List
+onready var menu : Control = $Center/Paused
+onready var menu_list : Label = $Center/Paused/List
+onready var node_cursor : ColorRect = $Center/Paused/Cursor
 
 var cursor := 0
-var menu_items := ["resume", "reset", "exit"]
+var menu_items := ["go", "redo", "stages"]
 
 var timer := 0.1 # prevent input overlap
 var clock := 0.0
 
-onready var node_cursor : ColorRect = $Center/Menu/Cursor
 onready var node_audio_pause : AudioStreamPlayer = $Audio/Pause
 onready var node_audio_scroll : AudioStreamPlayer = $Audio/Scroll
 onready var node_audio_resume : AudioStreamPlayer = $Audio/Resume
@@ -57,7 +57,7 @@ func _input(event):
 func toggle_pause():
 	is_paused = !is_paused
 	menu.visible = is_paused
-	UI.keys(is_paused, is_paused)
+	UI.keys(is_paused, is_paused, true, is_paused)
 	TouchScreen.turn_arrows(is_paused)
 	clock = timer
 	
@@ -81,17 +81,17 @@ func write_menu():
 
 func set_cursor(arg = 0):
 	cursor = clamp(arg, 0, menu_items.size() - 1)
-	node_cursor.rect_position.y = menu_list.rect_position.y - 2 + cursor * 11
+	node_cursor.rect_position.y = menu_list.rect_position.y - 1 + (cursor * 8)
 
 func select():
 	match menu_items[cursor]:
-		"resume":
+		"go":
 			toggle_pause()
-		"reset":
+		"redo":
 			Shared.do_reset()
 			toggle_pause()
 			node_audio_reset.play()
-		"exit":
+		"stages":
 			Shared.wipe_scene(Shared.level_select_path)
 			toggle_pause()
 			node_audio_exit.play()

@@ -27,6 +27,8 @@ var splash_path := "res://src/menu/splash.tscn"
 var save_data := {}
 var save_filename := "box.save"
 
+var replay_filename := "replay.save"
+
 var window_scale := 1
 var view_size := Vector2(228, 128)
 var bus_volume = [10, 10, 10]
@@ -76,6 +78,7 @@ func _ready():
 	
 	# load save data
 	load_save()
+	load_replays()
 	
 	Wipe.connect("finish", self, "wipe_finish")
 
@@ -146,6 +149,10 @@ func set_map(arg):
 		scene_path = map_path + maps[current_map] + ".tscn"
 
 func change_map():
+	save()
+	if is_win:
+		save_replays()
+	
 	get_tree().change_scene(scene_path)
 	is_level_select = scene_path == level_select_path
 	is_in_game = scene_path.begins_with(map_path) or scene_path.begins_with(win_screen_path)
@@ -162,6 +169,7 @@ func change_map():
 	UI.notes.visible = is_level_select
 	UI.notes_label.text = str(notes.size())
 	UI.keys(false, false)
+	UI.pause_label("score" if is_level_select else "menu")
 	
 	if is_in_game:
 		TouchScreen.turn_arrows(false)
@@ -211,14 +219,17 @@ func load_file(fname = "box.save"):
 	return content
 
 func save():
+	save_data["replays"] = null
 	save_file(save_filename, JSON.print(save_data, "\t"))
+
+func save_replays():
+	save_file(replay_filename, JSON.print(replays, "\t"))
 
 func create_save():
 	save_data = {}
 	save_data["map"] = 0
 	save_data["notes"] = []
 	save_data["times"] = {}
-	save_data["replays"] = {}
 	save()
 
 func load_save():
@@ -244,13 +255,18 @@ func load_save():
 				map_times = Dictionary(save_data["times"])
 			if save_data.has("deaths"):
 				deaths = Dictionary(save_data["deaths"])
-			if save_data.has("replays"):
-				replays = Dictionary(save_data["replays"])
 		else:
 			create_save()
 	else:
 		print(save_filename + " not found")
 		create_save()
+
+func load_replays():
+	var l = load_file(replay_filename)
+	if l:
+		replays = JSON.parse(l).result
+	else:
+		print(replay_filename + " not found")
 
 func delete_save():
 	print("delete save")
@@ -271,8 +287,9 @@ func win():
 		notes.append(map_name)
 		notes.sort()
 	
-	if !map_times.has(map_name) or (map_times.has(map_name) and (map_frame < map_times[map_name])):
-		map_times[map_name] = map_frame
+	var time_name = map_name + ("-note" if is_note else "")
+	if !map_times.has(time_name) or (map_times.has(time_name) and (map_frame < map_times[time_name])):
+		map_times[time_name] = map_frame
 	
 	save_data["map"] = map_save
 	save_data["notes"] = notes
@@ -286,9 +303,8 @@ func win():
 	replays[m].sort_custom(self, "sort_replays")
 	if replays[m].size() > 10:
 		replays[m].resize(10)
-	save_data["replays"] = replays
 	
-	save()
+	#save()
 	print("map complete")#, save_data: ", save_data)
 	
 	Leaderboard.submit_score(m, -map_frame)
@@ -307,7 +323,7 @@ func sort_replays(a, b):
 func die():
 	deaths[map_name] = 1 if !deaths.has(map_name) else (deaths[map_name] + 1)
 	save_data["deaths"] = deaths
-	save()
+	#save()
 	Leaderboard.submit_score("death", 1)
 	print("you died")#, save_data: ", save_data)
 

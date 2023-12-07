@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://src/stage/SolidTileMap.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/actor/Box.tscn" type="PackedScene" id=2]
@@ -9,10 +9,16 @@
 [ext_resource path="res://src/actor/Player.tscn" type="PackedScene" id=7]
 [ext_resource path="res://src/stage/Stage.gd" type="Script" id=8]
 [ext_resource path="res://media/font/m6x11.tres" type="DynamicFont" id=9]
-[ext_resource path="res://media/image/btn.png" type="Texture" id=10]
+[ext_resource path="res://media/font/NicoPaint-Regular.ttf" type="DynamicFontData" id=10]
 [ext_resource path="res://src/menu/hide_on_level_select.gd" type="Script" id=11]
 [ext_resource path="res://src/actor/Note.tscn" type="PackedScene" id=12]
 [ext_resource path="res://src/stage/ObscureMap.tscn" type="PackedScene" id=13]
+
+[sub_resource type="DynamicFont" id=1]
+outline_size = 1
+outline_color = Color( 0, 0, 0, 1 )
+extra_spacing_bottom = -4
+font_data = ExtResource( 10 )
 
 [node name="Stage" type="Node2D"]
 script = ExtResource( 8 )
@@ -52,20 +58,25 @@ position = Vector2( 11, -16 )
 [node name="Note" parent="Actors" instance=ExtResource( 12 )]
 position = Vector2( -125, -37 )
 
-[node name="return" type="Sprite" parent="."]
+[node name="Node2D" type="Node2D" parent="."]
 position = Vector2( 15, 36 )
-texture = ExtResource( 10 )
-hframes = 3
-vframes = 4
-frame = 10
-region_rect = Rect2( 0, 0, 18, 18 )
 script = ExtResource( 11 )
 
-[node name="esc_label" type="Label" parent="return"]
-margin_left = 15.0
+[node name="Key" type="Label" parent="Node2D"]
+modulate = Color( 1, 0, 0.301961, 1 )
+margin_left = -6.0
 margin_top = -6.0
-margin_right = 45.0
-margin_bottom = 7.0
+margin_right = 5.0
+margin_bottom = 6.0
+custom_fonts/font = SubResource( 1 )
+text = "p"
+uppercase = true
+
+[node name="Label" type="Label" parent="Node2D"]
+margin_left = 9.0
+margin_top = -7.0
+margin_right = 39.0
+margin_bottom = 6.0
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 custom_constants/shadow_as_outline = 1
 custom_fonts/font = ExtResource( 9 )

@@ -1,4 +1,4 @@
-extends Sprite
+extends Node2D
 
 func _ready():
 	if Shared.is_level_select or TouchScreen.visible:

@@ -45,12 +45,20 @@ func _ready():
 			
 			new.rect_position += Vector2(sx + (sy % 2) * 0.5, sy) * screen_dist
 			new.get_node("Overlay/Label").text = map_name
-			new.get_node("Overlay/Note").visible = Shared.notes.has(map_name)
+			var is_note := Shared.notes.has(map_name)
+			
+			new.get_node("Overlay/Notes").visible = is_note
+			var note_map := str(map_name) + "-note"
+			var note_label : Node = new.get_node("Overlay/Notes/Label")
+			if Shared.map_times.has(note_map):
+				note_label.text = time_to_string(Shared.map_times[note_map])
+			else:
+				note_label.visible = false
 			
 			var is_time := Shared.map_times.has(map_name)
 			new.get_node("Overlay/Time").visible = is_time
 			if is_time:
-				new.get_node("Overlay/Time/Label").text = str(float(Shared.map_times[map_name]) * (1.0/60.0)).pad_decimals(2)
+				new.get_node("Overlay/Time/Label").text = time_to_string(Shared.map_times[map_name])
 			
 			var is_death : bool = Shared.deaths.has(map_name) and Shared.deaths[map_name] > 0
 			new.get_node("Overlay/Death").visible = is_death
@@ -149,22 +157,32 @@ func new_score(arg1 = null, arg2 = null, arg3 = null):
 func write_score():
 	var map_name = current_map + ("-note" if show_score == 2 else "")
 	var t = ""
-	if Leaderboard.scores.has(map_name):
-		var s = Leaderboard.scores[map_name]
-		if s.empty():
-			t = "no data!"
+	if Leaderboard.is_online:
+		if Leaderboard.scores.has(map_name):
+			var s = Leaderboard.scores[map_name]
+			if s.empty():
+				t = "no data!"
+			else:
+				for i in s:
+					t += time_to_string(-int(i["score"])) + " " + str(i["player_name"]) + "\n"
 		else:
-			for i in s:
-				var time = float(-int(i["score"])) * (1.0/60.0)
-				if time < 60.0:
-					t += str(time).pad_decimals(2)
-				else:
-					t += str(time / 60.0).pad_zeros(2).pad_decimals(0) + ":" + str(fposmod(time, 60.0)).pad_zeros(2).pad_decimals(0)
-				t += " " + str(i["player_name"]) + "\n"
+			t = "LOADING..."
 	else:
-		t = "LOADING..."
+		if Shared.replays.has(map_name):
+			for i in Shared.replays[map_name]:
+				if i.has("frames"):
+					t += time_to_string(int(i["frames"])) + "\n"
+		else:
+			t = "NO DATA!"
 	
 	score_list.text = t
+
+func time_to_string(arg := 0.0):
+	var time = arg * (1.0/60.0)
+	if time < 60.0:
+		return str(time).pad_decimals(2)
+	else:
+		return str(time / 60.0).pad_zeros(2).pad_decimals(0) + ":" + str(fposmod(time, 60.0)).pad_zeros(2).pad_decimals(0)
 
 func open_map():
 	if cursor <= Shared.map_save:
