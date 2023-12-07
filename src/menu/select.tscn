@@ -177,7 +177,7 @@ margin_right = 100.0
 margin_bottom = -6.0
 grow_horizontal = 2
 custom_fonts/font = SubResource( 4 )
-text = "12:34"
+text = "56.81"
 
 [node name="Death" type="Control" parent="Control/Screen/Overlay"]
 
@@ -194,7 +194,7 @@ margin_right = 100.0
 margin_bottom = 10.0
 grow_horizontal = 2
 custom_fonts/font = SubResource( 4 )
-text = "75"
+text = "79"
 
 [node name="Notes" type="Control" parent="Control/Screen/Overlay"]
 margin_left = 100.0
@@ -212,7 +212,7 @@ margin_right = -15.0
 margin_bottom = 10.0
 grow_horizontal = 2
 custom_fonts/font = SubResource( 4 )
-text = "03:69"
+text = "12:34"
 align = 2
 
 [node name="Scores" type="Control" parent="Control"]

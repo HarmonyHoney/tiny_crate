@@ -50,7 +50,7 @@ var actors := []
 var player
 
 var is_note := false
-var notes := []
+var notes := {}
 var is_note_replay := false
 
 func _ready():
@@ -219,7 +219,6 @@ func load_file(fname = "box.save"):
 	return content
 
 func save():
-	save_data["replays"] = null
 	save_file(save_filename, JSON.print(save_data, "\t"))
 
 func save_replays():
@@ -228,7 +227,7 @@ func save_replays():
 func create_save():
 	save_data = {}
 	save_data["map"] = 0
-	save_data["notes"] = []
+	save_data["notes"] = {}
 	save_data["times"] = {}
 	save()
 
@@ -236,21 +235,24 @@ func load_save():
 	var l = load_file(save_filename)
 	if l:
 		save_data = JSON.parse(l).result
+		
+		# remove replays
+		if save_data.has("replays"):
+			save_data.erase("replays")
+			
 		#print("save_data: " + JSON.print(save_data, "\t"))
 		if save_data.has("map"):
 			map_save = int(save_data["map"])
 			if save_data.has("notes"):
-				var n = PoolStringArray(save_data["notes"])
+				var n = save_data["notes"]
+				if n is Dictionary:
+					notes = n
 				# convert old saves
-				for i in n:
-					if i.find("-") == -1:
-						var m = maps[int(i)]
-						if !notes.has(m):
-							notes.append(m)
-					elif !notes.has(i):
-						notes.append(i)
-				notes.sort()
-				
+				elif n is Array:
+					notes = {}
+					for i in n:
+						var key = i if (i is String) and ("-" in i) else maps[int(i)]
+						notes[key] = 45260
 			if save_data.has("times"):
 				map_times = Dictionary(save_data["times"])
 			if save_data.has("deaths"):
@@ -283,13 +285,11 @@ func win():
 	if map_save < current_map + 1:
 		map_save = current_map + 1
 	
-	if is_note and !notes.has(map_name):
-		notes.append(map_name)
-		notes.sort()
+	if is_note and (!notes.has(map_name) or (notes.has(map_name) and map_frame < notes[map_name])):
+		notes[map_name] = map_frame
 	
-	var time_name = map_name + ("-note" if is_note else "")
-	if !map_times.has(time_name) or (map_times.has(time_name) and (map_frame < map_times[time_name])):
-		map_times[time_name] = map_frame
+	if !map_times.has(map_name) or (map_times.has(map_name) and (map_frame < map_times[map_name])):
+		map_times[map_name] = map_frame
 	
 	save_data["map"] = map_save
 	save_data["notes"] = notes

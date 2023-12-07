@@ -45,15 +45,11 @@ func _ready():
 			
 			new.rect_position += Vector2(sx + (sy % 2) * 0.5, sy) * screen_dist
 			new.get_node("Overlay/Label").text = map_name
-			var is_note := Shared.notes.has(map_name)
 			
+			var is_note := Shared.notes.has(map_name)
 			new.get_node("Overlay/Notes").visible = is_note
-			var note_map := str(map_name) + "-note"
-			var note_label : Node = new.get_node("Overlay/Notes/Label")
-			if Shared.map_times.has(note_map):
-				note_label.text = time_to_string(Shared.map_times[note_map])
-			else:
-				note_label.visible = false
+			if is_note:
+				new.get_node("Overlay/Notes/Label").text = time_to_string(Shared.notes[map_name])
 			
 			var is_time := Shared.map_times.has(map_name)
 			new.get_node("Overlay/Time").visible = is_time
