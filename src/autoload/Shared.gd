@@ -254,9 +254,13 @@ func load_save():
 						var key = i if (i is String) and ("-" in i) else maps[int(i)]
 						notes[key] = 45260
 			if save_data.has("times"):
-				map_times = Dictionary(save_data["times"])
+				var d = save_data["times"]
+				if d is Dictionary:
+					map_times = d
 			if save_data.has("deaths"):
-				deaths = Dictionary(save_data["deaths"])
+				var d = save_data["deaths"]
+				if d is Dictionary:
+					deaths = d
 		else:
 			create_save()
 	else:
