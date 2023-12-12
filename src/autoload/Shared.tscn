@@ -14,8 +14,8 @@ script = ExtResource( 1 )
 modulate = Color( 1, 1, 1, 0.65098 )
 material = SubResource( 2 )
 texture = ExtResource( 2 )
-offset = Vector2( 4, -4 )
-hframes = 14
+offset = Vector2( 4, 0 )
+hframes = 7
 region_rect = Rect2( 0, 0, 8, 24 )
 
 [node name="Ghosts" type="Node2D" parent="."]
