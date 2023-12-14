@@ -17,17 +17,19 @@ var shake_dist = 0
 
 var scene_slam = preload("res://src/fx/Slam.tscn")
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
-	if Engine.editor_hint or Shared.is_level_select:
-		set_physics_process(false)
-		return
+	if Engine.editor_hint or Shared.is_level_select: return
 	
 	spr_pos = node_sprite.position
 	
 	if is_area_solid(position.x, position.y + 1):
 		is_on_floor = true
 		shake_dist = 1
+
+func _physics_process(delta):
+	if Engine.editor_hint: return
+	
+	is_push = false
 
 func hit_floor():
 	speed.x = 0
@@ -42,13 +44,6 @@ func hit_floor():
 	var inst = scene_slam.instance()
 	inst.position = center()
 	get_parent().add_child(inst)
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _physics_process(delta):
-	if Engine.editor_hint:
-		return
-	
-	is_push = false
 
 # push box
 func push(dir : int):

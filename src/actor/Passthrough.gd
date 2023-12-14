@@ -8,13 +8,8 @@ var is_done := false
 onready var node_sprite : Sprite = $Sprite
 onready var node_audio : AudioStreamPlayer2D = $Audio
 
-func _ready():
-	if Engine.editor_hint:
-		return
-
 func _physics_process(delta):
-	if Engine.editor_hint:
-		return
+	if Engine.editor_hint: return
 	
 	if is_done:
 		pass
@@ -27,6 +22,4 @@ func _physics_process(delta):
 				node_audio.play()
 		else:
 			is_hit = is_area_solid_actor(position.x, position.y)
-	
-	
-	
+

@@ -11,14 +11,12 @@ onready var node_sprite : Sprite = $Sprite
 var is_switch = false
 
 func _ready():
-	if Engine.editor_hint:
-		return
+	if Engine.editor_hint: return
 	
 	add_to_group("switch_block_" + color)
 
 func _physics_process(delta):
-	if Engine.editor_hint:
-		return
+	if Engine.editor_hint: return
 	
 	if is_switch and !is_solid and !is_area_solid_actor(position.x, position.y):
 		is_solid = true

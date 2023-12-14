@@ -7,7 +7,6 @@ var a_step := -1 # attract step
 var at := 0 # attract timer
 var loop := 1
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
 	box.append($Box0)
 	box.append($Box1)

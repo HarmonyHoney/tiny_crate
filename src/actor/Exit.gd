@@ -12,10 +12,8 @@ export var star_speed := 6
 export var star_orbit := 10
 var star_rot = 0
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
-	if Engine.editor_hint:
-		return
+	if Engine.editor_hint: return
 	
 	# create dust
 	for i in dust_count - 1:
@@ -30,10 +28,8 @@ func _ready():
 	for i in star_count - 1:
 		node_stars.add_child($Stars/Star.duplicate())
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
-	if Engine.editor_hint:
-		return
+	if Engine.editor_hint: return
 	
 	# move dust
 	for i in node_dust.get_children():

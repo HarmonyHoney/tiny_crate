@@ -30,7 +30,10 @@ onready var score_list := $Control/Scores/List
 onready var score_note := $Control/Scores/HBoxContainer/Note
 onready var score_clock := $Control/Scores/HBoxContainer/Clock
 
-# Called when the node enters the scene tree for the first time.
+var load_list := []
+var loader : ResourceInteractiveLoader
+var port_count = 0
+
 func _ready():
 	# make screens
 	screen = $Control/Screen.duplicate()
@@ -63,12 +66,19 @@ func _ready():
 			
 			screens.add_child(new)
 			overlays.append(new.get_node("Overlay"))
-			view_scene(new.get_node("Vis/ViewportContainer/Viewport"), Shared.map_path + Shared.maps[i])
+			view_scene(new.get_node("Vis/ViewportContainer/Viewport"), Shared.map_path + Shared.maps[i] + ".tscn")
 	
 	Leaderboard.connect("new_score", self, "new_score")
 	SilentWolf.Scores.connect("sw_scores_received", self, "new_score")
 	scroll(Shared.current_map)
 	show_scoreboard()
+	
+	load_list.sort_custom(self, "sort_load_list")
+
+func sort_load_list(a, b):
+	if abs(a[0] - cursor) < abs(b[0] - cursor):
+		return true
+	return false
 
 func _input(event):
 	if !is_input:
@@ -94,24 +104,39 @@ func _input(event):
 			scroll(btnx + (btny * columns))
 			node_audio_scroll.pitch_scale = 1 + rand_range(-0.1, 0.5)
 			node_audio_scroll.play()
-			
 
 func _physics_process(delta):
 	input_count = max(0, input_count - 1)
 	for i in last_refresh.keys():
 		last_refresh[i] = max(0, last_refresh[i] - delta)
+	
+	# load stages
+	if loader == null and load_list.size() > 0:
+		loader = ResourceLoader.load_interactive(load_list[0][1])
+	
+	if loader != null:
+		var ticks = OS.get_ticks_msec()
+		var tick_limit = delta * 77
+		
+		while OS.get_ticks_msec() < ticks + tick_limit:
+			var error = loader.poll()
+			if error == ERR_FILE_EOF:
+				var map = loader.get_resource().instance()
+				loader = null
+				load_list.pop_front()[2].add_child(map)
+				break
+			elif error != OK:
+				# failed
+				loader = null
+				break
 
 # view a scene inside the viewport by path
 func view_scene(port, path):
 	for i in port.get_children():
 		i.queue_free()
-	
-	if ResourceLoader.exists(path + ".tscn"):
-		var m = load(path + ".tscn").instance()
-		port.add_child(m)
-		for i in Shared.actors:
-			if !i.tag == "exit":
-				i.set_physics_process(false) # dont process actors
+		
+	load_list.append([port_count, path, port])
+	port_count += 1
 
 func scroll(arg = 0):
 	overlays[cursor].visible = true

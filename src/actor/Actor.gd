@@ -38,6 +38,8 @@ var time_since_floor := 0
 # ignore this actor's solidity
 var ignore_actor : Actor
 
+export var is_select_process := false
+
 func _enter_tree():
 	if Engine.editor_hint: return
 	Shared.actors.append(self)
@@ -46,9 +48,11 @@ func _exit_tree():
 	if Engine.editor_hint: return
 	Shared.actors.erase(self)
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
 	position = position.floor()
+	
+	if Engine.editor_hint or (Shared.is_level_select and !is_select_process):
+		set_physics_process(false)
 
 func _physics_process(delta):
 	if Engine.editor_hint:

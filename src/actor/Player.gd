@@ -37,7 +37,6 @@ var is_push = false
 var push_clock = 0.0
 var push_fade = 0.0
 
-var scene_box = preload("res://src/actor/Box.tscn")
 var scene_explosion = preload("res://src/fx/Explosion.tscn")
 var scene_explosion2 = preload("res://src/fx/Explosion2.tscn")
 
@@ -52,15 +51,16 @@ var btnp_pick = false
 export var is_attract_mode = false
 
 func _enter_tree():
-	if Engine.editor_hint: return
+	if Engine.editor_hint or Shared.is_level_select: return
 	
 	Shared.player = self
 
-# Called when the node enters the scene tree for the first time.
 func _ready():
-	if Engine.editor_hint or Shared.is_level_select:
-		set_physics_process(false)
-		return
+	if Engine.editor_hint: return
+	
+	node_sprite.flip_h = randf() > 0.5
+	
+	if Shared.is_level_select: return
 	
 	#btnx_array size
 	for i in 8:
@@ -80,10 +80,8 @@ func just_moved():
 			ignore_actor.ignore_actor = null
 			ignore_actor = null
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta):
-	if Engine.editor_hint:
-		return
+	if Engine.editor_hint: return
 	
 	# input
 	if !is_attract_mode:
@@ -274,10 +272,3 @@ func try_anim(arg : String):
 		node_anim.play(arg)
 		# update the animationPlayer immediately
 		node_anim.advance(0)
-
-# spawn box
-func debug_box(arg = null):
-	var box = scene_box.instance()
-	box.position = arg if arg is Vector2 else Vector2(position.x, position.y - 8)
-	get_parent().add_child(box)
-	print("(box) spawned at: " + str(box.position))
