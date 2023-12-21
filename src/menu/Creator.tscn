@@ -1,0 +1,1163 @@
+[gd_scene load_steps=18 format=2]
+
+[ext_resource path="res://media/audio/sfx/sfx10.wav" type="AudioStream" id=1]
+[ext_resource path="res://media/image/player_swap.png" type="Texture" id=2]
+[ext_resource path="res://media/audio/sfx/btn3.wav" type="AudioStream" id=3]
+[ext_resource path="res://media/audio/sfx/player_jump.wav" type="AudioStream" id=4]
+[ext_resource path="res://media/audio/sfx/box_drop.wav" type="AudioStream" id=5]
+[ext_resource path="res://media/audio/sfx/push.wav" type="AudioStream" id=6]
+[ext_resource path="res://media/font/QuinqueFive.ttf" type="DynamicFontData" id=7]
+[ext_resource path="res://src/menu/Creator.gd" type="Script" id=8]
+[ext_resource path="res://media/font/ThaleahFat.ttf" type="DynamicFontData" id=9]
+
+[sub_resource type="DynamicFont" id=16]
+size = 32
+extra_spacing_top = -6
+extra_spacing_bottom = -12
+font_data = ExtResource( 9 )
+
+[sub_resource type="Shader" id=8]
+code = "shader_type canvas_item;
+
+uniform vec4 hat : hint_color = vec4(0.0);
+uniform vec4 eye : hint_color = vec4(0.0);
+uniform vec4 skin : hint_color = vec4(0.0);
+uniform vec4 suit : hint_color = vec4(0.0);
+uniform vec4 shoe : hint_color = vec4(0.0);
+
+uniform vec4 hat_swap : hint_color = vec4(0.0);
+uniform vec4 eye_swap : hint_color = vec4(0.0);
+uniform vec4 skin_swap : hint_color = vec4(0.0);
+uniform vec4 suit_swap : hint_color = vec4(0.0);
+uniform vec4 shoe_swap : hint_color = vec4(0.0);
+
+
+void fragment(){
+	vec4 col = texture(TEXTURE, UV);
+	
+	if (col == hat){
+		col = hat_swap;
+	}
+	else if (col == eye){
+		col = eye_swap;
+	}
+	else if (col == skin){
+		col = skin_swap;
+	}
+	else if (col == suit){
+		col = suit_swap;
+	}
+	else if (col == shoe){
+		col = shoe_swap;
+	}
+	
+	COLOR = col;
+}"
+
+[sub_resource type="ShaderMaterial" id=15]
+shader = SubResource( 8 )
+shader_param/hat = Color( 1, 0, 0, 1 )
+shader_param/eye = Color( 0, 1, 0, 1 )
+shader_param/skin = Color( 0, 0, 1, 1 )
+shader_param/suit = Color( 1, 1, 0, 1 )
+shader_param/shoe = Color( 1, 0, 1, 1 )
+shader_param/hat_swap = Color( 1, 0.92549, 0.152941, 1 )
+shader_param/eye_swap = Color( 1, 0.8, 0.666667, 1 )
+shader_param/skin_swap = Color( 0.670588, 0.321569, 0.211765, 1 )
+shader_param/suit_swap = Color( 0.160784, 0.678431, 1, 1 )
+shader_param/shoe_swap = Color( 1, 0.8, 0.666667, 1 )
+
+[sub_resource type="Animation" id=10]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 0 ]
+}
+
+[sub_resource type="Animation" id=11]
+length = 0.6
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ 0, 1 ]
+}
+
+[sub_resource type="Animation" id=12]
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ 6 ]
+}
+
+[sub_resource type="Animation" id=13]
+length = 0.6
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.3, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 2, 0, 4, 0 ]
+}
+
+[sub_resource type="DynamicFont" id=14]
+size = 5
+font_data = ExtResource( 7 )
+
+[node name="Creator" type="Node2D"]
+script = ExtResource( 8 )
+palette = [ Color( 0.670588, 0.321569, 0.211765, 1 ), Color( 0.494118, 0.145098, 0.32549, 1 ), Color( 0.372549, 0.341176, 0.309804, 1 ), Color( 0.760784, 0.764706, 0.780392, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 0, 0.301961, 1 ), Color( 1, 0.639216, 0, 1 ), Color( 1, 0.92549, 0.152941, 1 ), Color( 0, 0.894118, 0.211765, 1 ), Color( 0, 0.529412, 0.317647, 1 ), Color( 0.160784, 0.678431, 1, 1 ), Color( 0.513726, 0.462745, 0.611765, 1 ), Color( 1, 0.466667, 0.658824, 1 ), Color( 1, 0.8, 0.666667, 1 ) ]
+
+[node name="Header" type="Label" parent="."]
+margin_left = 4.0
+margin_top = 2.0
+margin_right = 98.0
+margin_bottom = 44.0
+custom_fonts/font = SubResource( 16 )
+text = "create"
+
+[node name="Player" type="Node2D" parent="."]
+position = Vector2( 84, 31 )
+z_index = 15
+z_as_relative = false
+
+[node name="Sprite" type="Sprite" parent="Player"]
+material = SubResource( 15 )
+position = Vector2( 12, 0 )
+scale = Vector2( 3, 3 )
+texture = ExtResource( 2 )
+hframes = 7
+region_rect = Rect2( 40, 0, 8, 24 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Player"]
+autoplay = "idle"
+anims/RESET = SubResource( 10 )
+anims/idle = SubResource( 11 )
+anims/jump = SubResource( 12 )
+anims/run = SubResource( 13 )
+
+[node name="AudioJump" type="AudioStreamPlayer2D" parent="Player"]
+stream = ExtResource( 4 )
+attenuation = 0.101532
+bus = "SFX"
+
+[node name="AudioPickup" type="AudioStreamPlayer2D" parent="Player"]
+stream = ExtResource( 3 )
+bus = "SFX"
+
+[node name="AudioDrop" type="AudioStreamPlayer2D" parent="Player"]
+stream = ExtResource( 5 )
+bus = "SFX"
+
+[node name="AudioThrow" type="AudioStreamPlayer2D" parent="Player"]
+stream = ExtResource( 1 )
+bus = "SFX"
+
+[node name="AudioPush" type="AudioStreamPlayer2D" parent="Player"]
+stream = ExtResource( 6 )
+bus = "SFX"
+
+[node name="NameBack" type="ColorRect" parent="."]
+modulate = Color( 1, 1, 1, 0.2 )
+margin_left = 65.0
+margin_top = 66.0
+margin_right = 166.0
+margin_bottom = 75.0
+
+[node name="KeyboardBack" type="ColorRect" parent="."]
+modulate = Color( 1, 1, 1, 0.2 )
+margin_left = 60.0
+margin_top = 79.0
+margin_right = 170.0
+margin_bottom = 111.0
+
+[node name="DoneBack" type="ColorRect" parent="."]
+modulate = Color( 1, 1, 1, 0.2 )
+margin_left = 95.0
+margin_top = 115.0
+margin_right = 134.0
+margin_bottom = 124.0
+
+[node name="ColorPick" type="VBoxContainer" parent="."]
+modulate = Color( 1, 1, 1, 0.2 )
+margin_left = 132.0
+margin_top = 12.0
+margin_right = 205.0
+margin_bottom = 64.0
+custom_constants/separation = 12
+
+[node name="ColorRect2" type="ColorRect" parent="ColorPick"]
+margin_right = 73.0
+margin_bottom = 2.0
+rect_min_size = Vector2( 0, 2 )
+size_flags_vertical = 4
+
+[node name="ColorRect3" type="ColorRect" parent="ColorPick"]
+margin_top = 14.0
+margin_right = 73.0
+margin_bottom = 16.0
+rect_min_size = Vector2( 0, 2 )
+size_flags_vertical = 4
+
+[node name="ColorRect4" type="ColorRect" parent="ColorPick"]
+margin_top = 28.0
+margin_right = 73.0
+margin_bottom = 30.0
+rect_min_size = Vector2( 0, 2 )
+size_flags_vertical = 4
+
+[node name="ColorRect5" type="ColorRect" parent="ColorPick"]
+margin_top = 42.0
+margin_right = 73.0
+margin_bottom = 44.0
+rect_min_size = Vector2( 0, 2 )
+size_flags_vertical = 4
+
+[node name="Cursor" type="ColorRect" parent="."]
+margin_left = 43.0
+margin_top = 86.0
+margin_right = 50.0
+margin_bottom = 93.0
+color = Color( 1, 0, 0.301961, 1 )
+
+[node name="Colors" type="VBoxContainer" parent="."]
+margin_left = 132.0
+margin_top = 8.0
+margin_right = 205.0
+margin_bottom = 60.0
+custom_constants/separation = 4
+
+[node name="Hat" type="HBoxContainer" parent="Colors"]
+margin_right = 73.0
+margin_bottom = 10.0
+alignment = 1
+
+[node name="ColorRect2" type="ColorRect" parent="Colors/Hat"]
+margin_left = 7.0
+margin_top = 1.0
+margin_right = 15.0
+margin_bottom = 9.0
+rect_min_size = Vector2( 8, 8 )
+size_flags_horizontal = 4
+size_flags_vertical = 4
+color = Color( 1, 0, 0.301961, 1 )
+
+[node name="ColorRect3" type="ColorRect" parent="Colors/Hat"]
+margin_left = 19.0
+margin_top = 1.0
+margin_right = 27.0
+margin_bottom = 9.0
+rect_min_size = Vector2( 8, 8 )
+size_flags_horizontal = 4
+size_flags_vertical = 4
+color = Color( 1, 0.639216, 0, 1 )
+
+[node name="ColorRect4" type="ColorRect" parent="Colors/Hat"]
+margin_left = 31.0
+margin_right = 41.0
+margin_bottom = 10.0
+rect_min_size = Vector2( 10, 10 )
+size_flags_horizontal = 4
+size_flags_vertical = 4
+color = Color( 1, 0.92549, 0.152941, 1 )
+
+[node name="ColorRect5" type="ColorRect" parent="Colors/Hat"]
+margin_left = 45.0
+margin_top = 1.0
+margin_right = 53.0
+margin_bottom = 9.0
+rect_min_size = Vector2( 8, 8 )
+size_flags_horizontal = 4
+size_flags_vertical = 4
+color = Color( 0, 0.894118, 0.211765, 1 )
+
+[node name="ColorRect" type="ColorRect" parent="Colors/Hat"]
+margin_left = 57.0
+margin_top = 1.0
+margin_right = 65.0
+margin_bottom = 9.0
+rect_min_size = Vector2( 8, 8 )
+size_flags_horizontal = 4
+size_flags_vertical = 4
+color = Color( 0.160784, 0.678431, 1, 1 )
+
+[node name="Skin" type="HBoxContainer" parent="Colors"]
+margin_top = 14.0
+margin_right = 73.0
+margin_bottom = 24.0
+rect_min_size = Vector2( 8, 8 )
+alignment = 1
+
+[node name="ColorRect4" type="ColorRect" parent="Colors/Skin"]
+margin_left = 7.0
+margin_top = 1.0
+margin_right = 15.0
+margin_bottom = 9.0
+rect_min_size = Vector2( 8, 8 )
+size_flags_horizontal = 4
+size_flags_vertical = 4
+color = Color( 0.494118, 0.145098, 0.32549, 1 )
+
+[node name="ColorRect5" type="ColorRect" parent="Colors/Skin"]
+margin_left = 19.0
+margin_top = 1.0
+margin_right = 27.0
+margin_bottom = 9.0
+rect_min_size = Vector2( 8, 8 )
+size_flags_horizontal = 4
+size_flags_vertical = 4
+color = Color( 0, 0.529412, 0.317647, 1 )
+
+[node name="ColorRect" type="ColorRect" parent="Colors/Skin"]
+margin_left = 31.0
+margin_right = 41.0
+margin_bottom = 10.0
+rect_min_size = Vector2( 10, 10 )
+size_flags_horizontal = 4
+size_flags_vertical = 4
+color = Color( 0.670588, 0.321569, 0.211765, 1 )
+
+[node name="ColorRect2" type="ColorRect" parent="Colors/Skin"]
+margin_left = 45.0
+margin_top = 1.0
+margin_right = 53.0
+margin_bottom = 9.0
+rect_min_size = Vector2( 8, 8 )
+size_flags_horizontal = 4
+size_flags_vertical = 4
+color = Color( 0.372549, 0.341176, 0.309804, 1 )
+
+[node name="ColorRect3" type="ColorRect" parent="Colors/Skin"]
+margin_left = 57.0
+margin_top = 1.0
+margin_right = 65.0
+margin_bottom = 9.0
+rect_min_size = Vector2( 8, 8 )
+size_flags_horizontal = 4
+size_flags_vertical = 4
+color = Color( 0.760784, 0.764706, 0.780392, 1 )
+
+[node name="Suit" type="HBoxContainer" parent="Colors"]
+margin_top = 28.0
+margin_right = 73.0
+margin_bottom = 38.0
+rect_min_size = Vector2( 8, 8 )
+alignment = 1
+
+[node name="ColorRect4" type="ColorRect" parent="Colors/Suit"]
+margin_left = 7.0
+margin_top = 1.0
+margin_right = 15.0
+margin_bottom = 9.0
+rect_min_size = Vector2( 8, 8 )
+size_flags_horizontal = 4
+size_flags_vertical = 4
+color = Color( 1, 0.92549, 0.152941, 1 )
+
+[node name="ColorRect5" type="ColorRect" parent="Colors/Suit"]
+margin_left = 19.0
+margin_top = 1.0
+margin_right = 27.0
+margin_bottom = 9.0
+rect_min_size = Vector2( 8, 8 )
+size_flags_horizontal = 4
+size_flags_vertical = 4
+color = Color( 0, 0.894118, 0.211765, 1 )
+
+[node name="ColorRect" type="ColorRect" parent="Colors/Suit"]
+margin_left = 31.0
+margin_right = 41.0
+margin_bottom = 10.0
+rect_min_size = Vector2( 10, 10 )
+size_flags_horizontal = 4
+size_flags_vertical = 4
+color = Color( 0.160784, 0.678431, 1, 1 )
+
+[node name="ColorRect2" type="ColorRect" parent="Colors/Suit"]
+margin_left = 45.0
+margin_top = 1.0
+margin_right = 53.0
+margin_bottom = 9.0
+rect_min_size = Vector2( 8, 8 )
+size_flags_horizontal = 4
+size_flags_vertical = 4
+color = Color( 0.513726, 0.462745, 0.611765, 1 )
+
+[node name="ColorRect3" type="ColorRect" parent="Colors/Suit"]
+margin_left = 57.0
+margin_top = 1.0
+margin_right = 65.0
+margin_bottom = 9.0
+rect_min_size = Vector2( 8, 8 )
+size_flags_horizontal = 4
+size_flags_vertical = 4
+color = Color( 1, 0.466667, 0.658824, 1 )
+
+[node name="Eye" type="HBoxContainer" parent="Colors"]
+margin_top = 42.0
+margin_right = 73.0
+margin_bottom = 52.0
+rect_min_size = Vector2( 8, 8 )
+alignment = 1
+
+[node name="ColorRect3" type="ColorRect" parent="Colors/Eye"]
+margin_left = 7.0
+margin_top = 1.0
+margin_right = 15.0
+margin_bottom = 9.0
+rect_min_size = Vector2( 8, 8 )
+size_flags_horizontal = 4
+size_flags_vertical = 4
+color = Color( 0.760784, 0.764706, 0.780392, 1 )
+
+[node name="ColorRect4" type="ColorRect" parent="Colors/Eye"]
+margin_left = 19.0
+margin_top = 1.0
+margin_right = 27.0
+margin_bottom = 9.0
+rect_min_size = Vector2( 8, 8 )
+size_flags_horizontal = 4
+size_flags_vertical = 4
+color = Color( 1, 0.466667, 0.658824, 1 )
+
+[node name="ColorRect5" type="ColorRect" parent="Colors/Eye"]
+margin_left = 31.0
+margin_right = 41.0
+margin_bottom = 10.0
+rect_min_size = Vector2( 10, 10 )
+size_flags_horizontal = 4
+size_flags_vertical = 4
+color = Color( 1, 0.8, 0.666667, 1 )
+
+[node name="ColorRect" type="ColorRect" parent="Colors/Eye"]
+margin_left = 45.0
+margin_top = 1.0
+margin_right = 53.0
+margin_bottom = 9.0
+rect_min_size = Vector2( 8, 8 )
+size_flags_horizontal = 4
+size_flags_vertical = 4
+color = Color( 0.494118, 0.145098, 0.32549, 1 )
+
+[node name="ColorRect2" type="ColorRect" parent="Colors/Eye"]
+margin_left = 57.0
+margin_top = 1.0
+margin_right = 65.0
+margin_bottom = 9.0
+rect_min_size = Vector2( 8, 8 )
+size_flags_horizontal = 4
+size_flags_vertical = 4
+color = Color( 0, 0.529412, 0.317647, 1 )
+
+[node name="Name" type="Label" parent="."]
+margin_left = 66.0
+margin_top = 67.0
+margin_right = 165.0
+margin_bottom = 74.0
+custom_fonts/font = SubResource( 14 )
+text = "crate_kid"
+align = 1
+
+[node name="Keyboard" type="VBoxContainer" parent="."]
+margin_left = 62.0
+margin_top = 81.0
+margin_right = 168.0
+margin_bottom = 109.0
+custom_constants/separation = 0
+
+[node name="Row1" type="HBoxContainer" parent="Keyboard"]
+margin_right = 106.0
+margin_bottom = 7.0
+
+[node name="Key" type="Control" parent="Keyboard/Row1"]
+margin_right = 7.0
+margin_bottom = 7.0
+rect_min_size = Vector2( 7, 7 )
+
+[node name="Label" type="Label" parent="Keyboard/Row1/Key"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 1.0
+margin_right = 1.0
+custom_fonts/font = SubResource( 14 )
+text = "1"
+align = 1
+valign = 1
+
+[node name="Key2" type="Control" parent="Keyboard/Row1"]
+margin_left = 11.0
+margin_right = 18.0
+margin_bottom = 7.0
+rect_min_size = Vector2( 7, 7 )
+
+[node name="Label" type="Label" parent="Keyboard/Row1/Key2"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 1.0
+margin_right = 1.0
+custom_fonts/font = SubResource( 14 )
+text = "2"
+align = 1
+valign = 1
+
+[node name="Key3" type="Control" parent="Keyboard/Row1"]
+margin_left = 22.0
+margin_right = 29.0
+margin_bottom = 7.0
+rect_min_size = Vector2( 7, 7 )
+
+[node name="Label" type="Label" parent="Keyboard/Row1/Key3"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 1.0
+margin_right = 1.0
+custom_fonts/font = SubResource( 14 )
+text = "3"
+align = 1
+valign = 1
+
+[node name="Key4" type="Control" parent="Keyboard/Row1"]
+margin_left = 33.0
+margin_right = 40.0
+margin_bottom = 7.0
+rect_min_size = Vector2( 7, 7 )
+
+[node name="Label" type="Label" parent="Keyboard/Row1/Key4"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 1.0
+margin_right = 1.0
+custom_fonts/font = SubResource( 14 )
+text = "4"
+align = 1
+valign = 1
+
+[node name="Key5" type="Control" parent="Keyboard/Row1"]
+margin_left = 44.0
+margin_right = 51.0
+margin_bottom = 7.0
+rect_min_size = Vector2( 7, 7 )
+
+[node name="Label" type="Label" parent="Keyboard/Row1/Key5"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 1.0
+margin_right = 1.0
+custom_fonts/font = SubResource( 14 )
+text = "5"
+align = 1
+valign = 1
+
+[node name="Key6" type="Control" parent="Keyboard/Row1"]
+margin_left = 55.0
+margin_right = 62.0
+margin_bottom = 7.0
+rect_min_size = Vector2( 7, 7 )
+
+[node name="Label" type="Label" parent="Keyboard/Row1/Key6"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 1.0
+margin_right = 1.0
+custom_fonts/font = SubResource( 14 )
+text = "6"
+align = 1
+valign = 1
+
+[node name="Key7" type="Control" parent="Keyboard/Row1"]
+margin_left = 66.0
+margin_right = 73.0
+margin_bottom = 7.0
+rect_min_size = Vector2( 7, 7 )
+
+[node name="Label" type="Label" parent="Keyboard/Row1/Key7"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 1.0
+margin_right = 1.0
+custom_fonts/font = SubResource( 14 )
+text = "7"
+align = 1
+valign = 1
+
+[node name="Key8" type="Control" parent="Keyboard/Row1"]
+margin_left = 77.0
+margin_right = 84.0
+margin_bottom = 7.0
+rect_min_size = Vector2( 7, 7 )
+
+[node name="Label" type="Label" parent="Keyboard/Row1/Key8"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 1.0
+margin_right = 1.0
+custom_fonts/font = SubResource( 14 )
+text = "8"
+align = 1
+valign = 1
+
+[node name="Key9" type="Control" parent="Keyboard/Row1"]
+margin_left = 88.0
+margin_right = 95.0
+margin_bottom = 7.0
+rect_min_size = Vector2( 7, 7 )
+
+[node name="Label" type="Label" parent="Keyboard/Row1/Key9"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 1.0
+margin_right = 1.0
+custom_fonts/font = SubResource( 14 )
+text = "9"
+align = 1
+valign = 1
+
+[node name="Key10" type="Control" parent="Keyboard/Row1"]
+margin_left = 99.0
+margin_right = 106.0
+margin_bottom = 7.0
+rect_min_size = Vector2( 7, 7 )
+
+[node name="Label" type="Label" parent="Keyboard/Row1/Key10"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 1.0
+margin_right = 1.0
+custom_fonts/font = SubResource( 14 )
+text = "0"
+align = 1
+valign = 1
+
+[node name="Row2" type="HBoxContainer" parent="Keyboard"]
+margin_top = 7.0
+margin_right = 106.0
+margin_bottom = 14.0
+
+[node name="Key" type="Control" parent="Keyboard/Row2"]
+margin_right = 7.0
+margin_bottom = 7.0
+rect_min_size = Vector2( 7, 7 )
+
+[node name="Label" type="Label" parent="Keyboard/Row2/Key"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 1.0
+margin_right = 1.0
+custom_fonts/font = SubResource( 14 )
+text = "q"
+align = 1
+valign = 1
+
+[node name="Key2" type="Control" parent="Keyboard/Row2"]
+margin_left = 11.0
+margin_right = 18.0
+margin_bottom = 7.0
+rect_min_size = Vector2( 7, 7 )
+
+[node name="Label" type="Label" parent="Keyboard/Row2/Key2"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 1.0
+margin_right = 1.0
+custom_fonts/font = SubResource( 14 )
+text = "w"
+align = 1
+valign = 1
+
+[node name="Key3" type="Control" parent="Keyboard/Row2"]
+margin_left = 22.0
+margin_right = 29.0
+margin_bottom = 7.0
+rect_min_size = Vector2( 7, 7 )
+
+[node name="Label" type="Label" parent="Keyboard/Row2/Key3"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 1.0
+margin_right = 1.0
+custom_fonts/font = SubResource( 14 )
+text = "e"
+align = 1
+valign = 1
+
+[node name="Key4" type="Control" parent="Keyboard/Row2"]
+margin_left = 33.0
+margin_right = 40.0
+margin_bottom = 7.0
+rect_min_size = Vector2( 7, 7 )
+
+[node name="Label" type="Label" parent="Keyboard/Row2/Key4"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 1.0
+margin_right = 1.0
+custom_fonts/font = SubResource( 14 )
+text = "r"
+align = 1
+valign = 1
+
+[node name="Key5" type="Control" parent="Keyboard/Row2"]
+margin_left = 44.0
+margin_right = 51.0
+margin_bottom = 7.0
+rect_min_size = Vector2( 7, 7 )
+
+[node name="Label" type="Label" parent="Keyboard/Row2/Key5"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 1.0
+margin_right = 1.0
+custom_fonts/font = SubResource( 14 )
+text = "t"
+align = 1
+valign = 1
+
+[node name="Key6" type="Control" parent="Keyboard/Row2"]
+margin_left = 55.0
+margin_right = 62.0
+margin_bottom = 7.0
+rect_min_size = Vector2( 7, 7 )
+
+[node name="Label" type="Label" parent="Keyboard/Row2/Key6"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 1.0
+margin_right = 1.0
+custom_fonts/font = SubResource( 14 )
+text = "y"
+align = 1
+valign = 1
+
+[node name="Key7" type="Control" parent="Keyboard/Row2"]
+margin_left = 66.0
+margin_right = 73.0
+margin_bottom = 7.0
+rect_min_size = Vector2( 7, 7 )
+
+[node name="Label" type="Label" parent="Keyboard/Row2/Key7"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 1.0
+margin_right = 1.0
+custom_fonts/font = SubResource( 14 )
+text = "u"
+align = 1
+valign = 1
+
+[node name="Key8" type="Control" parent="Keyboard/Row2"]
+margin_left = 77.0
+margin_right = 84.0
+margin_bottom = 7.0
+rect_min_size = Vector2( 7, 7 )
+
+[node name="Label" type="Label" parent="Keyboard/Row2/Key8"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 1.0
+margin_right = 1.0
+custom_fonts/font = SubResource( 14 )
+text = "i"
+align = 1
+valign = 1
+
+[node name="Key9" type="Control" parent="Keyboard/Row2"]
+margin_left = 88.0
+margin_right = 95.0
+margin_bottom = 7.0
+rect_min_size = Vector2( 7, 7 )
+
+[node name="Label" type="Label" parent="Keyboard/Row2/Key9"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 1.0
+margin_right = 1.0
+custom_fonts/font = SubResource( 14 )
+text = "o"
+align = 1
+valign = 1
+
+[node name="Key10" type="Control" parent="Keyboard/Row2"]
+margin_left = 99.0
+margin_right = 106.0
+margin_bottom = 7.0
+rect_min_size = Vector2( 7, 7 )
+
+[node name="Label" type="Label" parent="Keyboard/Row2/Key10"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 1.0
+margin_right = 1.0
+custom_fonts/font = SubResource( 14 )
+text = "p"
+align = 1
+valign = 1
+
+[node name="Row3" type="HBoxContainer" parent="Keyboard"]
+margin_top = 14.0
+margin_right = 106.0
+margin_bottom = 21.0
+
+[node name="Key" type="Control" parent="Keyboard/Row3"]
+margin_right = 7.0
+margin_bottom = 7.0
+rect_min_size = Vector2( 7, 7 )
+
+[node name="Label" type="Label" parent="Keyboard/Row3/Key"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 1.0
+margin_right = 1.0
+custom_fonts/font = SubResource( 14 )
+text = "a"
+align = 1
+valign = 1
+
+[node name="Key2" type="Control" parent="Keyboard/Row3"]
+margin_left = 11.0
+margin_right = 18.0
+margin_bottom = 7.0
+rect_min_size = Vector2( 7, 7 )
+
+[node name="Label" type="Label" parent="Keyboard/Row3/Key2"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 1.0
+margin_right = 1.0
+custom_fonts/font = SubResource( 14 )
+text = "s"
+align = 1
+valign = 1
+
+[node name="Key3" type="Control" parent="Keyboard/Row3"]
+margin_left = 22.0
+margin_right = 29.0
+margin_bottom = 7.0
+rect_min_size = Vector2( 7, 7 )
+
+[node name="Label" type="Label" parent="Keyboard/Row3/Key3"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 1.0
+margin_right = 1.0
+custom_fonts/font = SubResource( 14 )
+text = "d"
+align = 1
+valign = 1
+
+[node name="Key4" type="Control" parent="Keyboard/Row3"]
+margin_left = 33.0
+margin_right = 40.0
+margin_bottom = 7.0
+rect_min_size = Vector2( 7, 7 )
+
+[node name="Label" type="Label" parent="Keyboard/Row3/Key4"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 1.0
+margin_right = 1.0
+custom_fonts/font = SubResource( 14 )
+text = "f"
+align = 1
+valign = 1
+
+[node name="Key5" type="Control" parent="Keyboard/Row3"]
+margin_left = 44.0
+margin_right = 51.0
+margin_bottom = 7.0
+rect_min_size = Vector2( 7, 7 )
+
+[node name="Label" type="Label" parent="Keyboard/Row3/Key5"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 1.0
+margin_right = 1.0
+custom_fonts/font = SubResource( 14 )
+text = "g"
+align = 1
+valign = 1
+
+[node name="Key6" type="Control" parent="Keyboard/Row3"]
+margin_left = 55.0
+margin_right = 62.0
+margin_bottom = 7.0
+rect_min_size = Vector2( 7, 7 )
+
+[node name="Label" type="Label" parent="Keyboard/Row3/Key6"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 1.0
+margin_right = 1.0
+custom_fonts/font = SubResource( 14 )
+text = "h"
+align = 1
+valign = 1
+
+[node name="Key7" type="Control" parent="Keyboard/Row3"]
+margin_left = 66.0
+margin_right = 73.0
+margin_bottom = 7.0
+rect_min_size = Vector2( 7, 7 )
+
+[node name="Label" type="Label" parent="Keyboard/Row3/Key7"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 1.0
+margin_right = 1.0
+custom_fonts/font = SubResource( 14 )
+text = "j"
+align = 1
+valign = 1
+
+[node name="Key8" type="Control" parent="Keyboard/Row3"]
+margin_left = 77.0
+margin_right = 84.0
+margin_bottom = 7.0
+rect_min_size = Vector2( 7, 7 )
+
+[node name="Label" type="Label" parent="Keyboard/Row3/Key8"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 1.0
+margin_right = 1.0
+custom_fonts/font = SubResource( 14 )
+text = "k"
+align = 1
+valign = 1
+
+[node name="Key9" type="Control" parent="Keyboard/Row3"]
+margin_left = 88.0
+margin_right = 95.0
+margin_bottom = 7.0
+rect_min_size = Vector2( 7, 7 )
+
+[node name="Label" type="Label" parent="Keyboard/Row3/Key9"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 1.0
+margin_right = 1.0
+custom_fonts/font = SubResource( 14 )
+text = "l"
+align = 1
+valign = 1
+
+[node name="Key10" type="Control" parent="Keyboard/Row3"]
+margin_left = 99.0
+margin_right = 106.0
+margin_bottom = 7.0
+rect_min_size = Vector2( 7, 7 )
+
+[node name="Label" type="Label" parent="Keyboard/Row3/Key10"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 1.0
+margin_right = 1.0
+custom_fonts/font = SubResource( 14 )
+text = "."
+align = 1
+valign = 1
+
+[node name="Row4" type="HBoxContainer" parent="Keyboard"]
+margin_top = 21.0
+margin_right = 106.0
+margin_bottom = 28.0
+
+[node name="Key" type="Control" parent="Keyboard/Row4"]
+margin_right = 7.0
+margin_bottom = 7.0
+rect_min_size = Vector2( 7, 7 )
+
+[node name="Label" type="Label" parent="Keyboard/Row4/Key"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 1.0
+margin_right = 1.0
+custom_fonts/font = SubResource( 14 )
+text = "z"
+align = 1
+valign = 1
+
+[node name="Key2" type="Control" parent="Keyboard/Row4"]
+margin_left = 11.0
+margin_right = 18.0
+margin_bottom = 7.0
+rect_min_size = Vector2( 7, 7 )
+
+[node name="Label" type="Label" parent="Keyboard/Row4/Key2"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 1.0
+margin_right = 1.0
+custom_fonts/font = SubResource( 14 )
+text = "x"
+align = 1
+valign = 1
+
+[node name="Key3" type="Control" parent="Keyboard/Row4"]
+margin_left = 22.0
+margin_right = 29.0
+margin_bottom = 7.0
+rect_min_size = Vector2( 7, 7 )
+
+[node name="Label" type="Label" parent="Keyboard/Row4/Key3"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 1.0
+margin_right = 1.0
+custom_fonts/font = SubResource( 14 )
+text = "c"
+align = 1
+valign = 1
+
+[node name="Key4" type="Control" parent="Keyboard/Row4"]
+margin_left = 33.0
+margin_right = 40.0
+margin_bottom = 7.0
+rect_min_size = Vector2( 7, 7 )
+
+[node name="Label" type="Label" parent="Keyboard/Row4/Key4"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 1.0
+margin_right = 1.0
+custom_fonts/font = SubResource( 14 )
+text = "v"
+align = 1
+valign = 1
+
+[node name="Key5" type="Control" parent="Keyboard/Row4"]
+margin_left = 44.0
+margin_right = 51.0
+margin_bottom = 7.0
+rect_min_size = Vector2( 7, 7 )
+
+[node name="Label" type="Label" parent="Keyboard/Row4/Key5"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 1.0
+margin_right = 1.0
+custom_fonts/font = SubResource( 14 )
+text = "b"
+align = 1
+valign = 1
+
+[node name="Key6" type="Control" parent="Keyboard/Row4"]
+margin_left = 55.0
+margin_right = 62.0
+margin_bottom = 7.0
+rect_min_size = Vector2( 7, 7 )
+
+[node name="Label" type="Label" parent="Keyboard/Row4/Key6"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 1.0
+margin_right = 1.0
+custom_fonts/font = SubResource( 14 )
+text = "n"
+align = 1
+valign = 1
+
+[node name="Key7" type="Control" parent="Keyboard/Row4"]
+margin_left = 66.0
+margin_right = 73.0
+margin_bottom = 7.0
+rect_min_size = Vector2( 7, 7 )
+
+[node name="Label" type="Label" parent="Keyboard/Row4/Key7"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 1.0
+margin_right = 1.0
+custom_fonts/font = SubResource( 14 )
+text = "m"
+align = 1
+valign = 1
+
+[node name="Key8" type="Control" parent="Keyboard/Row4"]
+margin_left = 77.0
+margin_right = 84.0
+margin_bottom = 7.0
+rect_min_size = Vector2( 7, 7 )
+
+[node name="Label" type="Label" parent="Keyboard/Row4/Key8"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 1.0
+margin_right = 1.0
+custom_fonts/font = SubResource( 14 )
+text = " "
+align = 1
+valign = 1
+
+[node name="Key9" type="Control" parent="Keyboard/Row4"]
+margin_left = 88.0
+margin_right = 95.0
+margin_bottom = 7.0
+rect_min_size = Vector2( 7, 7 )
+
+[node name="Label" type="Label" parent="Keyboard/Row4/Key9"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 1.0
+margin_right = 1.0
+custom_fonts/font = SubResource( 14 )
+text = "_"
+align = 1
+valign = 1
+
+[node name="Key10" type="Control" parent="Keyboard/Row4"]
+margin_left = 99.0
+margin_right = 106.0
+margin_bottom = 7.0
+rect_min_size = Vector2( 7, 7 )
+
+[node name="Label" type="Label" parent="Keyboard/Row4/Key10"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 1.0
+margin_right = 1.0
+custom_fonts/font = SubResource( 14 )
+text = "-"
+align = 1
+valign = 1
+
+[node name="Done" type="Control" parent="."]
+margin_left = 96.0
+margin_top = 116.0
+margin_right = 133.0
+margin_bottom = 123.0
+
+[node name="Label" type="Label" parent="Done"]
+margin_left = 1.0
+margin_right = 37.0
+margin_bottom = 7.0
+custom_fonts/font = SubResource( 14 )
+text = "Accept"

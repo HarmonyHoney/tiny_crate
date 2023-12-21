@@ -23,6 +23,7 @@ var level_select_path := "res://src/menu/select.tscn"
 var win_screen_path := "res://src/menu/WinScreen.tscn"
 var credits_path := "res://src/menu/credits.tscn"
 var splash_path := "res://src/menu/splash.tscn"
+var creator_path := "res://src/menu/Creator.tscn"
 
 var save_data := {}
 var save_filename := "box.save"
@@ -202,6 +203,10 @@ func change_map():
 	elif scene_path == credits_path:
 		UI.keys(false, true)
 		TouchScreen.show_keys(false, true, false)
+	elif scene_path == creator_path:
+		UI.keys(true, true, true)
+		TouchScreen.turn_arrows(false)
+		TouchScreen.show_keys(true, true, true, true)
 
 ### Saving and Loading
 
