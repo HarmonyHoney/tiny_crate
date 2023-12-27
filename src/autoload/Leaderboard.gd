@@ -3,7 +3,6 @@ extends Node
 onready var api_file = load("silent_wolf_api_key.gd")
 var api_key := ""
 var is_online := false
-var username := "player_name"
 var scores := {}
 
 signal new_score
@@ -12,9 +11,7 @@ func _ready():
 	is_online = api_file is Script
 	if !is_online: return
 	
-	if OS.has_environment("USERNAME"):
-		username = OS.get_environment("USERNAME")
-	print("Leaderboard username: ", username)
+	print("Leaderboard Shared.username: ", Shared.username)
 	
 	api_key = api_file.source_code.strip_edges().replace('"', "")
 	SilentWolf.configure({
@@ -27,7 +24,7 @@ func _ready():
 	
 	
 	yield(get_tree(), "idle_frame")
-	SilentWolf.Scores.persist_score(username, 1)
+	SilentWolf.Scores.persist_score(Shared.username, 1)
 
 func refresh_scores():
 	if !is_online: return
@@ -56,5 +53,5 @@ func refresh_score(map_name):
 func submit_score(board_name, score):
 	if !is_online: return
 	
-	SilentWolf.Scores.persist_score("dinkle_" + username + "", score, board_name)
+	SilentWolf.Scores.persist_score("dinkle_" + Shared.username + "", score, board_name)
 	

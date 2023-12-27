@@ -1,20 +1,14 @@
 [gd_scene load_steps=18 format=2]
 
-[ext_resource path="res://media/audio/sfx/sfx10.wav" type="AudioStream" id=1]
+[ext_resource path="res://src/stage/SolidTileMap.tscn" type="PackedScene" id=1]
 [ext_resource path="res://media/image/player_swap.png" type="Texture" id=2]
-[ext_resource path="res://media/audio/sfx/btn3.wav" type="AudioStream" id=3]
-[ext_resource path="res://media/audio/sfx/player_jump.wav" type="AudioStream" id=4]
-[ext_resource path="res://media/audio/sfx/box_drop.wav" type="AudioStream" id=5]
-[ext_resource path="res://media/audio/sfx/push.wav" type="AudioStream" id=6]
+[ext_resource path="res://src/stage/GameCamera.tscn" type="PackedScene" id=3]
+[ext_resource path="res://src/stage/DetailTileMap.tscn" type="PackedScene" id=4]
+[ext_resource path="res://media/image/tinyArrow.png" type="Texture" id=5]
+[ext_resource path="res://media/image/creator.png" type="Texture" id=6]
 [ext_resource path="res://media/font/QuinqueFive.ttf" type="DynamicFontData" id=7]
 [ext_resource path="res://src/menu/Creator.gd" type="Script" id=8]
 [ext_resource path="res://media/font/ThaleahFat.ttf" type="DynamicFontData" id=9]
-
-[sub_resource type="DynamicFont" id=16]
-size = 32
-extra_spacing_top = -6
-extra_spacing_bottom = -12
-font_data = ExtResource( 9 )
 
 [sub_resource type="Shader" id=8]
 code = "shader_type canvas_item;
@@ -129,31 +123,40 @@ tracks/0/keys = {
 "values": [ 2, 0, 4, 0 ]
 }
 
+[sub_resource type="DynamicFont" id=16]
+size = 32
+outline_size = 2
+outline_color = Color( 0, 0, 0, 1 )
+extra_spacing_top = -6
+extra_spacing_bottom = -12
+font_data = ExtResource( 9 )
+
 [sub_resource type="DynamicFont" id=14]
 size = 5
 font_data = ExtResource( 7 )
 
 [node name="Creator" type="Node2D"]
 script = ExtResource( 8 )
-palette = [ Color( 0.670588, 0.321569, 0.211765, 1 ), Color( 0.494118, 0.145098, 0.32549, 1 ), Color( 0.372549, 0.341176, 0.309804, 1 ), Color( 0.760784, 0.764706, 0.780392, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 0, 0.301961, 1 ), Color( 1, 0.639216, 0, 1 ), Color( 1, 0.92549, 0.152941, 1 ), Color( 0, 0.894118, 0.211765, 1 ), Color( 0, 0.529412, 0.317647, 1 ), Color( 0.160784, 0.678431, 1, 1 ), Color( 0.513726, 0.462745, 0.611765, 1 ), Color( 1, 0.466667, 0.658824, 1 ), Color( 1, 0.8, 0.666667, 1 ) ]
 
-[node name="Header" type="Label" parent="."]
-margin_left = 4.0
-margin_top = 2.0
-margin_right = 98.0
-margin_bottom = 44.0
-custom_fonts/font = SubResource( 16 )
-text = "create"
+[node name="SolidTileMap" parent="." instance=ExtResource( 1 )]
+tile_data = PoolIntArray( 458729, 0, 1, 458730, 0, 1, 458731, 0, 1, 458732, 0, 1, 458733, 536870912, 0, 458734, 0, 1, 458735, 0, 0, 458736, 0, 1, 458737, 536870912, 0, 458738, 536870912, 1, 524274, 0, 0, 589810, 536870912, 1, 655346, 536870912, 0 )
+
+[node name="DetailTileMap" parent="." instance=ExtResource( 4 )]
+z_index = -11
+tile_data = PoolIntArray( 65516, 5, 0, 65517, 5, 0, 65518, 5, 0, 65519, 5, 0, 65520, 5, 0, 131052, 5, 0, 131053, 5, 0, 131054, 5, 0, 131055, 5, 0, 131056, 5, 0, 196588, 1073741829, 2, 196589, 5, 0, 196590, 5, 0, 196591, 5, 0, 196592, 1610612741, 2, 262125, 1073741829, 2, 262126, 5, 0, 262127, 1610612741, 2, 327662, 5, 1, 393198, 5, 1, 524273, 1073741829, 2, 524275, -1610612731, 2, 589811, -1610612731, 0, 655347, -1610612731, 0 )
+
+[node name="GameCamera" parent="." instance=ExtResource( 3 )]
+position = Vector2( -92, 48 )
+zoom = Vector2( 0.5, 0.5 )
 
 [node name="Player" type="Node2D" parent="."]
-position = Vector2( 84, 31 )
+position = Vector2( -120, 40 )
 z_index = 15
 z_as_relative = false
 
 [node name="Sprite" type="Sprite" parent="Player"]
 material = SubResource( 15 )
-position = Vector2( 12, 0 )
-scale = Vector2( 3, 3 )
+position = Vector2( 4, 0 )
 texture = ExtResource( 2 )
 hframes = 7
 region_rect = Rect2( 40, 0, 8, 24 )
@@ -165,103 +168,108 @@ anims/idle = SubResource( 11 )
 anims/jump = SubResource( 12 )
 anims/run = SubResource( 13 )
 
-[node name="AudioJump" type="AudioStreamPlayer2D" parent="Player"]
-stream = ExtResource( 4 )
-attenuation = 0.101532
-bus = "SFX"
+[node name="Menu" type="CanvasLayer" parent="."]
 
-[node name="AudioPickup" type="AudioStreamPlayer2D" parent="Player"]
-stream = ExtResource( 3 )
-bus = "SFX"
+[node name="Header" type="Label" parent="Menu"]
+margin_left = 4.0
+margin_top = 2.0
+margin_right = 98.0
+margin_bottom = 44.0
+custom_fonts/font = SubResource( 16 )
+text = "style"
 
-[node name="AudioDrop" type="AudioStreamPlayer2D" parent="Player"]
-stream = ExtResource( 5 )
-bus = "SFX"
-
-[node name="AudioThrow" type="AudioStreamPlayer2D" parent="Player"]
-stream = ExtResource( 1 )
-bus = "SFX"
-
-[node name="AudioPush" type="AudioStreamPlayer2D" parent="Player"]
-stream = ExtResource( 6 )
-bus = "SFX"
-
-[node name="NameBack" type="ColorRect" parent="."]
+[node name="NameBack" type="ColorRect" parent="Menu"]
 modulate = Color( 1, 1, 1, 0.2 )
-margin_left = 65.0
+margin_left = 119.0
 margin_top = 66.0
-margin_right = 166.0
+margin_right = 220.0
 margin_bottom = 75.0
 
-[node name="KeyboardBack" type="ColorRect" parent="."]
+[node name="KeyboardBack" type="ColorRect" parent="Menu"]
 modulate = Color( 1, 1, 1, 0.2 )
-margin_left = 60.0
+margin_left = 114.0
 margin_top = 79.0
-margin_right = 170.0
+margin_right = 224.0
 margin_bottom = 111.0
 
-[node name="DoneBack" type="ColorRect" parent="."]
+[node name="DoneBack" type="ColorRect" parent="Menu"]
 modulate = Color( 1, 1, 1, 0.2 )
-margin_left = 95.0
+margin_left = 149.0
 margin_top = 115.0
-margin_right = 134.0
+margin_right = 188.0
 margin_bottom = 124.0
 
-[node name="ColorPick" type="VBoxContainer" parent="."]
+[node name="ColorPick" type="VBoxContainer" parent="Menu"]
 modulate = Color( 1, 1, 1, 0.2 )
-margin_left = 132.0
+margin_left = 133.0
 margin_top = 12.0
-margin_right = 205.0
+margin_right = 199.0
 margin_bottom = 64.0
 custom_constants/separation = 12
 
-[node name="ColorRect2" type="ColorRect" parent="ColorPick"]
-margin_right = 73.0
+[node name="ColorRect2" type="ColorRect" parent="Menu/ColorPick"]
+margin_right = 66.0
 margin_bottom = 2.0
 rect_min_size = Vector2( 0, 2 )
 size_flags_vertical = 4
 
-[node name="ColorRect3" type="ColorRect" parent="ColorPick"]
+[node name="ColorRect3" type="ColorRect" parent="Menu/ColorPick"]
 margin_top = 14.0
-margin_right = 73.0
+margin_right = 66.0
 margin_bottom = 16.0
 rect_min_size = Vector2( 0, 2 )
 size_flags_vertical = 4
 
-[node name="ColorRect4" type="ColorRect" parent="ColorPick"]
+[node name="ColorRect4" type="ColorRect" parent="Menu/ColorPick"]
 margin_top = 28.0
-margin_right = 73.0
+margin_right = 66.0
 margin_bottom = 30.0
 rect_min_size = Vector2( 0, 2 )
 size_flags_vertical = 4
 
-[node name="ColorRect5" type="ColorRect" parent="ColorPick"]
+[node name="ColorRect5" type="ColorRect" parent="Menu/ColorPick"]
 margin_top = 42.0
-margin_right = 73.0
+margin_right = 66.0
 margin_bottom = 44.0
 rect_min_size = Vector2( 0, 2 )
 size_flags_vertical = 4
 
-[node name="Cursor" type="ColorRect" parent="."]
-margin_left = 43.0
-margin_top = 86.0
-margin_right = 50.0
-margin_bottom = 93.0
+[node name="Arrows" type="Control" parent="Menu"]
+modulate = Color( 1, 0, 0.301961, 1 )
+margin_left = 137.0
+margin_top = 12.0
+margin_right = 137.0
+margin_bottom = 12.0
+
+[node name="Sprite" type="Sprite" parent="Menu/Arrows"]
+position = Vector2( -3, 1 )
+texture = ExtResource( 5 )
+
+[node name="Sprite2" type="Sprite" parent="Menu/Arrows"]
+position = Vector2( 69, 1 )
+texture = ExtResource( 5 )
+flip_h = true
+
+[node name="Cursor" type="ColorRect" parent="Menu"]
+margin_left = 116.0
+margin_top = 81.0
+margin_right = 123.0
+margin_bottom = 88.0
 color = Color( 1, 0, 0.301961, 1 )
 
-[node name="Colors" type="VBoxContainer" parent="."]
-margin_left = 132.0
+[node name="Colors" type="VBoxContainer" parent="Menu"]
+margin_left = 130.0
 margin_top = 8.0
-margin_right = 205.0
+margin_right = 203.0
 margin_bottom = 60.0
 custom_constants/separation = 4
 
-[node name="Hat" type="HBoxContainer" parent="Colors"]
+[node name="Hat" type="HBoxContainer" parent="Menu/Colors"]
 margin_right = 73.0
 margin_bottom = 10.0
 alignment = 1
 
-[node name="ColorRect2" type="ColorRect" parent="Colors/Hat"]
+[node name="ColorRect2" type="ColorRect" parent="Menu/Colors/Hat"]
 margin_left = 7.0
 margin_top = 1.0
 margin_right = 15.0
@@ -271,7 +279,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 color = Color( 1, 0, 0.301961, 1 )
 
-[node name="ColorRect3" type="ColorRect" parent="Colors/Hat"]
+[node name="ColorRect3" type="ColorRect" parent="Menu/Colors/Hat"]
 margin_left = 19.0
 margin_top = 1.0
 margin_right = 27.0
@@ -281,7 +289,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 color = Color( 1, 0.639216, 0, 1 )
 
-[node name="ColorRect4" type="ColorRect" parent="Colors/Hat"]
+[node name="ColorRect4" type="ColorRect" parent="Menu/Colors/Hat"]
 margin_left = 31.0
 margin_right = 41.0
 margin_bottom = 10.0
@@ -290,7 +298,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 color = Color( 1, 0.92549, 0.152941, 1 )
 
-[node name="ColorRect5" type="ColorRect" parent="Colors/Hat"]
+[node name="ColorRect5" type="ColorRect" parent="Menu/Colors/Hat"]
 margin_left = 45.0
 margin_top = 1.0
 margin_right = 53.0
@@ -300,7 +308,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 color = Color( 0, 0.894118, 0.211765, 1 )
 
-[node name="ColorRect" type="ColorRect" parent="Colors/Hat"]
+[node name="ColorRect" type="ColorRect" parent="Menu/Colors/Hat"]
 margin_left = 57.0
 margin_top = 1.0
 margin_right = 65.0
@@ -310,14 +318,14 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 color = Color( 0.160784, 0.678431, 1, 1 )
 
-[node name="Skin" type="HBoxContainer" parent="Colors"]
+[node name="Skin" type="HBoxContainer" parent="Menu/Colors"]
 margin_top = 14.0
 margin_right = 73.0
 margin_bottom = 24.0
 rect_min_size = Vector2( 8, 8 )
 alignment = 1
 
-[node name="ColorRect4" type="ColorRect" parent="Colors/Skin"]
+[node name="ColorRect4" type="ColorRect" parent="Menu/Colors/Skin"]
 margin_left = 7.0
 margin_top = 1.0
 margin_right = 15.0
@@ -327,7 +335,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 color = Color( 0.494118, 0.145098, 0.32549, 1 )
 
-[node name="ColorRect5" type="ColorRect" parent="Colors/Skin"]
+[node name="ColorRect5" type="ColorRect" parent="Menu/Colors/Skin"]
 margin_left = 19.0
 margin_top = 1.0
 margin_right = 27.0
@@ -337,7 +345,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 color = Color( 0, 0.529412, 0.317647, 1 )
 
-[node name="ColorRect" type="ColorRect" parent="Colors/Skin"]
+[node name="ColorRect" type="ColorRect" parent="Menu/Colors/Skin"]
 margin_left = 31.0
 margin_right = 41.0
 margin_bottom = 10.0
@@ -346,7 +354,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 color = Color( 0.670588, 0.321569, 0.211765, 1 )
 
-[node name="ColorRect2" type="ColorRect" parent="Colors/Skin"]
+[node name="ColorRect2" type="ColorRect" parent="Menu/Colors/Skin"]
 margin_left = 45.0
 margin_top = 1.0
 margin_right = 53.0
@@ -356,7 +364,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 color = Color( 0.372549, 0.341176, 0.309804, 1 )
 
-[node name="ColorRect3" type="ColorRect" parent="Colors/Skin"]
+[node name="ColorRect3" type="ColorRect" parent="Menu/Colors/Skin"]
 margin_left = 57.0
 margin_top = 1.0
 margin_right = 65.0
@@ -366,14 +374,14 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 color = Color( 0.760784, 0.764706, 0.780392, 1 )
 
-[node name="Suit" type="HBoxContainer" parent="Colors"]
+[node name="Suit" type="HBoxContainer" parent="Menu/Colors"]
 margin_top = 28.0
 margin_right = 73.0
 margin_bottom = 38.0
 rect_min_size = Vector2( 8, 8 )
 alignment = 1
 
-[node name="ColorRect4" type="ColorRect" parent="Colors/Suit"]
+[node name="ColorRect4" type="ColorRect" parent="Menu/Colors/Suit"]
 margin_left = 7.0
 margin_top = 1.0
 margin_right = 15.0
@@ -383,7 +391,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 color = Color( 1, 0.92549, 0.152941, 1 )
 
-[node name="ColorRect5" type="ColorRect" parent="Colors/Suit"]
+[node name="ColorRect5" type="ColorRect" parent="Menu/Colors/Suit"]
 margin_left = 19.0
 margin_top = 1.0
 margin_right = 27.0
@@ -393,7 +401,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 color = Color( 0, 0.894118, 0.211765, 1 )
 
-[node name="ColorRect" type="ColorRect" parent="Colors/Suit"]
+[node name="ColorRect" type="ColorRect" parent="Menu/Colors/Suit"]
 margin_left = 31.0
 margin_right = 41.0
 margin_bottom = 10.0
@@ -402,7 +410,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 color = Color( 0.160784, 0.678431, 1, 1 )
 
-[node name="ColorRect2" type="ColorRect" parent="Colors/Suit"]
+[node name="ColorRect2" type="ColorRect" parent="Menu/Colors/Suit"]
 margin_left = 45.0
 margin_top = 1.0
 margin_right = 53.0
@@ -412,7 +420,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 color = Color( 0.513726, 0.462745, 0.611765, 1 )
 
-[node name="ColorRect3" type="ColorRect" parent="Colors/Suit"]
+[node name="ColorRect3" type="ColorRect" parent="Menu/Colors/Suit"]
 margin_left = 57.0
 margin_top = 1.0
 margin_right = 65.0
@@ -422,14 +430,14 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 color = Color( 1, 0.466667, 0.658824, 1 )
 
-[node name="Eye" type="HBoxContainer" parent="Colors"]
+[node name="Eye" type="HBoxContainer" parent="Menu/Colors"]
 margin_top = 42.0
 margin_right = 73.0
 margin_bottom = 52.0
 rect_min_size = Vector2( 8, 8 )
 alignment = 1
 
-[node name="ColorRect3" type="ColorRect" parent="Colors/Eye"]
+[node name="ColorRect3" type="ColorRect" parent="Menu/Colors/Eye"]
 margin_left = 7.0
 margin_top = 1.0
 margin_right = 15.0
@@ -439,7 +447,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 color = Color( 0.760784, 0.764706, 0.780392, 1 )
 
-[node name="ColorRect4" type="ColorRect" parent="Colors/Eye"]
+[node name="ColorRect4" type="ColorRect" parent="Menu/Colors/Eye"]
 margin_left = 19.0
 margin_top = 1.0
 margin_right = 27.0
@@ -449,7 +457,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 color = Color( 1, 0.466667, 0.658824, 1 )
 
-[node name="ColorRect5" type="ColorRect" parent="Colors/Eye"]
+[node name="ColorRect5" type="ColorRect" parent="Menu/Colors/Eye"]
 margin_left = 31.0
 margin_right = 41.0
 margin_bottom = 10.0
@@ -458,7 +466,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 color = Color( 1, 0.8, 0.666667, 1 )
 
-[node name="ColorRect" type="ColorRect" parent="Colors/Eye"]
+[node name="ColorRect" type="ColorRect" parent="Menu/Colors/Eye"]
 margin_left = 45.0
 margin_top = 1.0
 margin_right = 53.0
@@ -468,7 +476,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 color = Color( 0.494118, 0.145098, 0.32549, 1 )
 
-[node name="ColorRect2" type="ColorRect" parent="Colors/Eye"]
+[node name="ColorRect2" type="ColorRect" parent="Menu/Colors/Eye"]
 margin_left = 57.0
 margin_top = 1.0
 margin_right = 65.0
@@ -478,32 +486,85 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 color = Color( 0, 0.529412, 0.317647, 1 )
 
-[node name="Name" type="Label" parent="."]
-margin_left = 66.0
+[node name="Labels" type="VBoxContainer" parent="Menu"]
+margin_left = 208.0
+margin_top = 9.0
+margin_right = 281.0
+margin_bottom = 62.0
+custom_constants/separation = 6
+
+[node name="Control" type="Control" parent="Menu/Labels"]
+margin_right = 73.0
+margin_bottom = 8.0
+rect_min_size = Vector2( 8, 8 )
+
+[node name="Sprite" type="Sprite" parent="Menu/Labels/Control"]
+texture = ExtResource( 6 )
+centered = false
+hframes = 4
+
+[node name="Control2" type="Control" parent="Menu/Labels"]
+margin_top = 14.0
+margin_right = 73.0
+margin_bottom = 22.0
+rect_min_size = Vector2( 8, 8 )
+
+[node name="Sprite" type="Sprite" parent="Menu/Labels/Control2"]
+texture = ExtResource( 6 )
+centered = false
+hframes = 4
+frame = 1
+
+[node name="Control3" type="Control" parent="Menu/Labels"]
+margin_top = 28.0
+margin_right = 73.0
+margin_bottom = 36.0
+rect_min_size = Vector2( 8, 8 )
+
+[node name="Sprite" type="Sprite" parent="Menu/Labels/Control3"]
+texture = ExtResource( 6 )
+centered = false
+hframes = 4
+frame = 2
+
+[node name="Control4" type="Control" parent="Menu/Labels"]
+margin_top = 42.0
+margin_right = 73.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 8, 8 )
+
+[node name="Sprite" type="Sprite" parent="Menu/Labels/Control4"]
+texture = ExtResource( 6 )
+centered = false
+hframes = 4
+frame = 3
+
+[node name="Name" type="Label" parent="Menu"]
+margin_left = 120.0
 margin_top = 67.0
-margin_right = 165.0
+margin_right = 219.0
 margin_bottom = 74.0
 custom_fonts/font = SubResource( 14 )
 text = "crate_kid"
 align = 1
 
-[node name="Keyboard" type="VBoxContainer" parent="."]
-margin_left = 62.0
+[node name="Keyboard" type="VBoxContainer" parent="Menu"]
+margin_left = 116.0
 margin_top = 81.0
-margin_right = 168.0
+margin_right = 222.0
 margin_bottom = 109.0
 custom_constants/separation = 0
 
-[node name="Row1" type="HBoxContainer" parent="Keyboard"]
+[node name="Row1" type="HBoxContainer" parent="Menu/Keyboard"]
 margin_right = 106.0
 margin_bottom = 7.0
 
-[node name="Key" type="Control" parent="Keyboard/Row1"]
+[node name="Key" type="Control" parent="Menu/Keyboard/Row1"]
 margin_right = 7.0
 margin_bottom = 7.0
 rect_min_size = Vector2( 7, 7 )
 
-[node name="Label" type="Label" parent="Keyboard/Row1/Key"]
+[node name="Label" type="Label" parent="Menu/Keyboard/Row1/Key"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 1.0
@@ -513,13 +574,13 @@ text = "1"
 align = 1
 valign = 1
 
-[node name="Key2" type="Control" parent="Keyboard/Row1"]
+[node name="Key2" type="Control" parent="Menu/Keyboard/Row1"]
 margin_left = 11.0
 margin_right = 18.0
 margin_bottom = 7.0
 rect_min_size = Vector2( 7, 7 )
 
-[node name="Label" type="Label" parent="Keyboard/Row1/Key2"]
+[node name="Label" type="Label" parent="Menu/Keyboard/Row1/Key2"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 1.0
@@ -529,13 +590,13 @@ text = "2"
 align = 1
 valign = 1
 
-[node name="Key3" type="Control" parent="Keyboard/Row1"]
+[node name="Key3" type="Control" parent="Menu/Keyboard/Row1"]
 margin_left = 22.0
 margin_right = 29.0
 margin_bottom = 7.0
 rect_min_size = Vector2( 7, 7 )
 
-[node name="Label" type="Label" parent="Keyboard/Row1/Key3"]
+[node name="Label" type="Label" parent="Menu/Keyboard/Row1/Key3"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 1.0
@@ -545,13 +606,13 @@ text = "3"
 align = 1
 valign = 1
 
-[node name="Key4" type="Control" parent="Keyboard/Row1"]
+[node name="Key4" type="Control" parent="Menu/Keyboard/Row1"]
 margin_left = 33.0
 margin_right = 40.0
 margin_bottom = 7.0
 rect_min_size = Vector2( 7, 7 )
 
-[node name="Label" type="Label" parent="Keyboard/Row1/Key4"]
+[node name="Label" type="Label" parent="Menu/Keyboard/Row1/Key4"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 1.0
@@ -561,13 +622,13 @@ text = "4"
 align = 1
 valign = 1
 
-[node name="Key5" type="Control" parent="Keyboard/Row1"]
+[node name="Key5" type="Control" parent="Menu/Keyboard/Row1"]
 margin_left = 44.0
 margin_right = 51.0
 margin_bottom = 7.0
 rect_min_size = Vector2( 7, 7 )
 
-[node name="Label" type="Label" parent="Keyboard/Row1/Key5"]
+[node name="Label" type="Label" parent="Menu/Keyboard/Row1/Key5"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 1.0
@@ -577,13 +638,13 @@ text = "5"
 align = 1
 valign = 1
 
-[node name="Key6" type="Control" parent="Keyboard/Row1"]
+[node name="Key6" type="Control" parent="Menu/Keyboard/Row1"]
 margin_left = 55.0
 margin_right = 62.0
 margin_bottom = 7.0
 rect_min_size = Vector2( 7, 7 )
 
-[node name="Label" type="Label" parent="Keyboard/Row1/Key6"]
+[node name="Label" type="Label" parent="Menu/Keyboard/Row1/Key6"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 1.0
@@ -593,13 +654,13 @@ text = "6"
 align = 1
 valign = 1
 
-[node name="Key7" type="Control" parent="Keyboard/Row1"]
+[node name="Key7" type="Control" parent="Menu/Keyboard/Row1"]
 margin_left = 66.0
 margin_right = 73.0
 margin_bottom = 7.0
 rect_min_size = Vector2( 7, 7 )
 
-[node name="Label" type="Label" parent="Keyboard/Row1/Key7"]
+[node name="Label" type="Label" parent="Menu/Keyboard/Row1/Key7"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 1.0
@@ -609,13 +670,13 @@ text = "7"
 align = 1
 valign = 1
 
-[node name="Key8" type="Control" parent="Keyboard/Row1"]
+[node name="Key8" type="Control" parent="Menu/Keyboard/Row1"]
 margin_left = 77.0
 margin_right = 84.0
 margin_bottom = 7.0
 rect_min_size = Vector2( 7, 7 )
 
-[node name="Label" type="Label" parent="Keyboard/Row1/Key8"]
+[node name="Label" type="Label" parent="Menu/Keyboard/Row1/Key8"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 1.0
@@ -625,13 +686,13 @@ text = "8"
 align = 1
 valign = 1
 
-[node name="Key9" type="Control" parent="Keyboard/Row1"]
+[node name="Key9" type="Control" parent="Menu/Keyboard/Row1"]
 margin_left = 88.0
 margin_right = 95.0
 margin_bottom = 7.0
 rect_min_size = Vector2( 7, 7 )
 
-[node name="Label" type="Label" parent="Keyboard/Row1/Key9"]
+[node name="Label" type="Label" parent="Menu/Keyboard/Row1/Key9"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 1.0
@@ -641,13 +702,13 @@ text = "9"
 align = 1
 valign = 1
 
-[node name="Key10" type="Control" parent="Keyboard/Row1"]
+[node name="Key10" type="Control" parent="Menu/Keyboard/Row1"]
 margin_left = 99.0
 margin_right = 106.0
 margin_bottom = 7.0
 rect_min_size = Vector2( 7, 7 )
 
-[node name="Label" type="Label" parent="Keyboard/Row1/Key10"]
+[node name="Label" type="Label" parent="Menu/Keyboard/Row1/Key10"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 1.0
@@ -657,17 +718,17 @@ text = "0"
 align = 1
 valign = 1
 
-[node name="Row2" type="HBoxContainer" parent="Keyboard"]
+[node name="Row2" type="HBoxContainer" parent="Menu/Keyboard"]
 margin_top = 7.0
 margin_right = 106.0
 margin_bottom = 14.0
 
-[node name="Key" type="Control" parent="Keyboard/Row2"]
+[node name="Key" type="Control" parent="Menu/Keyboard/Row2"]
 margin_right = 7.0
 margin_bottom = 7.0
 rect_min_size = Vector2( 7, 7 )
 
-[node name="Label" type="Label" parent="Keyboard/Row2/Key"]
+[node name="Label" type="Label" parent="Menu/Keyboard/Row2/Key"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 1.0
@@ -677,13 +738,13 @@ text = "q"
 align = 1
 valign = 1
 
-[node name="Key2" type="Control" parent="Keyboard/Row2"]
+[node name="Key2" type="Control" parent="Menu/Keyboard/Row2"]
 margin_left = 11.0
 margin_right = 18.0
 margin_bottom = 7.0
 rect_min_size = Vector2( 7, 7 )
 
-[node name="Label" type="Label" parent="Keyboard/Row2/Key2"]
+[node name="Label" type="Label" parent="Menu/Keyboard/Row2/Key2"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 1.0
@@ -693,13 +754,13 @@ text = "w"
 align = 1
 valign = 1
 
-[node name="Key3" type="Control" parent="Keyboard/Row2"]
+[node name="Key3" type="Control" parent="Menu/Keyboard/Row2"]
 margin_left = 22.0
 margin_right = 29.0
 margin_bottom = 7.0
 rect_min_size = Vector2( 7, 7 )
 
-[node name="Label" type="Label" parent="Keyboard/Row2/Key3"]
+[node name="Label" type="Label" parent="Menu/Keyboard/Row2/Key3"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 1.0
@@ -709,13 +770,13 @@ text = "e"
 align = 1
 valign = 1
 
-[node name="Key4" type="Control" parent="Keyboard/Row2"]
+[node name="Key4" type="Control" parent="Menu/Keyboard/Row2"]
 margin_left = 33.0
 margin_right = 40.0
 margin_bottom = 7.0
 rect_min_size = Vector2( 7, 7 )
 
-[node name="Label" type="Label" parent="Keyboard/Row2/Key4"]
+[node name="Label" type="Label" parent="Menu/Keyboard/Row2/Key4"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 1.0
@@ -725,13 +786,13 @@ text = "r"
 align = 1
 valign = 1
 
-[node name="Key5" type="Control" parent="Keyboard/Row2"]
+[node name="Key5" type="Control" parent="Menu/Keyboard/Row2"]
 margin_left = 44.0
 margin_right = 51.0
 margin_bottom = 7.0
 rect_min_size = Vector2( 7, 7 )
 
-[node name="Label" type="Label" parent="Keyboard/Row2/Key5"]
+[node name="Label" type="Label" parent="Menu/Keyboard/Row2/Key5"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 1.0
@@ -741,13 +802,13 @@ text = "t"
 align = 1
 valign = 1
 
-[node name="Key6" type="Control" parent="Keyboard/Row2"]
+[node name="Key6" type="Control" parent="Menu/Keyboard/Row2"]
 margin_left = 55.0
 margin_right = 62.0
 margin_bottom = 7.0
 rect_min_size = Vector2( 7, 7 )
 
-[node name="Label" type="Label" parent="Keyboard/Row2/Key6"]
+[node name="Label" type="Label" parent="Menu/Keyboard/Row2/Key6"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 1.0
@@ -757,13 +818,13 @@ text = "y"
 align = 1
 valign = 1
 
-[node name="Key7" type="Control" parent="Keyboard/Row2"]
+[node name="Key7" type="Control" parent="Menu/Keyboard/Row2"]
 margin_left = 66.0
 margin_right = 73.0
 margin_bottom = 7.0
 rect_min_size = Vector2( 7, 7 )
 
-[node name="Label" type="Label" parent="Keyboard/Row2/Key7"]
+[node name="Label" type="Label" parent="Menu/Keyboard/Row2/Key7"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 1.0
@@ -773,13 +834,13 @@ text = "u"
 align = 1
 valign = 1
 
-[node name="Key8" type="Control" parent="Keyboard/Row2"]
+[node name="Key8" type="Control" parent="Menu/Keyboard/Row2"]
 margin_left = 77.0
 margin_right = 84.0
 margin_bottom = 7.0
 rect_min_size = Vector2( 7, 7 )
 
-[node name="Label" type="Label" parent="Keyboard/Row2/Key8"]
+[node name="Label" type="Label" parent="Menu/Keyboard/Row2/Key8"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 1.0
@@ -789,13 +850,13 @@ text = "i"
 align = 1
 valign = 1
 
-[node name="Key9" type="Control" parent="Keyboard/Row2"]
+[node name="Key9" type="Control" parent="Menu/Keyboard/Row2"]
 margin_left = 88.0
 margin_right = 95.0
 margin_bottom = 7.0
 rect_min_size = Vector2( 7, 7 )
 
-[node name="Label" type="Label" parent="Keyboard/Row2/Key9"]
+[node name="Label" type="Label" parent="Menu/Keyboard/Row2/Key9"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 1.0
@@ -805,13 +866,13 @@ text = "o"
 align = 1
 valign = 1
 
-[node name="Key10" type="Control" parent="Keyboard/Row2"]
+[node name="Key10" type="Control" parent="Menu/Keyboard/Row2"]
 margin_left = 99.0
 margin_right = 106.0
 margin_bottom = 7.0
 rect_min_size = Vector2( 7, 7 )
 
-[node name="Label" type="Label" parent="Keyboard/Row2/Key10"]
+[node name="Label" type="Label" parent="Menu/Keyboard/Row2/Key10"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 1.0
@@ -821,17 +882,17 @@ text = "p"
 align = 1
 valign = 1
 
-[node name="Row3" type="HBoxContainer" parent="Keyboard"]
+[node name="Row3" type="HBoxContainer" parent="Menu/Keyboard"]
 margin_top = 14.0
 margin_right = 106.0
 margin_bottom = 21.0
 
-[node name="Key" type="Control" parent="Keyboard/Row3"]
+[node name="Key" type="Control" parent="Menu/Keyboard/Row3"]
 margin_right = 7.0
 margin_bottom = 7.0
 rect_min_size = Vector2( 7, 7 )
 
-[node name="Label" type="Label" parent="Keyboard/Row3/Key"]
+[node name="Label" type="Label" parent="Menu/Keyboard/Row3/Key"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 1.0
@@ -841,13 +902,13 @@ text = "a"
 align = 1
 valign = 1
 
-[node name="Key2" type="Control" parent="Keyboard/Row3"]
+[node name="Key2" type="Control" parent="Menu/Keyboard/Row3"]
 margin_left = 11.0
 margin_right = 18.0
 margin_bottom = 7.0
 rect_min_size = Vector2( 7, 7 )
 
-[node name="Label" type="Label" parent="Keyboard/Row3/Key2"]
+[node name="Label" type="Label" parent="Menu/Keyboard/Row3/Key2"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 1.0
@@ -857,13 +918,13 @@ text = "s"
 align = 1
 valign = 1
 
-[node name="Key3" type="Control" parent="Keyboard/Row3"]
+[node name="Key3" type="Control" parent="Menu/Keyboard/Row3"]
 margin_left = 22.0
 margin_right = 29.0
 margin_bottom = 7.0
 rect_min_size = Vector2( 7, 7 )
 
-[node name="Label" type="Label" parent="Keyboard/Row3/Key3"]
+[node name="Label" type="Label" parent="Menu/Keyboard/Row3/Key3"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 1.0
@@ -873,13 +934,13 @@ text = "d"
 align = 1
 valign = 1
 
-[node name="Key4" type="Control" parent="Keyboard/Row3"]
+[node name="Key4" type="Control" parent="Menu/Keyboard/Row3"]
 margin_left = 33.0
 margin_right = 40.0
 margin_bottom = 7.0
 rect_min_size = Vector2( 7, 7 )
 
-[node name="Label" type="Label" parent="Keyboard/Row3/Key4"]
+[node name="Label" type="Label" parent="Menu/Keyboard/Row3/Key4"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 1.0
@@ -889,13 +950,13 @@ text = "f"
 align = 1
 valign = 1
 
-[node name="Key5" type="Control" parent="Keyboard/Row3"]
+[node name="Key5" type="Control" parent="Menu/Keyboard/Row3"]
 margin_left = 44.0
 margin_right = 51.0
 margin_bottom = 7.0
 rect_min_size = Vector2( 7, 7 )
 
-[node name="Label" type="Label" parent="Keyboard/Row3/Key5"]
+[node name="Label" type="Label" parent="Menu/Keyboard/Row3/Key5"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 1.0
@@ -905,13 +966,13 @@ text = "g"
 align = 1
 valign = 1
 
-[node name="Key6" type="Control" parent="Keyboard/Row3"]
+[node name="Key6" type="Control" parent="Menu/Keyboard/Row3"]
 margin_left = 55.0
 margin_right = 62.0
 margin_bottom = 7.0
 rect_min_size = Vector2( 7, 7 )
 
-[node name="Label" type="Label" parent="Keyboard/Row3/Key6"]
+[node name="Label" type="Label" parent="Menu/Keyboard/Row3/Key6"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 1.0
@@ -921,13 +982,13 @@ text = "h"
 align = 1
 valign = 1
 
-[node name="Key7" type="Control" parent="Keyboard/Row3"]
+[node name="Key7" type="Control" parent="Menu/Keyboard/Row3"]
 margin_left = 66.0
 margin_right = 73.0
 margin_bottom = 7.0
 rect_min_size = Vector2( 7, 7 )
 
-[node name="Label" type="Label" parent="Keyboard/Row3/Key7"]
+[node name="Label" type="Label" parent="Menu/Keyboard/Row3/Key7"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 1.0
@@ -937,13 +998,13 @@ text = "j"
 align = 1
 valign = 1
 
-[node name="Key8" type="Control" parent="Keyboard/Row3"]
+[node name="Key8" type="Control" parent="Menu/Keyboard/Row3"]
 margin_left = 77.0
 margin_right = 84.0
 margin_bottom = 7.0
 rect_min_size = Vector2( 7, 7 )
 
-[node name="Label" type="Label" parent="Keyboard/Row3/Key8"]
+[node name="Label" type="Label" parent="Menu/Keyboard/Row3/Key8"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 1.0
@@ -953,13 +1014,13 @@ text = "k"
 align = 1
 valign = 1
 
-[node name="Key9" type="Control" parent="Keyboard/Row3"]
+[node name="Key9" type="Control" parent="Menu/Keyboard/Row3"]
 margin_left = 88.0
 margin_right = 95.0
 margin_bottom = 7.0
 rect_min_size = Vector2( 7, 7 )
 
-[node name="Label" type="Label" parent="Keyboard/Row3/Key9"]
+[node name="Label" type="Label" parent="Menu/Keyboard/Row3/Key9"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 1.0
@@ -969,13 +1030,13 @@ text = "l"
 align = 1
 valign = 1
 
-[node name="Key10" type="Control" parent="Keyboard/Row3"]
+[node name="Key10" type="Control" parent="Menu/Keyboard/Row3"]
 margin_left = 99.0
 margin_right = 106.0
 margin_bottom = 7.0
 rect_min_size = Vector2( 7, 7 )
 
-[node name="Label" type="Label" parent="Keyboard/Row3/Key10"]
+[node name="Label" type="Label" parent="Menu/Keyboard/Row3/Key10"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 1.0
@@ -985,17 +1046,17 @@ text = "."
 align = 1
 valign = 1
 
-[node name="Row4" type="HBoxContainer" parent="Keyboard"]
+[node name="Row4" type="HBoxContainer" parent="Menu/Keyboard"]
 margin_top = 21.0
 margin_right = 106.0
 margin_bottom = 28.0
 
-[node name="Key" type="Control" parent="Keyboard/Row4"]
+[node name="Key" type="Control" parent="Menu/Keyboard/Row4"]
 margin_right = 7.0
 margin_bottom = 7.0
 rect_min_size = Vector2( 7, 7 )
 
-[node name="Label" type="Label" parent="Keyboard/Row4/Key"]
+[node name="Label" type="Label" parent="Menu/Keyboard/Row4/Key"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 1.0
@@ -1005,13 +1066,13 @@ text = "z"
 align = 1
 valign = 1
 
-[node name="Key2" type="Control" parent="Keyboard/Row4"]
+[node name="Key2" type="Control" parent="Menu/Keyboard/Row4"]
 margin_left = 11.0
 margin_right = 18.0
 margin_bottom = 7.0
 rect_min_size = Vector2( 7, 7 )
 
-[node name="Label" type="Label" parent="Keyboard/Row4/Key2"]
+[node name="Label" type="Label" parent="Menu/Keyboard/Row4/Key2"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 1.0
@@ -1021,13 +1082,13 @@ text = "x"
 align = 1
 valign = 1
 
-[node name="Key3" type="Control" parent="Keyboard/Row4"]
+[node name="Key3" type="Control" parent="Menu/Keyboard/Row4"]
 margin_left = 22.0
 margin_right = 29.0
 margin_bottom = 7.0
 rect_min_size = Vector2( 7, 7 )
 
-[node name="Label" type="Label" parent="Keyboard/Row4/Key3"]
+[node name="Label" type="Label" parent="Menu/Keyboard/Row4/Key3"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 1.0
@@ -1037,13 +1098,13 @@ text = "c"
 align = 1
 valign = 1
 
-[node name="Key4" type="Control" parent="Keyboard/Row4"]
+[node name="Key4" type="Control" parent="Menu/Keyboard/Row4"]
 margin_left = 33.0
 margin_right = 40.0
 margin_bottom = 7.0
 rect_min_size = Vector2( 7, 7 )
 
-[node name="Label" type="Label" parent="Keyboard/Row4/Key4"]
+[node name="Label" type="Label" parent="Menu/Keyboard/Row4/Key4"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 1.0
@@ -1053,13 +1114,13 @@ text = "v"
 align = 1
 valign = 1
 
-[node name="Key5" type="Control" parent="Keyboard/Row4"]
+[node name="Key5" type="Control" parent="Menu/Keyboard/Row4"]
 margin_left = 44.0
 margin_right = 51.0
 margin_bottom = 7.0
 rect_min_size = Vector2( 7, 7 )
 
-[node name="Label" type="Label" parent="Keyboard/Row4/Key5"]
+[node name="Label" type="Label" parent="Menu/Keyboard/Row4/Key5"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 1.0
@@ -1069,13 +1130,13 @@ text = "b"
 align = 1
 valign = 1
 
-[node name="Key6" type="Control" parent="Keyboard/Row4"]
+[node name="Key6" type="Control" parent="Menu/Keyboard/Row4"]
 margin_left = 55.0
 margin_right = 62.0
 margin_bottom = 7.0
 rect_min_size = Vector2( 7, 7 )
 
-[node name="Label" type="Label" parent="Keyboard/Row4/Key6"]
+[node name="Label" type="Label" parent="Menu/Keyboard/Row4/Key6"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 1.0
@@ -1085,13 +1146,13 @@ text = "n"
 align = 1
 valign = 1
 
-[node name="Key7" type="Control" parent="Keyboard/Row4"]
+[node name="Key7" type="Control" parent="Menu/Keyboard/Row4"]
 margin_left = 66.0
 margin_right = 73.0
 margin_bottom = 7.0
 rect_min_size = Vector2( 7, 7 )
 
-[node name="Label" type="Label" parent="Keyboard/Row4/Key7"]
+[node name="Label" type="Label" parent="Menu/Keyboard/Row4/Key7"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 1.0
@@ -1101,13 +1162,13 @@ text = "m"
 align = 1
 valign = 1
 
-[node name="Key8" type="Control" parent="Keyboard/Row4"]
+[node name="Key8" type="Control" parent="Menu/Keyboard/Row4"]
 margin_left = 77.0
 margin_right = 84.0
 margin_bottom = 7.0
 rect_min_size = Vector2( 7, 7 )
 
-[node name="Label" type="Label" parent="Keyboard/Row4/Key8"]
+[node name="Label" type="Label" parent="Menu/Keyboard/Row4/Key8"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 1.0
@@ -1117,13 +1178,13 @@ text = " "
 align = 1
 valign = 1
 
-[node name="Key9" type="Control" parent="Keyboard/Row4"]
+[node name="Key9" type="Control" parent="Menu/Keyboard/Row4"]
 margin_left = 88.0
 margin_right = 95.0
 margin_bottom = 7.0
 rect_min_size = Vector2( 7, 7 )
 
-[node name="Label" type="Label" parent="Keyboard/Row4/Key9"]
+[node name="Label" type="Label" parent="Menu/Keyboard/Row4/Key9"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 1.0
@@ -1133,13 +1194,13 @@ text = "_"
 align = 1
 valign = 1
 
-[node name="Key10" type="Control" parent="Keyboard/Row4"]
+[node name="Key10" type="Control" parent="Menu/Keyboard/Row4"]
 margin_left = 99.0
 margin_right = 106.0
 margin_bottom = 7.0
 rect_min_size = Vector2( 7, 7 )
 
-[node name="Label" type="Label" parent="Keyboard/Row4/Key10"]
+[node name="Label" type="Label" parent="Menu/Keyboard/Row4/Key10"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 1.0
@@ -1149,15 +1210,17 @@ text = "-"
 align = 1
 valign = 1
 
-[node name="Done" type="Control" parent="."]
-margin_left = 96.0
+[node name="Done" type="Control" parent="Menu"]
+margin_left = 150.0
 margin_top = 116.0
-margin_right = 133.0
+margin_right = 187.0
 margin_bottom = 123.0
 
-[node name="Label" type="Label" parent="Done"]
+[node name="Label" type="Label" parent="Menu/Done"]
 margin_left = 1.0
 margin_right = 37.0
 margin_bottom = 7.0
 custom_fonts/font = SubResource( 14 )
 text = "Accept"
+
+[editable path="GameCamera"]

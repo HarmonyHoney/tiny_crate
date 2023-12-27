@@ -6,7 +6,7 @@ onready var quit_menu := $Control/Quit
 
 var cursor := 0 setget set_cursor
 var menu_items := []
-var main_items := ["play", "options", "credits"]
+var main_items := ["play", "creator", "options", "credits"]
 var quit_items := ["yes", "no"]
 var is_input = true
 
@@ -47,6 +47,10 @@ func menu_select(tag : String = menu_items[cursor].to_lower()):
 	match tag:
 		"play":
 			Shared.wipe_scene(Shared.level_select_path)
+			is_input = false
+			node_audio_play.play()
+		"creator":
+			Shared.wipe_scene(Shared.creator_path)
 			is_input = false
 			node_audio_play.play()
 		"options":

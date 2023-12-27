@@ -54,6 +54,10 @@ var is_note := false
 var notes := {}
 var is_note_replay := false
 
+var username := "crate_kid"
+export (Array, Color) var palette := []
+var player_colors = [8, 0, 11, 13]
+
 func _ready():
 	print("Shared._ready(): ")
 	
@@ -170,7 +174,7 @@ func change_map():
 	UI.notes.visible = is_level_select
 	UI.notes_label.text = str(notes.size())
 	UI.keys(false, false)
-	UI.pause_label("score" if is_level_select else "menu")
+	UI.labels("pick", "erase" if scene_path == creator_path else "back", "score" if is_level_select else "menu")
 	
 	if is_in_game:
 		TouchScreen.turn_arrows(false)
@@ -204,9 +208,7 @@ func change_map():
 		UI.keys(false, true)
 		TouchScreen.show_keys(false, true, false)
 	elif scene_path == creator_path:
-		UI.keys(true, true, true)
-		TouchScreen.turn_arrows(false)
-		TouchScreen.show_keys(true, true, true, true)
+		UI.keys(true, true, false)
 
 ### Saving and Loading
 

@@ -1,5 +1,6 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=26 format=2]
 
+[ext_resource path="res://media/image/creator.png" type="Texture" id=1]
 [ext_resource path="res://src/menu/StartMenu.gd" type="Script" id=3]
 [ext_resource path="res://media/image/HarmonyHoneyLogo.png" type="Texture" id=4]
 [ext_resource path="res://media/font/ThaleahFat.ttf" type="DynamicFontData" id=5]
@@ -59,13 +60,13 @@ margin_left = 2.0
 margin_top = 32.0
 margin_right = 66.0
 margin_bottom = 104.0
-custom_constants/separation = 9
+custom_constants/separation = 5
 alignment = 1
 
 [node name="Item" type="HBoxContainer" parent="Control/Menu/List"]
-margin_top = 9.0
+margin_top = 4.0
 margin_right = 64.0
-margin_bottom = 21.0
+margin_bottom = 16.0
 rect_min_size = Vector2( 0, 12 )
 custom_constants/separation = 2
 
@@ -90,10 +91,38 @@ custom_fonts/font = SubResource( 3 )
 text = "play"
 uppercase = true
 
-[node name="Item2" type="HBoxContainer" parent="Control/Menu/List"]
-margin_top = 30.0
+[node name="Item4" type="HBoxContainer" parent="Control/Menu/List"]
+margin_top = 21.0
 margin_right = 64.0
-margin_bottom = 42.0
+margin_bottom = 33.0
+rect_min_size = Vector2( 0, 12 )
+custom_constants/separation = 2
+
+[node name="Image" type="Control" parent="Control/Menu/List/Item4"]
+margin_right = 8.0
+margin_bottom = 12.0
+rect_min_size = Vector2( 8, 8 )
+
+[node name="Sprite" type="Sprite" parent="Control/Menu/List/Item4/Image"]
+position = Vector2( 0, 2 )
+texture = ExtResource( 1 )
+centered = false
+hframes = 4
+frame = 2
+
+[node name="Label" type="Label" parent="Control/Menu/List/Item4"]
+margin_left = 10.0
+margin_top = 2.0
+margin_right = 52.0
+margin_bottom = 10.0
+custom_fonts/font = SubResource( 3 )
+text = "style"
+uppercase = true
+
+[node name="Item2" type="HBoxContainer" parent="Control/Menu/List"]
+margin_top = 38.0
+margin_right = 64.0
+margin_bottom = 50.0
 rect_min_size = Vector2( 0, 12 )
 custom_constants/separation = 2
 
@@ -120,9 +149,9 @@ text = "option"
 uppercase = true
 
 [node name="Item3" type="HBoxContainer" parent="Control/Menu/List"]
-margin_top = 51.0
+margin_top = 55.0
 margin_right = 64.0
-margin_bottom = 63.0
+margin_bottom = 67.0
 rect_min_size = Vector2( 0, 12 )
 custom_constants/separation = 2
 

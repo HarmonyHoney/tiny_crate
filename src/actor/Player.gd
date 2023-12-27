@@ -50,12 +50,21 @@ var btnp_pick = false
 
 export var is_attract_mode = false
 
+onready var sprite_mat : ShaderMaterial = $Sprite.material
+
 func _enter_tree():
 	if Engine.editor_hint or Shared.is_level_select: return
 	
 	Shared.player = self
 
 func _ready():
+	# palette
+	sprite_mat.set_shader_param("hat_swap", Shared.palette[Shared.player_colors[0]])
+	sprite_mat.set_shader_param("skin_swap", Shared.palette[Shared.player_colors[1]])
+	sprite_mat.set_shader_param("suit_swap", Shared.palette[Shared.player_colors[2]])
+	sprite_mat.set_shader_param("eye_swap", Shared.palette[Shared.player_colors[3]])
+	sprite_mat.set_shader_param("shoe_swap", Shared.palette[Shared.player_colors[3]])
+	
 	if Engine.editor_hint: return
 	
 	node_sprite.flip_h = randf() > 0.5

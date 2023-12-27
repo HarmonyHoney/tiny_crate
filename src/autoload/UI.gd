@@ -1,7 +1,9 @@
 extends CanvasLayer
 
 onready var x := $Center/Control/List/X
+onready var x_label := $Center/Control/List/X/Desc
 onready var c := $Center/Control/List/C
+onready var c_label := $Center/Control/List/C/Desc
 onready var top := $Center/Control/Top
 onready var pause_label := $Center/Control/Top/P/Desc
 
@@ -19,5 +21,7 @@ func keys(left := true, right := true, is_expand := true, _top := false):
 	top.visible = _top
 	spacer.size_flags_horizontal = spacer.SIZE_EXPAND_FILL if is_expand else spacer.SIZE_FILL
 
-func pause_label(arg := "menu"):
-	pause_label.text = arg
+func labels (_x := "pick", _c := "back", _pause := "menu"):
+	x_label.text = _x
+	c_label.text = _c
+	pause_label.text = _pause

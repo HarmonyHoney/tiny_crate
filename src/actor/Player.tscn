@@ -7,47 +7,10 @@
 [ext_resource path="res://media/audio/sfx/sfx10.wav" type="AudioStream" id=5]
 [ext_resource path="res://media/audio/sfx/box_drop.wav" type="AudioStream" id=6]
 [ext_resource path="res://media/audio/sfx/push.wav" type="AudioStream" id=7]
-
-[sub_resource type="Shader" id=8]
-code = "shader_type canvas_item;
-
-uniform vec4 hat : hint_color = vec4(0.0);
-uniform vec4 eye : hint_color = vec4(0.0);
-uniform vec4 skin : hint_color = vec4(0.0);
-uniform vec4 suit : hint_color = vec4(0.0);
-uniform vec4 shoe : hint_color = vec4(0.0);
-
-uniform vec4 hat_swap : hint_color = vec4(0.0);
-uniform vec4 eye_swap : hint_color = vec4(0.0);
-uniform vec4 skin_swap : hint_color = vec4(0.0);
-uniform vec4 suit_swap : hint_color = vec4(0.0);
-uniform vec4 shoe_swap : hint_color = vec4(0.0);
-
-
-void fragment(){
-	vec4 col = texture(TEXTURE, UV);
-	
-	if (col == hat){
-		col = hat_swap;
-	}
-	else if (col == eye){
-		col = eye_swap;
-	}
-	else if (col == skin){
-		col = skin_swap;
-	}
-	else if (col == suit){
-		col = suit_swap;
-	}
-	else if (col == shoe){
-		col = shoe_swap;
-	}
-	
-	COLOR = col;
-}"
+[ext_resource path="res://src/shader/player_palette_swap.gdshader" type="Shader" id=8]
 
 [sub_resource type="ShaderMaterial" id=9]
-shader = SubResource( 8 )
+shader = ExtResource( 8 )
 shader_param/hat = Color( 1, 0, 0, 1 )
 shader_param/eye = Color( 0, 1, 0, 1 )
 shader_param/skin = Color( 0, 0, 1, 1 )
