@@ -57,9 +57,14 @@ var is_note_replay := false
 var username := "crate_kid"
 export (Array, Color) var palette := []
 var player_colors = [8, 0, 11, 13]
+var preset_palettes = [[7, 13, 6, 3], [8, 0, 11, 13], [11, 7, 9, 0], [12, 1, 7, 5], [9, 8, 12, 3]]
 
 func _ready():
 	print("Shared._ready(): ")
+	randomize()
+	
+	# player colors
+	player_colors = preset_palettes[randi() % preset_palettes.size()]
 	
 	# ghosts
 	for i in ghost_count:
@@ -342,6 +347,7 @@ func die():
 	save_data["deaths"] = deaths
 	#save()
 	Leaderboard.submit_score("death", 1)
+	Leaderboard.submit_score("death", 1, map_name)
 	print("you died")#, save_data: ", save_data)
 
 # look into a folder and return a list of filenames without file extension

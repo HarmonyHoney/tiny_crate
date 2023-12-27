@@ -80,7 +80,7 @@ func _input(event):
 		if is_jump:
 			Shared.wipe_scene(Shared.main_menu_path)
 			is_input = false
-			Shared.username = name_label.text
+			Shared.username = name_label.text.to_lower()
 			Shared.player_colors = colors
 			Shared.save_data["username"] = Shared.username
 			Shared.save_data["player_colors"] = Shared.player_colors

@@ -59,11 +59,9 @@ func _enter_tree():
 
 func _ready():
 	# palette
-	sprite_mat.set_shader_param("hat_swap", Shared.palette[Shared.player_colors[0]])
-	sprite_mat.set_shader_param("skin_swap", Shared.palette[Shared.player_colors[1]])
-	sprite_mat.set_shader_param("suit_swap", Shared.palette[Shared.player_colors[2]])
-	sprite_mat.set_shader_param("eye_swap", Shared.palette[Shared.player_colors[3]])
-	sprite_mat.set_shader_param("shoe_swap", Shared.palette[Shared.player_colors[3]])
+	var parts = ["hat", "skin", "suit", "eye", "shoe"]
+	for i in 5:
+		sprite_mat.set_shader_param(parts[i] + "_swap", Shared.palette[Shared.player_colors[clamp(i, 0, 3)]])
 	
 	if Engine.editor_hint: return
 	

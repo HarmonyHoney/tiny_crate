@@ -50,8 +50,8 @@ func refresh_score(map_name):
 		emit_signal("new_score")
 		print(s)
 
-func submit_score(board_name, score):
+func submit_score(board_name, score, _username := Shared.username):
 	if !is_online: return
 	
-	SilentWolf.Scores.persist_score(Shared.username , score, board_name)
+	SilentWolf.Scores.persist_score(_username , score, board_name)
 	
