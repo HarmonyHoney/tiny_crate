@@ -82,10 +82,12 @@ func _input(event):
 			is_input = false
 			Shared.username = name_label.text
 			Shared.player_colors = colors
+			Shared.save_data["username"] = Shared.username
+			Shared.save_data["player_colors"] = Shared.player_colors
 
 func move_cursor(_x := cursor_x, _y = cursor_y):
 	cursor_y = clamp(_y, 0, rows.size() - 1)
-	cursor_x = wrapi(_x, 0, rows[cursor_y].size() - 1)
+	cursor_x = wrapi(_x, 0, rows[cursor_y].size())
 	
 	cursor_node.rect_global_position = rows[cursor_y][cursor_x].rect_global_position
 	cursor_node.rect_size = rows[cursor_y][cursor_x].rect_size

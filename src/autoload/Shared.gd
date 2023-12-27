@@ -236,6 +236,8 @@ func create_save():
 	save_data["map"] = 0
 	save_data["notes"] = {}
 	save_data["times"] = {}
+	save_data["username"] = "crate_kid"
+	save_data["player_colors"] = player_colors
 	save()
 
 func load_save():
@@ -268,6 +270,10 @@ func load_save():
 				var d = save_data["deaths"]
 				if d is Dictionary:
 					deaths = d
+			if save_data.has("username"):
+				username = save_data["username"]
+			if save_data.has("player_colors"):
+				player_colors = save_data["player_colors"]
 		else:
 			create_save()
 	else:

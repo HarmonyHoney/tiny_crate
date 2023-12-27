@@ -53,5 +53,5 @@ func refresh_score(map_name):
 func submit_score(board_name, score):
 	if !is_online: return
 	
-	SilentWolf.Scores.persist_score("dinkle_" + Shared.username + "", score, board_name)
+	SilentWolf.Scores.persist_score(Shared.username , score, board_name)
 	
