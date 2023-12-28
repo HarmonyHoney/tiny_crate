@@ -377,3 +377,10 @@ func set_window_scale(arg := window_scale):
 		# center window
 		OS.set_window_position(OS.get_screen_size() * 0.5 - OS.get_window_size() * 0.5)
 	return "window_scale: " + str(window_scale) + " - resolution: " + str(OS.get_window_size())
+
+func get_all_children(n, a := []):
+	if is_instance_valid(n):
+		a.append(n)
+		for i in n.get_children():
+			a = get_all_children(i, a)
+	return a

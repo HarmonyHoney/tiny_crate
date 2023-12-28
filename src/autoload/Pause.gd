@@ -51,8 +51,7 @@ func _input(event):
 				if up or down:
 					set_cursor(cursor + (-1 if up else 1))
 					write_menu()
-					node_audio_scroll.pitch_scale = 1 + rand_range(-0.2, 0.2)
-					node_audio_scroll.play()
+					Audio.play("pause_scroll", 0.8, 1.2)
 
 func toggle_pause():
 	is_paused = !is_paused
