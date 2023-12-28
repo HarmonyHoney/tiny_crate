@@ -178,6 +178,7 @@ func new_score(arg1 = null, arg2 = null, arg3 = null):
 func write_score():
 	var map_name = current_map + ("-note" if show_score == 2 else "")
 	var t = ""
+	var count = 0
 	if Leaderboard.is_online:
 		if Leaderboard.scores.has(map_name):
 			var s = Leaderboard.scores[map_name]
@@ -186,6 +187,8 @@ func write_score():
 			else:
 				for i in s:
 					t += time_to_string(-int(i["score"])) + " " + str(i["player_name"]) + "\n"
+					count += 1
+					if count > 9 : break
 		else:
 			t = "LOADING..."
 	else:
@@ -193,6 +196,8 @@ func write_score():
 			for i in Shared.replays[map_name]:
 				if i.has("frames"):
 					t += time_to_string(int(i["frames"])) + "\n"
+					count += 1
+					if count > 9 : break
 		else:
 			t = "NO DATA!"
 	
