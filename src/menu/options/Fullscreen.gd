@@ -1,8 +1,6 @@
 extends Node2D
 
 onready var fill = $Box/Fill
-onready var audio = $AudioStreamPlayer
-
 var is_selected = false
 
 func _ready():
@@ -20,7 +18,7 @@ func _input(event):
 		var is_full = OS.window_fullscreen
 		OS.window_fullscreen = !is_full
 		Shared.set_window_scale()
-		audio.play()
+		Audio.play("menu_pause", 0.9, 1.1)
 		fill.visible = !is_full
 		if !is_full:
 			Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)

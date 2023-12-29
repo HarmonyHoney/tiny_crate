@@ -1,16 +1,10 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://src/menu/options/OptionsMenu.gd" type="Script" id=1]
 [ext_resource path="res://src/menu/options/Volume.tscn" type="PackedScene" id=2]
-[ext_resource path="res://media/audio/sfx/sfx14.wav" type="AudioStream" id=3]
-[ext_resource path="res://media/audio/sfx/sfx5.wav" type="AudioStream" id=4]
 [ext_resource path="res://media/audio/sfx/btn0.wav" type="AudioStream" id=5]
-[ext_resource path="res://media/audio/sfx/Randomize103.wav" type="AudioStream" id=7]
 [ext_resource path="res://media/font/m6x11.ttf" type="DynamicFontData" id=8]
 [ext_resource path="res://media/font/m3x6.tres" type="DynamicFont" id=9]
-[ext_resource path="res://media/audio/sfx/sfx3.wav" type="AudioStream" id=10]
-[ext_resource path="res://media/audio/sfx/portal7.wav" type="AudioStream" id=11]
-[ext_resource path="res://media/audio/sfx/hit1.wav" type="AudioStream" id=12]
 [ext_resource path="res://media/image/9slice.png" type="Texture" id=13]
 [ext_resource path="res://src/stage/DetailTileMap.tscn" type="PackedScene" id=14]
 [ext_resource path="res://src/actor/Exit.tscn" type="PackedScene" id=15]
@@ -72,11 +66,6 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="AudioScroll" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 12 )
-volume_db = -7.0
-bus = "SFX"
-
 [node name="MenuItems" type="Node2D" parent="."]
 position = Vector2( 14, 0 )
 z_index = 20
@@ -96,10 +85,6 @@ align = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="MenuItems/Back"]
-stream = ExtResource( 7 )
-bus = "SFX"
 
 [node name="Sounds" parent="MenuItems" instance=ExtResource( 2 )]
 
@@ -153,10 +138,6 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="MenuItems/Fullscreen"]
-stream = ExtResource( 10 )
-bus = "SFX"
-
 [node name="WindowSize" type="Node2D" parent="MenuItems"]
 position = Vector2( 50, 73 )
 script = ExtResource( 21 )
@@ -191,13 +172,6 @@ margin_bottom = 9.0
 custom_fonts/font = ExtResource( 9 )
 text = "228 x 128"
 align = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="MenuItems/WindowSize"]
-stream = ExtResource( 3 )
-bus = "SFX"
 
 [node name="TouchControls" type="Node2D" parent="MenuItems"]
 position = Vector2( 50, 85 )
@@ -241,10 +215,6 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="MenuItems/TouchControls"]
-stream = ExtResource( 10 )
-bus = "SFX"
-
 [node name="DeleteSaveData" type="Node2D" parent="MenuItems"]
 position = Vector2( 50, 97 )
 script = ExtResource( 23 )
@@ -256,13 +226,6 @@ margin_bottom = 9.0
 custom_fonts/font = ExtResource( 9 )
 text = "Delete Save Data"
 align = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="MenuItems/DeleteSaveData"]
-stream = ExtResource( 4 )
-bus = "SFX"
 
 [node name="UnlockAll" type="Node2D" parent="MenuItems"]
 position = Vector2( 50, 109 )
@@ -275,13 +238,6 @@ margin_bottom = 9.0
 custom_fonts/font = ExtResource( 9 )
 text = "Unlock All"
 align = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="MenuItems/UnlockAll"]
-stream = ExtResource( 11 )
-bus = "SFX"
 
 [node name="Stage" type="Node2D" parent="."]
 

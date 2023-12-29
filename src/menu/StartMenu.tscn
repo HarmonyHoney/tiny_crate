@@ -1,11 +1,10 @@
-[gd_scene load_steps=26 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://media/image/creator.png" type="Texture" id=1]
 [ext_resource path="res://src/menu/StartMenu.gd" type="Script" id=3]
 [ext_resource path="res://media/image/HarmonyHoneyLogo.png" type="Texture" id=4]
 [ext_resource path="res://media/font/ThaleahFat.ttf" type="DynamicFontData" id=5]
 [ext_resource path="res://media/font/ExpressionPro.ttf" type="DynamicFontData" id=6]
-[ext_resource path="res://media/audio/sfx/hit1.wav" type="AudioStream" id=7]
 [ext_resource path="res://src/stage/DetailTileMap.tscn" type="PackedScene" id=8]
 [ext_resource path="res://src/actor/Box.tscn" type="PackedScene" id=9]
 [ext_resource path="res://src/menu/AttractMode.gd" type="Script" id=10]
@@ -15,12 +14,6 @@
 [ext_resource path="res://src/actor/SwitchBlockBlue.tscn" type="PackedScene" id=14]
 [ext_resource path="res://src/actor/SwitchBlue.tscn" type="PackedScene" id=15]
 [ext_resource path="res://media/image/menu.png" type="Texture" id=16]
-[ext_resource path="res://media/audio/sfx/sfx3.wav" type="AudioStream" id=18]
-[ext_resource path="res://media/audio/sfx/sfx18.wav" type="AudioStream" id=19]
-[ext_resource path="res://media/audio/sfx/sfx13.wav" type="AudioStream" id=20]
-[ext_resource path="res://media/audio/sfx/portal9.wav" type="AudioStream" id=21]
-[ext_resource path="res://media/audio/sfx/Randomize105.wav" type="AudioStream" id=22]
-[ext_resource path="res://media/audio/sfx/portal7.wav" type="AudioStream" id=23]
 [ext_resource path="res://media/font/QuinqueFive.ttf" type="DynamicFontData" id=24]
 
 [sub_resource type="DynamicFont" id=3]
@@ -229,37 +222,6 @@ custom_fonts/font = SubResource( 5 )
 text = "hhoney.net"
 align = 2
 valign = 2
-
-[node name="Audio" type="Node" parent="."]
-
-[node name="Scroll" type="AudioStreamPlayer" parent="Audio"]
-stream = ExtResource( 7 )
-volume_db = -7.0
-bus = "SFX"
-
-[node name="Play" type="AudioStreamPlayer" parent="Audio"]
-stream = ExtResource( 21 )
-bus = "SFX"
-
-[node name="Options" type="AudioStreamPlayer" parent="Audio"]
-stream = ExtResource( 20 )
-bus = "SFX"
-
-[node name="Credits" type="AudioStreamPlayer" parent="Audio"]
-stream = ExtResource( 23 )
-bus = "SFX"
-
-[node name="Quit" type="AudioStreamPlayer" parent="Audio"]
-stream = ExtResource( 18 )
-bus = "SFX"
-
-[node name="Yes" type="AudioStreamPlayer" parent="Audio"]
-stream = ExtResource( 22 )
-bus = "SFX"
-
-[node name="No" type="AudioStreamPlayer" parent="Audio"]
-stream = ExtResource( 19 )
-bus = "SFX"
 
 [node name="Stage" type="Node2D" parent="."]
 

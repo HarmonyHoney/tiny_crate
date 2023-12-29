@@ -1,10 +1,8 @@
 extends Node2D
 
+onready var node_cursor : ColorRect = $Cursor
 onready var menu_items : Array = $MenuItems.get_children()
 var cursor := 0
-
-onready var node_cursor : ColorRect = $Cursor
-onready var node_audio_scroll : AudioStreamPlayer = $AudioScroll
 
 func _ready():
 	select_item(0)
@@ -21,8 +19,7 @@ func _input(event):
 	if TouchScreen.visible:
 		if left or right:
 			select_item(cursor + (-1 if left else 1))
-			node_audio_scroll.pitch_scale = 1 + rand_range(-0.2, 0.2)
-			node_audio_scroll.play()
+			Audio.play("menu_scroll", 0.8, 1.2)
 		elif yes or no:
 			var btnx = -1 if no else 1
 			if menu_items[cursor].has_method("scroll"):
@@ -33,8 +30,7 @@ func _input(event):
 	else:
 		if up or down:
 			select_item(cursor + (-1 if up else 1))
-			node_audio_scroll.pitch_scale = 1 + rand_range(-0.2, 0.2)
-			node_audio_scroll.play()
+			Audio.play("menu_scroll", 0.8, 1.2)
 		elif yes:
 			if menu_items[cursor].has_method("act"):
 				menu_items[cursor].act()

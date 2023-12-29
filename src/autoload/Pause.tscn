@@ -1,14 +1,9 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://media/font/QuinqueFive.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://media/image/9slice.png" type="Texture" id=2]
 [ext_resource path="res://src/autoload/Pause.gd" type="Script" id=3]
-[ext_resource path="res://media/audio/sfx/sfx3.wav" type="AudioStream" id=4]
 [ext_resource path="res://media/font/ThaleahFat.ttf" type="DynamicFontData" id=5]
-[ext_resource path="res://media/audio/sfx/hit1.wav" type="AudioStream" id=7]
-[ext_resource path="res://media/audio/sfx/sfx18.wav" type="AudioStream" id=9]
-[ext_resource path="res://media/audio/sfx/portal7.wav" type="AudioStream" id=10]
-[ext_resource path="res://media/audio/sfx/portal9.wav" type="AudioStream" id=11]
 
 [sub_resource type="DynamicFont" id=2]
 size = 5
@@ -73,30 +68,3 @@ custom_constants/shadow_as_outline = 1
 custom_fonts/font = SubResource( 3 )
 text = "PAUSEd"
 align = 1
-
-[node name="Audio" type="Node" parent="."]
-
-[node name="Pause" type="AudioStreamPlayer" parent="Audio"]
-stream = ExtResource( 4 )
-volume_db = -5.0
-bus = "SFX"
-
-[node name="Scroll" type="AudioStreamPlayer" parent="Audio"]
-stream = ExtResource( 7 )
-volume_db = -7.0
-bus = "SFX"
-
-[node name="Resume" type="AudioStreamPlayer" parent="Audio"]
-stream = ExtResource( 10 )
-volume_db = -2.0
-bus = "SFX"
-
-[node name="Reset" type="AudioStreamPlayer" parent="Audio"]
-stream = ExtResource( 11 )
-volume_db = -4.0
-bus = "SFX"
-
-[node name="Exit" type="AudioStreamPlayer" parent="Audio"]
-stream = ExtResource( 9 )
-volume_db = -1.0
-bus = "SFX"

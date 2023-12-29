@@ -11,12 +11,6 @@ var menu_items := ["go", "redo", "stages"]
 var timer := 0.1 # prevent input overlap
 var clock := 0.0
 
-onready var node_audio_pause : AudioStreamPlayer = $Audio/Pause
-onready var node_audio_scroll : AudioStreamPlayer = $Audio/Scroll
-onready var node_audio_resume : AudioStreamPlayer = $Audio/Resume
-onready var node_audio_reset : AudioStreamPlayer = $Audio/Reset
-onready var node_audio_exit : AudioStreamPlayer = $Audio/Exit
-
 signal pause
 signal unpause
 
@@ -51,7 +45,7 @@ func _input(event):
 				if up or down:
 					set_cursor(cursor + (-1 if up else 1))
 					write_menu()
-					Audio.play("pause_scroll", 0.8, 1.2)
+					Audio.play("menu_scroll", 0.8, 1.2)
 
 func toggle_pause():
 	is_paused = !is_paused
@@ -65,10 +59,10 @@ func toggle_pause():
 		set_cursor()
 		write_menu()
 		emit_signal("pause")
-		node_audio_pause.play()
+		Audio.play("menu_pause", 0.9, 1.1)
 	else:
 		emit_signal("unpause")
-		node_audio_resume.play()
+		Audio.play("menu_pick", 0.9, 1.1)
 
 func write_menu():
 	menu_list.text = ""
@@ -89,8 +83,8 @@ func select():
 		"redo":
 			Shared.do_reset()
 			toggle_pause()
-			node_audio_reset.play()
+			Audio.play("menu_reset", 0.9, 1.1)
 		"stages":
 			Shared.wipe_scene(Shared.level_select_path)
 			toggle_pause()
-			node_audio_exit.play()
+			Audio.play("menu_exit", 0.9, 1.1)

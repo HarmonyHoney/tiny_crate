@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://media/font/m5x7.tres" type="DynamicFont" id=1]
 [ext_resource path="res://media/font/m6x11.tres" type="DynamicFont" id=2]
@@ -8,7 +8,6 @@
 [ext_resource path="res://src/actor/Player.tscn" type="PackedScene" id=6]
 [ext_resource path="res://src/actor/Box.tscn" type="PackedScene" id=7]
 [ext_resource path="res://src/menu/WinScreen.gd" type="Script" id=8]
-[ext_resource path="res://media/audio/sfx/portal7.wav" type="AudioStream" id=9]
 
 [node name="Node2D" type="Node2D"]
 
@@ -77,11 +76,6 @@ tile_data = PoolIntArray( 27, -1610612731, 0, 65544, -1610612731, 2, 65558, 5, 2
 
 [node name="GameCamera" parent="." instance=ExtResource( 3 )]
 position = Vector2( 116, 64 )
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 9 )
-autoplay = true
-bus = "SFX"
 
 [node name="Actors" type="Node2D" parent="."]
 script = ExtResource( 8 )

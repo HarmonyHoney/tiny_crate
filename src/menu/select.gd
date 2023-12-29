@@ -20,10 +20,6 @@ var show_score := 0
 var last_refresh := {}
 var refresh_wait := 5.0
 
-onready var node_audio_scroll : AudioStreamPlayer = $AudioScroll
-onready var node_audio_select : AudioStreamPlayer = $AudioSelect
-onready var node_audio_back : AudioStreamPlayer = $AudioBack
-
 onready var score_node := $Control/Scores
 onready var score_title := $Control/Scores/HBoxContainer/Title
 onready var score_list := $Control/Scores/List
@@ -87,10 +83,10 @@ func _input(event):
 	if event.is_action_pressed("action"):
 		Shared.wipe_scene(Shared.main_menu_path)
 		is_input = false
-		node_audio_back.play()
+		Audio.play("menu_back", 0.9, 1.1)
 	elif event.is_action_pressed("jump"):
 		open_map()
-		node_audio_select.play()
+		Audio.play("menu_pick", 0.9, 1.1)
 		is_input = false
 	elif event.is_action_pressed("pause"):
 		show_score = posmod(show_score + 1, 3)
@@ -102,8 +98,7 @@ func _input(event):
 		if input_count == 0 and (btnx or btny):
 			input_count = input_wait
 			scroll(btnx + (btny * columns))
-			node_audio_scroll.pitch_scale = 1 + rand_range(-0.1, 0.5)
-			node_audio_scroll.play()
+			Audio.play("menu_scroll3", 0.9, 1.5)
 
 func _physics_process(delta):
 	input_count = max(0, input_count - 1)

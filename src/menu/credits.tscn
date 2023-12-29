@@ -1,10 +1,9 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://media/font/m3x6.tres" type="DynamicFont" id=1]
 [ext_resource path="res://src/stage/DetailTileMap.tscn" type="PackedScene" id=2]
 [ext_resource path="res://src/stage/SolidTileMap.tscn" type="PackedScene" id=3]
 [ext_resource path="res://src/menu/credits.gd" type="Script" id=4]
-[ext_resource path="res://media/audio/sfx/Randomize103.wav" type="AudioStream" id=5]
 [ext_resource path="res://src/stage/GameCamera.tscn" type="PackedScene" id=6]
 [ext_resource path="res://src/actor/Exit.tscn" type="PackedScene" id=7]
 [ext_resource path="res://src/actor/Box.tscn" type="PackedScene" id=8]
@@ -18,10 +17,6 @@ font_data = ExtResource( 10 )
 
 [node name="Credits" type="Node2D"]
 script = ExtResource( 4 )
-
-[node name="AudioBack" type="AudioStreamPlayer" parent="."]
-stream = ExtResource( 5 )
-bus = "SFX"
 
 [node name="Header" type="Label" parent="."]
 margin_left = -2.0

@@ -10,7 +10,6 @@ var frame = 0
 export var last = 14
 
 onready var easing := EaseMover.new(0.45)
-onready var audio : AudioStreamPlayer2D = $AudioStreamPlayer2D
 onready var image := $ColorRect
 onready var mat : ShaderMaterial = $ColorRect.material
 
@@ -37,7 +36,7 @@ func start(_reverse = false):
 	
 	is_reverse = _reverse
 	if !is_reverse:
-		audio.play()
+		Audio.play("menu_wipe")
 
 func stop():
 	is_wipe = false

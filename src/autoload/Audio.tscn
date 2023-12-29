@@ -1,0 +1,87 @@
+[gd_scene load_steps=15 format=2]
+
+[ext_resource path="res://media/audio/sfx/hit1.wav" type="AudioStream" id=1]
+[ext_resource path="res://media/audio/sfx/sfx3.wav" type="AudioStream" id=2]
+[ext_resource path="res://media/audio/sfx/sfx18.wav" type="AudioStream" id=3]
+[ext_resource path="res://media/audio/sfx/portal9.wav" type="AudioStream" id=4]
+[ext_resource path="res://media/audio/sfx/portal7.wav" type="AudioStream" id=5]
+[ext_resource path="res://src/autoload/Audio.gd" type="Script" id=6]
+[ext_resource path="res://media/audio/sfx/sfx13.wav" type="AudioStream" id=7]
+[ext_resource path="res://media/audio/sfx/Randomize105.wav" type="AudioStream" id=8]
+[ext_resource path="res://media/audio/sfx/Randomize104.wav" type="AudioStream" id=9]
+[ext_resource path="res://media/audio/sfx/Randomize103.wav" type="AudioStream" id=10]
+[ext_resource path="res://media/audio/sfx/sfx14.wav" type="AudioStream" id=11]
+[ext_resource path="res://media/audio/sfx/sfx5.wav" type="AudioStream" id=12]
+[ext_resource path="res://media/audio/sfx/portal0.wav" type="AudioStream" id=13]
+[ext_resource path="res://media/audio/sfx/bell1.wav" type="AudioStream" id=14]
+
+[node name="Audio" type="Node"]
+pause_mode = 2
+script = ExtResource( 6 )
+
+[node name="Menu" type="Node" parent="."]
+
+[node name="Scroll" type="AudioStreamPlayer" parent="Menu"]
+stream = ExtResource( 1 )
+volume_db = -7.0
+bus = "SFX"
+
+[node name="Scroll2" type="AudioStreamPlayer" parent="Menu"]
+stream = ExtResource( 11 )
+bus = "SFX"
+
+[node name="Scroll3" type="AudioStreamPlayer" parent="Menu"]
+stream = ExtResource( 9 )
+volume_db = -5.0
+bus = "SFX"
+
+[node name="Play" type="AudioStreamPlayer" parent="Menu"]
+stream = ExtResource( 4 )
+bus = "SFX"
+
+[node name="Options" type="AudioStreamPlayer" parent="Menu"]
+stream = ExtResource( 7 )
+bus = "SFX"
+
+[node name="Yes" type="AudioStreamPlayer" parent="Menu"]
+stream = ExtResource( 8 )
+bus = "SFX"
+
+[node name="No" type="AudioStreamPlayer" parent="Menu"]
+stream = ExtResource( 3 )
+bus = "SFX"
+
+[node name="Pause" type="AudioStreamPlayer" parent="Menu"]
+stream = ExtResource( 2 )
+volume_db = -5.0
+bus = "SFX"
+
+[node name="Reset" type="AudioStreamPlayer" parent="Menu"]
+stream = ExtResource( 4 )
+volume_db = -4.0
+bus = "SFX"
+
+[node name="Exit" type="AudioStreamPlayer" parent="Menu"]
+stream = ExtResource( 3 )
+volume_db = -1.0
+bus = "SFX"
+
+[node name="Back" type="AudioStreamPlayer" parent="Menu"]
+stream = ExtResource( 10 )
+bus = "SFX"
+
+[node name="Pick" type="AudioStreamPlayer" parent="Menu"]
+stream = ExtResource( 5 )
+bus = "SFX"
+
+[node name="Delete" type="AudioStreamPlayer" parent="Menu"]
+stream = ExtResource( 12 )
+bus = "SFX"
+
+[node name="Wipe" type="AudioStreamPlayer" parent="Menu"]
+stream = ExtResource( 13 )
+bus = "SFX"
+
+[node name="Bell" type="AudioStreamPlayer" parent="Menu"]
+stream = ExtResource( 14 )
+bus = "SFX"

@@ -10,14 +10,6 @@ var main_items := ["play", "creator", "options", "credits"]
 var quit_items := ["yes", "no"]
 var is_input = true
 
-onready var node_audio_scroll : AudioStreamPlayer = $Audio/Scroll
-onready var node_audio_play : AudioStreamPlayer = $Audio/Play
-onready var node_audio_options : AudioStreamPlayer = $Audio/Options
-onready var node_audio_credits : AudioStreamPlayer = $Audio/Credits
-onready var node_audio_quit : AudioStreamPlayer = $Audio/Quit
-onready var node_audio_yes : AudioStreamPlayer = $Audio/Yes
-onready var node_audio_no : AudioStreamPlayer = $Audio/No
-
 func _ready():
 	switch_menu("main", true)
 
@@ -36,8 +28,7 @@ func _input(event):
 		var down = event.is_action_pressed("down") or event.is_action_pressed("right")
 		if up or down:
 			self.cursor += -1 if up else 1
-			node_audio_scroll.pitch_scale = 1 + rand_range(-0.2, 0.2)
-			node_audio_scroll.play()
+			Audio.play("menu_scroll", 0.8, 1.2)
 
 func write_menu():
 	for i in menu_items.size():
@@ -48,22 +39,22 @@ func menu_select(tag : String = menu_items[cursor].to_lower()):
 		"play":
 			Shared.wipe_scene(Shared.level_select_path)
 			is_input = false
-			node_audio_play.play()
+			Audio.play("menu_play", 0.9, 1.1)
 		"creator":
 			Shared.wipe_scene(Shared.creator_path)
 			is_input = false
-			node_audio_play.play()
+			Audio.play("menu_play", 0.9, 1.1)
 		"options":
 			Shared.wipe_scene(Shared.options_menu_path)
 			is_input = false
-			node_audio_options.play()
+			Audio.play("menu_options", 0.9, 1.1)
 		"credits":
 			Shared.wipe_scene(Shared.credits_path)
 			is_input = false
-			node_audio_credits.play()
+			Audio.play("menu_pick", 0.9, 1.1)
 		"yes":
 			is_input = false
-			node_audio_yes.play()
+			Audio.play("menu_yes", 0.9, 1.1)
 			if OS.get_name() == "HTML5":
 				Shared.wipe_scene(Shared.splash_path)
 			else:
@@ -80,7 +71,7 @@ func switch_menu(arg, silent := false):
 	menu_stuff = (main_menu if is_main else quit_menu).get_children()
 	
 	if !silent:
-		(node_audio_no if is_main else node_audio_quit).play()
+		Audio.play("menu_" + ("no" if is_main else "pick"), 0.9, 1.1)
 	
 	self.cursor = 0 if is_main else 1
 
