@@ -71,7 +71,7 @@ func switch_menu(arg, silent := false):
 	menu_stuff = (main_menu if is_main else quit_menu).get_children()
 	
 	if !silent:
-		Audio.play("menu_" + ("no" if is_main else "pick"), 0.9, 1.1)
+		Audio.play("menu_" + ("exit" if is_main else "pick"), 0.9, 1.1)
 	
 	self.cursor = 0 if is_main else 1
 

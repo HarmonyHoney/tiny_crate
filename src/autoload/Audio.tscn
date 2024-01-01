@@ -47,10 +47,6 @@ bus = "SFX"
 stream = ExtResource( 8 )
 bus = "SFX"
 
-[node name="No" type="AudioStreamPlayer" parent="Menu"]
-stream = ExtResource( 3 )
-bus = "SFX"
-
 [node name="Pause" type="AudioStreamPlayer" parent="Menu"]
 stream = ExtResource( 2 )
 volume_db = -5.0

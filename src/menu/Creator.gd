@@ -62,6 +62,7 @@ func _input(event):
 				c = 1 if is_action else -1
 			set_color(cursor_y, colors[cursor_y] + c)
 			fill_swatches()
+			Audio.play("menu_scroll3", 0.8, 1.2)
 	elif cursor_y > 3 and cursor_y < 8:
 		if btnx != 0:
 			move_cursor(cursor_x + btnx)
@@ -70,12 +71,14 @@ func _input(event):
 			var s = name_label.text
 			s.erase(s.length() - 1, 1)
 			name_label.text = s
+			Audio.play("menu_exit", 0.8, 1.2)
 		
 		# write letter
 		elif is_jump:
 			var s = rows[cursor_y][cursor_x].get_child(0).text
 			var l = name_label.text
 			name_label.text = (l + s).substr(0, 16)
+			Audio.play("menu_yes", 0.8, 1.2)
 	elif cursor_y == rows.size() - 1:
 		if is_jump:
 			Shared.wipe_scene(Shared.main_menu_path)
@@ -84,6 +87,7 @@ func _input(event):
 			Shared.player_colors = colors
 			Shared.save_data["username"] = Shared.username
 			Shared.save_data["player_colors"] = Shared.player_colors
+			Audio.play("menu_bell", 0.8, 1.2)
 
 func move_cursor(_x := cursor_x, _y = cursor_y):
 	cursor_y = clamp(_y, 0, rows.size() - 1)
@@ -94,6 +98,7 @@ func move_cursor(_x := cursor_x, _y = cursor_y):
 	
 	arrows.rect_global_position = cursor_node.rect_global_position
 	arrows.visible = cursor_y < 4
+	Audio.play("menu_scroll", 0.8, 1.2)
 
 
 func set_color(_row := cursor_y, _col = colors[cursor_y]):
