@@ -58,12 +58,12 @@ func _enter_tree():
 	Shared.player = self
 
 func _ready():
+	if Engine.editor_hint: return
+	
 	# palette
 	var parts = ["hat", "skin", "suit", "eye", "shoe"]
 	for i in 5:
 		sprite_mat.set_shader_param(parts[i] + "_swap", Shared.palette[Shared.player_colors[clamp(i, 0, 3)]])
-	
-	if Engine.editor_hint: return
 	
 	node_sprite.flip_h = randf() > 0.5
 	
