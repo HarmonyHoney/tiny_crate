@@ -150,7 +150,8 @@ func show_scoreboard(arg := show_score):
 	score_title.text = "fastest " + ("note" if n else "run")
 	score_note.visible = n
 	score_clock.visible = !n
-	Shared.is_note_replay = n
+	Shared.is_replay_note = n
+	Shared.is_replay = arg == 1
 	
 	score_node.visible = show_score > 0
 	overlays[cursor].visible = !score_node.visible

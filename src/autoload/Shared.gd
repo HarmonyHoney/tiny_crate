@@ -52,7 +52,8 @@ var player
 
 var is_note := false
 var notes := {}
-var is_note_replay := false
+var is_replay_note := false
+var is_replay := false
 
 var username := "crate_kid"
 export (Array, Color) var palette := []
@@ -185,17 +186,19 @@ func change_map():
 		TouchScreen.turn_arrows(false)
 		TouchScreen.show_keys(true, true, true, true, true)
 		
-		var m = map_name + ("-note" if is_note_replay else "")
-		is_note_replay = false
+		if is_replay or is_replay_note:
+			var m = map_name + ("-note" if is_replay_note else "")
+			is_replay_note = false
+			is_replay = false
 		
-		if replays.has(m):
-			replays[m].sort_custom(self, "sort_replays")
-			
-			for i in min(3, replays[m].size()):
-				var r = replays[m][i].duplicate()
-				if r.has_all(["frames", "x", "y", "sprite"]):
-					replaying.append(r)
-					ghosts[i].visible = true
+			if replays.has(m):
+				replays[m].sort_custom(self, "sort_replays")
+				
+				for i in min(3, replays[m].size()):
+					var r = replays[m][i].duplicate()
+					if r.has_all(["frames", "x", "y", "sprite"]):
+						replaying.append(r)
+						ghosts[i].visible = true
 		
 	elif is_level_select:
 		UI.keys(true, true, true, true)
