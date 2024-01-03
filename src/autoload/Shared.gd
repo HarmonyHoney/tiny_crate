@@ -64,8 +64,9 @@ func _ready():
 	print("Shared._ready(): ")
 	randomize()
 	
-	# player colors
+	# create player
 	player_colors = preset_palettes[randi() % preset_palettes.size()]
+	username = generate_username()
 	
 	# ghosts
 	for i in ghost_count:
@@ -244,9 +245,25 @@ func create_save():
 	save_data["map"] = 0
 	save_data["notes"] = {}
 	save_data["times"] = {}
-	save_data["username"] = "crate_kid"
+	save_data["username"] = username
 	save_data["player_colors"] = player_colors
 	save()
+
+func generate_username():
+	var u = ""
+	var prefix = "crate box block square rect pack cube stack throw jump jumpin climb thinky brain spike skull pixel puzzle pico"
+	var middle = [" ", "_", "-", "."]
+	var suffix = "kid dude dood pal friend bud buddy guy gal boy girl homie person human robot cyborg man woman cousin cuz head face butt fart arms legs body hands feet mind"
+	var pf : Array = prefix.split(" ", false)
+	var sf : Array = suffix.split(" ", false)
+	pf.shuffle()
+	sf.shuffle()
+	var end = middle.duplicate()
+	end.append("")
+	middle.shuffle()
+	end.shuffle()
+	var _name = pf[0] + middle[0] + sf[0] + end[0] + str(randi() % 100)
+	return _name
 
 func load_save():
 	var l = load_file(save_filename)
@@ -319,6 +336,7 @@ func win():
 	save_data["map"] = map_save
 	save_data["notes"] = notes
 	save_data["times"] = map_times
+	save_data["username"] = username
 	
 	var m = map_name + ("-note" if is_note else "")
 	

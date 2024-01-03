@@ -10,6 +10,10 @@ var main_items := ["play", "creator", "options", "credits"]
 var quit_items := ["yes", "no"]
 var is_input = true
 
+export var blink_on := 0.3
+export var blink_off := 0.2
+var blink_clock := 0.0
+
 func _ready():
 	switch_menu("main", true)
 
@@ -29,6 +33,13 @@ func _input(event):
 		if up or down:
 			self.cursor += -1 if up else 1
 			Audio.play("menu_scroll", 0.8, 1.2)
+
+func _physics_process(delta):
+# blink
+	blink_clock -= delta
+	if blink_clock < -blink_off:
+		blink_clock = blink_on
+	menu_stuff[cursor].modulate = Color("ff004d" if blink_clock > 0.0 else "ff77a8")
 
 func write_menu():
 	for i in menu_items.size():

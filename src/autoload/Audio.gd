@@ -1,5 +1,7 @@
 extends Node
 
+export var is_refresh := false setget set_refresh
+
 var dict = {}
 
 func _ready():
@@ -21,3 +23,7 @@ func refresh():
 			dict[str(get_path_to(i)).to_lower().replace("/", "_")] = i
 	
 	print("Audio.dict refresh: ", dict.keys())
+
+func set_refresh(arg := is_refresh):
+	is_refresh = false
+	refresh()

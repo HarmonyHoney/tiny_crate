@@ -48,7 +48,7 @@ void fragment(){
 	COLOR = col;
 }"
 
-[sub_resource type="ShaderMaterial" id=15]
+[sub_resource type="ShaderMaterial" id=17]
 shader = SubResource( 8 )
 shader_param/hat = Color( 1, 0, 0, 1 )
 shader_param/eye = Color( 0, 1, 0, 1 )
@@ -155,7 +155,7 @@ z_index = 15
 z_as_relative = false
 
 [node name="Sprite" type="Sprite" parent="Player"]
-material = SubResource( 15 )
+material = SubResource( 17 )
 position = Vector2( 4, 0 )
 texture = ExtResource( 2 )
 hframes = 7
@@ -176,21 +176,21 @@ margin_top = 2.0
 margin_right = 98.0
 margin_bottom = 44.0
 custom_fonts/font = SubResource( 16 )
-text = "style"
+text = "char"
 
 [node name="NameBack" type="ColorRect" parent="Menu"]
 modulate = Color( 1, 1, 1, 0.2 )
 margin_left = 119.0
-margin_top = 66.0
+margin_top = 68.0
 margin_right = 220.0
-margin_bottom = 75.0
+margin_bottom = 77.0
 
 [node name="KeyboardBack" type="ColorRect" parent="Menu"]
 modulate = Color( 1, 1, 1, 0.2 )
 margin_left = 114.0
-margin_top = 79.0
+margin_top = 80.0
 margin_right = 224.0
-margin_bottom = 111.0
+margin_bottom = 112.0
 
 [node name="DoneBack" type="ColorRect" parent="Menu"]
 modulate = Color( 1, 1, 1, 0.2 )
@@ -199,12 +199,19 @@ margin_top = 115.0
 margin_right = 188.0
 margin_bottom = 124.0
 
+[node name="RandomBack" type="ColorRect" parent="Menu"]
+modulate = Color( 1, 1, 1, 0.2 )
+margin_left = 149.0
+margin_top = 2.0
+margin_right = 188.0
+margin_bottom = 11.0
+
 [node name="ColorPick" type="VBoxContainer" parent="Menu"]
 modulate = Color( 1, 1, 1, 0.2 )
 margin_left = 133.0
-margin_top = 12.0
+margin_top = 17.0
 margin_right = 199.0
-margin_bottom = 64.0
+margin_bottom = 69.0
 custom_constants/separation = 12
 
 [node name="ColorRect2" type="ColorRect" parent="Menu/ColorPick"]
@@ -234,34 +241,35 @@ margin_bottom = 44.0
 rect_min_size = Vector2( 0, 2 )
 size_flags_vertical = 4
 
-[node name="Arrows" type="Control" parent="Menu"]
+[node name="Cursors" type="Control" parent="Menu"]
 modulate = Color( 1, 0, 0.301961, 1 )
-margin_left = 137.0
-margin_top = 12.0
-margin_right = 137.0
-margin_bottom = 12.0
 
-[node name="Sprite" type="Sprite" parent="Menu/Arrows"]
+[node name="Arrows" type="Control" parent="Menu/Cursors"]
+margin_left = 133.0
+margin_top = 17.0
+margin_right = 133.0
+margin_bottom = 17.0
+
+[node name="Sprite" type="Sprite" parent="Menu/Cursors/Arrows"]
 position = Vector2( -3, 1 )
 texture = ExtResource( 5 )
 
-[node name="Sprite2" type="Sprite" parent="Menu/Arrows"]
+[node name="Sprite2" type="Sprite" parent="Menu/Cursors/Arrows"]
 position = Vector2( 69, 1 )
 texture = ExtResource( 5 )
 flip_h = true
 
-[node name="Cursor" type="ColorRect" parent="Menu"]
+[node name="Cursor" type="ColorRect" parent="Menu/Cursors"]
 margin_left = 116.0
-margin_top = 81.0
+margin_top = 82.0
 margin_right = 123.0
-margin_bottom = 88.0
-color = Color( 1, 0, 0.301961, 1 )
+margin_bottom = 89.0
 
 [node name="Colors" type="VBoxContainer" parent="Menu"]
 margin_left = 130.0
-margin_top = 8.0
+margin_top = 13.0
 margin_right = 203.0
-margin_bottom = 60.0
+margin_bottom = 65.0
 custom_constants/separation = 4
 
 [node name="Hat" type="HBoxContainer" parent="Menu/Colors"]
@@ -488,9 +496,9 @@ color = Color( 0, 0.529412, 0.317647, 1 )
 
 [node name="Labels" type="VBoxContainer" parent="Menu"]
 margin_left = 208.0
-margin_top = 9.0
+margin_top = 14.0
 margin_right = 281.0
-margin_bottom = 62.0
+margin_bottom = 67.0
 custom_constants/separation = 6
 
 [node name="Control" type="Control" parent="Menu/Labels"]
@@ -541,18 +549,18 @@ frame = 3
 
 [node name="Name" type="Label" parent="Menu"]
 margin_left = 120.0
-margin_top = 67.0
+margin_top = 69.0
 margin_right = 219.0
-margin_bottom = 74.0
+margin_bottom = 76.0
 custom_fonts/font = SubResource( 14 )
 text = "crate_kid"
 align = 1
 
 [node name="Keyboard" type="VBoxContainer" parent="Menu"]
 margin_left = 116.0
-margin_top = 81.0
+margin_top = 82.0
 margin_right = 222.0
-margin_bottom = 109.0
+margin_bottom = 110.0
 custom_constants/separation = 0
 
 [node name="Row1" type="HBoxContainer" parent="Menu/Keyboard"]
@@ -1222,5 +1230,19 @@ margin_right = 37.0
 margin_bottom = 7.0
 custom_fonts/font = SubResource( 14 )
 text = "Accept"
+
+[node name="Random" type="Control" parent="Menu"]
+margin_left = 150.0
+margin_top = 3.0
+margin_right = 187.0
+margin_bottom = 10.0
+
+[node name="Label" type="Label" parent="Menu/Random"]
+margin_left = 1.0
+margin_right = 37.0
+margin_bottom = 7.0
+custom_fonts/font = SubResource( 14 )
+text = "random"
+align = 1
 
 [editable path="GameCamera"]

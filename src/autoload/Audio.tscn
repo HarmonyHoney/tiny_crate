@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://media/audio/sfx/hit1.wav" type="AudioStream" id=1]
 [ext_resource path="res://media/audio/sfx/sfx3.wav" type="AudioStream" id=2]
@@ -14,6 +14,7 @@
 [ext_resource path="res://media/audio/sfx/sfx5.wav" type="AudioStream" id=12]
 [ext_resource path="res://media/audio/sfx/portal0.wav" type="AudioStream" id=13]
 [ext_resource path="res://media/audio/sfx/bell1.wav" type="AudioStream" id=14]
+[ext_resource path="res://media/audio/sfx/sfx20.wav" type="AudioStream" id=15]
 
 [node name="Audio" type="Node"]
 pause_mode = 2
@@ -80,4 +81,8 @@ bus = "SFX"
 
 [node name="Bell" type="AudioStreamPlayer" parent="Menu"]
 stream = ExtResource( 14 )
+bus = "SFX"
+
+[node name="Random" type="AudioStreamPlayer" parent="Menu"]
+stream = ExtResource( 15 )
 bus = "SFX"
