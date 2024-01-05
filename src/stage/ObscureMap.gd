@@ -14,6 +14,5 @@ func _ready():
 func _physics_process(delta):
 	if Shared.is_level_select: return
 	
-	if is_instance_valid(Shared.player):
-		frac = lerp(frac, 0.0 if get_cellv(world_to_map(Shared.player.center())) != -1 else 1.0, delta * speed)
-		modulate.a = lerp(0.5, 1.0, frac)
+	frac = lerp(frac, 0.0 if is_instance_valid(Shared.player) and get_cellv(world_to_map(Shared.player.center())) != -1 else 1.0, delta * speed)
+	modulate.a = lerp(0.5, 1.0, frac)
