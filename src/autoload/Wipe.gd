@@ -9,7 +9,8 @@ var frame = 0
 # last frame
 export var last = 14
 
-onready var easing := EaseMover.new(0.45)
+export var duration := 0.45 setget set_duration
+onready var easing := EaseMover.new(duration)
 onready var image := $ColorRect
 onready var mat : ShaderMaterial = $ColorRect.material
 
@@ -54,3 +55,7 @@ func item_rect():
 	
 	print(mat.get_shader_param("size"), " / ", mat.get_shader_param("offset"))
 
+func set_duration(arg):
+	duration = arg
+	if is_instance_valid(easing):
+		easing.time = arg

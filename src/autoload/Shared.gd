@@ -7,6 +7,7 @@ var ghost_count := 3
 
 var node_map_solid : TileMap
 var node_camera_game : Camera2D
+var obscure_map
 
 var is_quit := false
 var is_reset := false
@@ -86,7 +87,7 @@ func _ready():
 	
 	# get world maps
 	maps = dir_list(map_path)
-	print("maps: ", maps)
+	print("maps: ", maps, " ", maps.size())
 	
 	# load save data
 	load_save()

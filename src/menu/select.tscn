@@ -1,13 +1,20 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://media/image/corner.png" type="Texture" id=1]
 [ext_resource path="res://media/font/QuinqueFive.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://media/image/note.png" type="Texture" id=3]
 [ext_resource path="res://src/menu/Vis.gd" type="Script" id=4]
+[ext_resource path="res://src/shader/tv_static.gdshader" type="Shader" id=5]
 [ext_resource path="res://src/shader/outline2D_outer.shader" type="Shader" id=6]
 [ext_resource path="res://src/menu/select.gd" type="Script" id=7]
 [ext_resource path="res://media/image/menu.png" type="Texture" id=10]
 [ext_resource path="res://media/image/skull.png" type="Texture" id=11]
+[ext_resource path="res://src/menu/cursor_anim.gd" type="Script" id=13]
+
+[sub_resource type="ShaderMaterial" id=8]
+shader = ExtResource( 5 )
+shader_param/mouse_pos = Vector2( 0.01, 0.005 )
+shader_param/vsync_issues = 0.7
 
 [sub_resource type="DynamicFont" id=4]
 size = 5
@@ -40,63 +47,12 @@ extra_spacing_top = -1
 extra_spacing_bottom = -1
 font_data = ExtResource( 2 )
 
-[sub_resource type="Animation" id=1]
-length = 1.15
-loop = true
-tracks/0/type = "value"
-tracks/0/path = NodePath("c1:position")
-tracks/0/interp = 2
-tracks/0/loop_wrap = true
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/keys = {
-"times": PoolRealArray( 0, 0.5, 1 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ Vector2( -55, -55 ), Vector2( -45, -45 ), Vector2( -55, -55 ) ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("c2:position")
-tracks/1/interp = 2
-tracks/1/loop_wrap = true
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/keys = {
-"times": PoolRealArray( 0, 0.5, 1 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ Vector2( 55, -55 ), Vector2( 45, -45 ), Vector2( 55, -55 ) ]
-}
-tracks/2/type = "value"
-tracks/2/path = NodePath("c3:position")
-tracks/2/interp = 2
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0, 0.5, 1 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ Vector2( -55, 55 ), Vector2( -45, 45 ), Vector2( -55, 55 ) ]
-}
-tracks/3/type = "value"
-tracks/3/path = NodePath("c4:position")
-tracks/3/interp = 2
-tracks/3/loop_wrap = true
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/keys = {
-"times": PoolRealArray( 0, 0.5, 1 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
-"update": 0,
-"values": [ Vector2( 55, 55 ), Vector2( 45, 45 ), Vector2( 55, 55 ) ]
-}
-
-[node name="Node2D" type="Node2D"]
+[node name="Select" type="Node2D"]
 script = ExtResource( 7 )
 __meta__ = {
 "_edit_lock_": true
 }
+screen_size = Vector2( 136, 96 )
 
 [node name="Control" type="Control" parent="."]
 margin_right = 320.0
@@ -116,36 +72,40 @@ margin_right = 150.0
 margin_bottom = 80.0
 
 [node name="Vis" type="VisibilityNotifier2D" parent="Control/Screen"]
-rect = Rect2( 0, 0, 100, 100 )
+rect = Rect2( 0, 0, 136, 96 )
 script = ExtResource( 4 )
 
 [node name="ViewportContainer" type="ViewportContainer" parent="Control/Screen/Vis"]
-margin_left = -1.52588e-05
-margin_right = 100.0
-margin_bottom = 100.0
+margin_right = 136.0
+margin_bottom = 96.0
 
 [node name="Viewport" type="Viewport" parent="Control/Screen/Vis/ViewportContainer"]
-size = Vector2( 100, 100 )
-own_world = true
+size = Vector2( 136, 96 )
 handle_input_locally = false
 render_target_update_mode = 3
 
+[node name="Static" type="ColorRect" parent="Control/Screen/Vis"]
+modulate = Color( 0.14, 0.14, 0.14, 1 )
+material = SubResource( 8 )
+margin_right = 136.0
+margin_bottom = 96.0
+
 [node name="Overlay" type="Control" parent="Control/Screen"]
-margin_right = 100.0
-margin_bottom = 100.0
+margin_right = 136.0
+margin_bottom = 104.0
 
 [node name="Label" type="Label" parent="Control/Screen/Overlay"]
-margin_top = 47.0
-margin_right = 100.0
-margin_bottom = 52.0
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 custom_fonts/font = SubResource( 4 )
 text = "1-1"
 align = 1
+valign = 1
 
 [node name="Time" type="Control" parent="Control/Screen/Overlay"]
-margin_top = 100.0
-margin_bottom = 100.0
+margin_top = 96.0
+margin_bottom = 96.0
 
 [node name="Clock" type="Sprite" parent="Control/Screen/Overlay/Time"]
 material = SubResource( 3 )
@@ -181,8 +141,8 @@ custom_fonts/font = SubResource( 4 )
 text = "79"
 
 [node name="Notes" type="Control" parent="Control/Screen/Overlay"]
-margin_left = 100.0
-margin_right = 100.0
+margin_left = 136.0
+margin_right = 136.0
 
 [node name="Sprite" type="Sprite" parent="Control/Screen/Overlay/Notes"]
 material = SubResource( 3 )
@@ -200,32 +160,31 @@ text = "12:34"
 align = 2
 
 [node name="Scores" type="Control" parent="Control"]
-visible = false
 margin_left = 111.0
 margin_top = 41.0
-margin_right = 209.0
-margin_bottom = 139.0
-rect_min_size = Vector2( 98, 98 )
+margin_right = 245.0
+margin_bottom = 135.0
+rect_min_size = Vector2( 134, 94 )
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Control/Scores"]
 anchor_right = 1.0
-margin_top = 3.0
-margin_bottom = 13.0
+margin_top = 1.0
+margin_bottom = 11.0
 custom_constants/separation = 2
 alignment = 1
 
 [node name="Title" type="Label" parent="Control/Scores/HBoxContainer"]
-margin_left = 2.0
+margin_left = 9.0
 margin_top = 2.0
-margin_right = 85.0
+margin_right = 92.0
 margin_bottom = 7.0
 custom_fonts/font = SubResource( 6 )
 text = "FASTEST note"
 valign = 1
 
 [node name="Note" type="Control" parent="Control/Scores/HBoxContainer"]
-margin_left = 87.0
-margin_right = 96.0
+margin_left = 94.0
+margin_right = 103.0
 margin_bottom = 10.0
 rect_min_size = Vector2( 9, 10 )
 
@@ -238,8 +197,8 @@ region_rect = Rect2( 7, 7, 9, 10 )
 
 [node name="Clock" type="Control" parent="Control/Scores/HBoxContainer"]
 visible = false
-margin_left = 92.0
-margin_right = 102.0
+margin_left = 110.0
+margin_right = 120.0
 margin_bottom = 10.0
 rect_min_size = Vector2( 10, 10 )
 
@@ -250,12 +209,22 @@ texture = ExtResource( 10 )
 region_enabled = true
 region_rect = Rect2( 15, 7, 10, 10 )
 
+[node name="Map" type="Label" parent="Control/Scores/HBoxContainer"]
+margin_left = 105.0
+margin_top = 2.0
+margin_right = 125.0
+margin_bottom = 7.0
+custom_fonts/font = SubResource( 6 )
+text = "1-3"
+valign = 1
+
 [node name="List" type="Label" parent="Control/Scores"]
-margin_top = 18.0
-margin_right = 98.0
-margin_bottom = 95.0
+margin_left = 1.0
+margin_top = 16.0
+margin_right = 133.0
+margin_bottom = 93.0
 custom_fonts/font = SubResource( 5 )
-text = "1.67 / Me
+text = "12:67 long_name1234567
 1.94 / You
 2.54 / Nobody
 4. Everyone
@@ -272,30 +241,33 @@ current = true
 smoothing_enabled = true
 editor_draw_screen = false
 
-[node name="Cursor" type="Node2D" parent="."]
+[node name="Cursor" type="Control" parent="."]
 modulate = Color( 1, 0.92549, 0.152941, 1 )
-position = Vector2( 160, 90 )
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Cursor"]
-autoplay = "New Anim"
-"anims/New Anim" = SubResource( 1 )
+margin_left = 110.0
+margin_top = 40.0
+margin_right = 246.0
+margin_bottom = 144.0
+script = ExtResource( 13 )
+time = 0.5
+distance = 9.0
+offset = -6.0
+size = Vector2( 136, 96 )
 
 [node name="c1" type="Sprite" parent="Cursor"]
-position = Vector2( -45, -45 )
 texture = ExtResource( 1 )
 
 [node name="c2" type="Sprite" parent="Cursor"]
-position = Vector2( 45, -45 )
+position = Vector2( 136, 0 )
 rotation = 1.5708
 texture = ExtResource( 1 )
 
 [node name="c3" type="Sprite" parent="Cursor"]
-position = Vector2( -45, 45 )
-rotation = 4.71239
+position = Vector2( 0, 103 )
+rotation = -1.5708
 texture = ExtResource( 1 )
 
 [node name="c4" type="Sprite" parent="Cursor"]
-position = Vector2( 45, 45 )
+position = Vector2( 136, 103 )
 rotation = 3.14159
 texture = ExtResource( 1 )
 
