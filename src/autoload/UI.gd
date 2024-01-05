@@ -9,6 +9,9 @@ onready var pause_label := $Center/Control/Top/P/Desc
 
 onready var notes := $Center/Control/Notes
 onready var notes_label := $Center/Control/Notes/Label
+onready var gems := $Center/Control/Gems
+onready var gems_label := $Center/Control/Gems/Label
+
 onready var spacer := $Center/Control/List/Spacer
 
 func _ready():

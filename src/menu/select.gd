@@ -161,6 +161,7 @@ func make_screen(i := 0):
 	
 	var is_time := Shared.map_times.has(map_name)
 	new.get_node("Overlay/Time").visible = is_time
+	new.get_node("Overlay/Gem").visible = is_time
 	if is_time:
 		new.get_node("Overlay/Time/Label").text = time_to_string(Shared.map_times[map_name])
 	

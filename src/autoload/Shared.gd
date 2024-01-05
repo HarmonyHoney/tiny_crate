@@ -181,6 +181,8 @@ func change_map():
 	is_note = false
 	UI.notes.visible = is_level_select
 	UI.notes_label.text = str(notes.size())
+	UI.gems.visible = is_level_select
+	UI.gems_label.text = str(map_save)
 	UI.keys(false, false)
 	UI.labels("pick", "erase" if scene_path == creator_path else "back", "score" if is_level_select else "menu")
 	
