@@ -43,6 +43,9 @@ export var timeout_mod := 1.0
 var screen_time := 0.0
 var loading_time := 0.0
 
+export var color_gem := Color("ffec27")
+export var color_new := Color("83769c")
+
 func _ready():
 	Leaderboard.connect("new_score", self, "new_score")
 	SilentWolf.Scores.connect("sw_scores_received", self, "new_score")
@@ -161,7 +164,7 @@ func make_screen(i := 0):
 	
 	var is_time := Shared.map_times.has(map_name)
 	new.get_node("Overlay/Time").visible = is_time
-	new.get_node("Overlay/Gem").visible = is_time
+	new.get_node("Overlay/Gem").modulate = color_gem if is_time else color_new
 	if is_time:
 		new.get_node("Overlay/Time/Label").text = time_to_string(Shared.map_times[map_name])
 	

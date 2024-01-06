@@ -166,13 +166,13 @@ text = "12:34"
 align = 2
 
 [node name="Gem" type="Control" parent="Control/Screen/Overlay"]
+modulate = Color( 0.513726, 0.462745, 0.611765, 1 )
 margin_left = 136.0
 margin_top = 96.0
 margin_right = 136.0
 margin_bottom = 96.0
 
 [node name="Sprite" type="Sprite" parent="Control/Screen/Overlay/Gem"]
-modulate = Color( 1, 0.92549, 0.152941, 1 )
 material = SubResource( 9 )
 position = Vector2( -12, -12 )
 texture = ExtResource( 8 )
