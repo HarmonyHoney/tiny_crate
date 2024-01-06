@@ -9,7 +9,7 @@
 0/name = "8pixel.png 0"
 0/texture = ExtResource( 4 )
 0/tex_offset = Vector2( 0, 0 )
-0/modulate = Color( 0, 1, 0, 0.2 )
+0/modulate = Color( 0, 1, 0, 0.15 )
 0/region = Rect2( 0, 0, 8, 8 )
 0/tile_mode = 0
 0/occluder_offset = Vector2( 0, 0 )
