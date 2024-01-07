@@ -178,6 +178,7 @@ position = Vector2( -12, -12 )
 texture = ExtResource( 8 )
 
 [node name="Scores" type="Control" parent="Control"]
+visible = false
 margin_left = 111.0
 margin_top = 41.0
 margin_right = 245.0

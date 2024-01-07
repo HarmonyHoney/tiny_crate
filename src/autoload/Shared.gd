@@ -10,9 +10,6 @@ var node_camera_game : Camera2D
 var obscure_map
 
 var is_quit := false
-var is_reset := false
-var reset_clock := 0.0
-var reset_time := 1.0
 var is_level_select := false
 var is_in_game := false
 
@@ -28,8 +25,6 @@ var creator_path := "res://src/menu/Creator.tscn"
 
 var save_data := {}
 var save_filename := "box.save"
-
-var replay_filename := "replay.save"
 
 var window_scale := 1
 var view_size := Vector2(228, 128)
@@ -55,11 +50,16 @@ var is_note := false
 var notes := {}
 var is_replay_note := false
 var is_replay := false
+var replay_map := ""
 
 var username := "crate_kid"
 export (Array, Color) var palette := []
 var player_colors = [8, 0, 11, 13]
 var preset_palettes = [[7, 13, 6, 3], [8, 0, 11, 13], [11, 7, 9, 0], [12, 1, 7, 5], [9, 8, 12, 3]]
+
+var scene_dict := {}
+var save_slot := 0
+var save_path := "user://save/0/"
 
 func _ready():
 	print("Shared._ready(): ")
@@ -85,9 +85,19 @@ func _ready():
 	for i in [1, 2]:
 		set_bus_volume(i, 7)
 	
-	# get world maps
-	maps = dir_list(map_path)
-	print("maps: ", maps, " ", maps.size())
+	# get all maps
+	for i in dir_list(map_path):
+		scene_dict[map_path + i] = load(map_path + i)
+		maps.append(i.split(".")[0])
+	print("maps: ", maps, " ", maps.size(), " ", scene_dict)
+	
+	var dir = Directory.new()
+	if !dir.open("user://save") == OK:
+		dir.make_dir("user://save")
+	for i in 3:
+		var s = "user://save/" + str(i)
+		if !dir.open(s) == OK:
+			dir.make_dir(s)
 	
 	# load save data
 	load_save()
@@ -96,12 +106,6 @@ func _ready():
 	Wipe.connect("finish", self, "wipe_finish")
 
 func _physics_process(delta):
-	# reset timer
-	if is_reset:
-		reset_clock -= delta
-		if reset_clock < 0:
-			do_reset()
-	
 	if is_in_game:
 		# map time
 		if !Pause.is_paused:
@@ -130,13 +134,9 @@ func _physics_process(delta):
 
 ### Changing Maps
 
-func start_reset():
-	if !is_reset:
-		is_reset = true
-		reset_clock = reset_time
-
-func do_reset():
-	is_reset = false
+func wipe_scene(arg := scene_path, timer := 0.0):
+	if timer > 0.0: yield(get_tree().create_timer(timer), "timeout")
+	scene_path = arg
 	Wipe.start()
 	Pause.set_process_input(false)
 
@@ -144,29 +144,21 @@ func wipe_quit():
 	is_quit = true
 	Wipe.start()
 
-func wipe_scene(arg := ""):
-	scene_path = arg
-	do_reset()
-
 func wipe_finish():
 	if is_quit:
 		get_tree().quit()
 	else:
 		change_map()
 
-func set_map(arg):
-	current_map = clamp(arg, 0, Shared.maps.size() - 1)
-	if arg > Shared.maps.size() - 1:
-		scene_path = win_screen_path
-	else:
-		scene_path = map_path + maps[current_map] + ".tscn"
-
 func change_map():
 	save()
 	if is_win:
 		save_replays()
 	
-	get_tree().change_scene(scene_path)
+	if !scene_dict.has(scene_path):
+		scene_dict[scene_path] = load(scene_path)
+	get_tree().change_scene_to(scene_dict[scene_path])
+
 	is_level_select = scene_path == level_select_path
 	is_in_game = scene_path.begins_with(map_path) or scene_path.begins_with(win_screen_path)
 	map_name = "" if !is_in_game else scene_path.split("/")[-1].trim_suffix(".tscn")
@@ -226,50 +218,25 @@ func change_map():
 
 func save_file(fname, arg):
 	var file = File.new()
-	file.open("user://" + str(fname), File.WRITE)
+	file.open(str(fname), File.WRITE)
 	file.store_string(arg)
 	file.close()
 
-func load_file(fname = "box.save"):
+func load_file(fname = "user://box.save"):
 	var file = File.new()
-	file.open("user://" + str(fname), File.READ)
+	file.open(str(fname), File.READ)
 	var content = file.get_as_text()
 	file.close()
 	return content
 
 func save():
-	save_file(save_filename, JSON.print(save_data, "\t"))
+	save_file(save_path + save_filename, JSON.print(save_data, "\t"))
 
-func save_replays():
-	save_file(replay_filename, JSON.print(replays, "\t"))
-
-func create_save():
-	save_data = {}
-	save_data["map"] = 0
-	save_data["notes"] = {}
-	save_data["times"] = {}
-	save_data["username"] = username
-	save_data["player_colors"] = player_colors
-	save()
-
-func generate_username():
-	var u = ""
-	var prefix = "crate box block square rect pack cube stack throw jump jumpin climb thinky brain spike skull pixel puzzle pico"
-	var middle = [" ", "_", "-", "."]
-	var suffix = "kid dude dood pal friend bud buddy guy gal boy girl homie person human robot cyborg man woman cousin cuz head face butt fart arms legs body hands feet mind"
-	var pf : Array = prefix.split(" ", false)
-	var sf : Array = suffix.split(" ", false)
-	pf.shuffle()
-	sf.shuffle()
-	var end = middle.duplicate()
-	end.append("")
-	middle.shuffle()
-	end.shuffle()
-	var _name = pf[0] + middle[0] + sf[0] + end[0] + str(randi() % 100)
-	return _name
+func save_replays(arg := replay_map):
+	save_file(save_path + arg + ".save", JSON.print(replays[arg], "\t"))
 
 func load_save():
-	var l = load_file(save_filename)
+	var l = load_file(save_path + save_filename)
 	if l:
 		save_data = JSON.parse(l).result
 		
@@ -309,15 +276,41 @@ func load_save():
 		create_save()
 
 func load_replays():
-	var l = load_file(replay_filename)
-	if l:
-		replays = JSON.parse(l).result
-	else:
-		print(replay_filename + " not found")
+	for i in dir_list(save_path):
+		var l = load_file(save_path  + i)
+		if l:
+			replays[i.split(".")[0]] = JSON.parse(l).result
+		else:
+			print(save_path + i + " not found")
+
+func generate_username():
+	var u = ""
+	var prefix = "crate box block square rect pack cube stack throw jump jumpin climb thinky brain spike skull pixel puzzle pico"
+	var middle = [" ", "_", "-", "."]
+	var suffix = "kid dude dood pal friend bud buddy guy gal boy girl homie person human robot cyborg man woman cousin cuz head face butt fart arms legs body hands feet mind"
+	var pf : Array = prefix.split(" ", false)
+	var sf : Array = suffix.split(" ", false)
+	pf.shuffle()
+	sf.shuffle()
+	var end = middle.duplicate()
+	end.append("")
+	middle.shuffle()
+	end.shuffle()
+	var _name = pf[0] + middle[0] + sf[0] + end[0] + str(randi() % 100)
+	return _name
 
 func delete_save():
 	print("delete save")
 	create_save()
+
+func create_save():
+	save_data = {}
+	save_data["map"] = 0
+	save_data["notes"] = {}
+	save_data["times"] = {}
+	save_data["username"] = username
+	save_data["player_colors"] = player_colors
+	save()
 
 func unlock():
 	map_save = 99
@@ -342,24 +335,20 @@ func win():
 	save_data["username"] = username
 	
 	var m = map_name + ("-note" if is_note else "")
+	replay_map = m
 	
 	if !replays.has(m):
 		replays[m] = []
 	replays[m].append(replay)
 	replays[m].sort_custom(self, "sort_replays")
-	if replays[m].size() > 10:
-		replays[m].resize(10)
+	if replays[m].size() > 5:
+		replays[m].resize(5)
 	
-	#save()
-	print("map complete")#, save_data: ", save_data)
+	print("map complete")
 	
 	Leaderboard.submit_score(m, -map_frame)
 	
-	if map_save > ms:
-		set_map(current_map + 1)
-	else:
-		scene_path = level_select_path
-	start_reset()
+	wipe_scene(level_select_path)
 
 func sort_replays(a, b):
 	if a["frames"] < b["frames"]:
@@ -382,7 +371,7 @@ func dir_list(path : String):
 		dir.list_dir_begin(true, true)
 		var file_name = dir.get_next()
 		while file_name:
-			array.append(file_name.split(".")[0])
+			array.append(file_name)
 			file_name = dir.get_next()
 		dir.list_dir_end()
 	array.sort()

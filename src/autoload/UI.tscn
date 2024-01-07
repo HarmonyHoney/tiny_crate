@@ -34,6 +34,7 @@ extra_spacing_char = 1
 font_data = ExtResource( 5 )
 
 [node name="UI" type="CanvasLayer"]
+pause_mode = 2
 layer = 5
 script = ExtResource( 3 )
 

@@ -81,7 +81,7 @@ func select():
 		"go":
 			toggle_pause()
 		"redo":
-			Shared.do_reset()
+			Shared.wipe_scene()
 			toggle_pause()
 			Audio.play("menu_reset", 0.9, 1.1)
 		"stages":

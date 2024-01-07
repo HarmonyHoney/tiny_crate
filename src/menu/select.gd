@@ -70,11 +70,6 @@ func _ready():
 	
 	show_scoreboard()
 
-func sort_load_list(a, b):
-	if abs(a[0] - cursor) < abs(b[0] - cursor):
-		return true
-	return false
-
 func sort_list(a, b):
 	if abs(a - cursor) < abs(b - cursor):
 		return true
@@ -110,9 +105,10 @@ func _physics_process(delta):
 	for i in last_refresh.keys():
 		last_refresh[i] = max(0, last_refresh[i] - delta)
 	
+	var ticks : float = OS.get_ticks_msec()
+	
 	if is_screening:
 		screen_time += delta
-		var ticks = OS.get_ticks_msec()
 		
 		while OS.get_ticks_msec() < ticks + (delta * timeout_mod):
 			if screen_list.size() > 0:
@@ -126,29 +122,16 @@ func _physics_process(delta):
 	# load stages
 	elif is_load:
 		loading_time += delta
-		if loader == null and load_list.size() > 0:
-			loader = ResourceLoader.load_interactive(load_list[0][1])
-
-		if loader != null:
-			var ticks = OS.get_ticks_msec()
-			
-			while OS.get_ticks_msec() < ticks + (delta * timeout_mod):
-				var error = loader.poll()
-				if error == ERR_FILE_EOF:
-					var map = loader.get_resource().instance()
-					var pop = load_list.pop_front()
-					pop[2].add_child(map)
-					screen_static[pop[0]].visible = false
-					loader = null
-					break
-				elif error != OK:
-					# failed
-					loader = null
-					break
 		
-		if load_list.size() == 0:
-			is_load = false
-			print(loading_time, " loading time")
+		while OS.get_ticks_msec() < ticks + (delta * timeout_mod):
+			if load_list.size() > 0:
+				var pop = load_list.pop_front()
+				pop[2].add_child(Shared.scene_dict[pop[1]].instance())
+				screen_static[pop[0]].visible = false
+			else:
+				is_load = false
+				print(loading_time, " loading time")
+				break
 
 func make_screen(i := 0):
 	var new = screen.duplicate()
@@ -177,13 +160,13 @@ func make_screen(i := 0):
 	screens.append(new)
 	overlays.append(new.get_node("Overlay"))
 	screen_static.append(new.get_node("Vis/Static"))
-	view_scene(new.get_node("Vis/ViewportContainer/Viewport"), Shared.map_path + Shared.maps[i] + ".tscn")
+	view_scene(new.get_node("Vis/ViewportContainer/Viewport"), Shared.map_path + Shared.maps[i] + ".tscn", i)
 
 # view a scene inside the viewport by path
-func view_scene(port, path):
+func view_scene(port, path, arg):
 	for i in port.get_children():
 		i.queue_free()
-		
+	
 	load_list.append([port_count, path, port])
 	port_count += 1
 
@@ -265,5 +248,5 @@ func time_to_string(arg := 0.0):
 
 func open_map():
 	if cursor <= Shared.map_save:
-		Shared.set_map(cursor)
-		Shared.do_reset()
+		Shared.current_map = cursor
+		Shared.wipe_scene(Shared.map_path + Shared.maps[cursor] + ".tscn")

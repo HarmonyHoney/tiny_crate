@@ -261,7 +261,9 @@ func death():
 	
 	# reset scene
 	remove_player()
-	Shared.start_reset()
+	var wait := 0.5
+	Shared.wipe_scene(Shared.scene_path, wait)
+	Pause.clock = wait
 
 func win():
 	# explosion
