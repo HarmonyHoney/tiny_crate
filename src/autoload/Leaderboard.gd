@@ -48,7 +48,7 @@ func refresh_score(map_name):
 		var s = SilentWolf.Scores.leaderboards[map_name]
 		scores[map_name] = s
 		emit_signal("new_score")
-		print(s)
+		#print(s)
 
 func submit_score(board_name, score, _username := Shared.username):
 	if !is_online: return

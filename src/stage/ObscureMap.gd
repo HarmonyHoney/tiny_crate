@@ -1,6 +1,6 @@
 extends TileMap
 
-var frac = 0.0
+var frac = 1.0
 export var speed := 10.0
 
 func _ready():

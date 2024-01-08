@@ -14,6 +14,7 @@ export var screen_size = Vector2(136, 104)
 export var columns = 8
 var screen_pos := []
 var screen_static := []
+var screen_max := 1
 
 var overlays := []
 
@@ -52,17 +53,16 @@ func _ready():
 	
 	screen.rect_position -= Vector2.ONE * 500
 	
-	map_limit = min(Shared.maps.size(), Shared.map_save)
-	
 	# make screens
 	screen_pos = []
-	for i in map_limit:
+	for i in Shared.maps.size():
 		var sy = i / columns
 		var sx = i % columns
 		screen_pos.append((Vector2(sx + (sy % 2) * 0.5, sy) * (screen_size + screen_dist)))
 		screen_list.append(i)
+	screen_max = max(0, screen_pos.size() - 1)
 	
-	scroll(Shared.current_map)
+	scroll(Shared.map_select)
 	cam.reset_smoothing()
 	
 	screen_list.sort_custom(self, "sort_list")
@@ -140,27 +140,31 @@ func make_screen(i := 0):
 	new.rect_position = screen_pos[i]
 	new.get_node("Overlay/Label").text = map_name
 	
-	var is_note := Shared.notes.has(map_name)
-	new.get_node("Overlay/Notes").visible = is_note
-	if is_note:
-		new.get_node("Overlay/Notes/Label").text = time_to_string(Shared.notes[map_name])
+	var s = {}
+	if Shared.save_maps.has(map_name):
+		s = Shared.save_maps[map_name]
 	
-	var is_time := Shared.map_times.has(map_name)
-	new.get_node("Overlay/Time").visible = is_time
-	new.get_node("Overlay/Gem").modulate = color_gem if is_time else color_new
-	if is_time:
-		new.get_node("Overlay/Time/Label").text = time_to_string(Shared.map_times[map_name])
+	var has_note = s.has("note")
+	new.get_node("Overlay/Notes").visible = has_note
+	if has_note:
+		new.get_node("Overlay/Notes/Label").text = time_to_string(s["note"])
 	
-	var is_death : bool = Shared.deaths.has(map_name) and Shared.deaths[map_name] > 0
-	new.get_node("Overlay/Death").visible = is_death
-	if is_death:
-		new.get_node("Overlay/Death/Label").text = str(Shared.deaths[map_name])
+	var has_time = s.has("time")
+	new.get_node("Overlay/Time").visible = has_time
+	new.get_node("Overlay/Gem").modulate = color_gem if has_time else color_new
+	if has_time:
+		new.get_node("Overlay/Time/Label").text = time_to_string(s["time"])
+	
+	var has_die = s.has("die")
+	new.get_node("Overlay/Death").visible = has_die
+	if has_die:
+		new.get_node("Overlay/Death/Label").text = str(s["die"])
 	
 	screens_node.add_child(new)
 	screens.append(new)
 	overlays.append(new.get_node("Overlay"))
 	screen_static.append(new.get_node("Vis/Static"))
-	view_scene(new.get_node("Vis/ViewportContainer/Viewport"), Shared.map_path + Shared.maps[i] + ".tscn", i)
+	view_scene(new.get_node("Vis/ViewportContainer/Viewport"), Shared.map_dir + Shared.maps[i] + ".tscn", i)
 
 # view a scene inside the viewport by path
 func view_scene(port, path, arg):
@@ -171,12 +175,14 @@ func view_scene(port, path, arg):
 	port_count += 1
 
 func scroll(arg = 0):
-	if overlays.size() > cursor:
-		overlays[cursor].visible = true
-	cursor = clamp(cursor + arg, 0, map_limit - 1)
+	var o = overlays.size() > cursor
+	if o: overlays[cursor].visible = true
+	
+	cursor = clamp(cursor + arg, 0, screen_max)
 	current_map = Shared.maps[cursor]
-	if overlays.size() > cursor:
-		overlays[cursor].visible = !score_node.visible
+	
+	if o: overlays[cursor].visible = !score_node.visible
+	
 	var sp = screen_pos[cursor]
 	cursor_node.rect_position = sp
 	score_node.rect_position = sp + Vector2(1, 1)
@@ -247,6 +253,5 @@ func time_to_string(arg := 0.0):
 		return str(time / 60.0).pad_zeros(2).pad_decimals(0) + ":" + str(fposmod(time, 60.0)).pad_zeros(2).pad_decimals(0)
 
 func open_map():
-	if cursor <= Shared.map_save:
-		Shared.current_map = cursor
-		Shared.wipe_scene(Shared.map_path + Shared.maps[cursor] + ".tscn")
+	Shared.map_select = cursor
+	Shared.wipe_scene(Shared.map_dir + Shared.maps[cursor] + ".tscn")

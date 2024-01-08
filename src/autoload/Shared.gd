@@ -13,8 +13,7 @@ var is_quit := false
 var is_level_select := false
 var is_in_game := false
 
-var map_path := "res://src/map/"
-var scene_path := "res://src/menu/select.tscn"
+var map_dir := "res://src/map/"
 var main_menu_path := "res://src/menu/StartMenu.tscn"
 var options_menu_path := "res://src/menu/options/OptionsMenu.tscn"
 var level_select_path := "res://src/menu/select.tscn"
@@ -22,35 +21,34 @@ var win_screen_path := "res://src/menu/WinScreen.tscn"
 var credits_path := "res://src/menu/credits.tscn"
 var splash_path := "res://src/menu/splash.tscn"
 var creator_path := "res://src/menu/Creator.tscn"
+var scene_path := level_select_path
 
 var save_data := {}
+var save_maps := {}
+var replays := {}
 var save_filename := "box.save"
 
 var window_scale := 1
 var view_size := Vector2(228, 128)
 var bus_volume = [10, 10, 10]
 
-var current_map := 0
-var maps := []
-var map_save := 0
-var map_name := ""
-var map_frame := 0
-var map_times := {}
-var deaths := {}
-var replays := {}
-var replay := {"frames" : 0, "x" : [], "y": [], "sprite" : []}
-var replaying := []
-var is_win := false
-var replay_name := ""
-
 var actors := []
 var player
 
-var is_note := false
-var notes := {}
-var is_replay_note := false
-var is_replay := false
+var map_select := 0
+var maps := []
+var map_name := ""
+var map_frame := 0
+var replay := {"frames" : 0, "x" : [], "y": [], "sprite" : []}
+var replaying := []
 var replay_map := ""
+var count_gems := 0
+var count_notes := 0
+
+var is_win := false
+var is_note := false
+var is_replay := false
+var is_replay_note := false
 
 var username := "crate_kid"
 export (Array, Color) var palette := []
@@ -86,8 +84,8 @@ func _ready():
 		set_bus_volume(i, 7)
 	
 	# get all maps
-	for i in dir_list(map_path):
-		scene_dict[map_path + i] = load(map_path + i)
+	for i in dir_list(map_dir):
+		scene_dict[map_dir + i] = load(map_dir + i)
 		maps.append(i.split(".")[0])
 	print("maps: ", maps, " ", maps.size(), " ", scene_dict)
 	
@@ -102,6 +100,7 @@ func _ready():
 	# load save data
 	load_save()
 	load_replays()
+	count_score()
 	
 	Wipe.connect("finish", self, "wipe_finish")
 
@@ -151,6 +150,7 @@ func wipe_finish():
 		change_map()
 
 func change_map():
+	count_score()
 	save()
 	if is_win:
 		save_replays()
@@ -158,11 +158,11 @@ func change_map():
 	if !scene_dict.has(scene_path):
 		scene_dict[scene_path] = load(scene_path)
 	get_tree().change_scene_to(scene_dict[scene_path])
-
-	is_level_select = scene_path == level_select_path
-	is_in_game = scene_path.begins_with(map_path) or scene_path.begins_with(win_screen_path)
-	map_name = "" if !is_in_game else scene_path.split("/")[-1].trim_suffix(".tscn")
+	
 	is_win = false
+	is_level_select = scene_path == level_select_path
+	is_in_game = scene_path.begins_with(map_dir)
+	map_name = "" if !is_in_game else scene_path.split("/")[-1].trim_suffix(".tscn")
 	map_frame = 0
 	replay = {"frames" : 0, "x" : [], "y" : [], "sprite" : []}
 	replaying = []
@@ -172,9 +172,9 @@ func change_map():
 	Pause.set_process_input(true)
 	is_note = false
 	UI.notes.visible = is_level_select
-	UI.notes_label.text = str(notes.size())
+	UI.notes_label.text = str(count_notes)
 	UI.gems.visible = is_level_select
-	UI.gems_label.text = str(map_save)
+	UI.gems_label.text = str(count_gems)
 	UI.keys(false, false)
 	UI.labels("pick", "erase" if scene_path == creator_path else "back", "score" if is_level_select else "menu")
 	
@@ -184,8 +184,6 @@ func change_map():
 		
 		if is_replay or is_replay_note:
 			var m = map_name + ("-note" if is_replay_note else "")
-			is_replay_note = false
-			is_replay = false
 		
 			if replays.has(m):
 				replays[m].sort_custom(self, "sort_replays")
@@ -197,6 +195,8 @@ func change_map():
 						ghosts[i].visible = true
 		
 	elif is_level_select:
+		is_replay = false
+		is_replay_note = false
 		UI.keys(true, true, true, true)
 		TouchScreen.turn_arrows(false)
 		TouchScreen.show_keys(true, true, true, true)
@@ -222,7 +222,7 @@ func save_file(fname, arg):
 	file.store_string(arg)
 	file.close()
 
-func load_file(fname = "user://box.save"):
+func load_file(fname = ""):
 	var file = File.new()
 	file.open(str(fname), File.READ)
 	var content = file.get_as_text()
@@ -238,48 +238,37 @@ func save_replays(arg := replay_map):
 func load_save():
 	var l = load_file(save_path + save_filename)
 	if l:
-		save_data = JSON.parse(l).result
-		
-		# remove replays
-		if save_data.has("replays"):
-			save_data.erase("replays")
+		var p = JSON.parse(l).result
+		if p is Dictionary:
+			save_data = p
 			
-		#print("save_data: " + JSON.print(save_data, "\t"))
-		if save_data.has("map"):
-			map_save = int(save_data["map"])
-			if save_data.has("notes"):
-				var n = save_data["notes"]
-				if n is Dictionary:
-					notes = n
-				# convert old saves
-				elif n is Array:
-					notes = {}
-					for i in n:
-						var key = i if (i is String) and ("-" in i) else maps[int(i)]
-						notes[key] = 45260
-			if save_data.has("times"):
-				var d = save_data["times"]
-				if d is Dictionary:
-					map_times = d
-			if save_data.has("deaths"):
-				var d = save_data["deaths"]
-				if d is Dictionary:
-					deaths = d
+			# remove old keys
+			for i in ["replays", "map", "notes", "times", "deaths"]:
+				if save_data.has(i):
+					save_data.erase(i)
+			
 			if save_data.has("username"):
 				username = save_data["username"]
+				
 			if save_data.has("player_colors"):
 				player_colors = save_data["player_colors"]
+			
+			if save_data.has("maps"):
+				save_maps = save_data["maps"]
+			
 		else:
 			create_save()
 	else:
-		print(save_filename + " not found")
+		print(save_path + save_filename + " not found")
 		create_save()
 
 func load_replays():
 	for i in dir_list(save_path):
 		var l = load_file(save_path  + i)
 		if l:
-			replays[i.split(".")[0]] = JSON.parse(l).result
+			var p = JSON.parse(l).result
+			if p is Array and p[0] is Dictionary and p[0].has("frames"):
+				replays[i.split(".")[0]] = p
 		else:
 			print(save_path + i + " not found")
 
@@ -313,27 +302,29 @@ func create_save():
 	save()
 
 func unlock():
-	map_save = 99
-	save_data["map"] = map_save
+	# nothing
 	save()
 
 func win():
 	is_win = true
-	var ms = map_save
-	if map_save < current_map + 1:
-		map_save = current_map + 1
 	
-	if is_note and (!notes.has(map_name) or (notes.has(map_name) and map_frame < notes[map_name])):
-		notes[map_name] = map_frame
+	# map
+	if !save_maps.has(map_name):
+		save_maps[map_name] = {}
+	var s = save_maps[map_name]
 	
-	if !map_times.has(map_name) or (map_times.has(map_name) and (map_frame < map_times[map_name])):
-		map_times[map_name] = map_frame
+	var hn = s.has("note")
+	if is_note and (!hn or(hn and map_frame < s["note"])):
+		s["note"] = map_frame
 	
-	save_data["map"] = map_save
-	save_data["notes"] = notes
-	save_data["times"] = map_times
+	var ht = s.has("time")
+	if !ht or (ht and map_frame < s["time"]):
+		s["time"] = map_frame
+	
+	save_data["maps"] = save_maps
 	save_data["username"] = username
 	
+	# replays
 	var m = map_name + ("-note" if is_note else "")
 	replay_map = m
 	
@@ -350,18 +341,30 @@ func win():
 	
 	wipe_scene(level_select_path)
 
+func count_score():
+	count_gems = 0
+	count_notes = 0
+	for i in save_maps.values():
+		if i.has("time"): count_gems += 1
+		if i.has("note"): count_notes += 1
+
 func sort_replays(a, b):
 	if a["frames"] < b["frames"]:
 		return true
 	return false
 
 func die():
-	deaths[map_name] = 1 if !deaths.has(map_name) else (deaths[map_name] + 1)
-	save_data["deaths"] = deaths
-	#save()
+	if !save_maps.has(map_name):
+		save_maps[map_name] = {}
+	var s = save_maps[map_name]
+	if !s.has("die"):
+		s["die"] = 1
+	else:
+		s["die"] += 1
+	
 	Leaderboard.submit_score("death", 1)
 	Leaderboard.submit_score("death", 1, map_name)
-	print("you died")#, save_data: ", save_data)
+	print("you died")
 
 # look into a folder and return a list of filenames without file extension
 func dir_list(path : String):
