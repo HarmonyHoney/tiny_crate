@@ -7,7 +7,7 @@ var dict = {}
 func _ready():
 	refresh()
 
-func play(arg = "menu_cursor", from := 1.0, to := -1.0, pos := 0.0):
+func play(arg = "menu_scroll", from := 1.0, to := -1.0, pos := 0.0):
 	if arg is String and dict.has(arg):
 		arg = dict[arg]
 	

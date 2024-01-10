@@ -47,19 +47,40 @@ var loading_time := 0.0
 export var color_gem := Color("ffec27")
 export var color_new := Color("83769c")
 
+var map_lock := {}
+var map_list := []
+var map_rows := []
+var map_unlocked := []
+export(String, MULTILINE) var lock_string := ""
+
+
 func _ready():
 	Leaderboard.connect("new_score", self, "new_score")
 	SilentWolf.Scores.connect("sw_scores_received", self, "new_score")
+	
+	# setup maps & locks
+	for i in lock_string.split("\n"):
+		var s : Array = i.split(" ")
+		var c = int(s.pop_front())
+		map_rows.append(s)
+		for x in s:
+			map_lock[x] = c
+			map_list.append(x)
+			if c - 1 < Shared.count_gems:
+				map_unlocked.append(x)
+	print("map_lock: ", map_lock)
+	print("map_rows: ", map_rows)
 	
 	screen.rect_position -= Vector2.ONE * 500
 	
 	# make screens
 	screen_pos = []
-	for i in Shared.maps.size():
-		var sy = i / columns
-		var sx = i % columns
-		screen_pos.append((Vector2(sx + (sy % 2) * 0.5, sy) * (screen_size + screen_dist)))
-		screen_list.append(i)
+	var sum = -1
+	for y in map_rows.size():
+		for x in map_rows[y].size():
+			screen_pos.append((Vector2(x + (y % 2) * 0.5, y) * (screen_size + screen_dist)))
+			sum += 1
+			screen_list.append(sum)
 	screen_max = max(0, screen_pos.size() - 1)
 	
 	scroll(Shared.map_select)
@@ -84,10 +105,12 @@ func _input(event):
 		is_input = false
 		Audio.play("menu_back", 0.9, 1.1)
 	elif event.is_action_pressed("jump"):
-		open_map()
-		Audio.play("menu_pick", 0.9, 1.1)
-		is_input = false
-		is_load = false
+		if open_map():
+			Audio.play("menu_pick", 0.9, 1.1)
+			is_input = false
+			is_load = false
+		else:
+			Audio.play("menu_random", 0.8, 1.2)
 	elif event.is_action_pressed("pause"):
 		show_score = posmod(show_score + 1, 3)
 		print("show_score: ", show_score)
@@ -135,10 +158,12 @@ func _physics_process(delta):
 
 func make_screen(i := 0):
 	var new = screen.duplicate()
-	var map_name = Shared.maps[i]
+	var map_name = map_list[i]
+	var is_locked = Shared.count_gems < map_lock[map_name]
 	
 	new.rect_position = screen_pos[i]
-	new.get_node("Overlay/Label").text = map_name
+	new.get_node("Overlay/HBox/Label").text = (str(map_lock[map_name]) + " to unlock") if is_locked else map_name
+	new.get_node("Overlay/HBox/Gem").visible = is_locked
 	
 	var s = {}
 	if Shared.save_maps.has(map_name):
@@ -151,7 +176,9 @@ func make_screen(i := 0):
 	
 	var has_time = s.has("time")
 	new.get_node("Overlay/Time").visible = has_time
-	new.get_node("Overlay/Gem").modulate = color_gem if has_time else color_new
+	var gem = new.get_node("Overlay/Gem")
+	gem.modulate = color_gem if has_time else color_new
+	gem.visible = !is_locked
 	if has_time:
 		new.get_node("Overlay/Time/Label").text = time_to_string(s["time"])
 	
@@ -164,7 +191,7 @@ func make_screen(i := 0):
 	screens.append(new)
 	overlays.append(new.get_node("Overlay"))
 	screen_static.append(new.get_node("Vis/Static"))
-	view_scene(new.get_node("Vis/ViewportContainer/Viewport"), Shared.map_dir + Shared.maps[i] + ".tscn", i)
+	view_scene(new.get_node("Vis/ViewportContainer/Viewport"), Shared.map_dir + map_list[i] + ".tscn", i)
 
 # view a scene inside the viewport by path
 func view_scene(port, path, arg):
@@ -175,11 +202,11 @@ func view_scene(port, path, arg):
 	port_count += 1
 
 func scroll(arg = 0):
-	var o = overlays.size() > cursor
+	var o = cursor < overlays.size()
 	if o: overlays[cursor].visible = true
 	
 	cursor = clamp(cursor + arg, 0, screen_max)
-	current_map = Shared.maps[cursor]
+	current_map = map_list[cursor]
 	
 	if o: overlays[cursor].visible = !score_node.visible
 	
@@ -198,7 +225,7 @@ func show_scoreboard(arg := show_score):
 	Shared.is_replay = arg == 1
 	
 	score_node.visible = show_score > 0
-	if overlays.size() > cursor:
+	if cursor < overlays.size():
 		overlays[cursor].visible = !score_node.visible
 	refresh_score()
 
@@ -253,5 +280,8 @@ func time_to_string(arg := 0.0):
 		return str(time / 60.0).pad_zeros(2).pad_decimals(0) + ":" + str(fposmod(time, 60.0)).pad_zeros(2).pad_decimals(0)
 
 func open_map():
-	Shared.map_select = cursor
-	Shared.wipe_scene(Shared.map_dir + Shared.maps[cursor] + ".tscn")
+	if current_map in map_unlocked:
+		Shared.map_select = cursor
+		Shared.wipe_scene(Shared.map_dir + current_map + ".tscn")
+		return true
+	return false
