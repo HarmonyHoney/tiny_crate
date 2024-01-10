@@ -8,7 +8,6 @@ var current_map := "1-1"
 
 onready var screens_node : Control = $Control/Screens
 onready var screen : Control = $Control/Screen
-var screens := []
 export var screen_dist = Vector2(5, 5)
 export var screen_size = Vector2(136, 104)
 export var columns = 8
@@ -82,6 +81,7 @@ func _ready():
 			sum += 1
 			screen_list.append(sum)
 	screen_max = max(0, screen_pos.size() - 1)
+	overlays.resize(screen_pos.size())
 	
 	scroll(Shared.map_select)
 	cam.reset_smoothing()
@@ -188,8 +188,7 @@ func make_screen(i := 0):
 		new.get_node("Overlay/Death/Label").text = str(s["die"])
 	
 	screens_node.add_child(new)
-	screens.append(new)
-	overlays.append(new.get_node("Overlay"))
+	overlays[i] = new.get_node("Overlay")
 	screen_static.append(new.get_node("Vis/Static"))
 	view_scene(new.get_node("Vis/ViewportContainer/Viewport"), Shared.map_dir + map_list[i] + ".tscn", i)
 
@@ -202,13 +201,12 @@ func view_scene(port, path, arg):
 	port_count += 1
 
 func scroll(arg = 0):
-	var o = cursor < overlays.size()
-	if o: overlays[cursor].visible = true
+	if overlays[cursor]: overlays[cursor].visible = true
 	
 	cursor = clamp(cursor + arg, 0, screen_max)
 	current_map = map_list[cursor]
 	
-	if o: overlays[cursor].visible = !score_node.visible
+	if overlays[cursor]: overlays[cursor].visible = !score_node.visible
 	
 	var sp = screen_pos[cursor]
 	cursor_node.rect_position = sp
@@ -225,8 +223,7 @@ func show_scoreboard(arg := show_score):
 	Shared.is_replay = arg == 1
 	
 	score_node.visible = show_score > 0
-	if cursor < overlays.size():
-		overlays[cursor].visible = !score_node.visible
+	if overlays[cursor]: overlays[cursor].visible = !score_node.visible
 	refresh_score()
 
 func refresh_score(var map_name : String = current_map):

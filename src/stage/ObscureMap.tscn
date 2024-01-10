@@ -1,15 +1,14 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://media/image/solid_bricks.png" type="Texture" id=3]
 [ext_resource path="res://media/image/8pixel.png" type="Texture" id=4]
 [ext_resource path="res://src/stage/ObscureMap.gd" type="Script" id=5]
-[ext_resource path="res://media/image/wipe.png" type="Texture" id=6]
 
 [sub_resource type="TileSet" id=1]
 0/name = "8pixel.png 0"
 0/texture = ExtResource( 4 )
 0/tex_offset = Vector2( 0, 0 )
-0/modulate = Color( 0, 1, 0, 0.15 )
+0/modulate = Color( 0, 1, 0, 0.14902 )
 0/region = Rect2( 0, 0, 8, 8 )
 0/tile_mode = 0
 0/occluder_offset = Vector2( 0, 0 )
@@ -20,24 +19,10 @@
 0/shape_one_way_margin = 0.0
 0/shapes = [  ]
 0/z_index = 0
-1/name = "wipe.png 1"
-1/texture = ExtResource( 6 )
-1/tex_offset = Vector2( 0, 0 )
-1/modulate = Color( 0, 1, 0, 0.627451 )
-1/region = Rect2( 32, 48, 8, 8 )
-1/tile_mode = 0
-1/occluder_offset = Vector2( 0, 0 )
-1/navigation_offset = Vector2( 0, 0 )
-1/shape_offset = Vector2( 0, 0 )
-1/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
-1/shape_one_way = false
-1/shape_one_way_margin = 0.0
-1/shapes = [  ]
-1/z_index = 0
 2/name = "solid_bricks.png 2"
 2/texture = ExtResource( 3 )
 2/tex_offset = Vector2( 0, 0 )
-2/modulate = Color( 1, 1, 1, 1 )
+2/modulate = Color( 0.745098, 0.0705882, 0.313726, 1 )
 2/region = Rect2( 0, 0, 32, 8 )
 2/tile_mode = 2
 2/autotile/icon_coordinate = Vector2( 0, 0 )

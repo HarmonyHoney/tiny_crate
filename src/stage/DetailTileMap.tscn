@@ -1,14 +1,15 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://media/image/crate_tiles.png" type="Texture" id=1]
 [ext_resource path="res://media/image/bricks.png" type="Texture" id=2]
+[ext_resource path="res://src/stage/DetailTileMap.gd" type="Script" id=3]
 
 [sub_resource type="TileSet" id=1]
 4/name = "bricks.png 4"
 4/texture = ExtResource( 2 )
 4/tex_offset = Vector2( 0, 0 )
-4/modulate = Color( 1, 1, 1, 1 )
-4/region = Rect2( 0, 0, 32, 8 )
+4/modulate = Color( 0.372549, 0.341176, 0.309804, 1 )
+4/region = Rect2( 0, 0, 40, 8 )
 4/tile_mode = 2
 4/autotile/icon_coordinate = Vector2( 0, 0 )
 4/autotile/tile_size = Vector2( 8, 8 )
@@ -28,8 +29,8 @@
 5/name = "crate_tiles.png 5"
 5/texture = ExtResource( 1 )
 5/tex_offset = Vector2( 0, 0 )
-5/modulate = Color( 1, 1, 1, 1 )
-5/region = Rect2( 0, 16, 32, 8 )
+5/modulate = Color( 0, 0.529412, 0.317647, 1 )
+5/region = Rect2( 0, 16, 24, 8 )
 5/tile_mode = 2
 5/autotile/icon_coordinate = Vector2( 0, 0 )
 5/autotile/tile_size = Vector2( 8, 8 )
@@ -46,6 +47,20 @@
 5/shape_one_way_margin = 0.0
 5/shapes = [  ]
 5/z_index = 0
+6/name = "crate_tiles.png 6"
+6/texture = ExtResource( 1 )
+6/tex_offset = Vector2( 0, 0 )
+6/modulate = Color( 0.670588, 0.321569, 0.211765, 1 )
+6/region = Rect2( 0, 24, 8, 8 )
+6/tile_mode = 0
+6/occluder_offset = Vector2( 0, 0 )
+6/navigation_offset = Vector2( 0, 0 )
+6/shape_offset = Vector2( 0, 0 )
+6/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+6/shape_one_way = false
+6/shape_one_way_margin = 0.0
+6/shapes = [  ]
+6/z_index = 0
 
 [node name="DetailTileMap" type="TileMap"]
 z_index = -10
@@ -53,3 +68,4 @@ z_as_relative = false
 tile_set = SubResource( 1 )
 cell_size = Vector2( 8, 8 )
 format = 1
+script = ExtResource( 3 )
