@@ -102,8 +102,6 @@ func _input(event):
 			Shared.wipe_scene(Shared.main_menu_path)
 			Shared.username = name_label.text.to_lower()
 			Shared.player_colors = colors.duplicate()
-			Shared.save_data["username"] = Shared.username
-			Shared.save_data["player_colors"] = Shared.player_colors.duplicate()
 			Audio.play("menu_bell", 0.8, 1.2)
 		elif is_action:
 			Audio.play("menu_scroll2", 0.8, 1.2)

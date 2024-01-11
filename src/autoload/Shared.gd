@@ -23,10 +23,13 @@ var splash_path := "res://src/menu/splash.tscn"
 var creator_path := "res://src/menu/Creator.tscn"
 var scene_path := level_select_path
 
-var save_data := {}
+var save_data := {0: {}, 1: {}, 2: {}}
+var save_slot := 0
 var save_maps := {}
-var replays := {}
+var save_path := "user://save/"
 var save_filename := "box.save"
+var scene_dict := {}
+var replays := {}
 
 var window_scale := 1
 var view_size := Vector2(228, 128)
@@ -54,10 +57,6 @@ var username := "crate_kid"
 export (Array, Color) var palette := []
 var player_colors = [8, 0, 11, 13]
 var preset_palettes = [[7, 13, 6, 3], [8, 0, 11, 13], [11, 7, 9, 0], [12, 1, 7, 5], [9, 8, 12, 3]]
-
-var scene_dict := {}
-var save_slot := 0
-var save_path := "user://save/0/"
 
 func _ready():
 	print("Shared._ready(): ")
@@ -89,18 +88,16 @@ func _ready():
 		maps.append(i.split(".")[0])
 	print("maps: ", maps, " ", maps.size(), " ", scene_dict)
 	
+	# make save folders
 	var dir = Directory.new()
-	if !dir.open("user://save") == OK:
-		dir.make_dir("user://save")
+	if !dir.open(save_path) == OK:
+		dir.make_dir(save_path)
 	for i in 3:
-		var s = "user://save/" + str(i)
+		var s = save_path + str(i)
 		if !dir.open(s) == OK:
 			dir.make_dir(s)
 	
-	# load save data
-	load_save()
-	load_replays()
-	count_score()
+	load_slots()
 	
 	Wipe.connect("finish", self, "wipe_finish")
 
@@ -230,47 +227,64 @@ func load_file(fname = ""):
 	return content
 
 func save():
-	save_file(save_path + save_filename, JSON.print(save_data, "\t"))
+	var data = {}
+	data["username"] = username
+	data["player_colors"] = player_colors
+	data["maps"] = save_maps
+	
+	save_file(save_path + str(save_slot) + "/" + save_filename, JSON.print(data, "\t"))
 
 func save_replays(arg := replay_map):
-	save_file(save_path + arg + ".save", JSON.print(replays[arg], "\t"))
+	save_file(save_path + str(save_slot) + "/" + arg + ".save", JSON.print(replays[arg], "\t"))
 
-func load_save():
-	var l = load_file(save_path + save_filename)
-	if l:
-		var p = JSON.parse(l).result
-		if p is Dictionary:
-			save_data = p
+func load_slot(_slot):
+	save_slot = clamp(_slot, 0, 2)
+	load_save(_slot, save_data[save_slot])
+
+func load_slots():
+	for i in 3:
+		load_save(i)
+
+func load_save(_slot = save_slot, _dict := {}):
+	save_slot = clamp(_slot, 0, 2)
+	
+	save_data[save_slot] = {}
+	var s = save_data[save_slot]
+	save_maps = {}
+	if _dict.empty():
+		var l = load_file(save_path + str(save_slot) + "/" + save_filename)
+		if l: _dict = JSON.parse(l).result
+	
+	if !_dict.empty():
+		if _dict.has("username"):
+			username = _dict["username"]
+			s["username"] = username
 			
-			# remove old keys
-			for i in ["replays", "map", "notes", "times", "deaths"]:
-				if save_data.has(i):
-					save_data.erase(i)
+		if _dict.has("player_colors"):
+			player_colors = _dict["player_colors"].duplicate()
+			s["player_colors"] = player_colors
+		
+		if _dict.has("maps"):
+			save_maps = _dict["maps"].duplicate()
+			s["maps"] = save_maps
 			
-			if save_data.has("username"):
-				username = save_data["username"]
-				
-			if save_data.has("player_colors"):
-				player_colors = save_data["player_colors"]
+			count_score()
+			s["gems"] = count_gems
+			s["notes"] = count_notes
 			
-			if save_data.has("maps"):
-				save_maps = save_data["maps"]
-			
-		else:
-			create_save()
-	else:
-		print(save_path + save_filename + " not found")
-		create_save()
+	print(save_path + save_filename + " not found")
 
 func load_replays():
-	for i in dir_list(save_path):
-		var l = load_file(save_path  + i)
+	replays = {}
+	var s = save_path + str(save_slot) + "/"
+	for i in dir_list(s):
+		var l = load_file(s + i)
 		if l:
 			var p = JSON.parse(l).result
 			if p is Array and p[0] is Dictionary and p[0].has("frames"):
 				replays[i.split(".")[0]] = p
 		else:
-			print(save_path + i + " not found")
+			print(s + i + " not found")
 
 func generate_username():
 	var u = ""
@@ -290,20 +304,9 @@ func generate_username():
 
 func delete_save():
 	print("delete save")
-	create_save()
-
-func create_save():
-	save_data = {}
-	save_data["map"] = 0
-	save_data["notes"] = {}
-	save_data["times"] = {}
-	save_data["username"] = username
-	save_data["player_colors"] = player_colors
-	save()
 
 func unlock():
-	# nothing
-	save()
+	print("unlock")
 
 func win():
 	is_win = true
@@ -320,9 +323,6 @@ func win():
 	var ht = s.has("time")
 	if !ht or (ht and map_frame < s["time"]):
 		s["time"] = map_frame
-	
-	save_data["maps"] = save_maps
-	save_data["username"] = username
 	
 	# replays
 	var m = map_name + ("-note" if is_note else "")

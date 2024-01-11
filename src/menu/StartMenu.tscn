@@ -143,11 +143,7 @@ margin_top = 12.0
 margin_right = 204.0
 margin_bottom = 140.0
 
-[node name="Menu" type="Control" parent="Control"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-
-[node name="List" type="VBoxContainer" parent="Control/Menu"]
+[node name="Main" type="VBoxContainer" parent="Control"]
 margin_left = 4.0
 margin_top = 32.0
 margin_right = 68.0
@@ -155,26 +151,26 @@ margin_bottom = 104.0
 custom_constants/separation = 5
 alignment = 1
 
-[node name="Item" type="HBoxContainer" parent="Control/Menu/List"]
+[node name="Item" type="HBoxContainer" parent="Control/Main"]
 margin_top = 4.0
 margin_right = 64.0
 margin_bottom = 16.0
 rect_min_size = Vector2( 0, 12 )
 custom_constants/separation = 2
 
-[node name="Image" type="Control" parent="Control/Menu/List/Item"]
+[node name="Image" type="Control" parent="Control/Main/Item"]
 margin_right = 8.0
 margin_bottom = 12.0
 rect_min_size = Vector2( 8, 8 )
 
-[node name="Sprite" type="Sprite" parent="Control/Menu/List/Item/Image"]
+[node name="Sprite" type="Sprite" parent="Control/Main/Item/Image"]
 position = Vector2( 0, 2 )
 texture = ExtResource( 16 )
 centered = false
 hframes = 4
 vframes = 4
 
-[node name="Label" type="Label" parent="Control/Menu/List/Item"]
+[node name="Label" type="Label" parent="Control/Main/Item"]
 margin_left = 10.0
 margin_top = 2.0
 margin_right = 43.0
@@ -183,26 +179,26 @@ custom_fonts/font = SubResource( 3 )
 text = "play"
 uppercase = true
 
-[node name="Item4" type="HBoxContainer" parent="Control/Menu/List"]
+[node name="Item4" type="HBoxContainer" parent="Control/Main"]
 margin_top = 21.0
 margin_right = 64.0
 margin_bottom = 33.0
 rect_min_size = Vector2( 0, 12 )
 custom_constants/separation = 2
 
-[node name="Image" type="Control" parent="Control/Menu/List/Item4"]
+[node name="Image" type="Control" parent="Control/Main/Item4"]
 margin_right = 8.0
 margin_bottom = 12.0
 rect_min_size = Vector2( 8, 8 )
 
-[node name="Sprite" type="Sprite" parent="Control/Menu/List/Item4/Image"]
+[node name="Sprite" type="Sprite" parent="Control/Main/Item4/Image"]
 position = Vector2( 0, 2 )
 texture = ExtResource( 1 )
 centered = false
 hframes = 4
 frame = 2
 
-[node name="Label" type="Label" parent="Control/Menu/List/Item4"]
+[node name="Label" type="Label" parent="Control/Main/Item4"]
 margin_left = 10.0
 margin_top = 2.0
 margin_right = 42.0
@@ -211,19 +207,19 @@ custom_fonts/font = SubResource( 3 )
 text = "char"
 uppercase = true
 
-[node name="Item2" type="HBoxContainer" parent="Control/Menu/List"]
+[node name="Item2" type="HBoxContainer" parent="Control/Main"]
 margin_top = 38.0
 margin_right = 64.0
 margin_bottom = 50.0
 rect_min_size = Vector2( 0, 12 )
 custom_constants/separation = 2
 
-[node name="Image" type="Control" parent="Control/Menu/List/Item2"]
+[node name="Image" type="Control" parent="Control/Main/Item2"]
 margin_right = 8.0
 margin_bottom = 12.0
 rect_min_size = Vector2( 8, 8 )
 
-[node name="Sprite" type="Sprite" parent="Control/Menu/List/Item2/Image"]
+[node name="Sprite" type="Sprite" parent="Control/Main/Item2/Image"]
 position = Vector2( 0, 2 )
 texture = ExtResource( 16 )
 centered = false
@@ -231,7 +227,7 @@ hframes = 4
 vframes = 4
 frame = 1
 
-[node name="Label" type="Label" parent="Control/Menu/List/Item2"]
+[node name="Label" type="Label" parent="Control/Main/Item2"]
 margin_left = 10.0
 margin_top = 2.0
 margin_right = 58.0
@@ -240,19 +236,19 @@ custom_fonts/font = SubResource( 3 )
 text = "option"
 uppercase = true
 
-[node name="Item3" type="HBoxContainer" parent="Control/Menu/List"]
+[node name="Item3" type="HBoxContainer" parent="Control/Main"]
 margin_top = 55.0
 margin_right = 64.0
 margin_bottom = 67.0
 rect_min_size = Vector2( 0, 12 )
 custom_constants/separation = 2
 
-[node name="Image" type="Control" parent="Control/Menu/List/Item3"]
+[node name="Image" type="Control" parent="Control/Main/Item3"]
 margin_right = 8.0
 margin_bottom = 12.0
 rect_min_size = Vector2( 8, 8 )
 
-[node name="Sprite" type="Sprite" parent="Control/Menu/List/Item3/Image"]
+[node name="Sprite" type="Sprite" parent="Control/Main/Item3/Image"]
 position = Vector2( 0, 2 )
 texture = ExtResource( 16 )
 centered = false
@@ -260,7 +256,7 @@ hframes = 4
 vframes = 4
 frame = 2
 
-[node name="Label" type="Label" parent="Control/Menu/List/Item3"]
+[node name="Label" type="Label" parent="Control/Main/Item3"]
 margin_left = 10.0
 margin_top = 2.0
 margin_right = 58.0
@@ -292,6 +288,38 @@ margin_right = 69.0
 margin_bottom = 48.0
 custom_fonts/font = SubResource( 3 )
 text = "no"
+uppercase = true
+
+[node name="Slot" type="VBoxContainer" parent="Control"]
+margin_left = 12.0
+margin_top = 32.0
+margin_right = 81.0
+margin_bottom = 104.0
+custom_constants/separation = 9
+alignment = 1
+
+[node name="1" type="Label" parent="Control/Slot"]
+margin_top = 15.0
+margin_right = 69.0
+margin_bottom = 23.0
+custom_fonts/font = SubResource( 3 )
+text = "27 win"
+uppercase = true
+
+[node name="2" type="Label" parent="Control/Slot"]
+margin_top = 32.0
+margin_right = 69.0
+margin_bottom = 40.0
+custom_fonts/font = SubResource( 3 )
+text = "3 win"
+uppercase = true
+
+[node name="3" type="Label" parent="Control/Slot"]
+margin_top = 49.0
+margin_right = 69.0
+margin_bottom = 57.0
+custom_fonts/font = SubResource( 3 )
+text = "new game"
 uppercase = true
 
 [node name="Header" type="Label" parent="Control"]

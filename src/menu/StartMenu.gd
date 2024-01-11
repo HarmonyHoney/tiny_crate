@@ -1,13 +1,15 @@
 extends Node2D
 
-onready var main_menu := $Control/Menu/List
-onready var menu_stuff := main_menu.get_children()
+onready var main_menu := $Control/Main
 onready var quit_menu := $Control/Quit
+onready var slot_menu := $Control/Slot
+onready var menu_stuff := main_menu.get_children()
 
 var cursor := 0 setget set_cursor
 var menu_items := []
 var main_items := ["play", "creator", "options", "credits"]
 var quit_items := ["yes", "no"]
+var slot_items := ["slot", "slot", "slot"]
 var is_input = true
 
 export var blink_on := 0.3
@@ -16,15 +18,17 @@ var blink_clock := 0.0
 
 func _ready():
 	switch_menu("main", true)
+	
+	Shared.load_slots()
+	var smc = slot_menu.get_children()
+	for i in smc.size():
+		smc[i].text = str(Shared.save_data[i]["gems"]) + " win"
 
 func _input(event):
 	if !is_input:
 		return
 	if event.is_action_pressed("action"):
-		if menu_items == quit_items:
-			switch_menu("main")
-		else:
-			switch_menu("quit")
+		switch_menu("quit" if menu_items == main_items else "main")
 	elif event.is_action_pressed("jump"):
 		menu_select()
 	else:
@@ -35,7 +39,7 @@ func _input(event):
 			Audio.play("menu_scroll", 0.8, 1.2)
 
 func _physics_process(delta):
-# blink
+	# blink
 	blink_clock -= delta
 	if blink_clock < -blink_off:
 		blink_clock = blink_on
@@ -48,9 +52,7 @@ func write_menu():
 func menu_select(tag : String = menu_items[cursor].to_lower()):
 	match tag:
 		"play":
-			Shared.wipe_scene(Shared.level_select_path)
-			is_input = false
-			Audio.play("menu_play", 0.9, 1.1)
+			switch_menu("slot")
 		"creator":
 			Shared.wipe_scene(Shared.creator_path)
 			is_input = false
@@ -73,18 +75,26 @@ func menu_select(tag : String = menu_items[cursor].to_lower()):
 				Shared.wipe_quit()
 		"no":
 			switch_menu("main")
+		"slot":
+			Shared.load_slot(cursor)
+			Shared.wipe_scene(Shared.level_select_path)
+			is_input = false
+			Audio.play("menu_play", 0.9, 1.1)
 
 func switch_menu(arg, silent := false):
-	var is_main : bool = arg == "main"
-	quit_menu.visible = !is_main
-	main_menu.visible = is_main
-	menu_items = main_items if is_main else quit_items
-	menu_stuff = (main_menu if is_main else quit_menu).get_children()
+	var s = ["quit", "main", "slot"]
+	var items = [quit_items, main_items, slot_items]
+	var node = [quit_menu, main_menu, slot_menu]
+	var audio = ["pick", "exit", "pick"]
+	for i in 3:
+		node[i].visible = arg == s[i]
+		if arg == s[i]:
+			menu_items = items[i]
+			menu_stuff = node[i].get_children()
+			if !silent:
+				Audio.play("menu_" + audio[i], 0.9, 1.1)
 	
-	if !silent:
-		Audio.play("menu_" + ("exit" if is_main else "pick"), 0.9, 1.1)
-	
-	self.cursor = 0 if is_main else 1
+	self.cursor = 1 if arg == "quit" else 0
 
 func find_cursor(arg := ""):
 	if is_input and menu_items.has(arg):
