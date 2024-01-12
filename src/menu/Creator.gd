@@ -22,6 +22,7 @@ var is_input := true
 export var blink_on := 0.3
 export var blink_off := 0.2
 var blink_clock := 0.0
+export var color_blink : PoolColorArray = ["ff004d", "ff77a8"]
 
 func _ready():
 	# setup rows & columns
@@ -99,7 +100,7 @@ func _input(event):
 	elif cursor_y == rows.size() - 1:
 		if is_jump:
 			is_input = false
-			Shared.wipe_scene(Shared.main_menu_path)
+			Shared.wipe_scene(Shared.level_select_path)
 			Shared.username = name_label.text.to_lower()
 			Shared.player_colors = colors.duplicate()
 			Audio.play("menu_bell", 0.8, 1.2)
@@ -126,10 +127,7 @@ func move_cursor(_x := cursor_x, _y = cursor_y):
 
 func set_color(_row := cursor_y - 1, _col = colors[cursor_y - 1]):
 	colors[_row] = wrapi(_col, 0, Shared.palette.size())
-	
-	var params = [["hat"], ["skin"], ["suit"], ["eye", "shoe"]]
-	for i in params[_row]:
-		player_mat.set_shader_param(i + "_swap", Shared.palette[colors[_row]])
+	Player.set_palette(player_mat, colors)
 
 func fill_swatches(_row := cursor_y -1):
 	var offset = [-2, -1, 0, 1, 2]
@@ -141,4 +139,4 @@ func _physics_process(delta):
 	blink_clock -= delta
 	if blink_clock < -blink_off:
 		blink_clock = blink_on
-	cursors_parent.modulate = Color("ff004d" if blink_clock > 0.0 else "ff77a8")
+	cursors_parent.modulate = color_blink[int(blink_clock > 0.0)]

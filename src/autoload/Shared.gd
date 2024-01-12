@@ -30,6 +30,7 @@ var save_path := "user://save/"
 var save_filename := "box.save"
 var scene_dict := {}
 var replays := {}
+var is_save := false
 
 var window_scale := 1
 var view_size := Vector2(228, 128)
@@ -60,11 +61,6 @@ var preset_palettes = [[7, 13, 6, 3], [8, 0, 11, 13], [11, 7, 9, 0], [12, 1, 7, 
 
 func _ready():
 	print("Shared._ready(): ")
-	randomize()
-	
-	# create player
-	player_colors = preset_palettes[randi() % preset_palettes.size()]
-	username = generate_username()
 	
 	# ghosts
 	for i in ghost_count:
@@ -86,7 +82,7 @@ func _ready():
 	for i in dir_list(map_dir):
 		scene_dict[map_dir + i] = load(map_dir + i)
 		maps.append(i.split(".")[0])
-	print("maps: ", maps, " ", maps.size(), " ", scene_dict)
+	#print("maps: ", maps, " ", maps.size(), " ", scene_dict)
 	
 	# make save folders
 	var dir = Directory.new()
@@ -148,7 +144,8 @@ func wipe_finish():
 
 func change_map():
 	count_score()
-	save()
+	if is_save:
+		save()
 	if is_win:
 		save_replays()
 	
@@ -157,6 +154,7 @@ func change_map():
 	get_tree().change_scene_to(scene_dict[scene_path])
 	
 	is_win = false
+	is_save = false
 	is_level_select = scene_path == level_select_path
 	is_in_game = scene_path.begins_with(map_dir)
 	map_name = "" if !is_in_game else scene_path.split("/")[-1].trim_suffix(".tscn")
@@ -247,14 +245,17 @@ func load_slots():
 
 func load_save(_slot = save_slot, _dict := {}):
 	save_slot = clamp(_slot, 0, 2)
+	var save_string = save_path + str(save_slot) + "/" + save_filename
 	
 	save_data[save_slot] = {}
 	var s = save_data[save_slot]
 	save_maps = {}
 	if _dict.empty():
-		var l = load_file(save_path + str(save_slot) + "/" + save_filename)
+		var l = load_file(save_string)
 		if l: _dict = JSON.parse(l).result
+		else: print(save_string + " not found")
 	
+	print(_slot, " / ", _dict)
 	if !_dict.empty():
 		if _dict.has("username"):
 			username = _dict["username"]
@@ -271,8 +272,6 @@ func load_save(_slot = save_slot, _dict := {}):
 			count_score()
 			s["gems"] = count_gems
 			s["notes"] = count_notes
-			
-	print(save_path + save_filename + " not found")
 
 func load_replays():
 	replays = {}
@@ -310,6 +309,7 @@ func unlock():
 
 func win():
 	is_win = true
+	is_save = true
 	
 	# map
 	if !save_maps.has(map_name):
@@ -365,6 +365,7 @@ func die():
 	Leaderboard.submit_score("death", 1)
 	Leaderboard.submit_score("death", 1, map_name)
 	print("you died")
+
 
 # look into a folder and return a list of filenames without file extension
 func dir_list(path : String):

@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://src/stage/SolidTileMap.tscn" type="PackedScene" id=1]
 [ext_resource path="res://media/image/player_swap.png" type="Texture" id=2]
@@ -9,8 +9,107 @@
 [ext_resource path="res://media/font/QuinqueFive.ttf" type="DynamicFontData" id=7]
 [ext_resource path="res://src/menu/Creator.gd" type="Script" id=8]
 [ext_resource path="res://media/font/ThaleahFat.ttf" type="DynamicFontData" id=9]
+[ext_resource path="res://media/image/crate_tiles.png" type="Texture" id=10]
+[ext_resource path="res://media/image/bricks.png" type="Texture" id=11]
+[ext_resource path="res://media/image/solid_bricks.png" type="Texture" id=12]
+[ext_resource path="res://media/image/8pixel.png" type="Texture" id=13]
 
-[sub_resource type="Shader" id=8]
+[sub_resource type="TileSet" id=18]
+0/name = "solid_bricks.png 0"
+0/texture = ExtResource( 12 )
+0/tex_offset = Vector2( 0, 0 )
+0/modulate = Color( 0.745098, 0.0705882, 0.313726, 1 )
+0/region = Rect2( 0, 0, 16, 8 )
+0/tile_mode = 2
+0/autotile/icon_coordinate = Vector2( 0, 0 )
+0/autotile/tile_size = Vector2( 8, 8 )
+0/autotile/spacing = 0
+0/autotile/occluder_map = [  ]
+0/autotile/navpoly_map = [  ]
+0/autotile/priority_map = [  ]
+0/autotile/z_index_map = [  ]
+0/occluder_offset = Vector2( 0, 0 )
+0/navigation_offset = Vector2( 0, 0 )
+0/shape_offset = Vector2( 0, 0 )
+0/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+0/shape_one_way = false
+0/shape_one_way_margin = 0.0
+0/shapes = [  ]
+0/z_index = 0
+1/name = "8pixel.png 1"
+1/texture = ExtResource( 13 )
+1/tex_offset = Vector2( 0, 0 )
+1/modulate = Color( 1, 0, 1, 0.33 )
+1/region = Rect2( 0, 0, 8, 8 )
+1/tile_mode = 0
+1/occluder_offset = Vector2( 0, 0 )
+1/navigation_offset = Vector2( 0, 0 )
+1/shape_offset = Vector2( 0, 0 )
+1/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+1/shape_one_way = false
+1/shape_one_way_margin = 0.0
+1/shapes = [  ]
+1/z_index = 0
+
+[sub_resource type="TileSet" id=19]
+4/name = "bricks.png 4"
+4/texture = ExtResource( 11 )
+4/tex_offset = Vector2( 0, 0 )
+4/modulate = Color( 0.372549, 0.341176, 0.309804, 1 )
+4/region = Rect2( 0, 0, 40, 8 )
+4/tile_mode = 2
+4/autotile/icon_coordinate = Vector2( 0, 0 )
+4/autotile/tile_size = Vector2( 8, 8 )
+4/autotile/spacing = 0
+4/autotile/occluder_map = [  ]
+4/autotile/navpoly_map = [  ]
+4/autotile/priority_map = [  ]
+4/autotile/z_index_map = [  ]
+4/occluder_offset = Vector2( 0, 0 )
+4/navigation_offset = Vector2( 0, 0 )
+4/shape_offset = Vector2( 0, 0 )
+4/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+4/shape_one_way = false
+4/shape_one_way_margin = 0.0
+4/shapes = [  ]
+4/z_index = 0
+5/name = "crate_tiles.png 5"
+5/texture = ExtResource( 10 )
+5/tex_offset = Vector2( 0, 0 )
+5/modulate = Color( 0, 0.529412, 0.317647, 1 )
+5/region = Rect2( 0, 16, 24, 8 )
+5/tile_mode = 2
+5/autotile/icon_coordinate = Vector2( 0, 0 )
+5/autotile/tile_size = Vector2( 8, 8 )
+5/autotile/spacing = 0
+5/autotile/occluder_map = [  ]
+5/autotile/navpoly_map = [  ]
+5/autotile/priority_map = [  ]
+5/autotile/z_index_map = [  ]
+5/occluder_offset = Vector2( 0, 0 )
+5/navigation_offset = Vector2( 0, 0 )
+5/shape_offset = Vector2( 0, 0 )
+5/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+5/shape_one_way = false
+5/shape_one_way_margin = 0.0
+5/shapes = [  ]
+5/z_index = 0
+6/name = "crate_tiles.png 6"
+6/texture = ExtResource( 10 )
+6/tex_offset = Vector2( 0, 0 )
+6/modulate = Color( 0.670588, 0.321569, 0.211765, 1 )
+6/region = Rect2( 0, 24, 8, 8 )
+6/tile_mode = 0
+6/occluder_offset = Vector2( 0, 0 )
+6/navigation_offset = Vector2( 0, 0 )
+6/shape_offset = Vector2( 0, 0 )
+6/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+6/shape_one_way = false
+6/shape_one_way_margin = 0.0
+6/shapes = [  ]
+6/z_index = 0
+
+[sub_resource type="Shader" id=20]
 code = "shader_type canvas_item;
 
 uniform vec4 hat : hint_color = vec4(0.0);
@@ -49,7 +148,7 @@ void fragment(){
 }"
 
 [sub_resource type="ShaderMaterial" id=17]
-shader = SubResource( 8 )
+shader = SubResource( 20 )
 shader_param/hat = Color( 1, 0, 0, 1 )
 shader_param/eye = Color( 0, 1, 0, 1 )
 shader_param/skin = Color( 0, 0, 1, 1 )
@@ -139,10 +238,12 @@ font_data = ExtResource( 7 )
 script = ExtResource( 8 )
 
 [node name="SolidTileMap" parent="." instance=ExtResource( 1 )]
+tile_set = SubResource( 18 )
 tile_data = PoolIntArray( 458729, 0, 1, 458730, 0, 1, 458731, 0, 1, 458732, 0, 1, 458733, 536870912, 0, 458734, 0, 1, 458735, 0, 0, 458736, 0, 1, 458737, 536870912, 0, 458738, 536870912, 1, 524274, 0, 0, 589810, 536870912, 1, 655346, 536870912, 0 )
 
 [node name="DetailTileMap" parent="." instance=ExtResource( 4 )]
 z_index = -11
+tile_set = SubResource( 19 )
 tile_data = PoolIntArray( 65516, 5, 0, 65517, 5, 0, 65518, 5, 0, 65519, 5, 0, 65520, 5, 0, 131052, 5, 0, 131053, 5, 0, 131054, 5, 0, 131055, 5, 0, 131056, 5, 0, 196588, 1073741829, 2, 196589, 5, 0, 196590, 5, 0, 196591, 5, 0, 196592, 1610612741, 2, 262125, 1073741829, 2, 262126, 5, 0, 262127, 1610612741, 2, 327662, 5, 1, 393198, 5, 1, 524273, 1073741829, 2, 524275, -1610612731, 2, 589811, -1610612731, 0, 655347, -1610612731, 0 )
 
 [node name="GameCamera" parent="." instance=ExtResource( 3 )]

@@ -61,9 +61,7 @@ func _ready():
 	if Engine.editor_hint: return
 	
 	# palette
-	var parts = ["hat", "skin", "suit", "eye", "shoe"]
-	for i in 5:
-		sprite_mat.set_shader_param(parts[i] + "_swap", Shared.palette[Shared.player_colors[clamp(i, 0, 3)]])
+	set_palette(sprite_mat)
 	
 	node_sprite.flip_h = randf() > 0.5
 	
@@ -77,6 +75,12 @@ func _ready():
 	if Shared.node_camera_game:
 		Shared.node_camera_game.node_target = self
 		Shared.node_camera_game.pos_target_offset = Vector2(4, 4)
+
+static func set_palette(_mat, _colors := Shared.player_colors, _palette := Shared.palette):
+	if _mat is ShaderMaterial:
+		var parts = ["hat", "skin", "suit", "eye", "shoe"]
+		for i in 5:
+			_mat.set_shader_param(parts[i] + "_swap", _palette[_colors[clamp(i, 0, 3)]])
 
 # holding pickup
 func just_moved():
