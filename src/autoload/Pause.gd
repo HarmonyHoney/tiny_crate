@@ -1,12 +1,23 @@
 extends CanvasLayer
 
 var is_paused := false
-onready var menu : Control = $Center/Paused
-onready var menu_list : Label = $Center/Paused/List
-onready var node_cursor : ColorRect = $Center/Paused/Cursor
+
+export var  path_parent : NodePath = ""
+onready var node_parent : CanvasItem = get_node(path_parent)
+
+export var path_cursor : NodePath = ""
+onready var node_cursor : Control = get_node(path_cursor)
+
+export var path_list : NodePath = ""
+onready var node_list := get_node(path_list)
+onready var menu_list : Array = node_list.get_children()
+
+export var color_on := Color.white
+export var color_off := Color(0.8,0.8,0.8,1.0)
+export var cursor_offset := Vector2.ZERO
+export var cursor_expand := Vector2.ZERO
 
 var cursor := 0
-var menu_items := ["go", "redo", "map"]
 
 var timer := 0.1 # prevent input overlap
 var clock := 0.0
@@ -15,10 +26,9 @@ signal pause
 signal unpause
 
 func _ready():
-	menu.visible = false
+	node_parent.visible = false
 	
 	set_cursor()
-	write_menu()
 
 func _physics_process(delta):
 	if clock != 0:
@@ -44,12 +54,11 @@ func _input(event):
 				var down = event.is_action_pressed("down") or event.is_action_pressed("right")
 				if up or down:
 					set_cursor(cursor + (-1 if up else 1))
-					write_menu()
 					Audio.play("menu_scroll", 0.8, 1.2)
 
 func toggle_pause():
 	is_paused = !is_paused
-	menu.visible = is_paused
+	node_parent.visible = is_paused
 	UI.keys(is_paused, is_paused, true, is_paused)
 	TouchScreen.turn_arrows(is_paused)
 	clock = timer
@@ -57,34 +66,30 @@ func toggle_pause():
 	if is_paused:
 		get_tree().paused = is_paused
 		set_cursor()
-		write_menu()
 		emit_signal("pause")
 		Audio.play("menu_pause", 0.9, 1.1)
 	else:
 		emit_signal("unpause")
 		Audio.play("menu_pick", 0.9, 1.1)
 
-func write_menu():
-	menu_list.text = ""
-	for i in menu_items.size():
-		if cursor == i:
-			menu_list.text += "-" + menu_items[i] + "-" + "\n"
-		else:
-			menu_list.text += menu_items[i] + "\n"
 
 func set_cursor(arg = 0):
-	cursor = clamp(arg, 0, menu_items.size() - 1)
-	node_cursor.rect_position.y = menu_list.rect_position.y - 1 + (cursor * 8)
+	cursor = clamp(arg, 0, menu_list.size() - 1)
+	node_cursor.rect_global_position = cursor_offset + menu_list[cursor].rect_global_position - (cursor_expand * 0.5)
+	node_cursor.rect_size = menu_list[cursor].rect_size + cursor_expand
+	
+	for i in menu_list.size():
+		menu_list[i].modulate = color_on if cursor == i else color_off
 
 func select():
-	match menu_items[cursor]:
-		"go":
+	match cursor:
+		0:
 			toggle_pause()
-		"redo":
+		1:
 			Shared.wipe_scene()
 			toggle_pause()
 			Audio.play("menu_reset", 0.9, 1.1)
-		"map":
+		2:
 			Shared.wipe_scene(Shared.level_select_path)
 			toggle_pause()
 			Audio.play("menu_exit", 0.9, 1.1)

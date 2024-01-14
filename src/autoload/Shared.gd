@@ -174,7 +174,7 @@ func change_map():
 	UI.gems.visible = is_level_select
 	UI.gems_label.text = str(count_gems)
 	UI.keys(false, false)
-	UI.labels("pick", "erase" if scene_path == creator_path else "back", "score" if is_level_select else "menu")
+	UI.labels("pick", "erase" if scene_path == creator_path else "back", "score" if is_level_select else "pause")
 	
 	if is_in_game:
 		TouchScreen.turn_arrows(false)

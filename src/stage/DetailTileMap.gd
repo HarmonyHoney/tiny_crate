@@ -3,7 +3,7 @@ extends TileMap
 
 export var brick_color := Color("5f574f") setget set_brick_color
 export var grass_color := Color("008751") setget set_grass_color
-export var wood_color := Color("ab5236") setget set_wood_color
+export var wood_color := Color("ad0028") setget set_wood_color
 
 func _ready():
 	tile_set = tile_set.duplicate()

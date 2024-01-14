@@ -1,23 +1,22 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://media/font/QuinqueFive.ttf" type="DynamicFontData" id=1]
-[ext_resource path="res://media/image/9slice.png" type="Texture" id=2]
 [ext_resource path="res://src/autoload/Pause.gd" type="Script" id=3]
 [ext_resource path="res://src/menu/Blink.gd" type="Script" id=4]
 [ext_resource path="res://media/font/ThaleahFat.ttf" type="DynamicFontData" id=5]
+[ext_resource path="res://media/font/ExpressionPro.ttf" type="DynamicFontData" id=6]
 
-[sub_resource type="DynamicFont" id=2]
-size = 5
+[sub_resource type="DynamicFont" id=5]
+size = 48
 outline_color = Color( 0, 0, 0, 1 )
-extra_spacing_top = -1
-extra_spacing_bottom = -1
-font_data = ExtResource( 1 )
-
-[sub_resource type="DynamicFont" id=3]
-outline_color = Color( 0, 0, 0, 1 )
-extra_spacing_top = -4
-extra_spacing_bottom = -4
+extra_spacing_top = -11
+extra_spacing_bottom = -12
 font_data = ExtResource( 5 )
+
+[sub_resource type="DynamicFont" id=4]
+outline_color = Color( 0, 0, 0, 1 )
+extra_spacing_top = -3
+extra_spacing_bottom = -3
+font_data = ExtResource( 6 )
 
 [node name="Pause" type="CanvasLayer"]
 pause_mode = 2
@@ -25,50 +24,83 @@ script = ExtResource( 3 )
 __meta__ = {
 "_edit_horizontal_guides_": [ -19.0 ]
 }
+path_parent = NodePath("Control")
+path_cursor = NodePath("Control/Cursor")
+path_list = NodePath("Control/Center/VBox/List")
+color_off = Color( 0.639216, 0.65098, 0.8, 1 )
+cursor_offset = Vector2( -1, 0 )
+cursor_expand = Vector2( 9, 8 )
 
-[node name="Center" type="CenterContainer" parent="."]
+[node name="Control" type="Control" parent="."]
+rect_min_size = Vector2( 228, 128 )
+
+[node name="ColorRect" type="ColorRect" parent="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 0.5 )
+
+[node name="Cursor" type="ColorRect" parent="Control"]
+modulate = Color( 1, 0, 0.301961, 1 )
+margin_left = 93.0
+margin_top = 58.0
+margin_right = 116.0
+margin_bottom = 72.0
+rect_min_size = Vector2( 8, 8 )
+script = ExtResource( 4 )
+
+[node name="Center" type="CenterContainer" parent="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 
-[node name="Paused" type="NinePatchRect" parent="Center"]
-margin_left = 86.0
-margin_top = 40.0
-margin_right = 141.0
-margin_bottom = 88.0
-rect_min_size = Vector2( 55, 48 )
-texture = ExtResource( 2 )
-patch_margin_left = 8
-patch_margin_top = 8
-patch_margin_right = 8
-patch_margin_bottom = 8
-axis_stretch_horizontal = 1
-axis_stretch_vertical = 1
+[node name="VBox" type="VBoxContainer" parent="Control/Center"]
+margin_left = 54.0
+margin_top = 29.0
+margin_right = 174.0
+margin_bottom = 98.0
+custom_constants/separation = 8
+alignment = 1
 
-[node name="Cursor" type="ColorRect" parent="Center/Paused"]
-margin_left = 1.0
-margin_top = 17.0
-margin_right = 54.0
+[node name="Header" type="Label" parent="Control/Center/VBox"]
+margin_right = 120.0
+margin_bottom = 21.0
+custom_fonts/font = SubResource( 5 )
+text = "pause"
+align = 1
+valign = 2
+
+[node name="List" type="VBoxContainer" parent="Control/Center/VBox"]
+margin_left = 44.0
+margin_top = 29.0
+margin_right = 76.0
+margin_bottom = 69.0
+size_flags_horizontal = 4
+custom_constants/separation = 8
+alignment = 1
+
+[node name="Label" type="Label" parent="Control/Center/VBox/List"]
+margin_left = 8.0
+margin_right = 24.0
+margin_bottom = 8.0
+size_flags_horizontal = 4
+custom_fonts/font = SubResource( 4 )
+text = "go"
+uppercase = true
+
+[node name="Label2" type="Label" parent="Control/Center/VBox/List"]
+margin_top = 16.0
+margin_right = 32.0
 margin_bottom = 24.0
-color = Color( 1, 0, 0.301961, 1 )
-script = ExtResource( 4 )
+size_flags_horizontal = 4
+custom_fonts/font = SubResource( 4 )
+text = "redo"
+uppercase = true
 
-[node name="List" type="Label" parent="Center/Paused"]
-margin_left = 1.0
-margin_top = 18.0
-margin_right = 54.0
-margin_bottom = 47.0
-custom_fonts/font = SubResource( 2 )
-text = "go
-redo
-map"
-align = 1
-
-[node name="Header" type="Label" parent="Center/Paused"]
-margin_left = 2.0
-margin_top = 8.0
-margin_right = 54.0
-margin_bottom = 15.0
-custom_constants/shadow_as_outline = 1
-custom_fonts/font = SubResource( 3 )
-text = "PAUSEd"
-align = 1
+[node name="Label3" type="Label" parent="Control/Center/VBox/List"]
+margin_left = 4.0
+margin_top = 32.0
+margin_right = 28.0
+margin_bottom = 40.0
+size_flags_horizontal = 4
+custom_fonts/font = SubResource( 4 )
+text = "map"
+uppercase = true

@@ -2,8 +2,8 @@ tool
 extends Node2D
 
 export var palette := -1 setget set_palette
-var palettes := [["c2c3c7", "5f574f", "008751", "ab5236"],
-["c46874", "3d1c2f", "bd9400", "ab5236"],
+var palettes := [["c2c3c7", "5f574f", "008751", "ad0028"],
+["c46874", "3d1c2f", "bd9400", "ad0028"],
 ["b2b2db", "39394f", "838700", "ab378a"],
 ["c2a782", "382e1f", "ab2c59", "4b6e2e"],
 ["66bd6a", "153d17", "0a69f0", "a82d2d"],]
@@ -11,7 +11,7 @@ var palettes := [["c2c3c7", "5f574f", "008751", "ab5236"],
 export var color_solid := Color("c2c3c7") setget set_solid
 export var color_back := Color("5f574f") setget set_back
 export var color_grass := Color("008751") setget set_grass
-export var color_wood := Color("ab5236") setget set_wood
+export var color_wood := Color("ad0028") setget set_wood
 
 onready var map_solid := $SolidTileMap
 onready var map_spike := $SpikeTileMap

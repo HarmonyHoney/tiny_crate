@@ -1,8 +1,16 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://media/image/crate_tiles.png" type="Texture" id=1]
 [ext_resource path="res://media/audio/sfx/hit10.wav" type="AudioStream" id=2]
 [ext_resource path="res://src/actor/Box.gd" type="Script" id=3]
+[ext_resource path="res://src/shader/palette_swap_2.gdshader" type="Shader" id=4]
+
+[sub_resource type="ShaderMaterial" id=2]
+shader = ExtResource( 4 )
+shader_param/c0 = Color( 1, 1, 1, 1 )
+shader_param/s0 = Color( 0.670588, 0.321569, 0.211765, 1 )
+shader_param/c1 = Color( 0, 0, 0, 1 )
+shader_param/s1 = Color( 1, 0.639216, 0, 1 )
 
 [sub_resource type="Animation" id=1]
 resource_name = "hit"
@@ -44,6 +52,7 @@ is_using_gravity = true
 push_dur = 0.04
 
 [node name="Sprite" type="Sprite" parent="."]
+material = SubResource( 2 )
 position = Vector2( 4, 4 )
 texture = ExtResource( 1 )
 hframes = 4

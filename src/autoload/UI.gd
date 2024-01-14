@@ -24,7 +24,7 @@ func keys(left := true, right := true, is_expand := true, _top := false):
 	top.visible = _top
 	spacer.size_flags_horizontal = spacer.SIZE_EXPAND_FILL if is_expand else spacer.SIZE_FILL
 
-func labels (_x := "pick", _c := "back", _pause := "menu"):
+func labels(_x := "pick", _c := "back", _pause := "pause"):
 	x_label.text = _x
 	c_label.text = _c
 	pause_label.text = _pause
