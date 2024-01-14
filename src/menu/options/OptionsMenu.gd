@@ -8,6 +8,8 @@ func _ready():
 	select_item(0)
 
 func _input(event):
+	if Wipe.is_wipe: return
+	
 	var up = event.is_action_pressed("up")
 	var down = event.is_action_pressed("down")
 	var left = event.is_action_pressed("left")

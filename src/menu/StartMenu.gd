@@ -3,34 +3,47 @@ extends Node2D
 onready var main_menu := $Control/Main
 onready var quit_menu := $Control/Quit
 onready var slot_menu := $Control/Slot
+onready var open_menu := $Control/Open
+onready var erase_menu := $Control/Erase
 onready var menu_stuff := main_menu.get_children()
 onready var cursor_node := $Control/Cursor
+export var open_player_path : NodePath = ""
+onready var open_player_mat : ShaderMaterial = get_node(open_player_path).material
+
+export var demo_player_path : NodePath = ""
+onready var demo_player_mat : ShaderMaterial = get_node(demo_player_path).sprite_mat
 
 var cursor := 0 setget set_cursor
 var menu_items := []
-var main_items := ["play", "creator", "options", "credits"]
+var main_items := ["play", "options", "credits"]
 var quit_items := ["yes", "no"]
 var slot_items := ["slot", "slot", "slot"]
+var open_items := ["load", "creator", "erase"]
+var erase_items := ["really erase", "no erase"]
+
+var menu_name := "main"
+var menu_last := menu_name
+
 var is_input = true
 
-export var blink_on := 0.3
-export var blink_off := 0.2
-var blink_clock := 0.0
 export var cursor_offset := Vector2.ZERO
 export var cursor_expand := Vector2.ZERO
 
 export var color_select := Color.white
 export var color_deselect := Color(1,1,1, 0.7)
-export var color_blink : PoolColorArray = ["ff004d", "ff77a8"]
-
-func _enter_tree():
-	randomize()
-	Shared.player_colors = Shared.preset_palettes[randi() % Shared.preset_palettes.size()]
 
 func _ready():
-	switch_menu("main", true)
-	
+	randomize()
+	Player.set_palette(demo_player_mat, Shared.pick_player_colors())
 	Shared.load_slots()
+	
+	setup_slots()
+	
+	switch_menu(Shared.last_menu, true)
+	self.cursor = Shared.last_cursor
+	
+
+func setup_slots():
 	var slot_items := slot_menu.get_children()
 	for i in 3:
 		var si = slot_items[i]
@@ -59,10 +72,17 @@ func _ready():
 				Player.set_palette(player_mat, sd["player_colors"])
 
 func _input(event):
-	if !is_input:
-		return
+	if !is_input or Wipe.is_wipe: return
+	
 	if event.is_action_pressed("action"):
-		switch_menu("quit" if menu_items == main_items else "main")
+		if menu_items == open_items:
+			Player.set_palette(demo_player_mat, Shared.pick_player_colors())
+		var s = "main"
+		match menu_items:
+			main_items: s = "quit"
+			open_items: s = "slot"
+			erase_items: s = "open"
+		switch_menu(s)
 	elif event.is_action_pressed("jump"):
 		menu_select()
 	else:
@@ -72,14 +92,8 @@ func _input(event):
 			self.cursor += -1 if up else 1
 			Audio.play("menu_scroll", 0.8, 1.2)
 
-func _physics_process(delta):
-	# blink
-	blink_clock -= delta
-	if blink_clock < -blink_off:
-		blink_clock = blink_on
-	cursor_node.modulate = color_blink[int(blink_clock > 0.0)]
-
 func write_menu():
+	yield(get_tree(), "idle_frame")
 	cursor_node.rect_global_position = menu_stuff[cursor].rect_global_position + cursor_offset
 	cursor_node.rect_size = menu_stuff[cursor].rect_size + cursor_expand
 	
@@ -87,23 +101,20 @@ func write_menu():
 		menu_stuff[i].modulate = color_select if i == cursor else color_deselect
 
 func menu_select(tag : String = menu_items[cursor].to_lower()):
+	Shared.last_cursor = cursor
 	match tag:
 		"play":
 			switch_menu("slot")
 		"creator":
 			Shared.wipe_scene(Shared.creator_path)
-			is_input = false
 			Audio.play("menu_play", 0.9, 1.1)
 		"options":
 			Shared.wipe_scene(Shared.options_menu_path)
-			is_input = false
 			Audio.play("menu_options", 0.9, 1.1)
 		"credits":
 			Shared.wipe_scene(Shared.credits_path)
-			is_input = false
 			Audio.play("menu_pick", 0.9, 1.1)
 		"yes":
-			is_input = false
 			Audio.play("menu_yes", 0.9, 1.1)
 			if OS.get_name() == "HTML5":
 				Shared.wipe_scene(Shared.splash_path)
@@ -113,33 +124,68 @@ func menu_select(tag : String = menu_items[cursor].to_lower()):
 		"no":
 			switch_menu("main")
 		"slot":
-			is_input = false
+			Audio.play("menu_play", 0.9, 1.1)
+			Shared.last_slot = cursor
+			
 			if Shared.save_data[cursor].empty():
+				Shared.load_save(cursor)
 				Shared.wipe_scene(Shared.creator_path)
 			else:
-				Shared.load_slot(cursor)
-				Shared.wipe_scene(Shared.level_select_path)
-			Audio.play("menu_play", 0.9, 1.1)
+				switch_menu("open")
+			
+		"load":
+			Shared.wipe_scene(Shared.level_select_path)
+		"erase":
+			switch_menu("erase")
+		"really erase":
+			Shared.delete_slot(Shared.last_slot)
+			Shared.load_save(Shared.last_slot)
+			setup_slots()
+			switch_menu("slot")
+		"no erase":
+			switch_menu("open")
+			
 
-func switch_menu(arg, silent := false):
-	var s = ["quit", "main", "slot"]
-	var items = [quit_items, main_items, slot_items]
-	var node = [quit_menu, main_menu, slot_menu]
-	var audio = ["pick", "exit", "pick"]
-	for i in 3:
+func switch_menu(arg, silent := false, _cursor := 0):
+	var s = ["quit", "main", "slot", "open", "erase"]
+	var items = [quit_items, main_items, slot_items, open_items, erase_items]
+	var node = [quit_menu, main_menu, slot_menu, open_menu, erase_menu]
+	var audio = ["pick", "exit", "pick", "pick", "pick"]
+	var x = -1
+	for i in s.size():
 		node[i].visible = arg == s[i]
 		if arg == s[i]:
-			menu_items = items[i]
-			menu_stuff = node[i].get_children()
-			if !silent:
-				Audio.play("menu_" + audio[i], 0.9, 1.1)
+			x = i
 	
-	self.cursor = 1 if arg == "quit" else 0
-
-func find_cursor(arg := ""):
-	if is_input and menu_items.has(arg):
-		self.cursor = menu_items.find(arg)
-		menu_select()
+	if x > -1:
+		menu_items = items[x]
+		menu_stuff = node[x].get_children()
+		
+		menu_last = menu_name
+		menu_name = arg
+		
+		if !silent:
+			Audio.play("menu_" + audio[x], 0.9, 1.1)
+		
+		match menu_name:
+			"quit":
+				_cursor = 1
+			"erase":
+				_cursor = 1
+			"slot":
+				_cursor = Shared.last_slot
+				Shared.map_select = 0
+			"open":
+				Shared.load_save(Shared.last_slot)
+				Player.set_palette(open_player_mat, Shared.player_colors)
+				Player.set_palette(demo_player_mat, Shared.player_colors)
+				if menu_last == "erase":
+					_cursor = 2
+			"main":
+				Shared.last_slot = -1
+		
+		self.cursor = _cursor
+		Shared.last_menu = arg
 
 func set_cursor(arg := 0):
 	cursor = clamp(arg, 0, menu_items.size() - 1)

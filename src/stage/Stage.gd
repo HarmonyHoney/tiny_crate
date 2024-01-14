@@ -3,7 +3,7 @@ extends Node2D
 
 export var palette := -1 setget set_palette
 var palettes := [["c2c3c7", "5f574f", "008751", "ab5236"],
-["c486ac", "301f2a", "bd9400", "ab5236"],
+["c46874", "3d1c2f", "bd9400", "ab5236"],
 ["b2b2db", "39394f", "838700", "ab378a"],
 ["c2a782", "382e1f", "ab2c59", "4b6e2e"],
 ["66bd6a", "153d17", "0a69f0", "a82d2d"],]

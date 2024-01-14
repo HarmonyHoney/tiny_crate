@@ -40,8 +40,8 @@ func start(_reverse = false):
 		Audio.play("menu_wipe")
 
 func stop():
-	is_wipe = false
 	if is_reverse:
+		is_wipe = false
 		image.visible = false
 	else:
 		for i in 2:

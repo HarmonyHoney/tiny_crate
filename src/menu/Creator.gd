@@ -19,11 +19,6 @@ var swatches = []
 onready var player_mat : ShaderMaterial = $Player/Sprite.material
 var is_input := true
 
-export var blink_on := 0.3
-export var blink_off := 0.2
-var blink_clock := 0.0
-export var color_blink : PoolColorArray = ["ff004d", "ff77a8"]
-
 func _ready():
 	# setup rows & columns
 	rows = []
@@ -100,9 +95,10 @@ func _input(event):
 	elif cursor_y == rows.size() - 1:
 		if is_jump:
 			is_input = false
-			Shared.wipe_scene(Shared.level_select_path)
 			Shared.username = name_label.text.to_lower()
 			Shared.player_colors = colors.duplicate()
+			Shared.is_save = true
+			Shared.wipe_scene(Shared.level_select_path)
 			Audio.play("menu_bell", 0.8, 1.2)
 		elif is_action:
 			Audio.play("menu_scroll2", 0.8, 1.2)
@@ -133,10 +129,3 @@ func fill_swatches(_row := cursor_y -1):
 	var offset = [-2, -1, 0, 1, 2]
 	for i in 5:
 		swatches[_row][i].color = Shared.palette[wrapi(colors[_row] + offset[i], 0, Shared.palette.size())]
-
-func _physics_process(delta):
-	# blink
-	blink_clock -= delta
-	if blink_clock < -blink_off:
-		blink_clock = blink_on
-	cursors_parent.modulate = color_blink[int(blink_clock > 0.0)]

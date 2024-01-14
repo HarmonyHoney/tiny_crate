@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=2]
+[gd_scene load_steps=34 format=2]
 
 [ext_resource path="res://media/image/creator.png" type="Texture" id=1]
 [ext_resource path="res://media/image/crate_tiles.png" type="Texture" id=2]
@@ -20,6 +20,8 @@
 [ext_resource path="res://media/image/bricks.png" type="Texture" id=18]
 [ext_resource path="res://media/image/player_swap.png" type="Texture" id=19]
 [ext_resource path="res://media/image/diamond8.png" type="Texture" id=20]
+[ext_resource path="res://src/menu/Blink.gd" type="Script" id=21]
+[ext_resource path="res://src/actor/Exit.tscn" type="PackedScene" id=22]
 [ext_resource path="res://media/font/QuinqueFive.ttf" type="DynamicFontData" id=24]
 
 [sub_resource type="DynamicFont" id=3]
@@ -103,6 +105,19 @@ shader_param/eye_swap = Color( 0.0901961, 0.482353, 0.788235, 1 )
 shader_param/skin_swap = Color( 1, 0.8, 0.666667, 1 )
 shader_param/suit_swap = Color( 0.87451, 0.14902, 0.14902, 1 )
 shader_param/shoe_swap = Color( 0.0901961, 0.482353, 0.788235, 1 )
+
+[sub_resource type="ShaderMaterial" id=15]
+shader = SubResource( 8 )
+shader_param/hat = Color( 1, 0, 0, 1 )
+shader_param/eye = Color( 0, 1, 0, 1 )
+shader_param/skin = Color( 0, 0, 1, 1 )
+shader_param/suit = Color( 1, 1, 0, 1 )
+shader_param/shoe = Color( 1, 0, 1, 1 )
+shader_param/hat_swap = Color( 0.0980392, 0.984314, 0.192157, 1 )
+shader_param/eye_swap = Color( 0, 0.0862745, 1, 1 )
+shader_param/skin_swap = Color( 1, 0.843137, 0, 1 )
+shader_param/suit_swap = Color( 0, 0.71875, 1, 1 )
+shader_param/shoe_swap = Color( 0, 0.0862745, 1, 1 )
 
 [sub_resource type="DynamicFont" id=4]
 size = 48
@@ -215,9 +230,11 @@ script = ExtResource( 3 )
 __meta__ = {
 "_edit_horizontal_guides_": [  ]
 }
+open_player_path = NodePath("Control/Open/1/Player/Sprite")
+demo_player_path = NodePath("Stage/Actors/Player")
 cursor_offset = Vector2( -2, 0 )
 cursor_expand = Vector2( 4, 0 )
-color_deselect = Color( 1, 1, 1, 0.701961 )
+color_deselect = Color( 0.8, 0.8, 0.8, 1 )
 
 [node name="Control" type="Control" parent="."]
 margin_left = -24.0
@@ -231,22 +248,23 @@ margin_left = 5.0
 margin_top = 37.0
 margin_right = 47.0
 margin_bottom = 47.0
+script = ExtResource( 21 )
 
 [node name="Main" type="VBoxContainer" parent="Control"]
 visible = false
-margin_left = 4.0
 margin_top = 32.0
-margin_right = 68.0
+margin_right = 72.0
 margin_bottom = 104.0
 custom_constants/separation = 5
 alignment = 1
 
 [node name="Item" type="HBoxContainer" parent="Control/Main"]
-margin_top = 4.0
-margin_right = 43.0
-margin_bottom = 16.0
+margin_left = 14.0
+margin_top = 13.0
+margin_right = 57.0
+margin_bottom = 25.0
 rect_min_size = Vector2( 0, 12 )
-size_flags_horizontal = 0
+size_flags_horizontal = 4
 custom_constants/separation = 2
 
 [node name="Image" type="Control" parent="Control/Main/Item"]
@@ -270,41 +288,13 @@ custom_fonts/font = SubResource( 3 )
 text = "play"
 uppercase = true
 
-[node name="Item4" type="HBoxContainer" parent="Control/Main"]
-margin_top = 21.0
-margin_right = 42.0
-margin_bottom = 33.0
-rect_min_size = Vector2( 0, 12 )
-size_flags_horizontal = 0
-custom_constants/separation = 2
-
-[node name="Image" type="Control" parent="Control/Main/Item4"]
-margin_right = 8.0
-margin_bottom = 12.0
-rect_min_size = Vector2( 8, 8 )
-
-[node name="Sprite" type="Sprite" parent="Control/Main/Item4/Image"]
-position = Vector2( 0, 2 )
-texture = ExtResource( 1 )
-centered = false
-hframes = 4
-frame = 2
-
-[node name="Label" type="Label" parent="Control/Main/Item4"]
-margin_left = 10.0
-margin_top = 2.0
-margin_right = 42.0
-margin_bottom = 10.0
-custom_fonts/font = SubResource( 3 )
-text = "char"
-uppercase = true
-
 [node name="Item2" type="HBoxContainer" parent="Control/Main"]
-margin_top = 38.0
-margin_right = 58.0
-margin_bottom = 50.0
+margin_left = 7.0
+margin_top = 30.0
+margin_right = 65.0
+margin_bottom = 42.0
 rect_min_size = Vector2( 0, 12 )
-size_flags_horizontal = 0
+size_flags_horizontal = 4
 custom_constants/separation = 2
 
 [node name="Image" type="Control" parent="Control/Main/Item2"]
@@ -330,11 +320,12 @@ text = "option"
 uppercase = true
 
 [node name="Item3" type="HBoxContainer" parent="Control/Main"]
-margin_top = 55.0
-margin_right = 58.0
-margin_bottom = 67.0
+margin_left = 7.0
+margin_top = 47.0
+margin_right = 65.0
+margin_bottom = 59.0
 rect_min_size = Vector2( 0, 12 )
-size_flags_horizontal = 0
+size_flags_horizontal = 4
 custom_constants/separation = 2
 
 [node name="Image" type="Control" parent="Control/Main/Item3"]
@@ -361,19 +352,19 @@ uppercase = true
 
 [node name="Quit" type="VBoxContainer" parent="Control"]
 visible = false
-margin_left = 12.0
 margin_top = 32.0
-margin_right = 81.0
+margin_right = 72.0
 margin_bottom = 104.0
 custom_constants/separation = 9
 alignment = 1
 
 [node name="Label" type="Label" parent="Control/Quit"]
-margin_top = 21.0
-margin_right = 42.0
-margin_bottom = 29.0
-rect_min_size = Vector2( 42, 0 )
-size_flags_horizontal = 0
+margin_left = 15.0
+margin_top = 19.0
+margin_right = 57.0
+margin_bottom = 31.0
+rect_min_size = Vector2( 42, 12 )
+size_flags_horizontal = 4
 custom_fonts/font = SubResource( 3 )
 text = "quit?"
 align = 1
@@ -381,11 +372,12 @@ valign = 1
 uppercase = true
 
 [node name="No" type="Label" parent="Control/Quit"]
-margin_top = 38.0
-margin_right = 18.0
-margin_bottom = 50.0
+margin_left = 27.0
+margin_top = 40.0
+margin_right = 45.0
+margin_bottom = 52.0
 rect_min_size = Vector2( 18, 12 )
-size_flags_horizontal = 0
+size_flags_horizontal = 4
 custom_fonts/font = SubResource( 3 )
 text = "no"
 align = 1
@@ -393,6 +385,7 @@ valign = 1
 uppercase = true
 
 [node name="Slot" type="VBoxContainer" parent="Control"]
+visible = false
 margin_left = 4.0
 margin_top = 32.0
 margin_right = 64.0
@@ -599,6 +592,157 @@ margin_right = 60.0
 margin_bottom = 10.0
 custom_fonts/font = SubResource( 3 )
 text = "96"
+uppercase = true
+
+[node name="Open" type="VBoxContainer" parent="Control"]
+visible = false
+margin_left = 4.0
+margin_top = 32.0
+margin_right = 68.0
+margin_bottom = 104.0
+custom_constants/separation = 5
+alignment = 1
+
+[node name="0" type="HBoxContainer" parent="Control/Open"]
+margin_left = 13.0
+margin_top = 13.0
+margin_right = 51.0
+margin_bottom = 25.0
+rect_min_size = Vector2( 0, 12 )
+size_flags_horizontal = 4
+custom_constants/separation = 2
+
+[node name="Image" type="Control" parent="Control/Open/0"]
+margin_right = 12.0
+margin_bottom = 12.0
+rect_min_size = Vector2( 12, 12 )
+
+[node name="Sprite" type="Sprite" parent="Control/Open/0/Image"]
+visible = false
+position = Vector2( 0, 2 )
+texture = ExtResource( 16 )
+centered = false
+hframes = 4
+vframes = 4
+
+[node name="Exit" parent="Control/Open/0/Image" instance=ExtResource( 22 )]
+position = Vector2( 3, 3 )
+
+[node name="Label" type="Label" parent="Control/Open/0"]
+margin_left = 14.0
+margin_top = 2.0
+margin_right = 38.0
+margin_bottom = 10.0
+custom_fonts/font = SubResource( 3 )
+text = "map"
+uppercase = true
+
+[node name="1" type="HBoxContainer" parent="Control/Open"]
+margin_left = 11.0
+margin_top = 30.0
+margin_right = 53.0
+margin_bottom = 42.0
+rect_min_size = Vector2( 0, 12 )
+size_flags_horizontal = 4
+custom_constants/separation = 2
+
+[node name="Player" type="Control" parent="Control/Open/1"]
+margin_right = 8.0
+margin_bottom = 12.0
+rect_min_size = Vector2( 8, 12 )
+
+[node name="Sprite" type="Sprite" parent="Control/Open/1/Player"]
+material = SubResource( 15 )
+position = Vector2( 4, 2 )
+texture = ExtResource( 19 )
+hframes = 7
+region_rect = Rect2( 40, 0, 8, 24 )
+
+[node name="Image" type="Control" parent="Control/Open/1"]
+visible = false
+margin_left = 10.0
+margin_right = 18.0
+margin_bottom = 12.0
+rect_min_size = Vector2( 8, 8 )
+
+[node name="Sprite" type="Sprite" parent="Control/Open/1/Image"]
+position = Vector2( 0, 2 )
+texture = ExtResource( 1 )
+centered = false
+hframes = 4
+frame = 2
+
+[node name="Label" type="Label" parent="Control/Open/1"]
+margin_left = 10.0
+margin_top = 2.0
+margin_right = 42.0
+margin_bottom = 10.0
+custom_fonts/font = SubResource( 3 )
+text = "char"
+uppercase = true
+
+[node name="2" type="HBoxContainer" parent="Control/Open"]
+margin_left = 7.0
+margin_top = 47.0
+margin_right = 57.0
+margin_bottom = 59.0
+rect_min_size = Vector2( 0, 12 )
+size_flags_horizontal = 4
+custom_constants/separation = 2
+
+[node name="Image" type="Control" parent="Control/Open/2"]
+margin_right = 8.0
+margin_bottom = 12.0
+rect_min_size = Vector2( 8, 8 )
+
+[node name="Sprite" type="Sprite" parent="Control/Open/2/Image"]
+position = Vector2( 0, 2 )
+texture = ExtResource( 16 )
+centered = false
+hframes = 4
+vframes = 4
+frame = 13
+
+[node name="Label" type="Label" parent="Control/Open/2"]
+margin_left = 10.0
+margin_top = 2.0
+margin_right = 50.0
+margin_bottom = 10.0
+custom_fonts/font = SubResource( 3 )
+text = "erase"
+uppercase = true
+
+[node name="Erase" type="VBoxContainer" parent="Control"]
+margin_top = 32.0
+margin_right = 72.0
+margin_bottom = 104.0
+custom_constants/separation = 9
+alignment = 1
+
+[node name="Label" type="Label" parent="Control/Erase"]
+margin_left = 12.0
+margin_top = 19.0
+margin_right = 60.0
+margin_bottom = 31.0
+rect_min_size = Vector2( 48, 12 )
+size_flags_horizontal = 4
+custom_fonts/font = SubResource( 3 )
+text = "erase?"
+align = 1
+valign = 1
+uppercase = true
+
+[node name="No" type="Label" parent="Control/Erase"]
+margin_left = 27.0
+margin_top = 40.0
+margin_right = 45.0
+margin_bottom = 52.0
+rect_min_size = Vector2( 18, 12 )
+size_flags_horizontal = 4
+custom_fonts/font = SubResource( 3 )
+text = "no"
+align = 1
+valign = 1
 uppercase = true
 
 [node name="Header" type="Label" parent="Control"]

@@ -6,7 +6,7 @@ onready var menu_list : Label = $Center/Paused/List
 onready var node_cursor : ColorRect = $Center/Paused/Cursor
 
 var cursor := 0
-var menu_items := ["go", "redo", "stages"]
+var menu_items := ["go", "redo", "map"]
 
 var timer := 0.1 # prevent input overlap
 var clock := 0.0
@@ -30,7 +30,7 @@ func _physics_process(delta):
 				get_tree().paused = false
 
 func _input(event):
-	if clock == 0 and Shared.is_in_game:
+	if clock == 0 and Shared.is_in_game and !Wipe.is_wipe:
 		if event.is_action_pressed("pause"):
 			toggle_pause()
 		if is_paused:
@@ -84,7 +84,7 @@ func select():
 			Shared.wipe_scene()
 			toggle_pause()
 			Audio.play("menu_reset", 0.9, 1.1)
-		"stages":
+		"map":
 			Shared.wipe_scene(Shared.level_select_path)
 			toggle_pause()
 			Audio.play("menu_exit", 0.9, 1.1)

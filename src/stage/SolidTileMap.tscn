@@ -8,7 +8,7 @@
 0/name = "solid_bricks.png 0"
 0/texture = ExtResource( 2 )
 0/tex_offset = Vector2( 0, 0 )
-0/modulate = Color( 0.745098, 0.0705882, 0.313726, 1 )
+0/modulate = Color( 0.760784, 0.764706, 0.780392, 1 )
 0/region = Rect2( 0, 0, 16, 8 )
 0/tile_mode = 2
 0/autotile/icon_coordinate = Vector2( 0, 0 )

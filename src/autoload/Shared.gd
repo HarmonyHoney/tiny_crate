@@ -22,15 +22,19 @@ var credits_path := "res://src/menu/credits.tscn"
 var splash_path := "res://src/menu/splash.tscn"
 var creator_path := "res://src/menu/Creator.tscn"
 var scene_path := level_select_path
+var scene_last := scene_path
 
 var save_data := {0: {}, 1: {}, 2: {}}
 var save_slot := 0
+var last_slot = -1
 var save_maps := {}
 var save_path := "user://save/"
 var save_filename := "box.save"
 var scene_dict := {}
 var replays := {}
 var is_save := false
+var last_menu := "main"
+var last_cursor := 0
 
 var window_scale := 1
 var view_size := Vector2(228, 128)
@@ -128,9 +132,9 @@ func _physics_process(delta):
 
 func wipe_scene(arg := scene_path, timer := 0.0):
 	if timer > 0.0: yield(get_tree().create_timer(timer), "timeout")
+	scene_last = scene_path
 	scene_path = arg
 	Wipe.start()
-	Pause.set_process_input(false)
 
 func wipe_quit():
 	is_quit = true
@@ -164,7 +168,6 @@ func change_map():
 	for i in ghosts:
 		i.visible = false
 	
-	Pause.set_process_input(true)
 	is_note = false
 	UI.notes.visible = is_level_select
 	UI.notes_label.text = str(count_notes)
@@ -195,6 +198,9 @@ func change_map():
 		UI.keys(true, true, true, true)
 		TouchScreen.turn_arrows(false)
 		TouchScreen.show_keys(true, true, true, true)
+		
+		last_menu = "open"
+		last_cursor = 0
 	elif scene_path == main_menu_path:
 		UI.keys(true, true, false)
 		TouchScreen.turn_arrows(true)
@@ -232,6 +238,9 @@ func save():
 	
 	save_file(save_path + str(save_slot) + "/" + save_filename, JSON.print(data, "\t"))
 
+func delete_slot(arg := 0):
+	save_file(save_path + str(save_slot) + "/" + save_filename, "")
+
 func save_replays(arg := replay_map):
 	save_file(save_path + str(save_slot) + "/" + arg + ".save", JSON.print(replays[arg], "\t"))
 
@@ -249,7 +258,11 @@ func load_save(_slot = save_slot, _dict := {}):
 	
 	save_data[save_slot] = {}
 	var s = save_data[save_slot]
+	
+	username = generate_username()
+	player_colors = pick_player_colors()
 	save_maps = {}
+	
 	if _dict.empty():
 		var l = load_file(save_string)
 		if l: _dict = JSON.parse(l).result
@@ -366,6 +379,8 @@ func die():
 	Leaderboard.submit_score("death", 1, map_name)
 	print("you died")
 
+func pick_player_colors():
+	return preset_palettes[randi() % preset_palettes.size()]
 
 # look into a folder and return a list of filenames without file extension
 func dir_list(path : String):

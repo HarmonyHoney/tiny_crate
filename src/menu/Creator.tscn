@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=2]
+[gd_scene load_steps=25 format=2]
 
 [ext_resource path="res://src/stage/SolidTileMap.tscn" type="PackedScene" id=1]
 [ext_resource path="res://media/image/player_swap.png" type="Texture" id=2]
@@ -13,12 +13,13 @@
 [ext_resource path="res://media/image/bricks.png" type="Texture" id=11]
 [ext_resource path="res://media/image/solid_bricks.png" type="Texture" id=12]
 [ext_resource path="res://media/image/8pixel.png" type="Texture" id=13]
+[ext_resource path="res://src/menu/Blink.gd" type="Script" id=14]
 
-[sub_resource type="TileSet" id=18]
+[sub_resource type="TileSet" id=21]
 0/name = "solid_bricks.png 0"
 0/texture = ExtResource( 12 )
 0/tex_offset = Vector2( 0, 0 )
-0/modulate = Color( 0.745098, 0.0705882, 0.313726, 1 )
+0/modulate = Color( 0.760784, 0.764706, 0.780392, 1 )
 0/region = Rect2( 0, 0, 16, 8 )
 0/tile_mode = 2
 0/autotile/icon_coordinate = Vector2( 0, 0 )
@@ -51,7 +52,7 @@
 1/shapes = [  ]
 1/z_index = 0
 
-[sub_resource type="TileSet" id=19]
+[sub_resource type="TileSet" id=22]
 4/name = "bricks.png 4"
 4/texture = ExtResource( 11 )
 4/tex_offset = Vector2( 0, 0 )
@@ -238,13 +239,13 @@ font_data = ExtResource( 7 )
 script = ExtResource( 8 )
 
 [node name="SolidTileMap" parent="." instance=ExtResource( 1 )]
-tile_set = SubResource( 18 )
+tile_set = SubResource( 21 )
 tile_data = PoolIntArray( 458729, 0, 1, 458730, 0, 1, 458731, 0, 1, 458732, 0, 1, 458733, 536870912, 0, 458734, 0, 1, 458735, 0, 0, 458736, 0, 1, 458737, 536870912, 0, 458738, 536870912, 1, 524274, 0, 0, 589810, 536870912, 1, 655346, 536870912, 0 )
 
 [node name="DetailTileMap" parent="." instance=ExtResource( 4 )]
 z_index = -11
-tile_set = SubResource( 19 )
-tile_data = PoolIntArray( 65516, 5, 0, 65517, 5, 0, 65518, 5, 0, 65519, 5, 0, 65520, 5, 0, 131052, 5, 0, 131053, 5, 0, 131054, 5, 0, 131055, 5, 0, 131056, 5, 0, 196588, 1073741829, 2, 196589, 5, 0, 196590, 5, 0, 196591, 5, 0, 196592, 1610612741, 2, 262125, 1073741829, 2, 262126, 5, 0, 262127, 1610612741, 2, 327662, 5, 1, 393198, 5, 1, 524273, 1073741829, 2, 524275, -1610612731, 2, 589811, -1610612731, 0, 655347, -1610612731, 0 )
+tile_set = SubResource( 22 )
+tile_data = PoolIntArray( 65516, 5, 0, 65517, 5, 0, 65518, 5, 0, 65519, 5, 0, 65520, 5, 0, 131052, 5, 0, 131053, 5, 0, 131054, 5, 0, 131055, 5, 0, 131056, 5, 0, 196588, 1073741829, 2, 196589, 5, 0, 196590, 5, 0, 196591, 5, 0, 196592, 1610612741, 2, 262125, 1073741829, 2, 262126, 5, 0, 262127, 1610612741, 2, 327662, 6, 0, 393198, 6, 0, 524273, 1073741829, 2, 524275, -1610612731, 2, 589811, -1610612731, 0, 655347, -1610612731, 0 )
 
 [node name="GameCamera" parent="." instance=ExtResource( 3 )]
 position = Vector2( -92, 48 )
@@ -344,6 +345,7 @@ size_flags_vertical = 4
 
 [node name="Cursors" type="Control" parent="Menu"]
 modulate = Color( 1, 0, 0.301961, 1 )
+script = ExtResource( 14 )
 
 [node name="Arrows" type="Control" parent="Menu/Cursors"]
 margin_left = 133.0

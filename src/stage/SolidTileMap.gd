@@ -4,8 +4,8 @@ extends TileMap
 export var tile_color := Color("c2c3c7") setget set_tile_color
 
 func _ready():
-	tile_set = tile_set.duplicate()
 	if Engine.is_editor_hint(): return
+	tile_set = tile_set.duplicate()
 	
 	Shared.node_map_solid = self
 	
