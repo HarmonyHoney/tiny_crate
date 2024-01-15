@@ -31,6 +31,7 @@ var save_maps := {}
 var save_path := "user://save/"
 var save_filename := "box.save"
 var scene_dict := {}
+export var is_scene_dict_refresh := false setget set_is_scene_dict_refresh
 var replays := {}
 var is_save := false
 var last_menu := "main"
@@ -129,6 +130,18 @@ func _physics_process(delta):
 				replay["sprite"].append(player.node_sprite.frame)
 
 ### Changing Maps
+
+func set_is_scene_dict_refresh(arg := false):
+	is_scene_dict_refresh = arg
+	refresh_scenes()
+	print("set_is_scene_dict_refresh ", arg)
+
+func refresh_scenes():
+	var k = scene_dict.keys().duplicate()
+	scene_dict.clear()
+	
+	for i in k:
+		scene_dict[i] = load(i)
 
 func wipe_scene(arg := scene_path, timer := 0.0):
 	if timer > 0.0: yield(get_tree().create_timer(timer), "timeout")
