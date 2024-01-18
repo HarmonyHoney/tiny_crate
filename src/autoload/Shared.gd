@@ -132,7 +132,7 @@ func _physics_process(delta):
 ### Changing Maps
 
 func set_is_scene_dict_refresh(arg := false):
-	is_scene_dict_refresh = arg
+	is_scene_dict_refresh = false
 	refresh_scenes()
 	print("set_is_scene_dict_refresh ", arg)
 
