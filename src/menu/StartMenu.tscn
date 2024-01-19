@@ -273,6 +273,7 @@ demo_player_path = NodePath("Stage/Actors/Player")
 cursor_offset = Vector2( -2, 0 )
 cursor_expand = Vector2( 4, 0 )
 color_deselect = Color( 0.8, 0.8, 0.8, 1 )
+switch_cooldown = 0.13
 
 [node name="Control" type="Control" parent="."]
 margin_left = -24.0

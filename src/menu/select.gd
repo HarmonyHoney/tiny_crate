@@ -172,7 +172,7 @@ func make_screen(i := 0):
 	var has_note = s.has("note")
 	new.get_node("Overlay/Notes").visible = has_note
 	if has_note:
-		new.get_node("Overlay/Notes/Label").text = time_to_string(s["note"])
+		new.get_node("Overlay/Notes/Label").text = Shared.time_to_string(s["note"])
 	
 	var has_time = s.has("time")
 	new.get_node("Overlay/Time").visible = has_time
@@ -180,7 +180,7 @@ func make_screen(i := 0):
 	gem.modulate = color_gem if has_time else color_new
 	gem.visible = !is_locked
 	if has_time:
-		new.get_node("Overlay/Time/Label").text = time_to_string(s["time"])
+		new.get_node("Overlay/Time/Label").text = Shared.time_to_string(s["time"])
 	
 	var has_die = s.has("die")
 	new.get_node("Overlay/Death").visible = has_die
@@ -252,7 +252,7 @@ func write_score():
 				t = "no data!"
 			else:
 				for i in s:
-					t += time_to_string(-int(i["score"])) + " " + str(i["player_name"]) + "\n"
+					t += Shared.time_to_string(-int(i["score"])) + " " + str(i["player_name"]) + "\n"
 					count += 1
 					if count > 9 : break
 		else:
@@ -261,20 +261,13 @@ func write_score():
 		if Shared.replays.has(map_name):
 			for i in Shared.replays[map_name]:
 				if i.has("frames"):
-					t += time_to_string(int(i["frames"])) + "\n"
+					t += Shared.time_to_string(int(i["frames"])) + "\n"
 					count += 1
 					if count > 9 : break
 		else:
 			t = "NO DATA!"
 	
 	score_list.text = t
-
-func time_to_string(arg := 0.0):
-	var time = arg * (1.0/60.0)
-	if time < 60.0:
-		return str(time).pad_decimals(2)
-	else:
-		return str(time / 60.0).pad_zeros(2).pad_decimals(0) + ":" + str(fposmod(time, 60.0)).pad_zeros(2).pad_decimals(0)
 
 func open_map():
 	if current_map in map_unlocked:

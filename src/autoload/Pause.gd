@@ -60,6 +60,7 @@ func toggle_pause():
 	is_paused = !is_paused
 	node_parent.visible = is_paused
 	UI.keys(is_paused, is_paused, true, is_paused)
+	UI.stats.visible = is_paused
 	TouchScreen.turn_arrows(is_paused)
 	clock = timer
 	

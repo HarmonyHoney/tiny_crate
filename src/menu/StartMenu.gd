@@ -32,6 +32,9 @@ export var cursor_expand := Vector2.ZERO
 export var color_select := Color.white
 export var color_deselect := Color(1,1,1, 0.7)
 
+var switch_clock := 0.0
+export var switch_cooldown := 0.1
+
 func _ready():
 	randomize()
 	Player.set_palette(demo_player_mat, Shared.pick_player_colors())
@@ -72,7 +75,7 @@ func setup_slots():
 				Player.set_palette(player_mat, sd["player_colors"])
 
 func _input(event):
-	if !is_input or Wipe.is_wipe: return
+	if !is_input or Wipe.is_wipe or switch_clock > 0.0: return
 	
 	if event.is_action_pressed("action"):
 		if menu_items == open_items:
@@ -91,6 +94,9 @@ func _input(event):
 		if up or down:
 			self.cursor += -1 if up else 1
 			Audio.play("menu_scroll", 0.8, 1.2)
+
+func _physics_process(delta):
+	switch_clock = max(0, switch_clock - delta)
 
 func write_menu():
 	yield(get_tree(), "idle_frame")
@@ -158,6 +164,7 @@ func switch_menu(arg, silent := false, _cursor := 0):
 			x = i
 	
 	if x > -1:
+		switch_clock = switch_cooldown
 		menu_items = items[x]
 		menu_stuff = node[x].get_children()
 		

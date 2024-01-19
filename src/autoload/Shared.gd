@@ -102,6 +102,10 @@ func _ready():
 	
 	Wipe.connect("finish", self, "wipe_finish")
 
+func _input(event):
+	if event.is_action_pressed("debug_refresh"):
+		refresh_scenes()
+
 func _physics_process(delta):
 	if is_in_game:
 		# map time
@@ -144,7 +148,10 @@ func refresh_scenes():
 		scene_dict[i] = load(i)
 
 func wipe_scene(arg := scene_path, timer := 0.0):
-	if timer > 0.0: yield(get_tree().create_timer(timer), "timeout")
+	if Wipe.is_wipe: return
+	if timer > 0.0:
+		yield(get_tree().create_timer(timer), "timeout")
+		if Wipe.is_wipe: return
 	scene_last = scene_path
 	scene_path = arg
 	Wipe.start()
@@ -182,16 +189,15 @@ func change_map():
 		i.visible = false
 	
 	is_note = false
-	UI.notes.visible = is_level_select
-	UI.notes_label.text = str(count_notes)
-	UI.gems.visible = is_level_select
-	UI.gems_label.text = str(count_gems)
+	UI.map.visible = is_level_select
+	
 	UI.keys(false, false)
 	UI.labels("pick", "erase" if scene_path == creator_path else "back", "score" if is_level_select else "pause")
 	
 	if is_in_game:
 		TouchScreen.turn_arrows(false)
 		TouchScreen.show_keys(true, true, true, true, true)
+		UI.show_stats()
 		
 		if is_replay or is_replay_note:
 			var m = map_name + ("-note" if is_replay_note else "")
@@ -214,6 +220,11 @@ func change_map():
 		
 		last_menu = "open"
 		last_cursor = 0
+		
+		UI.notes.visible = count_notes > 0
+		UI.notes_label.text = str(count_notes)
+		UI.gems_label.text = str(count_gems)
+		
 	elif scene_path == main_menu_path:
 		UI.keys(true, true, false)
 		TouchScreen.turn_arrows(true)
@@ -227,6 +238,14 @@ func change_map():
 		TouchScreen.show_keys(false, true, false)
 	elif scene_path == creator_path:
 		UI.keys(true, true, false)
+
+func time_to_string(arg := 0.0):
+	var time = arg * (1.0/60.0)
+	if time < 60.0:
+		return str(time).pad_decimals(2)
+	else:
+		return str(time / 60.0).pad_zeros(2).pad_decimals(0) + ":" + str(fposmod(time, 60.0)).pad_zeros(2).pad_decimals(0)
+
 
 ### Saving and Loading
 
