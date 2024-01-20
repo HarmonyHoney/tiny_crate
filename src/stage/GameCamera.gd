@@ -24,7 +24,7 @@ func _ready():
 		set_physics_process(false)
 		return
 	
-	Shared.node_camera_game = self
+	Shared.cam = self
 	
 	# set limits
 	bounds_upper.x = -bounds.position.x + position.x

@@ -7,7 +7,7 @@ func _ready():
 	if Engine.is_editor_hint(): return
 	tile_set = tile_set.duplicate()
 	
-	Shared.node_map_solid = self
+	Shared.map_solid = self
 	
 	set_tile_color()
 	tile_set.tile_set_modulate(1, Color.transparent)

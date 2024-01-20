@@ -1,14 +1,20 @@
-extends Node2D
+extends Node
 
-onready var node_cursor : ColorRect = $Cursor
-onready var menu_items : Array = $MenuItems.get_children()
+onready var center := $Center
+onready var node_cursor : ColorRect = $Center/Control/Cursor
+onready var menu_items : Array = $Center/Control/MenuItems.get_children()
 var cursor := 0
+export var is_open := false
+var input_clock := 0.0
+export var input_cooldown := 0.1
+var last_menu = null
 
 func _ready():
+	center.visible = false
 	select_item(0)
 
 func _input(event):
-	if Wipe.is_wipe: return
+	if !is_open or Wipe.is_wipe or input_clock > 0: return
 	
 	var up = event.is_action_pressed("up")
 	var down = event.is_action_pressed("down")
@@ -18,31 +24,21 @@ func _input(event):
 	var yes = event.is_action_pressed("jump")
 	var no = event.is_action_pressed("action")
 	
-	if TouchScreen.visible:
-		if left or right:
-			select_item(cursor + (-1 if left else 1))
-			Audio.play("menu_scroll", 0.8, 1.2)
-		elif yes or no:
-			var btnx = -1 if no else 1
-			if menu_items[cursor].has_method("scroll"):
-				menu_items[cursor].scroll(btnx)
-				
-			if menu_items[cursor].has_method("act"):
-				menu_items[cursor].act()
-	else:
-		if up or down:
-			select_item(cursor + (-1 if up else 1))
-			Audio.play("menu_scroll", 0.8, 1.2)
-		elif yes:
-			if menu_items[cursor].has_method("act"):
-				menu_items[cursor].act()
-		elif left or right:
-			var btnx = -1 if left else 1
-			if menu_items[cursor].has_method("scroll"):
-				menu_items[cursor].scroll(btnx)
-		elif no:
-			if menu_items[0].has_method("act"):
-				menu_items[0].act()
+	if up or down:
+		select_item(cursor + (-1 if up else 1))
+		Audio.play("menu_scroll", 0.8, 1.2)
+	elif yes:
+		if menu_items[cursor].has_method("act"):
+			menu_items[cursor].act()
+	elif left or right:
+		var btnx = -1 if left else 1
+		if menu_items[cursor].has_method("scroll"):
+			menu_items[cursor].scroll(btnx)
+	elif no:
+		open(false)
+
+func _physics_process(delta):
+	input_clock = max(0, input_clock - delta)
 
 func select_item(arg := 0):
 	if menu_items[cursor].has_method("deselect"):
@@ -54,6 +50,16 @@ func select_item(arg := 0):
 	if menu_items[cursor].has_method("select"):
 		menu_items[cursor].select()
 
+func open(arg := is_open, _last = null):
+	is_open = arg
+	if is_instance_valid(_last):
+		last_menu = _last
+	
+	center.visible = is_open
+	input_clock = input_cooldown
+	
+	if !is_open and is_instance_valid(last_menu) and last_menu.has_method("resume"):
+		last_menu.resume()
 
 
 

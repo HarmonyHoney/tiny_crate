@@ -14,7 +14,7 @@ func _ready():
 	
 	if Shared.is_level_select: return
 	
-	Shared.obscure_map = self
+	Shared.map_obscure = self
 
 func _physics_process(delta):
 	if Engine.is_editor_hint() or Shared.is_level_select: return

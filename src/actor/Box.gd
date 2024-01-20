@@ -35,7 +35,7 @@ func hit_floor():
 	speed.x = 0
 	node_audio.pitch_scale = 1 + rand_range(-0.2, 0.2)
 	node_audio.play()
-	Shared.node_camera_game.shake(shake_dist)
+	Shared.cam.shake(shake_dist)
 	node_anim.play("hit")
 	node_anim.advance(0)
 	shake_dist = 1

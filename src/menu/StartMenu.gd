@@ -115,8 +115,10 @@ func menu_select(tag : String = menu_items[cursor].to_lower()):
 			Shared.wipe_scene(Shared.creator_path)
 			Audio.play("menu_play", 0.9, 1.1)
 		"options":
-			Shared.wipe_scene(Shared.options_menu_path)
+			OptionsMenu.open(true, self)
+			is_input = false
 			Audio.play("menu_options", 0.9, 1.1)
+			Shared.cam.pos_target += Vector2(0, 250)
 		"credits":
 			Shared.wipe_scene(Shared.credits_path)
 			Audio.play("menu_pick", 0.9, 1.1)
@@ -151,6 +153,10 @@ func menu_select(tag : String = menu_items[cursor].to_lower()):
 		"no erase":
 			switch_menu("open")
 			
+
+func resume():
+	is_input = true
+	Shared.cam.target_pos = Vector2(90, 76)
 
 func switch_menu(arg, silent := false, _cursor := 0):
 	var s = ["quit", "main", "slot", "open", "erase"]

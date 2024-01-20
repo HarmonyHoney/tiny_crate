@@ -72,9 +72,9 @@ func _ready():
 		btnx_array.append(0)
 	
 	# assign camera target
-	if Shared.node_camera_game:
-		Shared.node_camera_game.node_target = self
-		Shared.node_camera_game.pos_target_offset = Vector2(4, 4)
+	if !is_attract_mode and Shared.cam:
+		Shared.cam.node_target = self
+		Shared.cam.pos_target_offset = Vector2(4, 4)
 
 static func set_palette(_mat, _colors := Shared.player_colors, _palette := Shared.palette):
 	if _mat is ShaderMaterial:
@@ -261,7 +261,7 @@ func death():
 	var inst = scene_explosion.instance()
 	inst.position = center()
 	get_parent().add_child(inst)
-	Shared.node_camera_game.shake(8)
+	Shared.cam.shake(8)
 	
 	# reset scene
 	remove_player()
@@ -274,7 +274,7 @@ func win():
 	var inst = scene_explosion2.instance()
 	inst.position = position + (Vector2(4, 8) if is_pickup else Vector2(4, 4))
 	get_parent().add_child(inst)
-	Shared.node_camera_game.shake(4)
+	Shared.cam.shake(4)
 	
 	# win scene
 	Shared.win()

@@ -104,6 +104,7 @@ UI="*res://src/autoload/UI.tscn"
 SilentWolf="*res://addons/silent_wolf/SilentWolf.gd"
 Leaderboard="*res://src/autoload/Leaderboard.gd"
 Audio="*res://src/autoload/Audio.tscn"
+OptionsMenu="*res://src/menu/options/OptionsMenu.tscn"
 
 [display]
 

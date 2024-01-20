@@ -5,9 +5,9 @@ onready var node_ghosts := $Ghosts
 var ghosts := []
 var ghost_count := 3
 
-var node_map_solid : TileMap
-var node_camera_game : Camera2D
-var obscure_map
+var cam : Camera2D
+var map_solid : TileMap
+var map_obscure : TileMap
 
 var is_quit := false
 var is_level_select := false
