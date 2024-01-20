@@ -41,15 +41,16 @@ func set_text(arg := text):
 	var l = text.length() * font_width
 	
 	rect_min_size = Vector2(l + 3, 9)
+	rect_size = rect_min_size
+	var in_size = Vector2(l + 1, 7)
 	
 	if is_instance_valid(label):
 		label.text = text
 		label.rect_size = Vector2.ONE
-		
 	if is_instance_valid(white):
-		white.rect_size = rect_min_size
+		white.rect_size = in_size
 	if is_instance_valid(black):
-		black.rect_size = Vector2(l + 1, 7)
+		black.rect_size = rect_min_size
 	
 	update()
 
