@@ -1,4 +1,4 @@
-extends Node2D
+extends CanvasItem
 
 onready var fill = $Box/Fill
 var is_selected = false

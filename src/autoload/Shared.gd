@@ -191,7 +191,7 @@ func change_map():
 	is_note = false
 	UI.map.visible = is_level_select
 	
-	UI.keys(false, false)
+	UI.keys(false, false, false, false, false)
 	UI.labels("pick", "erase" if scene_path == creator_path else "back", "score" if is_level_select else "pause")
 	
 	if is_in_game:

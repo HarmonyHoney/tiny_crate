@@ -1,10 +1,10 @@
-extends Node2D
+extends CanvasItem
 
 export var bus := 1
 
-onready var arrows := $Arrows
+onready var arrows := [$Arrow/Sprite, $Arrow2/Sprite]
 onready var audio := $AudioStreamPlayer
-onready var meter := $Meter
+onready var meter := $Meter.get_children()
 onready var label := $Label
 
 export var col_on := Color("00e436")
@@ -15,10 +15,12 @@ func _ready():
 	audio.bus = AudioServer.get_bus_name(bus)
 
 func select():
-	arrows.visible = true
+	for i in arrows:
+		i.visible = true
 
 func deselect():
-	arrows.visible = false
+	for i in arrows:
+		i.visible = false
 
 func scroll(arg = 1):
 	Shared.set_bus_volume(bus, Shared.bus_volume[bus] + arg)
@@ -27,6 +29,5 @@ func scroll(arg = 1):
 	audio.play()
 
 func set_color():
-	var m = meter.get_children()
 	for i in 10: # 0 - 9
-		m[i].color = col_on if i < Shared.bus_volume[bus] else col_off
+		meter[i].color = col_on if i < Shared.bus_volume[bus] else col_off

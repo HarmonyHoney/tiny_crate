@@ -1,4 +1,4 @@
-extends Node2D
+extends CanvasItem
 
 onready var label_scale := $Scale
 onready var label_res := $Resolution

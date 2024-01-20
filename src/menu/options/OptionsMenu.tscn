@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://src/menu/options/OptionsMenu.gd" type="Script" id=1]
 [ext_resource path="res://src/menu/options/Volume.tscn" type="PackedScene" id=2]
@@ -6,12 +6,9 @@
 [ext_resource path="res://media/audio/sfx/btn0.wav" type="AudioStream" id=5]
 [ext_resource path="res://media/font/m6x11.ttf" type="DynamicFontData" id=8]
 [ext_resource path="res://media/font/m3x6.tres" type="DynamicFont" id=9]
-[ext_resource path="res://media/image/9slice.png" type="Texture" id=13]
 [ext_resource path="res://src/menu/options/Fullscreen.gd" type="Script" id=20]
 [ext_resource path="res://src/menu/options/WindowSize.gd" type="Script" id=21]
 [ext_resource path="res://src/menu/options/Touch.gd" type="Script" id=22]
-[ext_resource path="res://src/menu/options/Delete.gd" type="Script" id=23]
-[ext_resource path="res://src/menu/options/Unlock.gd" type="Script" id=24]
 
 [sub_resource type="DynamicFont" id=1]
 extra_spacing_bottom = -1
@@ -31,7 +28,7 @@ margin_bottom = 128.0
 rect_min_size = Vector2( 228, 128 )
 
 [node name="Cursor" type="ColorRect" parent="Center/Control"]
-modulate = Color( 1, 0, 0.301961, 1 )
+modulate = Color( 0, 0, 1, 1 )
 margin_left = 56.0
 margin_top = 23.0
 margin_right = 200.0
@@ -49,105 +46,112 @@ custom_constants/shadow_as_outline = 1
 custom_fonts/font = SubResource( 1 )
 text = "OPTIONS"
 align = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
-[node name="NinePatchRect" type="NinePatchRect" parent="Center/Control"]
-visible = false
-show_behind_parent = true
-margin_left = 51.0
-margin_top = 18.0
-margin_right = 201.0
-margin_bottom = 108.0
-rect_min_size = Vector2( 24, 24 )
-texture = ExtResource( 13 )
-patch_margin_left = 8
-patch_margin_top = 8
-patch_margin_right = 8
-patch_margin_bottom = 8
-axis_stretch_horizontal = 1
-axis_stretch_vertical = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="MenuItems" type="Node2D" parent="Center/Control"]
-position = Vector2( 14, 0 )
-z_index = 20
-z_as_relative = false
+[node name="MenuItems" type="VBoxContainer" parent="Center/Control"]
+margin_left = 72.0
+margin_top = 40.0
+margin_right = 188.0
+margin_bottom = 100.0
 
 [node name="Sounds" parent="Center/Control/MenuItems" instance=ExtResource( 2 )]
+margin_right = 116.0
 
 [node name="Music" parent="Center/Control/MenuItems" instance=ExtResource( 2 )]
-position = Vector2( 50, 49 )
+margin_top = 12.0
+margin_right = 116.0
+margin_bottom = 20.0
 bus = 2
 
 [node name="Label" parent="Center/Control/MenuItems/Music" index="0"]
+margin_right = 20.0
 text = "Music"
 
-[node name="AudioStreamPlayer" parent="Center/Control/MenuItems/Music" index="3"]
+[node name="Spacer" parent="Center/Control/MenuItems/Music" index="1"]
+margin_left = 22.0
+margin_right = 65.0
+
+[node name="Arrow" parent="Center/Control/MenuItems/Music" index="2"]
+margin_left = 67.0
+margin_right = 70.0
+
+[node name="Meter" parent="Center/Control/MenuItems/Music" index="3"]
+margin_left = 72.0
+margin_right = 111.0
+
+[node name="Arrow2" parent="Center/Control/MenuItems/Music" index="4"]
+margin_left = 113.0
+margin_right = 116.0
+
+[node name="AudioStreamPlayer" parent="Center/Control/MenuItems/Music" index="5"]
 stream = ExtResource( 5 )
 bus = "Music"
 
-[node name="Fullscreen" type="Node2D" parent="Center/Control/MenuItems"]
-position = Vector2( 50, 61 )
+[node name="Fullscreen" type="HBoxContainer" parent="Center/Control/MenuItems"]
+margin_top = 24.0
+margin_right = 116.0
+margin_bottom = 32.0
 script = ExtResource( 20 )
 
 [node name="Label" type="Label" parent="Center/Control/MenuItems/Fullscreen"]
-margin_top = 1.0
-margin_right = 50.0
-margin_bottom = 9.0
+margin_right = 38.0
+margin_bottom = 8.0
 custom_fonts/font = ExtResource( 9 )
 text = "Fullscreen"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="Spacer" type="Control" parent="Center/Control/MenuItems/Fullscreen"]
+margin_left = 42.0
+margin_right = 92.0
+margin_bottom = 8.0
+size_flags_horizontal = 3
+
 [node name="Box" type="ColorRect" parent="Center/Control/MenuItems/Fullscreen"]
-margin_left = 99.0
-margin_top = -1.0
-margin_right = 109.0
-margin_bottom = 9.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
+margin_left = 96.0
+margin_right = 104.0
+margin_bottom = 8.0
+rect_min_size = Vector2( 8, 8 )
 
 [node name="Back" type="ColorRect" parent="Center/Control/MenuItems/Fullscreen/Box"]
 margin_left = 1.0
 margin_top = 1.0
-margin_right = 9.0
-margin_bottom = 9.0
+margin_right = 7.0
+margin_bottom = 7.0
 color = Color( 0, 0, 0, 1 )
 
 [node name="Fill" type="ColorRect" parent="Center/Control/MenuItems/Fullscreen/Box"]
 margin_left = 2.0
 margin_top = 2.0
-margin_right = 8.0
-margin_bottom = 8.0
+margin_right = 6.0
+margin_bottom = 6.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="WindowSize" type="Node2D" parent="Center/Control/MenuItems"]
-position = Vector2( 50, 73 )
+[node name="Spacer2" type="Control" parent="Center/Control/MenuItems/Fullscreen"]
+margin_left = 108.0
+margin_right = 116.0
+margin_bottom = 8.0
+rect_min_size = Vector2( 8, 0 )
+
+[node name="WindowSize" type="HBoxContainer" parent="Center/Control/MenuItems"]
+margin_top = 36.0
+margin_right = 116.0
+margin_bottom = 44.0
 script = ExtResource( 21 )
 
 [node name="Label" type="Label" parent="Center/Control/MenuItems/WindowSize"]
-margin_top = 1.0
-margin_right = 50.0
-margin_bottom = 9.0
+margin_right = 45.0
+margin_bottom = 8.0
 custom_fonts/font = ExtResource( 9 )
 text = "Window Size"
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Scale" type="Label" parent="Center/Control/MenuItems/WindowSize"]
-margin_left = 48.0
-margin_top = 1.0
-margin_right = 80.0
-margin_bottom = 9.0
+margin_left = 49.0
+margin_right = 74.0
+margin_bottom = 8.0
+size_flags_horizontal = 3
 custom_fonts/font = ExtResource( 9 )
 text = "1x"
 align = 1
@@ -156,78 +160,57 @@ __meta__ = {
 }
 
 [node name="Resolution" type="Label" parent="Center/Control/MenuItems/WindowSize"]
-margin_left = 72.0
-margin_top = 1.0
-margin_right = 136.0
-margin_bottom = 9.0
+margin_left = 78.0
+margin_right = 116.0
+margin_bottom = 8.0
 custom_fonts/font = ExtResource( 9 )
 text = "228 x 128"
 align = 1
 
-[node name="TouchControls" type="Node2D" parent="Center/Control/MenuItems"]
-position = Vector2( 50, 85 )
+[node name="TouchControls" type="HBoxContainer" parent="Center/Control/MenuItems"]
+margin_top = 48.0
+margin_right = 116.0
+margin_bottom = 56.0
 script = ExtResource( 22 )
 
 [node name="Label" type="Label" parent="Center/Control/MenuItems/TouchControls"]
-margin_top = 1.0
 margin_right = 56.0
-margin_bottom = 9.0
+margin_bottom = 8.0
 custom_fonts/font = ExtResource( 9 )
 text = "Touch Controls"
-__meta__ = {
-"_edit_use_anchors_": false
-}
+
+[node name="Spacer" type="Control" parent="Center/Control/MenuItems/TouchControls"]
+margin_left = 60.0
+margin_right = 92.0
+margin_bottom = 8.0
+size_flags_horizontal = 3
 
 [node name="Box" type="ColorRect" parent="Center/Control/MenuItems/TouchControls"]
-margin_left = 99.0
-margin_top = -1.0
-margin_right = 109.0
-margin_bottom = 9.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
+margin_left = 96.0
+margin_right = 104.0
+margin_bottom = 8.0
+rect_min_size = Vector2( 8, 8 )
 
 [node name="Back" type="ColorRect" parent="Center/Control/MenuItems/TouchControls/Box"]
 margin_left = 1.0
 margin_top = 1.0
-margin_right = 9.0
-margin_bottom = 9.0
+margin_right = 7.0
+margin_bottom = 7.0
 color = Color( 0, 0, 0, 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
 [node name="Fill" type="ColorRect" parent="Center/Control/MenuItems/TouchControls/Box"]
 margin_left = 2.0
 margin_top = 2.0
-margin_right = 8.0
-margin_bottom = 8.0
+margin_right = 6.0
+margin_bottom = 6.0
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="DeleteSaveData" type="Node2D" parent="Center/Control/MenuItems"]
-position = Vector2( 50, 97 )
-script = ExtResource( 23 )
-
-[node name="Label" type="Label" parent="Center/Control/MenuItems/DeleteSaveData"]
-margin_top = 1.0
-margin_right = 128.0
-margin_bottom = 9.0
-custom_fonts/font = ExtResource( 9 )
-text = "Delete Save Data"
-align = 1
-
-[node name="UnlockAll" type="Node2D" parent="Center/Control/MenuItems"]
-position = Vector2( 50, 109 )
-script = ExtResource( 24 )
-
-[node name="Label" type="Label" parent="Center/Control/MenuItems/UnlockAll"]
-margin_top = 1.0
-margin_right = 128.0
-margin_bottom = 9.0
-custom_fonts/font = ExtResource( 9 )
-text = "Unlock All"
-align = 1
+[node name="Spacer2" type="Control" parent="Center/Control/MenuItems/TouchControls"]
+margin_left = 108.0
+margin_right = 116.0
+margin_bottom = 8.0
+rect_min_size = Vector2( 8, 0 )
 
 [editable path="Center/Control/MenuItems/Music"]

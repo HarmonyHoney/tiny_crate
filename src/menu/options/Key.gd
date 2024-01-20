@@ -7,6 +7,7 @@ export var text := "key" setget set_text
 onready var white := $White
 onready var black := $Black
 onready var label := $Label
+onready var sprite := $Sprite
 
 var is_gamepad := false
 
@@ -28,29 +29,51 @@ var swap := {"control" : "ctrl",
 "delete" : "del",
 "pageup" : "pgup",
 "pagedown" : "pgdn",
+"scrolllock" : "scrlk",
 }
+
+var images := {"up" : 0,
+"down" : 1,
+"left" : 2,
+"right" : 3,
+"," : 4}
 
 export var font_width := 6
 
 func _ready():
 	set_action()
+	set_text()
 	if Engine.editor_hint: return
 
 func set_text(arg := text):
-	text = arg
-	var l = text.length() * font_width
+	text = arg.to_lower()
+	var frame = -1
 	
-	rect_min_size = Vector2(l + 3, 9)
-	rect_size = rect_min_size
+	if swap.has(text):
+		text = swap[text]
+	
+	if images.has(text):
+		frame = images[text]
+	
+	var l = (text.length() if frame < 0 else 1) * font_width
+	
+	var out_size = Vector2(l + 3, 9)
 	var in_size = Vector2(l + 1, 7)
+	rect_min_size = in_size
+	rect_size = in_size
+	
+	if is_instance_valid(sprite):
+		sprite.visible = frame > -1
+		sprite.frame = max(0, frame)
 	
 	if is_instance_valid(label):
-		label.text = text
+		label.visible = frame < 0
+		label.text = text if frame < 0 else ""
 		label.rect_size = Vector2.ONE
 	if is_instance_valid(white):
 		white.rect_size = in_size
 	if is_instance_valid(black):
-		black.rect_size = rect_min_size
+		black.rect_size = out_size
 	
 	update()
 
@@ -78,10 +101,5 @@ func is_type(event):
 	return test
 
 func parse_event(event : InputEvent):
-	var s = str(event.as_text().to_lower())
-	
-	if swap.has(s):
-		s = swap[s]
-	
-	self.text = s
+	self.text = str(event.as_text())
 	update()

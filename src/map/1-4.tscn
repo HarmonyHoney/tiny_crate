@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://src/stage/SolidTileMap.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/actor/Box.tscn" type="PackedScene" id=2]
@@ -8,8 +8,8 @@
 [ext_resource path="res://src/stage/SpikeTileMap.tscn" type="PackedScene" id=6]
 [ext_resource path="res://src/actor/Player.tscn" type="PackedScene" id=7]
 [ext_resource path="res://src/stage/Stage.gd" type="Script" id=8]
-[ext_resource path="res://media/font/ExpressionPro.ttf" type="DynamicFontData" id=9]
-[ext_resource path="res://media/font/NicoPaint-Regular.ttf" type="DynamicFontData" id=10]
+[ext_resource path="res://media/font/QuinqueFive.ttf" type="DynamicFontData" id=9]
+[ext_resource path="res://src/menu/options/Key.tscn" type="PackedScene" id=10]
 [ext_resource path="res://src/menu/hide_on_level_select.gd" type="Script" id=11]
 [ext_resource path="res://src/stage/ObscureMap.tscn" type="PackedScene" id=12]
 [ext_resource path="res://src/actor/Note.tscn" type="PackedScene" id=13]
@@ -101,7 +101,7 @@
 6/name = "crate_tiles.png 6"
 6/texture = ExtResource( 14 )
 6/tex_offset = Vector2( 0, 0 )
-6/modulate = Color( 0.670588, 0.321569, 0.211765, 1 )
+6/modulate = Color( 0.678431, 0, 0.156863, 1 )
 6/region = Rect2( 0, 24, 8, 8 )
 6/tile_mode = 0
 6/occluder_offset = Vector2( 0, 0 )
@@ -150,15 +150,12 @@
 2/shapes = [  ]
 2/z_index = 0
 
-[sub_resource type="DynamicFont" id=1]
+[sub_resource type="DynamicFont" id=8]
+size = 5
 outline_size = 1
 outline_color = Color( 0, 0, 0, 1 )
-extra_spacing_bottom = -4
-font_data = ExtResource( 10 )
-
-[sub_resource type="DynamicFont" id=4]
-extra_spacing_top = -3
-extra_spacing_bottom = -3
+extra_spacing_top = -1
+extra_spacing_bottom = -1
 font_data = ExtResource( 9 )
 
 [node name="Stage" type="Node2D"]
@@ -204,25 +201,23 @@ position = Vector2( 91, -45 )
 position = Vector2( -76, 42 )
 script = ExtResource( 11 )
 
-[node name="Key" type="Label" parent="Node2D"]
-modulate = Color( 1, 0, 0.301961, 1 )
-margin_left = -6.0
-margin_top = -6.0
-margin_right = 7.0
-margin_bottom = 6.0
-custom_fonts/font = SubResource( 1 )
-text = "c"
-uppercase = true
+[node name="X" type="HBoxContainer" parent="Node2D"]
+margin_left = -3.0
+margin_top = -3.0
+margin_right = 37.0
+margin_bottom = 4.0
+custom_constants/separation = 3
 
-[node name="Label" type="Label" parent="Node2D"]
-margin_left = 13.0
-margin_top = -4.0
-margin_right = 45.0
-margin_bottom = 9.0
-custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
-custom_constants/shadow_as_outline = 1
-custom_fonts/font = SubResource( 4 )
+[node name="Key" parent="Node2D/X" instance=ExtResource( 10 )]
+action = "action"
+text = "c"
+
+[node name="Desc" type="Label" parent="Node2D/X"]
+margin_left = 10.0
+margin_top = 1.0
+margin_right = 34.0
+margin_bottom = 6.0
+custom_fonts/font = SubResource( 8 )
 text = "lift"
-uppercase = true
 
 [editable path="GameCamera"]

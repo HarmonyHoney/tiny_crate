@@ -45,7 +45,8 @@ func select_item(arg := 0):
 		menu_items[cursor].deselect()
 		
 	cursor = clamp(arg, 0, menu_items.size() - 1)
-	node_cursor.rect_position.y = menu_items[cursor].position.y - 2
+	node_cursor.rect_global_position = menu_items[cursor].rect_global_position - Vector2(2, 2)
+	node_cursor.rect_size = menu_items[cursor].rect_size + Vector2(4, 4)
 	
 	if menu_items[cursor].has_method("select"):
 		menu_items[cursor].select()

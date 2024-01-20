@@ -7,8 +7,8 @@
 [ext_resource path="res://src/stage/SpikeTileMap.tscn" type="PackedScene" id=5]
 [ext_resource path="res://src/actor/Player.tscn" type="PackedScene" id=6]
 [ext_resource path="res://src/stage/Stage.gd" type="Script" id=7]
-[ext_resource path="res://media/font/ExpressionPro.ttf" type="DynamicFontData" id=8]
-[ext_resource path="res://media/image/btn.png" type="Texture" id=9]
+[ext_resource path="res://media/font/QuinqueFive.ttf" type="DynamicFontData" id=8]
+[ext_resource path="res://src/menu/options/Key.tscn" type="PackedScene" id=9]
 [ext_resource path="res://src/menu/hide_on_level_select.gd" type="Script" id=10]
 [ext_resource path="res://src/stage/ObscureMap.tscn" type="PackedScene" id=11]
 [ext_resource path="res://src/actor/Note.tscn" type="PackedScene" id=12]
@@ -100,7 +100,7 @@
 6/name = "crate_tiles.png 6"
 6/texture = ExtResource( 13 )
 6/tex_offset = Vector2( 0, 0 )
-6/modulate = Color( 0.670588, 0.321569, 0.211765, 1 )
+6/modulate = Color( 0.678431, 0, 0.156863, 1 )
 6/region = Rect2( 0, 24, 8, 8 )
 6/tile_mode = 0
 6/occluder_offset = Vector2( 0, 0 )
@@ -150,8 +150,11 @@
 2/z_index = 0
 
 [sub_resource type="DynamicFont" id=4]
-extra_spacing_top = -3
-extra_spacing_bottom = -3
+size = 5
+outline_size = 1
+outline_color = Color( 0, 0, 0, 1 )
+extra_spacing_top = -1
+extra_spacing_bottom = -1
 font_data = ExtResource( 8 )
 
 [node name="Stage" type="Node2D"]
@@ -190,23 +193,52 @@ position = Vector2( -5, -37 )
 position = Vector2( -13, 42 )
 script = ExtResource( 10 )
 
-[node name="arrows" type="Sprite" parent="Node2D"]
-modulate = Color( 1, 0, 0.301961, 1 )
-texture = ExtResource( 9 )
-hframes = 6
-vframes = 4
-frame = 7
-region_rect = Rect2( 0, 0, 18, 18 )
+[node name="Arrows" type="HBoxContainer" parent="Node2D"]
+margin_left = -8.0
+margin_top = -5.0
+margin_right = 42.0
+margin_bottom = 7.0
+custom_constants/separation = 3
 
-[node name="arrows_label" type="Label" parent="Node2D"]
-margin_left = 13.0
-margin_top = -4.0
-margin_right = 45.0
+[node name="HBoxContainer" type="HBoxContainer" parent="Node2D/Arrows"]
+margin_right = 23.0
+margin_bottom = 12.0
+custom_constants/separation = 1
+
+[node name="Key" parent="Node2D/Arrows/HBoxContainer" instance=ExtResource( 9 )]
+margin_top = 2.0
 margin_bottom = 9.0
-custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
-custom_constants/shadow_as_outline = 1
+action = "left"
+text = "left"
+
+[node name="Key4" parent="Node2D/Arrows/HBoxContainer" instance=ExtResource( 9 )]
+margin_left = 8.0
+margin_top = 2.0
+margin_right = 15.0
+margin_bottom = 9.0
+action = "down"
+text = "down"
+
+[node name="Key3" parent="Node2D/Arrows/HBoxContainer/Key4" instance=ExtResource( 9 )]
+margin_top = -8.0
+margin_bottom = -1.0
+action = "up"
+text = "up"
+
+[node name="Key2" parent="Node2D/Arrows/HBoxContainer" instance=ExtResource( 9 )]
+margin_left = 16.0
+margin_top = 2.0
+margin_right = 23.0
+margin_bottom = 9.0
+action = "right"
+text = "right"
+
+[node name="Desc" type="Label" parent="Node2D/Arrows"]
+margin_left = 26.0
+margin_top = 3.0
+margin_right = 50.0
+margin_bottom = 8.0
 custom_fonts/font = SubResource( 4 )
 text = "move"
-uppercase = true
 
 [editable path="GameCamera"]
