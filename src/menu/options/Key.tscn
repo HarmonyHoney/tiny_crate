@@ -14,13 +14,13 @@ font_data = ExtResource( 1 )
 [node name="Key" type="Control"]
 margin_right = 8.0
 margin_bottom = 8.0
-rect_min_size = Vector2( 33, 9 )
+rect_min_size = Vector2( 21, 9 )
 size_flags_vertical = 4
 script = ExtResource( 2 )
-text = "enter"
+action = "jump"
 
 [node name="White" type="ColorRect" parent="."]
-margin_right = 33.0
+margin_right = 21.0
 margin_bottom = 9.0
 rect_min_size = Vector2( 8, 8 )
 
@@ -28,14 +28,14 @@ rect_min_size = Vector2( 8, 8 )
 modulate = Color( 0, 0, 0, 1 )
 margin_left = 1.0
 margin_top = 1.0
-margin_right = 32.0
+margin_right = 20.0
 margin_bottom = 8.0
 rect_min_size = Vector2( 7, 7 )
 
 [node name="Label" type="Label" parent="."]
 margin_left = 2.0
 margin_top = 2.0
-margin_right = 26.0
+margin_right = 20.0
 margin_bottom = 7.0
 custom_fonts/font = SubResource( 1 )
-text = "enter"
+text = "key"
