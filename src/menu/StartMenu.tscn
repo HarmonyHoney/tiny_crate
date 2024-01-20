@@ -739,7 +739,7 @@ texture = ExtResource( 16 )
 centered = false
 hframes = 4
 vframes = 4
-frame = 13
+frame = 15
 
 [node name="Label" type="Label" parent="Control/Open/2"]
 margin_left = 10.0
