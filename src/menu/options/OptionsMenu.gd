@@ -58,6 +58,7 @@ func open(arg := is_open, _last = null):
 	center.visible = is_open
 	input_clock = input_cooldown
 	
+	select_item()
 	if !is_open and is_instance_valid(last_menu) and last_menu.has_method("resume"):
 		last_menu.resume()
 

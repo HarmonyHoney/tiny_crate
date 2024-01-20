@@ -825,7 +825,7 @@ tile_data = PoolIntArray( 131093, 536870916, 3, 131094, 4, 1, 131095, 4, 0, 1310
 
 [node name="GameCamera" parent="Stage" instance=ExtResource( 13 )]
 position = Vector2( 90, 76 )
-bounds = Rect2( 0, 0, 0, 188 )
+bounds = Rect2( 300, 200, 300, 200 )
 
 [node name="Actors" type="Node2D" parent="Stage"]
 script = ExtResource( 10 )
