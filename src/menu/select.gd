@@ -97,7 +97,7 @@ func sort_list(a, b):
 	return false
 
 func _input(event):
-	if !is_input:
+	if !is_input or Wipe.is_wipe:
 		return
 	
 	if event.is_action_pressed("action"):

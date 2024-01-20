@@ -47,7 +47,7 @@ func _ready():
 		fill_swatches(i)
 
 func _input(event):
-	if !is_input: return
+	if !is_input or Wipe.is_wipe: return
 	
 	var btnx = btn.p("right") - btn.p("left")
 	var btny = btn.p("down") - btn.p("up")

@@ -30,6 +30,7 @@ var swap := {"control" : "ctrl",
 "pagedown" : "pgdn",
 }
 
+export var font_width := 6
 
 func _ready():
 	set_action()
@@ -37,7 +38,7 @@ func _ready():
 
 func set_text(arg := text):
 	text = arg
-	var l = text.length() * 6.0
+	var l = text.length() * font_width
 	
 	rect_min_size = Vector2(l + 3, 9)
 	
@@ -54,8 +55,7 @@ func set_text(arg := text):
 
 func set_action(arg := action):
 	action = arg
-	print("set_action = ", action, " ", InputMap.get_action_list(action))
-	
+	if Engine.editor_hint: return
 	
 	if action != "" and InputMap.has_action(action):
 		var l = InputMap.get_action_list(action)

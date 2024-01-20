@@ -22,7 +22,6 @@ action = "jump"
 [node name="White" type="ColorRect" parent="."]
 margin_right = 21.0
 margin_bottom = 9.0
-rect_min_size = Vector2( 8, 8 )
 
 [node name="Black" type="ColorRect" parent="."]
 modulate = Color( 0, 0, 0, 1 )
@@ -30,7 +29,6 @@ margin_left = 1.0
 margin_top = 1.0
 margin_right = 20.0
 margin_bottom = 8.0
-rect_min_size = Vector2( 7, 7 )
 
 [node name="Label" type="Label" parent="."]
 margin_left = 2.0

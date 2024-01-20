@@ -80,34 +80,32 @@ margin_bottom = 123.0
 custom_constants/separation = 0
 
 [node name="X" type="HBoxContainer" parent="Center/Control/List"]
-margin_right = 37.0
+margin_right = 35.0
 margin_bottom = 12.0
 custom_constants/separation = 4
 
 [node name="Key" parent="Center/Control/List/X" instance=ExtResource( 7 )]
 margin_top = 1.0
-margin_right = 9.0
-margin_bottom = 10.0
-rect_min_size = Vector2( 9, 9 )
-text = "x"
+margin_right = 7.0
+margin_bottom = 11.0
 
 [node name="Desc" type="Label" parent="Center/Control/List/X"]
-margin_left = 13.0
+margin_left = 11.0
 margin_top = 3.0
-margin_right = 37.0
+margin_right = 35.0
 margin_bottom = 8.0
 custom_fonts/font = SubResource( 3 )
 text = "pick"
 
 [node name="Spacer" type="Control" parent="Center/Control/List"]
-margin_left = 37.0
-margin_right = 175.0
+margin_left = 35.0
+margin_right = 177.0
 margin_bottom = 12.0
 rect_min_size = Vector2( 4, 0 )
 size_flags_horizontal = 3
 
 [node name="C" type="HBoxContainer" parent="Center/Control/List"]
-margin_left = 175.0
+margin_left = 177.0
 margin_right = 218.0
 margin_bottom = 12.0
 rect_pivot_offset = Vector2( -248, -67 )
@@ -115,16 +113,14 @@ custom_constants/separation = 4
 
 [node name="Key" parent="Center/Control/List/C" instance=ExtResource( 7 )]
 margin_top = 1.0
-margin_right = 9.0
-margin_bottom = 10.0
-rect_min_size = Vector2( 9, 9 )
+margin_right = 7.0
+margin_bottom = 11.0
 action = "action"
-text = "c"
 
 [node name="Desc" type="Label" parent="Center/Control/List/C"]
-margin_left = 13.0
+margin_left = 11.0
 margin_top = 3.0
-margin_right = 43.0
+margin_right = 41.0
 margin_bottom = 8.0
 custom_fonts/font = SubResource( 3 )
 text = "erase"
@@ -284,21 +280,21 @@ custom_constants/separation = 0
 alignment = 2
 
 [node name="P" type="HBoxContainer" parent="Center/Control/Top"]
-margin_left = 169.0
+margin_left = 175.0
 margin_right = 218.0
 margin_bottom = 12.0
 custom_constants/separation = 4
 
 [node name="Key" parent="Center/Control/Top/P" instance=ExtResource( 7 )]
 margin_top = 1.0
-margin_right = 21.0
-margin_bottom = 10.0
+margin_right = 15.0
+margin_bottom = 11.0
 action = "pause"
 
 [node name="Desc" type="Label" parent="Center/Control/Top/P"]
-margin_left = 25.0
+margin_left = 19.0
 margin_top = 3.0
-margin_right = 49.0
+margin_right = 43.0
 margin_bottom = 8.0
 custom_fonts/font = SubResource( 3 )
 text = "menu"
