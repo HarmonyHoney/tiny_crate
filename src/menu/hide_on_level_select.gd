@@ -1,7 +1,7 @@
-extends Node2D
+extends CanvasItem
 
 func _ready():
-	if Shared.is_level_select or TouchScreen.visible:
+	if Shared.is_level_select:
 		visible = false
 	
 	Pause.connect("pause", self, "pause")
@@ -11,5 +11,4 @@ func pause():
 	visible = false
 
 func unpause():
-	if !TouchScreen.visible:
-		visible = true
+	visible = true

@@ -52,6 +52,23 @@ tracks/0/keys = {
 "update": 1,
 "values": [ 0, 1 ]
 }
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.4 ),
+"transitions": PoolRealArray( 1, 1 ),
+"values": [ {
+"args": [  ],
+"method": "anim_frame"
+}, {
+"args": [  ],
+"method": "anim_frame"
+} ]
+}
 
 [sub_resource type="Animation" id=5]
 length = 0.1
@@ -66,6 +83,20 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1 ),
 "update": 1,
 "values": [ 6 ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "anim_frame"
+} ]
 }
 
 [sub_resource type="Animation" id=6]
@@ -82,6 +113,29 @@ tracks/0/keys = {
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 1,
 "values": [ 2, 0, 4, 0 ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.2, 0.3, 0.5 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"values": [ {
+"args": [  ],
+"method": "anim_frame"
+}, {
+"args": [  ],
+"method": "anim_frame"
+}, {
+"args": [  ],
+"method": "anim_frame"
+}, {
+"args": [  ],
+"method": "anim_frame"
+} ]
 }
 
 [node name="Player" type="Node2D"]
@@ -102,6 +156,7 @@ material = SubResource( 9 )
 position = Vector2( 4, 0 )
 texture = ExtResource( 3 )
 hframes = 7
+vframes = 2
 region_rect = Rect2( 40, 0, 8, 24 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

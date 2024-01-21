@@ -30,6 +30,7 @@ var swap := {"control" : "ctrl",
 "pageup" : "pgup",
 "pagedown" : "pgdn",
 "scrolllock" : "scrlk",
+"backspace" : "back",
 }
 
 var images := {"up" : 0,

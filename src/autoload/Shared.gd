@@ -15,7 +15,6 @@ var is_in_game := false
 
 var map_dir := "res://src/map/"
 var main_menu_path := "res://src/menu/StartMenu.tscn"
-var options_menu_path := "res://src/menu/options/OptionsMenu.tscn"
 var level_select_path := "res://src/menu/select.tscn"
 var win_screen_path := "res://src/menu/WinScreen.tscn"
 var credits_path := "res://src/menu/credits.tscn"
@@ -214,7 +213,7 @@ func change_map():
 	elif is_level_select:
 		is_replay = false
 		is_replay_note = false
-		UI.keys(true, true, true, true)
+		UI.keys()
 		TouchScreen.turn_arrows(false)
 		TouchScreen.show_keys(true, true, true, true)
 		
@@ -226,18 +225,14 @@ func change_map():
 		UI.gems_label.text = str(count_gems)
 		
 	elif scene_path == main_menu_path:
-		UI.keys(true, true, false)
+		UI.keys(false, false)
 		TouchScreen.turn_arrows(true)
 		TouchScreen.show_keys(true, false, true)
-	elif scene_path == options_menu_path:
-		UI.keys()
-		TouchScreen.turn_arrows(true)
-		TouchScreen.show_keys()
 	elif scene_path == credits_path:
-		UI.keys(false, true)
+		UI.keys(true, false, false, false)
 		TouchScreen.show_keys(false, true, false)
 	elif scene_path == creator_path:
-		UI.keys(true, true, false)
+		UI.keys(false, false, true, true, true, true)
 
 func time_to_string(arg := 0.0):
 	var time = arg * (1.0/60.0)

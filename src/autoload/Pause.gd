@@ -50,8 +50,8 @@ func _input(event):
 			elif event.is_action_pressed("jump"):
 				select()
 			else:
-				var up = event.is_action_pressed("up") or event.is_action_pressed("left")
-				var down = event.is_action_pressed("down") or event.is_action_pressed("right")
+				var up = event.is_action_pressed("up")# or event.is_action_pressed("left")
+				var down = event.is_action_pressed("down")# or event.is_action_pressed("right")
 				if up or down:
 					set_cursor(cursor + (-1 if up else 1))
 					Audio.play("menu_scroll", 0.8, 1.2)
@@ -59,7 +59,7 @@ func _input(event):
 func toggle_pause():
 	is_paused = !is_paused
 	node_parent.visible = is_paused
-	UI.keys(is_paused, is_paused, true, is_paused)
+	UI.keys(true, is_paused, is_paused, is_paused, is_paused)
 	UI.stats.visible = is_paused
 	TouchScreen.turn_arrows(is_paused)
 	clock = timer

@@ -261,6 +261,7 @@ material = SubResource( 17 )
 position = Vector2( 4, 0 )
 texture = ExtResource( 2 )
 hframes = 7
+vframes = 2
 region_rect = Rect2( 40, 0, 8, 24 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Player"]

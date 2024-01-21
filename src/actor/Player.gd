@@ -202,6 +202,7 @@ func box_release(sx := 0.0, sy := 0.0):
 	pickup_box.is_moving = true
 	pickup_box.shake_dist = 2
 	pickup_box.position = pickup_box.position.round()
+	anim_frame()
 
 func box_pickup(dx := 0, dy := 0):
 	if !is_area_solid():
@@ -219,6 +220,8 @@ func box_pickup(dx := 0, dy := 0):
 			a.is_moving = false
 			pickup_box = a
 			move_box()
+			
+			anim_frame()
 			
 			node_audio_pickup.pitch_scale = 1 + rand_range(-0.2, 0.2)
 			node_audio_pickup.play()
@@ -285,3 +288,9 @@ func try_anim(arg : String):
 		node_anim.play(arg)
 		# update the animationPlayer immediately
 		node_anim.advance(0)
+
+func anim_frame():
+	var f = node_sprite.frame_coords.y + (1 if is_pickup else -1)
+	
+	if f == clamp(f, 0, node_sprite.vframes - 1):
+		node_sprite.frame_coords.y = f

@@ -74,18 +74,19 @@ margin_right = 228.0
 margin_bottom = 128.0
 rect_min_size = Vector2( 228, 128 )
 
-[node name="Bottom" type="HBoxContainer" parent="Center/Control"]
+[node name="Bottom" type="GridContainer" parent="Center/Control"]
 margin_left = 5.0
-margin_top = 81.0
+margin_top = 83.0
 margin_right = 223.0
 margin_bottom = 121.0
-custom_constants/separation = 4
+columns = 2
 
 [node name="Arrows" type="HBoxContainer" parent="Center/Control/Bottom"]
-margin_top = 33.0
+visible = false
+margin_top = 10.0
 margin_right = 50.0
-margin_bottom = 40.0
-size_flags_vertical = 8
+margin_bottom = 17.0
+size_flags_vertical = 10
 custom_constants/separation = 3
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Center/Control/Bottom/Arrows"]
@@ -95,7 +96,6 @@ custom_constants/separation = 1
 
 [node name="Key" parent="Center/Control/Bottom/Arrows/HBoxContainer" instance=ExtResource( 7 )]
 action = "left"
-text = "left"
 
 [node name="Key4" parent="Center/Control/Bottom/Arrows/HBoxContainer" instance=ExtResource( 7 )]
 margin_left = 8.0
@@ -107,7 +107,6 @@ text = "down"
 margin_top = -8.0
 margin_bottom = -1.0
 action = "up"
-text = "up"
 
 [node name="Key2" parent="Center/Control/Bottom/Arrows/HBoxContainer" instance=ExtResource( 7 )]
 margin_left = 16.0
@@ -124,16 +123,17 @@ custom_fonts/font = SubResource( 3 )
 text = "move"
 
 [node name="Spacer" type="Control" parent="Center/Control/Bottom"]
-margin_left = 54.0
-margin_right = 54.0
-margin_bottom = 40.0
+margin_right = 174.0
+margin_bottom = 38.0
+size_flags_horizontal = 3
 
 [node name="Keys" type="VBoxContainer" parent="Center/Control/Bottom"]
-margin_left = 58.0
-margin_top = 23.0
-margin_right = 98.0
-margin_bottom = 40.0
-size_flags_vertical = 8
+margin_left = 178.0
+margin_top = 21.0
+margin_right = 218.0
+margin_bottom = 38.0
+size_flags_horizontal = 0
+size_flags_vertical = 10
 custom_constants/separation = 3
 alignment = 2
 

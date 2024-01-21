@@ -18,14 +18,14 @@ rect_min_size = Vector2( 7, 7 )
 size_flags_vertical = 4
 script = ExtResource( 2 )
 action = "jump"
-text = "f"
+text = "left"
 
 [node name="Black" type="ColorRect" parent="."]
 modulate = Color( 0, 0, 0, 1 )
 margin_left = -1.0
 margin_top = -1.0
-margin_right = 6.0
-margin_bottom = 6.0
+margin_right = 8.0
+margin_bottom = 8.0
 
 [node name="White" type="ColorRect" parent="."]
 margin_right = 7.0
@@ -35,16 +35,14 @@ margin_bottom = 7.0
 modulate = Color( 0, 0, 0, 1 )
 margin_left = 1.0
 margin_top = 1.0
-margin_right = 2.0
+margin_right = 19.0
 margin_bottom = 6.0
 custom_fonts/font = SubResource( 1 )
-text = "f"
 
 [node name="Sprite" type="Sprite" parent="."]
-visible = false
 modulate = Color( 0, 0, 0, 1 )
-position = Vector2( 4, 4 )
 texture = ExtResource( 3 )
+centered = false
 hframes = 4
 vframes = 4
-frame = 4
+frame = 2

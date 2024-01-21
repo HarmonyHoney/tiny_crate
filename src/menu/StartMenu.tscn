@@ -450,6 +450,7 @@ material = SubResource( 12 )
 position = Vector2( 4, 2 )
 texture = ExtResource( 19 )
 hframes = 7
+vframes = 2
 region_rect = Rect2( 40, 0, 8, 24 )
 
 [node name="Image0" type="Control" parent="Control/Slot/0"]
@@ -514,6 +515,7 @@ material = SubResource( 11 )
 position = Vector2( 4, 2 )
 texture = ExtResource( 19 )
 hframes = 7
+vframes = 2
 region_rect = Rect2( 40, 0, 8, 24 )
 
 [node name="Image0" type="Control" parent="Control/Slot/1"]
@@ -587,6 +589,7 @@ material = SubResource( 10 )
 position = Vector2( 4, 2 )
 texture = ExtResource( 19 )
 hframes = 7
+vframes = 2
 region_rect = Rect2( 40, 0, 8, 24 )
 
 [node name="Image0" type="Control" parent="Control/Slot/2"]
@@ -694,6 +697,7 @@ material = SubResource( 15 )
 position = Vector2( 4, 2 )
 texture = ExtResource( 19 )
 hframes = 7
+vframes = 2
 region_rect = Rect2( 40, 0, 8, 24 )
 
 [node name="Image" type="Control" parent="Control/Open/1"]
