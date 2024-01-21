@@ -1,7 +1,8 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://src/menu/options/OptionsMenu.gd" type="Script" id=1]
 [ext_resource path="res://src/menu/options/Volume.tscn" type="PackedScene" id=2]
+[ext_resource path="res://src/menu/options/OpenKeyMenu.gd" type="Script" id=3]
 [ext_resource path="res://src/menu/Blink.gd" type="Script" id=4]
 [ext_resource path="res://media/audio/sfx/btn0.wav" type="AudioStream" id=5]
 [ext_resource path="res://media/font/m6x11.ttf" type="DynamicFontData" id=8]
@@ -53,13 +54,38 @@ margin_top = 40.0
 margin_right = 188.0
 margin_bottom = 100.0
 
-[node name="Sounds" parent="Center/Control/MenuItems" instance=ExtResource( 2 )]
+[node name="Keyboard" type="HBoxContainer" parent="Center/Control/MenuItems"]
 margin_right = 116.0
+margin_bottom = 8.0
+script = ExtResource( 3 )
 
-[node name="Music" parent="Center/Control/MenuItems" instance=ExtResource( 2 )]
+[node name="Label" type="Label" parent="Center/Control/MenuItems/Keyboard"]
+margin_right = 57.0
+margin_bottom = 8.0
+custom_fonts/font = ExtResource( 9 )
+text = "Keyboard Setup"
+
+[node name="Spacer" type="Control" parent="Center/Control/MenuItems/Keyboard"]
+margin_left = 61.0
+margin_right = 104.0
+margin_bottom = 8.0
+size_flags_horizontal = 3
+
+[node name="Spacer2" type="Control" parent="Center/Control/MenuItems/Keyboard"]
+margin_left = 108.0
+margin_right = 116.0
+margin_bottom = 8.0
+rect_min_size = Vector2( 8, 0 )
+
+[node name="Sounds" parent="Center/Control/MenuItems" instance=ExtResource( 2 )]
 margin_top = 12.0
 margin_right = 116.0
 margin_bottom = 20.0
+
+[node name="Music" parent="Center/Control/MenuItems" instance=ExtResource( 2 )]
+margin_top = 24.0
+margin_right = 116.0
+margin_bottom = 32.0
 bus = 2
 
 [node name="Label" parent="Center/Control/MenuItems/Music" index="0"]
@@ -87,9 +113,9 @@ stream = ExtResource( 5 )
 bus = "Music"
 
 [node name="Fullscreen" type="HBoxContainer" parent="Center/Control/MenuItems"]
-margin_top = 24.0
+margin_top = 36.0
 margin_right = 116.0
-margin_bottom = 32.0
+margin_bottom = 44.0
 script = ExtResource( 20 )
 
 [node name="Label" type="Label" parent="Center/Control/MenuItems/Fullscreen"]
@@ -136,9 +162,9 @@ margin_bottom = 8.0
 rect_min_size = Vector2( 8, 0 )
 
 [node name="WindowSize" type="HBoxContainer" parent="Center/Control/MenuItems"]
-margin_top = 36.0
+margin_top = 48.0
 margin_right = 116.0
-margin_bottom = 44.0
+margin_bottom = 56.0
 script = ExtResource( 21 )
 
 [node name="Label" type="Label" parent="Center/Control/MenuItems/WindowSize"]
@@ -168,9 +194,9 @@ text = "228 x 128"
 align = 1
 
 [node name="TouchControls" type="HBoxContainer" parent="Center/Control/MenuItems"]
-margin_top = 48.0
+margin_top = 60.0
 margin_right = 116.0
-margin_bottom = 56.0
+margin_bottom = 68.0
 script = ExtResource( 22 )
 
 [node name="Label" type="Label" parent="Center/Control/MenuItems/TouchControls"]

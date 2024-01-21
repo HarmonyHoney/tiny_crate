@@ -1,5 +1,6 @@
 tool
 extends Control
+class_name Key
 
 export var action := "" setget set_action
 export var text := "key" setget set_text
@@ -88,16 +89,16 @@ func set_action(arg := action):
 		var e = null
 		
 		for i in l:
-			if is_type(i):
+			if is_type(i, is_gamepad):
 				e = i
 		
 		if e:
 			parse_event(e)
 
-func is_type(event):
-	var test = !is_gamepad and event is InputEventKey
+static func is_type(event, _is_gamepad := is_gamepad):
+	var test = !_is_gamepad and event is InputEventKey
 	if !test:
-		test = is_gamepad and (event is InputEventJoypadButton or event is InputEventJoypadMotion)
+		test = _is_gamepad and (event is InputEventJoypadButton or event is InputEventJoypadMotion)
 	
 	return test
 

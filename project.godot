@@ -44,6 +44,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/actor/Exit.gd"
 }, {
+"base": "Control",
+"class": "Key",
+"language": "GDScript",
+"path": "res://src/menu/options/Key.gd"
+}, {
 "base": "Actor",
 "class": "Passthrough",
 "language": "GDScript",
@@ -72,6 +77,7 @@ _global_script_class_icons={
 "EaseMover": "",
 "EditorTheme": "",
 "Exit": "",
+"Key": "",
 "Passthrough": "",
 "Player": "",
 "Switch": "",
