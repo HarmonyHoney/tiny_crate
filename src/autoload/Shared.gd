@@ -266,7 +266,14 @@ func save():
 	save_file(save_path + str(save_slot) + "/" + save_filename, JSON.print(data, "\t"))
 
 func delete_slot(arg := 0):
-	save_file(save_path + str(save_slot) + "/" + save_filename, "")
+	var dir = Directory.new()
+	if dir.open(save_path + str(save_slot)) == 0:
+		dir.list_dir_begin(true, true)
+		var fname = dir.get_next()
+		while fname != "":
+			dir.remove(fname)
+			fname = dir.get_next()
+	
 
 func save_replays(arg := replay_map):
 	save_file(save_path + str(save_slot) + "/" + arg + ".save", JSON.print(replays[arg], "\t"))
