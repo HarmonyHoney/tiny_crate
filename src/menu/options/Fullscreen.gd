@@ -14,7 +14,7 @@ func deselect():
 
 # HTML5 fullscreen fix
 func _input(event):
-	if is_selected and event.is_action_pressed("jump"):
+	if is_selected and event.is_action_pressed("ui_yes"):
 		var is_full = OS.window_fullscreen
 		OS.window_fullscreen = !is_full
 		Shared.set_window_scale()

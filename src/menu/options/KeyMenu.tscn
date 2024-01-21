@@ -24,10 +24,10 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 
 [node name="VBox" type="VBoxContainer" parent="Control"]
-margin_left = 51.0
-margin_top = 32.0
-margin_right = 178.0
-margin_bottom = 102.0
+margin_left = 48.0
+margin_top = 25.0
+margin_right = 175.0
+margin_bottom = 95.0
 
 [node name="Guide" type="HBoxContainer" parent="Control/VBox"]
 margin_right = 127.0

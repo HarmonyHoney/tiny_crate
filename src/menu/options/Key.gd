@@ -85,7 +85,6 @@ func set_action(arg := action):
 	
 	if action != "" and InputMap.has_action(action):
 		var l = InputMap.get_action_list(action)
-		print("l")
 		var e = null
 		
 		for i in l:

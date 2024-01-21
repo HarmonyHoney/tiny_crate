@@ -16,13 +16,13 @@ func _ready():
 func _input(event):
 	if !is_open or Wipe.is_wipe or input_clock > 0: return
 	
-	var up = event.is_action_pressed("up")
-	var down = event.is_action_pressed("down")
-	var left = event.is_action_pressed("left")
-	var right = event.is_action_pressed("right")
+	var up = event.is_action_pressed("ui_up")
+	var down = event.is_action_pressed("ui_down")
+	var left = event.is_action_pressed("ui_left")
+	var right = event.is_action_pressed("ui_right")
 	
-	var yes = event.is_action_pressed("jump")
-	var no = event.is_action_pressed("action")
+	var yes = event.is_action_pressed("ui_yes")
+	var no = event.is_action_pressed("ui_no")
 	
 	if up or down:
 		select_item(cursor + (-1 if up else 1))

@@ -41,17 +41,17 @@ func _physics_process(delta):
 
 func _input(event):
 	if clock == 0 and Shared.is_in_game and !Wipe.is_wipe:
-		if event.is_action_pressed("pause"):
+		if event.is_action_pressed("ui_pause"):
 			toggle_pause()
 		if is_paused:
 			
-			if event.is_action_pressed("action"):
+			if event.is_action_pressed("ui_no"):
 				toggle_pause()
-			elif event.is_action_pressed("jump"):
+			elif event.is_action_pressed("ui_yes"):
 				select()
 			else:
-				var up = event.is_action_pressed("up")# or event.is_action_pressed("left")
-				var down = event.is_action_pressed("down")# or event.is_action_pressed("right")
+				var up = event.is_action_pressed("ui_up")# or event.is_action_pressed("left")
+				var down = event.is_action_pressed("ui_down")# or event.is_action_pressed("right")
 				if up or down:
 					set_cursor(cursor + (-1 if up else 1))
 					Audio.play("menu_scroll", 0.8, 1.2)

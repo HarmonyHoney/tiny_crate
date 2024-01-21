@@ -335,7 +335,7 @@ custom_constants/separation = 3
 [node name="Key" parent="Center/Control/Top/P" instance=ExtResource( 7 )]
 margin_top = 2.0
 margin_bottom = 9.0
-action = "pause"
+action = "ui_pause"
 
 [node name="Desc" type="Label" parent="Center/Control/Top/P"]
 margin_left = 10.0

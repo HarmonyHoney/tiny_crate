@@ -218,7 +218,7 @@ custom_constants/separation = 3
 [node name="Key" parent="Center/X" instance=ExtResource( 10 )]
 margin_right = 31.0
 rect_min_size = Vector2( 31, 7 )
-action = "pause"
+action = "ui_pause"
 text = "enter"
 
 [node name="Desc" type="Label" parent="Center/X"]

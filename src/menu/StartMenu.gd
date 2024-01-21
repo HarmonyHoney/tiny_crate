@@ -77,7 +77,7 @@ func setup_slots():
 func _input(event):
 	if !is_input or Wipe.is_wipe or switch_clock > 0.0: return
 	
-	if event.is_action_pressed("action"):
+	if event.is_action_pressed("ui_no"):
 		if menu_items == open_items:
 			Player.set_palette(demo_player_mat, Shared.pick_player_colors())
 		var s = "main"
@@ -86,11 +86,11 @@ func _input(event):
 			open_items: s = "slot"
 			erase_items: s = "open"
 		switch_menu(s)
-	elif event.is_action_pressed("jump"):
+	elif event.is_action_pressed("ui_yes"):
 		menu_select()
 	else:
-		var up = event.is_action_pressed("up") or event.is_action_pressed("left")
-		var down = event.is_action_pressed("down") or event.is_action_pressed("right")
+		var up = event.is_action_pressed("ui_up")# or event.is_action_pressed("ui_left")
+		var down = event.is_action_pressed("ui_down")# or event.is_action_pressed("ui_right")
 		if up or down:
 			self.cursor += -1 if up else 1
 			Audio.play("menu_scroll", 0.8, 1.2)

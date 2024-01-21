@@ -100,24 +100,24 @@ func _input(event):
 	if !is_input or Wipe.is_wipe:
 		return
 	
-	if event.is_action_pressed("action"):
+	if event.is_action_pressed("ui_no"):
 		Shared.wipe_scene(Shared.main_menu_path)
 		is_input = false
 		Audio.play("menu_back", 0.9, 1.1)
-	elif event.is_action_pressed("jump"):
+	elif event.is_action_pressed("ui_yes"):
 		if open_map():
 			Audio.play("menu_pick", 0.9, 1.1)
 			is_input = false
 			is_load = false
 		else:
 			Audio.play("menu_random", 0.8, 1.2)
-	elif event.is_action_pressed("pause"):
+	elif event.is_action_pressed("ui_pause"):
 		show_score = posmod(show_score + 1, 3)
 		print("show_score: ", show_score)
 		show_scoreboard()
 	else:
-		var btnx = btn.p("right") - btn.p("left")
-		var btny = btn.p("down") - btn.p("up")
+		var btnx = btn.p("ui_right") - btn.p("ui_left")
+		var btny = btn.p("ui_down") - btn.p("ui_up")
 		if input_count == 0 and (btnx or btny):
 			input_count = input_wait
 			scroll(btnx + (btny * columns))

@@ -49,30 +49,30 @@ func _ready():
 func _input(event):
 	if !is_input or Wipe.is_wipe: return
 	
-	var btnx = btn.p("right") - btn.p("left")
-	var btny = btn.p("down") - btn.p("up")
-	var is_jump = event.is_action_pressed("jump")
-	var is_action = event.is_action_pressed("action")
+	var btnx = btn.p("ui_right") - btn.p("ui_left")
+	var btny = btn.p("ui_down") - btn.p("ui_up")
+	var is_yes = event.is_action_pressed("ui_yes")
+	var is_no = event.is_action_pressed("ui_no")
 	
 	if btny != 0:
 		if (cursor_y == 4 and btny == 1) or (cursor_y == 9 and btny == -1): cursor_x = 4
 		move_cursor(cursor_x, cursor_y + btny)
 	elif cursor_y == 0:
-		if is_jump:
+		if is_yes:
 			name_label.text = Shared.generate_username()
 			Audio.play("menu_random", 0.8, 1.2)
 			for i in 4:
 				set_color(i, randi() % 14)
 				fill_swatches(i)
-		elif is_action:
+		elif is_no:
 			is_input = false
 			Shared.wipe_scene(Shared.main_menu_path)
 			Audio.play("menu_scroll2", 0.8, 1.2)
 	elif cursor_y == clamp(cursor_y, 1, 4):
-		if btnx != 0 or is_jump or is_action:
+		if btnx != 0 or is_yes or is_no:
 			var c = btnx
 			if btnx == 0:
-				c = 1 if is_action else -1
+				c = 1 if is_no else -1
 			set_color(cursor_y - 1, colors[cursor_y - 1] + c)
 			fill_swatches()
 			Audio.play("menu_scroll3", 0.8, 1.2)
@@ -80,27 +80,27 @@ func _input(event):
 		if btnx != 0:
 			move_cursor(cursor_x + btnx)
 		# erase letter
-		if is_action:
+		if is_no:
 			var s = name_label.text
 			s.erase(s.length() - 1, 1)
 			name_label.text = s
 			Audio.play("menu_exit", 0.8, 1.2)
 		
 		# write letter
-		elif is_jump:
+		elif is_yes:
 			var s = rows[cursor_y][cursor_x].get_child(0).text
 			var l = name_label.text
 			name_label.text = (l + s).substr(0, 16)
 			Audio.play("menu_yes", 0.8, 1.2)
 	elif cursor_y == rows.size() - 1:
-		if is_jump:
+		if is_yes:
 			is_input = false
 			Shared.username = name_label.text.to_lower()
 			Shared.player_colors = colors.duplicate()
 			Shared.is_save = true
 			Shared.wipe_scene(Shared.level_select_path)
 			Audio.play("menu_bell", 0.8, 1.2)
-		elif is_action:
+		elif is_no:
 			Audio.play("menu_scroll2", 0.8, 1.2)
 
 func move_cursor(_x := cursor_x, _y = cursor_y):

@@ -17,7 +17,14 @@ export var keys_action := {
 "right": "right",
 "jump" : "jump",
 "action" : "lift",
-"pause": "menu",
+
+"ui_pause": "pause",
+"ui_up" : "menu up",
+"ui_down" : "menu down",
+"ui_left" : "menu left",
+"ui_right" : "menu right",
+"ui_yes" : "menu yes",
+"ui_no" : "menu no",
 }
 
 func _ready():
@@ -54,7 +61,7 @@ func _ready():
 func _input(event):
 	if !is_open or Wipe.is_wipe: return
 	
-	if event.is_action_pressed("action"):
+	if event.is_action_pressed("ui_no"):
 		open(false)
 		OptionsMenu.open(true)
 
