@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://media/font/QuinqueFive.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://src/menu/options/Key.tscn" type="PackedScene" id=2]
 [ext_resource path="res://src/menu/options/KeyMenu.gd" type="Script" id=3]
+[ext_resource path="res://src/menu/Blink.gd" type="Script" id=4]
 
 [sub_resource type="DynamicFont" id=1]
 size = 5
@@ -13,21 +14,29 @@ font_data = ExtResource( 1 )
 
 [node name="KeyMenu" type="CanvasLayer"]
 script = ExtResource( 3 )
+cursor_expand = Vector2( 4, 4 )
+
+[node name="Back" type="ColorRect" parent="."]
+modulate = Color( 0, 0, 0, 0.5 )
+anchor_right = 1.0
+anchor_bottom = 1.0
 
 [node name="Control" type="Control" parent="."]
 margin_right = 228.0
 margin_bottom = 128.0
 
-[node name="Back" type="ColorRect" parent="Control"]
-modulate = Color( 0, 0, 0, 0.5 )
-anchor_right = 1.0
-anchor_bottom = 1.0
+[node name="Cursor" type="ColorRect" parent="Control"]
+modulate = Color( 1, 0, 0.301961, 1 )
+margin_left = 5.0
+margin_top = 37.0
+margin_right = 47.0
+margin_bottom = 47.0
+script = ExtResource( 4 )
 
 [node name="VBox" type="VBoxContainer" parent="Control"]
 margin_left = 48.0
-margin_top = 25.0
 margin_right = 175.0
-margin_bottom = 95.0
+margin_bottom = 73.0
 
 [node name="Guide" type="HBoxContainer" parent="Control/VBox"]
 margin_right = 127.0
@@ -52,7 +61,7 @@ margin_bottom = 5.0
 custom_fonts/font = SubResource( 1 )
 text = "keys"
 
-[node name="Row" type="HBoxContainer" parent="Control/VBox"]
+[node name="Row" type="HBoxContainer" parent="Control/VBox" groups=["menu_item"]]
 margin_top = 9.0
 margin_right = 127.0
 margin_bottom = 16.0
@@ -98,3 +107,23 @@ margin_right = 76.0
 rect_min_size = Vector2( 19, 7 )
 action = ""
 text = "del"
+
+[node name="PopUp" type="CenterContainer" parent="."]
+margin_right = 228.0
+margin_bottom = 128.0
+
+[node name="Back" type="ColorRect" parent="PopUp"]
+modulate = Color( 0, 0, 1, 1 )
+margin_left = 74.0
+margin_top = 58.0
+margin_right = 154.0
+margin_bottom = 70.0
+rect_min_size = Vector2( 80, 12 )
+
+[node name="Label" type="Label" parent="PopUp"]
+margin_left = 75.0
+margin_top = 61.0
+margin_right = 153.0
+margin_bottom = 66.0
+custom_fonts/font = SubResource( 1 )
+text = "press any key"

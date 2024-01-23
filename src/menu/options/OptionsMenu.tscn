@@ -19,6 +19,11 @@ font_data = ExtResource( 8 )
 pause_mode = 2
 script = ExtResource( 1 )
 
+[node name="Back" type="ColorRect" parent="."]
+modulate = Color( 0, 0, 0, 0.5 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+
 [node name="Center" type="CenterContainer" parent="."]
 margin_right = 40.0
 margin_bottom = 40.0
@@ -38,9 +43,8 @@ script = ExtResource( 4 )
 color_blink = PoolColorArray( 0, 0, 1, 1, 0, 0.482353, 1, 1 )
 
 [node name="Header" type="Label" parent="Center/Control"]
-margin_left = 14.0
 margin_top = 7.0
-margin_right = 242.0
+margin_right = 228.0
 margin_bottom = 20.0
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 custom_constants/shadow_as_outline = 1
@@ -49,10 +53,10 @@ text = "OPTIONS"
 align = 1
 
 [node name="MenuItems" type="VBoxContainer" parent="Center/Control"]
-margin_left = 72.0
+margin_left = 58.0
 margin_top = 40.0
-margin_right = 188.0
-margin_bottom = 100.0
+margin_right = 174.0
+margin_bottom = 108.0
 
 [node name="Keyboard" type="HBoxContainer" parent="Center/Control/MenuItems"]
 margin_right = 116.0

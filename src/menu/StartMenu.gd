@@ -1,5 +1,6 @@
 extends Node2D
 
+onready var control := $Control
 onready var main_menu := $Control/Main
 onready var quit_menu := $Control/Quit
 onready var slot_menu := $Control/Slot
@@ -118,7 +119,8 @@ func menu_select(tag : String = menu_items[cursor].to_lower()):
 			OptionsMenu.open(true, self)
 			is_input = false
 			Audio.play("menu_options", 0.9, 1.1)
-			Shared.cam.pos_target += Vector2(228, 0)
+			Shared.cam.pos_target += Vector2(24, -4)
+			control.visible = false
 		"credits":
 			Shared.wipe_scene(Shared.credits_path)
 			Audio.play("menu_pick", 0.9, 1.1)
@@ -157,6 +159,8 @@ func menu_select(tag : String = menu_items[cursor].to_lower()):
 func resume():
 	is_input = true
 	Shared.cam.pos_target = Vector2(90, 76)
+	UI.keys(false)
+	control.visible = true
 
 func switch_menu(arg, silent := false, _cursor := 0):
 	var s = ["quit", "main", "slot", "open", "erase"]

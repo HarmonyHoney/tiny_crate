@@ -1,6 +1,5 @@
-extends Node
+extends CanvasLayer
 
-onready var center := $Center
 onready var node_cursor : ColorRect = $Center/Control/Cursor
 onready var menu_items : Array = $Center/Control/MenuItems.get_children()
 var cursor := 0
@@ -10,7 +9,7 @@ export var input_cooldown := 0.1
 var last_menu = null
 
 func _ready():
-	center.visible = false
+	visible = false
 	select_item(0)
 
 func _input(event):
@@ -56,10 +55,13 @@ func open(arg := is_open, _last = null):
 	if is_instance_valid(_last):
 		last_menu = _last
 	
-	center.visible = is_open
+	visible = is_open
 	input_clock = input_cooldown
 	
 	select_item()
+	if is_open:
+		UI.keys(true)
+	
 	if !is_open and is_instance_valid(last_menu) and last_menu.has_method("resume"):
 		last_menu.resume()
 
