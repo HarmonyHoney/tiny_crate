@@ -110,10 +110,14 @@ func set_cursor(arg := cursor):
 	
 	control.rect_position.y = 64 - cursor_node.rect_position.y
 
-func assign_key(action, event):
-	# remove event if present
-	if InputMap.action_has_event(action, event):
-		InputMap.action_erase_event(action, event)
+func assign_key(action : String, event):
+	var is_ui = action.begins_with("ui_")
+	
+	# remove event if present anywhere
+	for i in InputMap.get_actions():
+		if InputMap.action_has_event(i, event) and i.begins_with("ui_") == is_ui:
+			InputMap.action_erase_event(i, event)
+	
 	# add event to action, will bring to front of list if present
 	InputMap.action_add_event(action, event)
 	
@@ -126,8 +130,6 @@ func assign_key(action, event):
 	if e.size() > 4:
 		InputMap.action_erase_event(action, e[0])
 	
-	fill_row(list[cursor], actions[cursor])
+	for i in list.size():
+		fill_row(list[i], actions[i])
 	
-	#create_keys(cursor)
-	
-	#emit_gamepad()
