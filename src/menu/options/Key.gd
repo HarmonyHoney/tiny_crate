@@ -4,13 +4,15 @@ class_name Key
 
 export var action := "" setget set_action
 export var text := "key" setget set_text
+export var font_width := 6
+export var is_refresh := true
+export var is_gamepad := false
 
 onready var white := $White
 onready var black := $Black
 onready var label := $Label
 onready var sprite := $Sprite
 
-var is_gamepad := false
 
 var swap := {"control" : "ctrl",
 "quoteleft" : "~",
@@ -40,12 +42,16 @@ var images := {"up" : 0,
 "right" : 3,
 "," : 4}
 
-export var font_width := 6
 
 func _ready():
+	KeyMenu.connect("refresh", self, "refresh")
 	set_action()
 	set_text()
 	if Engine.editor_hint: return
+
+func refresh():
+	if is_refresh:
+		set_action()
 
 func set_text(arg := text):
 	text = arg.to_lower()

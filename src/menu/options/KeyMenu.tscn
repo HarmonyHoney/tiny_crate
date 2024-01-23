@@ -14,6 +14,9 @@ font_data = ExtResource( 1 )
 
 [node name="KeyMenu" type="CanvasLayer"]
 script = ExtResource( 3 )
+scroll_path = NodePath("Control")
+row_path = NodePath("Control/VBox/Row")
+label_path = NodePath("Control/VBox/Label")
 cursor_expand = Vector2( 4, 4 )
 
 [node name="Back" type="ColorRect" parent="."]
@@ -34,79 +37,96 @@ margin_bottom = 47.0
 script = ExtResource( 4 )
 
 [node name="VBox" type="VBoxContainer" parent="Control"]
-margin_left = 48.0
-margin_right = 175.0
-margin_bottom = 73.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 50.0
+margin_right = -50.0
 
 [node name="Guide" type="HBoxContainer" parent="Control/VBox"]
-margin_right = 127.0
+margin_right = 128.0
 margin_bottom = 5.0
 
 [node name="Label" type="Label" parent="Control/VBox/Guide"]
 margin_right = 36.0
 margin_bottom = 5.0
+size_flags_horizontal = 9
 custom_fonts/font = SubResource( 1 )
 text = "action"
 
 [node name="Spacer" type="Control" parent="Control/VBox/Guide"]
 margin_left = 40.0
-margin_right = 99.0
+margin_right = 100.0
 margin_bottom = 5.0
 size_flags_horizontal = 3
 
 [node name="Label2" type="Label" parent="Control/VBox/Guide"]
-margin_left = 103.0
-margin_right = 127.0
+margin_left = 104.0
+margin_right = 128.0
 margin_bottom = 5.0
 custom_fonts/font = SubResource( 1 )
 text = "keys"
 
-[node name="Row" type="HBoxContainer" parent="Control/VBox" groups=["menu_item"]]
+[node name="Label" type="Label" parent="Control/VBox"]
 margin_top = 9.0
-margin_right = 127.0
-margin_bottom = 16.0
+margin_right = 128.0
+margin_bottom = 14.0
+size_flags_horizontal = 9
+custom_fonts/font = SubResource( 1 )
+text = "game"
+align = 1
+
+[node name="Row" type="HBoxContainer" parent="Control/VBox"]
+margin_top = 18.0
+margin_right = 128.0
+margin_bottom = 34.0
+custom_constants/separation = 4
 
 [node name="Label" type="Label" parent="Control/VBox/Row"]
-margin_top = 1.0
+margin_top = 5.0
 margin_right = 24.0
-margin_bottom = 6.0
+margin_bottom = 10.0
 custom_fonts/font = SubResource( 1 )
 text = "jump"
 
-[node name="Spacer" type="Control" parent="Control/VBox/Row"]
+[node name="Keys" type="HFlowContainer" parent="Control/VBox/Row"]
 margin_left = 28.0
-margin_right = 47.0
-margin_bottom = 7.0
+margin_right = 128.0
+margin_bottom = 16.0
 size_flags_horizontal = 3
-
-[node name="Keys" type="HBoxContainer" parent="Control/VBox/Row"]
-margin_left = 51.0
-margin_right = 127.0
-margin_bottom = 7.0
+custom_constants/vseparation = 2
+custom_constants/hseparation = 2
 
 [node name="Key" parent="Control/VBox/Row/Keys" instance=ExtResource( 2 )]
-action = ""
-text = "k"
-
-[node name="Key2" parent="Control/VBox/Row/Keys" instance=ExtResource( 2 )]
-margin_left = 11.0
-margin_right = 42.0
+margin_left = 3.0
+margin_right = 34.0
 rect_min_size = Vector2( 31, 7 )
+size_flags_horizontal = 10
 action = ""
 text = "space"
+is_refresh = false
+
+[node name="Key2" parent="Control/VBox/Row/Keys" instance=ExtResource( 2 )]
+margin_left = 36.0
+margin_right = 67.0
+rect_min_size = Vector2( 31, 7 )
+action = ""
+text = "pause"
+is_refresh = false
 
 [node name="Key3" parent="Control/VBox/Row/Keys" instance=ExtResource( 2 )]
-margin_left = 46.0
-margin_right = 53.0
+margin_left = 69.0
+margin_right = 100.0
+rect_min_size = Vector2( 31, 7 )
 action = ""
-text = "x"
+text = "enter"
+is_refresh = false
 
 [node name="Key4" parent="Control/VBox/Row/Keys" instance=ExtResource( 2 )]
-margin_left = 57.0
-margin_right = 76.0
-rect_min_size = Vector2( 19, 7 )
+margin_top = 9.0
+margin_bottom = 16.0
 action = ""
-text = "del"
+text = "x"
+is_refresh = false
 
 [node name="PopUp" type="CenterContainer" parent="."]
 margin_right = 228.0

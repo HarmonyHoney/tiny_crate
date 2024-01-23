@@ -1,12 +1,14 @@
 extends CanvasLayer
 
 onready var bottom := $Center/Control/Bottom
+onready var arrows := $Center/Control/Bottom/Arrows
+onready var spacer := $Center/Control/Bottom/Spacer
 onready var x := $Center/Control/Bottom/Keys/X
 onready var x_label := $Center/Control/Bottom/Keys/X/Desc
 onready var c := $Center/Control/Bottom/Keys/C
 onready var c_label := $Center/Control/Bottom/Keys/C/Desc
-onready var arrows := $Center/Control/Bottom/Arrows
-onready var spacer := $Center/Control/Bottom/Spacer
+onready var v := $Center/Control/Bottom/Keys/V
+onready var v_label := $Center/Control/Bottom/Keys/V/Desc
 
 onready var top := $Center/Control/Top
 onready var pause_label := $Center/Control/Top/P/Desc
@@ -33,18 +35,20 @@ func _ready():
 	map.visible = false
 	stats.visible = false
 
-func keys(is_expand := true, _top := false, _arrows := true, left := true, right := true, _stack := false):
+func keys(is_expand := true, _top := false, _arrows := true, _x := true, _c := true, _stack := false, _v := false):
 	spacer.size_flags_horizontal = spacer.SIZE_EXPAND_FILL if is_expand else spacer.SIZE_FILL
 	top.visible = _top
 	arrows.visible = _arrows
-	x.visible = left
-	c.visible = right
+	x.visible = _x
+	c.visible = _c
 	bottom.columns = 2 if _stack or !_arrows else 3
+	v.visible = _v
 
-func labels(_x := "pick", _c := "back", _pause := "pause"):
+func labels(_x := "pick", _c := "back", _pause := "pause", _v := "clear"):
 	x_label.text = _x
 	c_label.text = _c
 	pause_label.text = _pause
+	v_label.text = _v
 
 func show_stats():
 	var m = {}

@@ -14,6 +14,8 @@ onready var open_player_mat : ShaderMaterial = get_node(open_player_path).materi
 export var demo_player_path : NodePath = ""
 onready var demo_player_mat : ShaderMaterial = get_node(demo_player_path).sprite_mat
 
+onready var credits_node := $Credits
+
 var cursor := 0 setget set_cursor
 var menu_items := []
 var main_items := ["play", "options", "credits"]
@@ -26,6 +28,7 @@ var menu_name := "main"
 var menu_last := menu_name
 
 var is_input = true
+export var is_credits := false
 
 export var cursor_offset := Vector2.ZERO
 export var cursor_expand := Vector2.ZERO
@@ -45,7 +48,7 @@ func _ready():
 	
 	switch_menu(Shared.last_menu, true)
 	self.cursor = Shared.last_cursor
-	
+	credits_node.visible = false
 
 func setup_slots():
 	var slot_items := slot_menu.get_children()
@@ -78,7 +81,17 @@ func setup_slots():
 func _input(event):
 	if !is_input or Wipe.is_wipe or switch_clock > 0.0: return
 	
-	if event.is_action_pressed("ui_no"):
+	var is_no : bool = event.is_action_pressed("ui_no")
+	
+	if is_credits:
+		if is_no:
+			is_credits = false
+			credits_node.visible = false
+			resume()
+			return
+		else: return
+	
+	if is_no:
 		if menu_items == open_items:
 			Player.set_palette(demo_player_mat, Shared.pick_player_colors())
 		var s = "main"
@@ -122,8 +135,13 @@ func menu_select(tag : String = menu_items[cursor].to_lower()):
 			Shared.cam.pos_target += Vector2(24, -4)
 			control.visible = false
 		"credits":
-			Shared.wipe_scene(Shared.credits_path)
+			is_credits = true
+			credits_node.visible = true
+			control.visible = false
+			Shared.cam.pos_target += Vector2(104, 0)
 			Audio.play("menu_pick", 0.9, 1.1)
+			UI.keys(false, false, false, false)
+			TouchScreen.show_keys(false, true, false)
 		"yes":
 			Audio.play("menu_yes", 0.9, 1.1)
 			if OS.get_name() == "HTML5":

@@ -213,7 +213,7 @@ func change_map():
 	elif is_level_select:
 		is_replay = false
 		is_replay_note = false
-		UI.keys()
+		UI.keys(true, true)
 		TouchScreen.turn_arrows(false)
 		TouchScreen.show_keys(true, true, true, true)
 		
@@ -228,9 +228,6 @@ func change_map():
 		UI.keys(false, false)
 		TouchScreen.turn_arrows(true)
 		TouchScreen.show_keys(true, false, true)
-	elif scene_path == credits_path:
-		UI.keys(true, false, false, false)
-		TouchScreen.show_keys(false, true, false)
 	elif scene_path == creator_path:
 		UI.keys(false, false, true, true, true, true)
 
