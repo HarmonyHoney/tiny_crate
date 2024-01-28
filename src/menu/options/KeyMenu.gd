@@ -1,27 +1,17 @@
-extends CanvasLayer
+extends Menu
 
-var is_open = false
 onready var default_keys := {}
 
 export var is_gamepad := false
 
-export var scroll_path : NodePath = ""
-onready var scroll_node := get_node_or_null(scroll_path)
 onready var popup := $PopUp
 var is_rebind := false
 
-onready var list_node := $Control/VBox
 export var row_path : NodePath = ""
 onready var row_dupe := get_node_or_null(row_path).duplicate()
 export var label_path : NodePath = ""
 onready var label_dupe := get_node_or_null(label_path).duplicate()
 
-var cursor := 0 setget set_cursor
-onready var cursor_node := $Control/Cursor
-export var cursor_expand := Vector2.ZERO
-export var cursor_lerp := 0.2
-
-var list := []
 var actions := []
 
 export var keys_action := {
@@ -52,7 +42,6 @@ func _ready():
 	for i in [row_path, label_path]:
 		get_node(i).queue_free()
 	
-	open(false)
 	popup.visible = false
 	
 	# get default key binds
@@ -60,6 +49,7 @@ func _ready():
 		default_keys[i] = InputMap.get_action_list(i)
 	
 	# setup list
+	list = []
 	for i in keys_action.keys():
 		var h = i.begins_with("h_")
 		var b = i.begins_with("b_")
@@ -80,7 +70,7 @@ func _ready():
 	
 	set_cursor()
 
-func _input(event):
+func menu_input(event):
 	if !is_open or Wipe.is_wipe: return
 	
 	var is_del : bool = event.is_action_pressed("ui_del")
@@ -121,28 +111,14 @@ func _input(event):
 			self.cursor += btny
 			Audio.play("menu_scroll", 0.8, 1.2)
 
-func _physics_process(delta):
-	if is_instance_valid(cursor_node):
-		cursor_node.rect_size = cursor_node.rect_size.linear_interpolate(list[cursor].rect_size + cursor_expand, cursor_lerp)
-		cursor_node.rect_global_position = cursor_node.rect_global_position.linear_interpolate(list[cursor].rect_global_position - (cursor_expand * 0.5), cursor_lerp)
-		
-		if is_instance_valid(scroll_node):
-			scroll_node.rect_position.y = 64 - cursor_node.rect_position.y - (cursor_node.rect_size.y * 0.5)
 
 func ui_keys():
 	UI.keys(true, false, !is_rebind, !is_rebind, !is_rebind, false, true)
 
-func open(arg := false):
-	is_open = arg
-	visible = is_open
-	
+func on_open():
 	if is_open:
-		set_cursor(0)
 		ui_keys()
 		UI.labels()
-
-func set_cursor(arg := cursor):
-	cursor = clamp(arg, 0, list.size() - 1)
 
 func fill_row(row, action):
 	var a = get_action_list_is_type(action)

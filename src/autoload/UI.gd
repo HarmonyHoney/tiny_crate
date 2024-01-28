@@ -36,13 +36,13 @@ func _ready():
 	stats.visible = false
 
 func keys(is_expand := true, _top := false, _arrows := true, _x := true, _c := true, _stack := false, _v := false):
-	spacer.size_flags_horizontal = spacer.SIZE_EXPAND_FILL if is_expand else spacer.SIZE_FILL
-	top.visible = _top
-	arrows.visible = _arrows
-	x.visible = _x
-	c.visible = _c
-	bottom.columns = 2 if _stack or !_arrows else 3
-	v.visible = _v
+	if spacer: spacer.size_flags_horizontal = spacer.SIZE_EXPAND_FILL if is_expand else spacer.SIZE_FILL
+	if top: top.visible = _top
+	if arrows: arrows.visible = _arrows
+	if x: x.visible = _x
+	if c: c.visible = _c
+	if bottom: bottom.columns = 2 if _stack or !_arrows else 3
+	if v: v.visible = _v
 
 func labels(_x := "pick", _c := "back", _pause := "pause", _v := "clear"):
 	x_label.text = _x

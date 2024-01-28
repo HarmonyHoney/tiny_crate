@@ -24,12 +24,13 @@ script = ExtResource( 3 )
 __meta__ = {
 "_edit_horizontal_guides_": [ -19.0 ]
 }
-path_parent = NodePath("Control")
-path_cursor = NodePath("Control/Cursor")
-path_list = NodePath("Control/Center/VBox/List")
-color_off = Color( 0.639216, 0.65098, 0.8, 1 )
-cursor_offset = Vector2( -1, 0 )
+parent_path = NodePath(".")
+list_path = NodePath("Control/Center/VBox/List")
+cursor_path = NodePath("Control/Cursor")
 cursor_expand = Vector2( 9, 8 )
+is_audio_scroll = true
+is_color = true
+color_off = Color( 0.639216, 0.65098, 0.8, 1 )
 
 [node name="Control" type="Control" parent="."]
 rect_min_size = Vector2( 228, 128 )

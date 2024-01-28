@@ -14,10 +14,14 @@ font_data = ExtResource( 1 )
 
 [node name="KeyMenu" type="CanvasLayer"]
 script = ExtResource( 3 )
+parent_path = NodePath(".")
+list_path = NodePath("Control/VBox")
+cursor_path = NodePath("Control/Cursor")
+cursor_expand = Vector2( 4, 4 )
+is_audio_scroll = true
 scroll_path = NodePath("Control")
 row_path = NodePath("Control/VBox/Row")
 label_path = NodePath("Control/VBox/Label")
-cursor_expand = Vector2( 4, 4 )
 
 [node name="Back" type="ColorRect" parent="."]
 modulate = Color( 0, 0, 0, 0.5 )

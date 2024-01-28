@@ -1,6 +1,6 @@
 [gd_scene load_steps=12 format=2]
 
-[ext_resource path="res://src/menu/options/OptionsMenu.gd" type="Script" id=1]
+[ext_resource path="res://src/menu/Menu.gd" type="Script" id=1]
 [ext_resource path="res://src/menu/options/Volume.tscn" type="PackedScene" id=2]
 [ext_resource path="res://src/menu/options/OpenKeyMenu.gd" type="Script" id=3]
 [ext_resource path="res://src/menu/Blink.gd" type="Script" id=4]
@@ -18,6 +18,12 @@ font_data = ExtResource( 8 )
 [node name="OptionsMenu" type="CanvasLayer"]
 pause_mode = 2
 script = ExtResource( 1 )
+parent_path = NodePath(".")
+list_path = NodePath("Center/Control/MenuItems")
+cursor_path = NodePath("Center/Control/Cursor")
+cursor_expand = Vector2( 4, 4 )
+is_audio_scroll = true
+is_close_btn_no = true
 
 [node name="Back" type="ColorRect" parent="."]
 modulate = Color( 0, 0, 0, 0.5 )
