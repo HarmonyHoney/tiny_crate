@@ -82,7 +82,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 1,
-"values": [ 6 ]
+"values": [ 4 ]
 }
 tracks/1/type = "method"
 tracks/1/path = NodePath(".")
@@ -112,7 +112,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.2, 0.3, 0.5 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 1,
-"values": [ 2, 0, 4, 0 ]
+"values": [ 2, 0, 3, 0 ]
 }
 tracks/1/type = "method"
 tracks/1/path = NodePath(".")

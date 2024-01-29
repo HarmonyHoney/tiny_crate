@@ -823,46 +823,53 @@ align = 2
 valign = 2
 
 [node name="Credits" type="Control" parent="."]
-margin_left = 136.0
+margin_left = 80.0
 margin_top = 12.0
-margin_right = 176.0
-margin_bottom = 52.0
+margin_right = 308.0
+margin_bottom = 140.0
 
-[node name="Header" type="Label" parent="Credits"]
+[node name="Top" type="Control" parent="Credits"]
+margin_left = 148.0
 margin_top = 11.0
-margin_right = 228.0
-margin_bottom = 24.0
+margin_right = 148.0
+margin_bottom = 11.0
+
+[node name="Header" type="Label" parent="Credits/Top"]
+margin_left = -80.0
+margin_right = 148.0
+margin_bottom = 13.0
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 custom_constants/shadow_as_outline = 1
 custom_fonts/font = SubResource( 18 )
 text = "TINY CRATE"
 align = 1
 
-[node name="By" type="Label" parent="Credits"]
-margin_left = 105.0
-margin_top = 25.0
-margin_right = 115.0
-margin_bottom = 35.0
+[node name="By" type="Label" parent="Credits/Top"]
+margin_left = 25.0
+margin_top = 14.0
+margin_right = 35.0
+margin_bottom = 24.0
 custom_fonts/font = ExtResource( 25 )
 text = "by"
 align = 1
 valign = 1
 
-[node name="HarmonyHoneyLogo" type="Sprite" parent="Credits"]
-position = Vector2( 114, 49 )
+[node name="HarmonyHoneyLogo" type="Sprite" parent="Credits/Top"]
+position = Vector2( 34, 38 )
 texture = ExtResource( 4 )
 
 [node name="List" type="Label" parent="Credits"]
+margin_left = 58.0
 margin_top = 59.0
-margin_right = 228.0
+margin_right = 219.0
 margin_bottom = 128.0
 custom_fonts/font = ExtResource( 25 )
 text = "hhoney.net
 
 Made with Godot Engine
-
-Fonts by Daniel Linssen"
-align = 1
+Fonts by
+TODO: write font credits"
+align = 2
 valign = 1
 
 [node name="Stage" type="Node2D" parent="."]
@@ -885,6 +892,7 @@ script = ExtResource( 10 )
 
 [node name="Player" parent="Stage/Actors" instance=ExtResource( 12 )]
 position = Vector2( 88, 88 )
+push_speed = 0.3
 is_attract_mode = true
 
 [node name="Box0" parent="Stage/Actors" instance=ExtResource( 9 )]

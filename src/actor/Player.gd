@@ -172,7 +172,7 @@ func _physics_process(delta):
 				box_pickup(dir * 4, 0)
 	
 	# push box
-	if !is_pickup and is_on_floor and move_get_dist().x:
+	if is_on_floor and move_get_dist().x:
 		var a = check_area_actors("box", position.x + dir)
 		if a.size():
 			a.sort_custom(self, "sort_y_ascent")
