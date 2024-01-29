@@ -39,12 +39,17 @@ export var ui_stack := false
 export var ui_v := false
 
 func _ready():
-	if list_node: list = list_node.get_children()
+	make_list(list_node)
 	
 	open(false)
 
 func _input(event):
 	menu_input(event)
+
+func make_list(arg):
+	if is_instance_valid(arg):
+		list_node = arg
+		list = arg.get_children()
 
 func menu_input(event):
 	if !is_open or open_clock > 0 or Wipe.is_wipe: return

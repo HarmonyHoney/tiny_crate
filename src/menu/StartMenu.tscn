@@ -274,12 +274,14 @@ script = ExtResource( 3 )
 __meta__ = {
 "_edit_horizontal_guides_": [  ]
 }
+parent_path = NodePath("Control")
+list_path = NodePath("Control/Main")
+cursor_path = NodePath("Control/Cursor")
+cursor_expand = Vector2( 4, 0 )
+is_audio_scroll = true
+ui_expand = false
 open_player_path = NodePath("Control/Open/1/Player/Sprite")
 demo_player_path = NodePath("Stage/Actors/Player")
-cursor_offset = Vector2( -2, 0 )
-cursor_expand = Vector2( 4, 0 )
-color_deselect = Color( 0.8, 0.8, 0.8, 1 )
-switch_cooldown = 0.13
 
 [node name="Control" type="Control" parent="."]
 margin_left = -24.0
@@ -892,7 +894,6 @@ script = ExtResource( 10 )
 
 [node name="Player" parent="Stage/Actors" instance=ExtResource( 12 )]
 position = Vector2( 88, 88 )
-push_speed = 0.3
 is_attract_mode = true
 
 [node name="Box0" parent="Stage/Actors" instance=ExtResource( 9 )]

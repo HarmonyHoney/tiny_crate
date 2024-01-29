@@ -1,22 +1,19 @@
-extends Node2D
+extends Menu
 
-onready var control := $Control
 onready var main_menu := $Control/Main
 onready var quit_menu := $Control/Quit
 onready var slot_menu := $Control/Slot
 onready var open_menu := $Control/Open
 onready var erase_menu := $Control/Erase
 onready var menu_stuff := main_menu.get_children()
-onready var cursor_node := $Control/Cursor
+onready var credits_node := $Credits
+
 export var open_player_path : NodePath = ""
 onready var open_player_mat : ShaderMaterial = get_node(open_player_path).material
 
 export var demo_player_path : NodePath = ""
 onready var demo_player_mat : ShaderMaterial = get_node(demo_player_path).sprite_mat
 
-onready var credits_node := $Credits
-
-var cursor := 0 setget set_cursor
 var menu_items := []
 var main_items := ["play", "options", "credits"]
 var quit_items := ["yes", "no"]
@@ -30,15 +27,6 @@ var menu_last := menu_name
 var is_input = true
 export var is_credits := false
 
-export var cursor_offset := Vector2.ZERO
-export var cursor_expand := Vector2.ZERO
-
-export var color_select := Color.white
-export var color_deselect := Color(1,1,1, 0.7)
-
-var switch_clock := 0.0
-export var switch_cooldown := 0.1
-
 func _ready():
 	randomize()
 	Player.set_palette(demo_player_mat, Shared.pick_player_colors())
@@ -49,6 +37,34 @@ func _ready():
 	switch_menu(Shared.last_menu, true)
 	self.cursor = Shared.last_cursor
 	credits_node.visible = false
+	
+	open(true)
+
+func menu_input(event):
+	if is_input: .menu_input(event)
+
+func btn_no():
+	if is_credits:
+		is_credits = false
+		credits_node.visible = false
+		resume()
+	else:
+		if menu_items == open_items:
+			Player.set_palette(demo_player_mat, Shared.pick_player_colors())
+		var s = "main"
+		match menu_items:
+			main_items: s = "quit"
+			open_items: s = "slot"
+			erase_items: s = "open"
+		switch_menu(s)
+
+func btn_yes():
+	if !is_credits:
+		menu_select()
+
+func btn_y(arg := 1):
+	if !is_credits:
+		.btn_y(arg)
 
 func setup_slots():
 	var slot_items := slot_menu.get_children()
@@ -78,48 +94,6 @@ func setup_slots():
 			if sd.has("player_colors"):
 				Player.set_palette(player_mat, sd["player_colors"])
 
-func _input(event):
-	if !is_input or Wipe.is_wipe or switch_clock > 0.0: return
-	
-	var is_no : bool = event.is_action_pressed("ui_no")
-	
-	if is_credits:
-		if is_no:
-			is_credits = false
-			credits_node.visible = false
-			resume()
-			return
-		else: return
-	
-	if is_no:
-		if menu_items == open_items:
-			Player.set_palette(demo_player_mat, Shared.pick_player_colors())
-		var s = "main"
-		match menu_items:
-			main_items: s = "quit"
-			open_items: s = "slot"
-			erase_items: s = "open"
-		switch_menu(s)
-	elif event.is_action_pressed("ui_yes"):
-		menu_select()
-	else:
-		var up = event.is_action_pressed("ui_up")# or event.is_action_pressed("ui_left")
-		var down = event.is_action_pressed("ui_down")# or event.is_action_pressed("ui_right")
-		if up or down:
-			self.cursor += -1 if up else 1
-			Audio.play("menu_scroll", 0.8, 1.2)
-
-func _physics_process(delta):
-	switch_clock = max(0, switch_clock - delta)
-
-func write_menu():
-	yield(get_tree(), "idle_frame")
-	cursor_node.rect_global_position = menu_stuff[cursor].rect_global_position + cursor_offset
-	cursor_node.rect_size = menu_stuff[cursor].rect_size + cursor_expand
-	
-	for i in menu_items.size():
-		menu_stuff[i].modulate = color_select if i == cursor else color_deselect
-
 func menu_select(tag : String = menu_items[cursor].to_lower()):
 	Shared.last_cursor = cursor
 	match tag:
@@ -133,11 +107,13 @@ func menu_select(tag : String = menu_items[cursor].to_lower()):
 			is_input = false
 			Audio.play("menu_options", 0.9, 1.1)
 			Shared.cam.pos_target += Vector2(24, -4)
-			control.visible = false
+			if parent_node:
+				parent_node.visible = false
 		"credits":
 			is_credits = true
 			credits_node.visible = true
-			control.visible = false
+			if parent_node:
+				parent_node.visible = false
 			Shared.cam.pos_target += Vector2(104, 0)
 			Audio.play("menu_pick", 0.9, 1.1)
 			UI.keys(false, false, false, false)
@@ -176,9 +152,11 @@ func menu_select(tag : String = menu_items[cursor].to_lower()):
 
 func resume():
 	is_input = true
+	open_clock = open_time
 	Shared.cam.pos_target = Vector2(90, 76)
 	UI.keys(false)
-	control.visible = true
+	if parent_node:
+		parent_node.visible = true
 
 func switch_menu(arg, silent := false, _cursor := 0):
 	var s = ["quit", "main", "slot", "open", "erase"]
@@ -192,9 +170,10 @@ func switch_menu(arg, silent := false, _cursor := 0):
 			x = i
 	
 	if x > -1:
-		switch_clock = switch_cooldown
+		open_clock = open_time
 		menu_items = items[x]
 		menu_stuff = node[x].get_children()
+		make_list(node[x])
 		
 		menu_last = menu_name
 		menu_name = arg
@@ -221,7 +200,4 @@ func switch_menu(arg, silent := false, _cursor := 0):
 		
 		self.cursor = _cursor
 		Shared.last_menu = arg
-
-func set_cursor(arg := 0):
-	cursor = clamp(arg, 0, menu_items.size() - 1)
-	write_menu()
+		
