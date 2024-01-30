@@ -1,18 +1,31 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://media/font/QuinqueFive.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://src/menu/options/Key.tscn" type="PackedScene" id=2]
 [ext_resource path="res://src/menu/options/KeyMenu.gd" type="Script" id=3]
 [ext_resource path="res://src/menu/Blink.gd" type="Script" id=4]
+[ext_resource path="res://media/font/ThaleahFat.ttf" type="DynamicFontData" id=5]
 
-[sub_resource type="DynamicFont" id=1]
+[sub_resource type="DynamicFont" id=3]
+size = 32
+extra_spacing_top = -8
+extra_spacing_bottom = -8
+font_data = ExtResource( 5 )
+
+[sub_resource type="DynamicFont" id=2]
 size = 5
 outline_color = Color( 0, 0, 0, 1 )
 extra_spacing_top = -1
 extra_spacing_bottom = -1
 font_data = ExtResource( 1 )
 
+[sub_resource type="DynamicFont" id=4]
+extra_spacing_top = -4
+extra_spacing_bottom = -4
+font_data = ExtResource( 5 )
+
 [node name="KeyMenu" type="CanvasLayer"]
+pause_mode = 2
 script = ExtResource( 3 )
 parent_path = NodePath(".")
 list_path = NodePath("Control/VBox")
@@ -22,6 +35,7 @@ is_audio_scroll = true
 scroll_path = NodePath("Control")
 row_path = NodePath("Control/VBox/Row")
 label_path = NodePath("Control/VBox/Label")
+header_path = NodePath("Control/VBox/Header")
 
 [node name="Back" type="ColorRect" parent="."]
 modulate = Color( 0, 0, 0, 0.5 )
@@ -46,15 +60,25 @@ anchor_bottom = 1.0
 margin_left = 50.0
 margin_right = -50.0
 
-[node name="Guide" type="HBoxContainer" parent="Control/VBox"]
+[node name="Header" type="Label" parent="Control/VBox"]
 margin_right = 128.0
-margin_bottom = 5.0
+margin_bottom = 14.0
+size_flags_horizontal = 9
+custom_fonts/font = SubResource( 3 )
+text = "keyboard"
+align = 1
+valign = 1
+
+[node name="Guide" type="HBoxContainer" parent="Control/VBox"]
+margin_top = 18.0
+margin_right = 128.0
+margin_bottom = 23.0
 
 [node name="Label" type="Label" parent="Control/VBox/Guide"]
 margin_right = 36.0
 margin_bottom = 5.0
 size_flags_horizontal = 9
-custom_fonts/font = SubResource( 1 )
+custom_fonts/font = SubResource( 2 )
 text = "action"
 
 [node name="Spacer" type="Control" parent="Control/VBox/Guide"]
@@ -67,29 +91,29 @@ size_flags_horizontal = 3
 margin_left = 104.0
 margin_right = 128.0
 margin_bottom = 5.0
-custom_fonts/font = SubResource( 1 )
+custom_fonts/font = SubResource( 2 )
 text = "keys"
 
 [node name="Label" type="Label" parent="Control/VBox"]
-margin_top = 9.0
+margin_top = 27.0
 margin_right = 128.0
-margin_bottom = 14.0
+margin_bottom = 34.0
 size_flags_horizontal = 9
-custom_fonts/font = SubResource( 1 )
+custom_fonts/font = SubResource( 4 )
 text = "game"
 align = 1
 
 [node name="Row" type="HBoxContainer" parent="Control/VBox"]
-margin_top = 18.0
+margin_top = 38.0
 margin_right = 128.0
-margin_bottom = 34.0
+margin_bottom = 54.0
 custom_constants/separation = 4
 
 [node name="Label" type="Label" parent="Control/VBox/Row"]
 margin_top = 5.0
 margin_right = 24.0
 margin_bottom = 10.0
-custom_fonts/font = SubResource( 1 )
+custom_fonts/font = SubResource( 2 )
 text = "jump"
 
 [node name="Keys" type="HFlowContainer" parent="Control/VBox/Row"]
@@ -149,5 +173,5 @@ margin_left = 75.0
 margin_top = 61.0
 margin_right = 153.0
 margin_bottom = 66.0
-custom_fonts/font = SubResource( 1 )
+custom_fonts/font = SubResource( 2 )
 text = "press any key"

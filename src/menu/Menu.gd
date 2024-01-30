@@ -2,6 +2,7 @@ extends Node
 class_name Menu
 
 export var is_open = false
+export var is_sub := false
 
 export var parent_path : NodePath = ""
 onready var parent_node = get_node_or_null(parent_path)
@@ -16,6 +17,7 @@ export var cursor := 0 setget set_cursor
 export var cursor_expand := Vector2.ZERO
 export var cursor_lerp := 0.2
 export var is_audio_scroll = false
+export var is_sub_visible := false
 
 export var scroll_path : NodePath = ""
 onready var scroll_node : Control = get_node_or_null(scroll_path)
@@ -52,7 +54,7 @@ func make_list(arg):
 		list = arg.get_children()
 
 func menu_input(event):
-	if !is_open or open_clock > 0 or Wipe.is_wipe: return
+	if !is_open or is_sub or open_clock > 0 or Wipe.is_wipe: return
 	
 	var b_del : bool = event.is_action_pressed("ui_del")
 	var b_pause : bool = event.is_action_pressed("ui_pause")
@@ -121,12 +123,32 @@ func open(arg := false, _last = null):
 	if is_open:
 		set_cursor(0)
 		UI.keys(ui_expand, ui_top, ui_arrows, ui_x, ui_c, ui_stack, ui_v)
-	elif is_instance_valid(last_menu) and last_menu.has_method("resume"):
-		last_menu.resume()
+	elif is_instance_valid(last_menu):
+		last_menu.close_sub()
+		last_menu = null
 	
 	open_clock = open_time
 	
 	on_open()
 
 func on_open():
+	pass
+
+func open_sub(arg : Menu):
+	if is_instance_valid(arg):
+		is_sub = true
+		arg.open(true, self)
+		parent_node.visible = is_sub_visible
+		on_open_sub()
+
+func on_open_sub():
+	pass
+
+func close_sub():
+	is_sub = false
+	parent_node.visible = true
+	open_clock = open_time
+	on_close_sub()
+
+func on_close_sub():
 	pass

@@ -159,7 +159,7 @@ shader_param/skin_swap = Color( 1, 0.843137, 0, 1 )
 shader_param/suit_swap = Color( 0, 0.71875, 1, 1 )
 shader_param/shoe_swap = Color( 0, 0.0862745, 1, 1 )
 
-[sub_resource type="DynamicFont" id=4]
+[sub_resource type="DynamicFont" id=20]
 size = 48
 extra_spacing_top = -11
 extra_spacing_bottom = -12
@@ -801,7 +801,7 @@ margin_top = 5.0
 margin_right = 228.0
 margin_bottom = 26.0
 rect_min_size = Vector2( 228, 0 )
-custom_fonts/font = SubResource( 4 )
+custom_fonts/font = SubResource( 20 )
 text = "Tiny Crate"
 align = 1
 

@@ -11,6 +11,8 @@ export var row_path : NodePath = ""
 onready var row_dupe := get_node_or_null(row_path).duplicate()
 export var label_path : NodePath = ""
 onready var label_dupe := get_node_or_null(label_path).duplicate()
+export var header_path : NodePath = ""
+onready var header_node := get_node_or_null(header_path)
 
 var actions := []
 
@@ -99,7 +101,6 @@ func menu_input(event):
 			Audio.play("menu_scroll", 0.8, 1.2)
 		elif is_no:
 			open(false)
-			OptionsMenu.open(true)
 		elif is_yes:
 			if is_action:
 				popup.visible = true
@@ -119,20 +120,20 @@ func on_open():
 	if is_open:
 		ui_keys()
 		UI.labels()
+		if is_instance_valid(header_node):
+			header_node.text = "gamepad" if is_gamepad else "keyboard"
+		for i in actions.size():
+			fill_row(list[i], actions[i])
 
 func fill_row(row, action):
 	var a = get_action_list_is_type(action)
-	var k := []
-	
-	for y in a:
-		k.append(y.as_text())
 	
 	var keys = row.get_node("Keys").get_children()
 	for x in keys.size():
-		var less = x < k.size()
+		var less = x < a.size()
 		keys[x].visible = less
 		if less:
-			keys[x].text = k[x]
+			keys[x].parse_event(a[x])
 
 func get_action_list_is_type(_action, _gamepad := is_gamepad):
 	var e = []

@@ -24,7 +24,6 @@ var erase_items := ["really erase", "no erase"]
 var menu_name := "main"
 var menu_last := menu_name
 
-var is_input = true
 export var is_credits := false
 
 func _ready():
@@ -40,14 +39,11 @@ func _ready():
 	
 	open(true)
 
-func menu_input(event):
-	if is_input: .menu_input(event)
-
 func btn_no():
 	if is_credits:
 		is_credits = false
 		credits_node.visible = false
-		resume()
+		close_sub()
 	else:
 		if menu_items == open_items:
 			Player.set_palette(demo_player_mat, Shared.pick_player_colors())
@@ -103,12 +99,9 @@ func menu_select(tag : String = menu_items[cursor].to_lower()):
 			Shared.wipe_scene(Shared.creator_path)
 			Audio.play("menu_play", 0.9, 1.1)
 		"options":
-			OptionsMenu.open(true, self)
-			is_input = false
+			open_sub(OptionsMenu)
 			Audio.play("menu_options", 0.9, 1.1)
 			Shared.cam.pos_target += Vector2(24, -4)
-			if parent_node:
-				parent_node.visible = false
 		"credits":
 			is_credits = true
 			credits_node.visible = true
@@ -150,13 +143,10 @@ func menu_select(tag : String = menu_items[cursor].to_lower()):
 			switch_menu("open")
 			
 
-func resume():
-	is_input = true
+func on_close_sub():
 	open_clock = open_time
 	Shared.cam.pos_target = Vector2(90, 76)
 	UI.keys(false)
-	if parent_node:
-		parent_node.visible = true
 
 func switch_menu(arg, silent := false, _cursor := 0):
 	var s = ["quit", "main", "slot", "open", "erase"]

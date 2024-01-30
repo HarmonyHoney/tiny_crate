@@ -12,6 +12,7 @@ export var col_off := Color("ff004d")
 
 func _ready():
 	set_color()
+	deselect()
 	audio.bus = AudioServer.get_bus_name(bus)
 
 func select():
