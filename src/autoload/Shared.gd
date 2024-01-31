@@ -3,7 +3,7 @@ extends Node
 onready var node_ghost := $Ghost
 onready var node_ghosts := $Ghosts
 var ghosts := []
-var ghost_count := 3
+var ghost_count := 10
 
 var cam : Camera2D
 var map_solid : TileMap
@@ -31,7 +31,7 @@ var save_path := "user://save/"
 var save_filename := "box.save"
 var scene_dict := {}
 export var is_scene_dict_refresh := false setget set_is_scene_dict_refresh
-var replays := {}
+var replays := [{}, {}, {}]
 var is_save := false
 var last_menu := "main"
 var last_cursor := 0
@@ -201,11 +201,11 @@ func change_map():
 		if is_replay or is_replay_note:
 			var m = map_name + ("-note" if is_replay_note else "")
 		
-			if replays.has(m):
-				replays[m].sort_custom(self, "sort_replays")
+			if replays[save_slot].has(m):
+				replays[save_slot][m].sort_custom(self, "sort_replays")
 				
-				for i in min(3, replays[m].size()):
-					var r = replays[m][i].duplicate()
+				for i in min(ghost_count, replays[save_slot][m].size()):
+					var r = replays[save_slot][m][i].duplicate()
 					if r.has_all(["frames", "x", "y", "sprite"]):
 						replaying.append(r)
 						ghosts[i].visible = true
@@ -262,28 +262,27 @@ func save():
 	
 	save_file(save_path + str(save_slot) + "/" + save_filename, JSON.print(data, "\t"))
 
-func delete_slot(arg := 0):
+func load_slots():
+	for i in 3:
+		load_save(i)
+		load_replays(i)
+
+func delete_slot(_slot := save_slot):
 	var dir = Directory.new()
-	if dir.open(save_path + str(save_slot)) == 0:
+	if dir.open(save_path + str(_slot)) == 0:
 		dir.list_dir_begin(true, true)
 		var fname = dir.get_next()
 		while fname != "":
 			dir.remove(fname)
 			fname = dir.get_next()
-	
+		
+		replays[_slot] = {}
+		load_save(_slot)
 
-func save_replays(arg := replay_map):
-	save_file(save_path + str(save_slot) + "/" + arg + ".save", JSON.print(replays[arg], "\t"))
+func save_replays(arg := replay_map, _slot := save_slot):
+	save_file(save_path + str(_slot) + "/" + arg + ".save", JSON.print(replays[save_slot][arg], "\t"))
 
-func load_slot(_slot):
-	save_slot = clamp(_slot, 0, 2)
-	load_save(_slot, save_data[save_slot])
-
-func load_slots():
-	for i in 3:
-		load_save(i)
-
-func load_save(_slot = save_slot, _dict := {}):
+func load_save(_slot = save_slot, is_reload := false):
 	save_slot = clamp(_slot, 0, 2)
 	var save_string = save_path + str(save_slot) + "/" + save_filename
 	
@@ -294,38 +293,41 @@ func load_save(_slot = save_slot, _dict := {}):
 	player_colors = pick_player_colors()
 	save_maps = {}
 	
-	if _dict.empty():
+	var dict := {}
+	if is_reload: dict = save_data[_slot]
+	
+	if dict.empty():
 		var l = load_file(save_string)
-		if l: _dict = JSON.parse(l).result
+		if l: dict = JSON.parse(l).result
 		else: print(save_string + " not found")
 	
-	print(_slot, " / ", _dict)
-	if !_dict.empty():
-		if _dict.has("username"):
-			username = _dict["username"]
+	print(_slot, " / ", dict)
+	if !dict.empty():
+		if dict.has("username"):
+			username = dict["username"]
 			s["username"] = username
 			
-		if _dict.has("player_colors"):
-			player_colors = _dict["player_colors"].duplicate()
+		if dict.has("player_colors"):
+			player_colors = dict["player_colors"].duplicate()
 			s["player_colors"] = player_colors
 		
-		if _dict.has("maps"):
-			save_maps = _dict["maps"].duplicate()
+		if dict.has("maps"):
+			save_maps = dict["maps"].duplicate()
 			s["maps"] = save_maps
 			
 			count_score()
 			s["gems"] = count_gems
 			s["notes"] = count_notes
 
-func load_replays():
-	replays = {}
-	var s = save_path + str(save_slot) + "/"
+func load_replays(_slot := save_slot):
+	replays[_slot] = {}
+	var s = save_path + str(_slot) + "/"
 	for i in dir_list(s):
 		var l = load_file(s + i)
 		if l:
 			var p = JSON.parse(l).result
 			if p is Array and p[0] is Dictionary and p[0].has("frames"):
-				replays[i.split(".")[0]] = p
+				replays[_slot][i.split(".")[0]] = p
 		else:
 			print(s + i + " not found")
 
@@ -372,12 +374,12 @@ func win():
 	var m = map_name + ("-note" if is_note else "")
 	replay_map = m
 	
-	if !replays.has(m):
-		replays[m] = []
-	replays[m].append(replay)
-	replays[m].sort_custom(self, "sort_replays")
-	if replays[m].size() > 5:
-		replays[m].resize(5)
+	if !replays[save_slot].has(m):
+		replays[save_slot][m] = []
+	replays[save_slot][m].append(replay)
+	replays[save_slot][m].sort_custom(self, "sort_replays")
+	if replays[save_slot][m].size() > ghost_count:
+		replays[save_slot][m].resize(ghost_count)
 	
 	print("map complete")
 	

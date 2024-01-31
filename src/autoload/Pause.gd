@@ -9,7 +9,7 @@ signal pause
 signal unpause
 
 func _input(event):
-	if clock == 0 and Shared.is_in_game and !Wipe.is_wipe:
+	if !is_sub and clock == 0 and Shared.is_in_game and !Wipe.is_wipe:
 		if event.is_action_pressed("ui_pause"):
 			toggle_pause()
 

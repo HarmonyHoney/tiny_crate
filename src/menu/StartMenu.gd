@@ -29,7 +29,6 @@ export var is_credits := false
 func _ready():
 	randomize()
 	Player.set_palette(demo_player_mat, Shared.pick_player_colors())
-	Shared.load_slots()
 	
 	setup_slots()
 	
@@ -136,7 +135,6 @@ func menu_select(tag : String = menu_items[cursor].to_lower()):
 			switch_menu("erase")
 		"really erase":
 			Shared.delete_slot(Shared.last_slot)
-			Shared.load_save(Shared.last_slot)
 			setup_slots()
 			switch_menu("slot")
 		"no erase":
@@ -180,7 +178,7 @@ func switch_menu(arg, silent := false, _cursor := 0):
 				_cursor = Shared.last_slot
 				Shared.map_select = 0
 			"open":
-				Shared.load_save(Shared.last_slot)
+				Shared.load_save(Shared.last_slot, true)
 				Player.set_palette(open_player_mat, Shared.player_colors)
 				Player.set_palette(demo_player_mat, Shared.player_colors)
 				if menu_last == "erase":
