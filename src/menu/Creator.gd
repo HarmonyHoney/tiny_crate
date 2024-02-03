@@ -6,7 +6,7 @@ var rows : Array = []#keyboard.get_children()
 onready var cursor_node := $Menu/Cursors/Cursor
 var cursor_x := 0
 var cursor_y := 0
-onready var arrows := $Menu/Cursors/Arrows
+onready var arrows := $Menu/Cursors/Arrows.get_children()
 onready var cursors_parent := $Menu/Cursors
 
 onready var name_label := $Menu/Name
@@ -18,6 +18,8 @@ var swatches = []
 
 onready var player_mat : ShaderMaterial = $Player/Sprite.material
 var is_input := true
+var cursor_lerp := 0.2
+export var cursor_expand := Vector2.ZERO
 
 func _ready():
 	# setup rows & columns
@@ -103,15 +105,19 @@ func _input(event):
 		elif is_no:
 			Audio.play("menu_scroll2", 0.8, 1.2)
 
+func _physics_process(delta):
+	if is_instance_valid(cursor_node):
+		cursor_node.rect_size = cursor_node.rect_size.linear_interpolate(rows[cursor_y][cursor_x].rect_size + cursor_expand, cursor_lerp)
+		cursor_node.rect_global_position = cursor_node.rect_global_position.linear_interpolate(rows[cursor_y][cursor_x].rect_global_position - (cursor_expand * 0.5), cursor_lerp)
+		
+		arrows[0].global_position = cursor_node.rect_global_position + Vector2(-3, 1)
+		arrows[1].global_position = cursor_node.rect_global_position + Vector2(cursor_node.rect_size.x + 3, 1)
+
 func move_cursor(_x := cursor_x, _y = cursor_y):
 	cursor_y = clamp(_y, 0, rows.size() - 1)
 	cursor_x = wrapi(_x, 0, rows[cursor_y].size())
-	
-	cursor_node.rect_global_position = rows[cursor_y][cursor_x].rect_global_position
-	cursor_node.rect_size = rows[cursor_y][cursor_x].rect_size
-	
-	arrows.rect_global_position = cursor_node.rect_global_position
-	arrows.visible = cursor_y == clamp(cursor_y, 1, 4)
+	for i in arrows:
+		i.visible = cursor_y == clamp(cursor_y, 1, 4)
 	Audio.play("menu_scroll", 0.8, 1.2)
 	
 	if cursor_y == 0:
