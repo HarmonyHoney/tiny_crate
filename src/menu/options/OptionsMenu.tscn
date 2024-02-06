@@ -32,6 +32,7 @@ list_path = NodePath("Center/Control/MenuItems")
 cursor_path = NodePath("Center/Control/Cursor")
 cursor_expand = Vector2( 4, 4 )
 is_audio_scroll = true
+is_audio_back = true
 is_close_btn_no = true
 
 [node name="Back" type="ColorRect" parent="."]

@@ -32,6 +32,7 @@ list_path = NodePath("Control/VBox")
 cursor_path = NodePath("Control/Cursor")
 cursor_expand = Vector2( 4, 4 )
 is_audio_scroll = true
+is_audio_back = true
 scroll_path = NodePath("Control")
 row_path = NodePath("Control/VBox/Row")
 label_path = NodePath("Control/VBox/Label")

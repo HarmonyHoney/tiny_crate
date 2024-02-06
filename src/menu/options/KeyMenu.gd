@@ -97,6 +97,7 @@ func menu_input(event):
 			Audio.play("menu_scroll", 0.8, 1.2)
 		elif is_no:
 			open(false)
+			btn_no()
 		elif is_yes:
 			if is_action:
 				popup.visible = true

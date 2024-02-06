@@ -18,6 +18,7 @@ export var cursor_expand := Vector2.ZERO
 export var cursor_lerp := 0.2
 export var is_audio_scroll = false
 export var is_sub_visible := false
+export var is_audio_back := false
 
 export var scroll_path : NodePath = ""
 onready var scroll_node : Control = get_node_or_null(scroll_path)
@@ -73,6 +74,8 @@ func btn_del():
 	pass
 
 func btn_no():
+	if is_audio_back:
+		Audio.play("menu_exit", 0.8, 1.2)
 	if is_close_btn_no:
 		open(false)
 
