@@ -30,6 +30,7 @@ var save_maps := {}
 var save_path := "user://save/"
 var save_filename := "box.save"
 var keys_path := "keys.tres"
+var options_path := "options.tres"
 var scene_dict := {}
 export var is_scene_dict_refresh := false setget set_is_scene_dict_refresh
 var replays := [{}, {}, {}]
@@ -98,6 +99,7 @@ func _ready():
 		if !dir.open(s) == OK:
 			dir.make_dir(s)
 	
+	load_options()
 	load_slots()
 	KeyMenu.default_keys()
 	load_keys()
@@ -265,6 +267,11 @@ func save():
 	
 	save_file(save_path + str(save_slot) + "/" + save_filename, JSON.print(data, "\t"))
 
+func load_slots():
+	for i in 3:
+		load_save(i)
+		load_replays(i)
+
 func save_keys(path := keys_path):
 	var s_keys = SaveDict.new()
 	for a in InputMap.get_actions():
@@ -284,10 +291,26 @@ func load_keys(path := keys_path):
 				for e in r.dict[a]:
 					InputMap.action_add_event(a, e)
 
-func load_slots():
-	for i in 3:
-		load_save(i)
-		load_replays(i)
+func save_options(path := options_path):
+	var data = {}
+	data["sfx"] = bus_volume[1]
+	data["music"] = bus_volume[2]
+	data["fullscreen"] = int(OS.window_fullscreen)
+	
+	save_file(save_path + options_path, JSON.print(data, "\t"))
+
+func load_options(path := options_path):
+	var dict = {}
+	var l = load_file(save_path + path)
+	if l: dict = JSON.parse(l).result
+	
+	if !dict.empty():
+		if dict.has("sfx"):
+			bus_volume[1] = int(dict["sfx"])
+		if dict.has("music"):
+			bus_volume[2] = int(dict["music"])
+		if dict.has("fullscreen"):
+			OS.window_fullscreen = bool(dict["fullscreen"])
 
 func delete_slot(_slot := save_slot):
 	var dir = Directory.new()
@@ -303,7 +326,6 @@ func delete_slot(_slot := save_slot):
 
 func save_replays(arg := replay_map, _slot := save_slot):
 	save_file(save_path + str(_slot) + "/" + arg + ".save", JSON.print(replays[save_slot][arg], "\t"))
-	
 
 func load_save(_slot = save_slot, is_reload := false):
 	save_slot = clamp(_slot, 0, 2)
