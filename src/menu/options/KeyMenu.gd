@@ -1,6 +1,6 @@
 extends Menu
 
-onready var default_keys := {}
+var default_keys := {}
 
 export var is_gamepad := false
 
@@ -45,10 +45,6 @@ func _ready():
 		get_node(i).queue_free()
 	
 	popup.visible = false
-	
-	# get default key binds
-	for i in InputMap.get_actions():
-		default_keys[i] = InputMap.get_action_list(i)
 	
 	# setup list
 	list = []
@@ -124,6 +120,8 @@ func on_open():
 			header_node.text = "gamepad" if is_gamepad else "keyboard"
 		for i in actions.size():
 			fill_row(list[i], actions[i])
+	else:
+		Shared.save_keys()
 
 func fill_row(row, action):
 	var a = get_action_list_is_type(action)
@@ -173,6 +171,11 @@ func clear_action(_cursor := cursor):
 		InputMap.action_erase_event(action, i)
 	
 	fill_row(list[_cursor], actions[_cursor])
+
+func default_keys():
+	# get default key binds
+	for i in InputMap.get_actions():
+		default_keys[i] = InputMap.get_action_list(i)
 
 func reset_to_defaults():
 	for action in InputMap.get_actions():

@@ -29,6 +29,7 @@ var last_slot = -1
 var save_maps := {}
 var save_path := "user://save/"
 var save_filename := "box.save"
+var keys_path := "keys.tres"
 var scene_dict := {}
 export var is_scene_dict_refresh := false setget set_is_scene_dict_refresh
 var replays := [{}, {}, {}]
@@ -98,6 +99,8 @@ func _ready():
 			dir.make_dir(s)
 	
 	load_slots()
+	KeyMenu.default_keys()
+	load_keys()
 	
 	Wipe.connect("finish", self, "wipe_finish")
 
@@ -262,6 +265,25 @@ func save():
 	
 	save_file(save_path + str(save_slot) + "/" + save_filename, JSON.print(data, "\t"))
 
+func save_keys(path := keys_path):
+	var s_keys = SaveDict.new()
+	for a in InputMap.get_actions():
+		s_keys.dict[a] = InputMap.get_action_list(a)
+	
+	ResourceSaver.save(save_path + path, s_keys)
+
+func load_keys(path := keys_path):
+	if !ResourceLoader.exists(save_path + path): return
+	var r = load(save_path + path)
+	
+	if r is SaveDict:
+		for a in r.dict.keys():
+			if InputMap.has_action(a):
+				InputMap.action_erase_events(a)
+				
+				for e in r.dict[a]:
+					InputMap.action_add_event(a, e)
+
 func load_slots():
 	for i in 3:
 		load_save(i)
@@ -281,6 +303,7 @@ func delete_slot(_slot := save_slot):
 
 func save_replays(arg := replay_map, _slot := save_slot):
 	save_file(save_path + str(_slot) + "/" + arg + ".save", JSON.print(replays[save_slot][arg], "\t"))
+	
 
 func load_save(_slot = save_slot, is_reload := false):
 	save_slot = clamp(_slot, 0, 2)
