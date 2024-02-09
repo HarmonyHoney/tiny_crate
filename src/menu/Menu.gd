@@ -126,9 +126,11 @@ func open(arg := false, _last = null):
 	if is_open:
 		set_cursor(0)
 		UI.keys(ui_expand, ui_top, ui_arrows, ui_x, ui_c, ui_stack, ui_v)
-	elif is_instance_valid(last_menu):
-		last_menu.close_sub()
-		last_menu = null
+	else:
+		if list.size() > cursor and list[cursor].has_method("deselect"): list[cursor].deselect()
+		if is_instance_valid(last_menu):
+			last_menu.close_sub()
+			last_menu = null
 	
 	open_clock = open_time
 	

@@ -6,7 +6,7 @@ var palettes := [["c2c3c7", "5f574f", "008751", "ad0028"],
 ["c46874", "3d1c2f", "bd9400", "ad0028"],
 ["b2b2db", "39394f", "838700", "ab378a"],
 ["c2a782", "382e1f", "ab2c59", "4b6e2e"],
-["66bd6a", "153d17", "0a69f0", "a82d2d"],]
+["66bd6a", "0b210c", "0a69f0", "a82d2d"],]
 
 export var color_solid := Color("c2c3c7") setget set_solid
 export var color_back := Color("5f574f") setget set_back
