@@ -16,7 +16,6 @@ var is_in_game := false
 var map_dir := "res://src/map/"
 var main_menu_path := "res://src/menu/StartMenu.tscn"
 var level_select_path := "res://src/menu/select.tscn"
-var win_screen_path := "res://src/menu/WinScreen.tscn"
 var credits_path := "res://src/menu/credits.tscn"
 var splash_path := "res://src/menu/splash.tscn"
 var creator_path := "res://src/menu/Creator.tscn"
