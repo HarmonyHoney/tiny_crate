@@ -16,7 +16,8 @@ func deselect():
 func _input(event):
 	if is_selected and event.is_action_pressed("ui_yes"):
 		var is_full = OS.window_fullscreen
-		OS.window_fullscreen = !is_full
+		Shared.set_fullscreen(!is_full)
+		#OS.window_fullscreen = !is_full
 		Shared.set_window_scale()
 		Audio.play("menu_pause", 0.9, 1.1)
 		fill.visible = !is_full

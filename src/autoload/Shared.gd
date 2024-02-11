@@ -316,7 +316,7 @@ func load_options(path := options_path):
 		if dict.has("music"):
 			bus_volume[2] = int(dict["music"])
 		if dict.has("fullscreen"):
-			OS.window_fullscreen = bool(dict["fullscreen"])
+			set_fullscreen(bool(dict["fullscreen"]))
 
 func delete_slot(_slot := save_slot):
 	var dir = Directory.new()
@@ -500,3 +500,7 @@ func get_all_children(n, a := []):
 		for i in n.get_children():
 			a = get_all_children(i, a)
 	return a
+
+func set_fullscreen(arg := false):
+	OS.window_fullscreen = arg
+	Input.mouse_mode = Input.MOUSE_MODE_HIDDEN if arg else Input.MOUSE_MODE_VISIBLE

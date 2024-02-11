@@ -96,8 +96,8 @@ func _physics_process(delta):
 	
 	# input
 	if !is_attract_mode:
-		btnx = btn.d("right") - btn.d("left")
-		btny = btn.d("down") - btn.d("up")
+		btnx = int(round(Input.get_axis("left", "right")))
+		btny = int(round(Input.get_axis("down", "up")))
 		btnp_jump = btn.p("jump")
 		btnd_jump = btn.d("jump")
 		btnp_pick = btn.p("action")
