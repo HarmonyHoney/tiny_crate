@@ -81,13 +81,12 @@ margin_right = 223.0
 margin_bottom = 121.0
 custom_constants/vseparation = 0
 custom_constants/hseparation = 2
-columns = 2
+columns = 3
 
 [node name="Arrows" type="HBoxContainer" parent="Center/Control/Bottom"]
-visible = false
-margin_top = 12.0
+margin_top = 31.0
 margin_right = 50.0
-margin_bottom = 19.0
+margin_bottom = 38.0
 size_flags_vertical = 10
 custom_constants/separation = 3
 
@@ -98,23 +97,28 @@ custom_constants/separation = 1
 
 [node name="Key" parent="Center/Control/Bottom/Arrows/HBoxContainer" instance=ExtResource( 7 )]
 action = "ui_left"
+is_connect = true
 
 [node name="Key4" parent="Center/Control/Bottom/Arrows/HBoxContainer" instance=ExtResource( 7 )]
 margin_left = 8.0
 margin_right = 15.0
 action = "ui_down"
 text = "down"
+is_connect = true
 
 [node name="Key3" parent="Center/Control/Bottom/Arrows/HBoxContainer/Key4" instance=ExtResource( 7 )]
 margin_top = -8.0
 margin_bottom = -1.0
 action = "ui_up"
+text = "up"
+is_connect = true
 
 [node name="Key2" parent="Center/Control/Bottom/Arrows/HBoxContainer" instance=ExtResource( 7 )]
 margin_left = 16.0
 margin_right = 23.0
 action = "ui_right"
 text = "right"
+is_connect = true
 
 [node name="Desc" type="Label" parent="Center/Control/Bottom/Arrows"]
 margin_left = 26.0
@@ -125,6 +129,7 @@ custom_fonts/font = SubResource( 3 )
 text = "move"
 
 [node name="Spacer" type="Control" parent="Center/Control/Bottom"]
+margin_left = 52.0
 margin_right = 158.0
 margin_bottom = 38.0
 size_flags_horizontal = 3
@@ -148,6 +153,7 @@ custom_constants/separation = 3
 [node name="Key" parent="Center/Control/Bottom/Keys/X" instance=ExtResource( 7 )]
 action = "ui_yes"
 text = "x"
+is_connect = true
 
 [node name="Desc" type="Label" parent="Center/Control/Bottom/Keys/X"]
 margin_left = 10.0
@@ -169,6 +175,7 @@ custom_constants/separation = 3
 [node name="Key" parent="Center/Control/Bottom/Keys/C" instance=ExtResource( 7 )]
 action = "ui_no"
 text = "c"
+is_connect = true
 
 [node name="Desc" type="Label" parent="Center/Control/Bottom/Keys/C"]
 margin_left = 10.0
@@ -191,6 +198,7 @@ margin_right = 19.0
 rect_min_size = Vector2( 19, 7 )
 action = "ui_del"
 text = "del"
+is_connect = true
 
 [node name="Desc" type="Label" parent="Center/Control/Bottom/Keys/V"]
 margin_left = 22.0
@@ -355,20 +363,24 @@ custom_constants/separation = 0
 alignment = 2
 
 [node name="P" type="HBoxContainer" parent="Center/Control/Top"]
-margin_left = 184.0
+margin_left = 160.0
 margin_right = 218.0
 margin_bottom = 12.0
 custom_constants/separation = 3
 
 [node name="Key" parent="Center/Control/Top/P" instance=ExtResource( 7 )]
 margin_top = 2.0
+margin_right = 31.0
 margin_bottom = 9.0
+rect_min_size = Vector2( 31, 7 )
 action = "ui_pause"
+text = "enter"
+is_connect = true
 
 [node name="Desc" type="Label" parent="Center/Control/Top/P"]
-margin_left = 10.0
+margin_left = 34.0
 margin_top = 3.0
-margin_right = 34.0
+margin_right = 58.0
 margin_bottom = 8.0
 custom_fonts/font = SubResource( 3 )
 text = "menu"

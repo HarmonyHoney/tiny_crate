@@ -12,6 +12,8 @@ var map_obscure : TileMap
 var is_quit := false
 var is_level_select := false
 var is_in_game := false
+var is_gamepad := false
+signal signal_gamepad
 
 var map_dir := "res://src/map/"
 var main_menu_path := "res://src/menu/StartMenu.tscn"
@@ -106,6 +108,11 @@ func _ready():
 	Wipe.connect("finish", self, "wipe_finish")
 
 func _input(event):
+	var joy = event is InputEventJoypadButton or event is InputEventJoypadMotion
+	if is_gamepad != joy:
+		is_gamepad = joy
+		emit_signal("signal_gamepad")
+	
 	if event.is_action_pressed("debug_refresh"):
 		refresh_scenes()
 

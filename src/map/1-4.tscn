@@ -215,6 +215,7 @@ custom_constants/separation = 3
 [node name="Key" parent="Center/X" instance=ExtResource( 10 )]
 action = "action"
 text = "c"
+is_connect = true
 
 [node name="Desc" type="Label" parent="Center/X"]
 margin_left = 10.0

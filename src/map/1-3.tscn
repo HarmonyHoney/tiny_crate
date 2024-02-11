@@ -220,6 +220,7 @@ margin_right = 31.0
 rect_min_size = Vector2( 31, 7 )
 action = "ui_pause"
 text = "enter"
+is_connect = true
 
 [node name="Desc" type="Label" parent="Center/X"]
 margin_left = 34.0

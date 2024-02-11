@@ -7,6 +7,7 @@ export var text := "key" setget set_text
 export var font_width := 6
 export var is_refresh := true
 export var is_gamepad := false
+export var is_connect := false setget set_is_connect
 
 onready var white := $White
 onready var black := $Black
@@ -132,6 +133,15 @@ func set_action(arg := action):
 		if e:
 			parse_event(e)
 
+func set_is_connect(arg := is_connect):
+	is_connect = arg
+	var s = "signal_gamepad"
+	if is_connect:
+		Shared.connect(s, self, s)
+		signal_gamepad()
+	elif Shared.is_connected(s, self, s):
+		Shared.disconnect(s, self, s)
+
 static func is_type(event, _is_gamepad := is_gamepad):
 	var test = !_is_gamepad and event is InputEventKey
 	if !test:
@@ -151,3 +161,7 @@ func parse_event(event : InputEvent):
 	
 	self.text = s
 	update()
+
+func signal_gamepad():
+	is_gamepad = Shared.is_gamepad
+	set_action()

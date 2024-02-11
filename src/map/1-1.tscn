@@ -209,24 +209,28 @@ custom_constants/separation = 1
 
 [node name="Key" parent="Center/Arrows/HBoxContainer" instance=ExtResource( 9 )]
 action = "left"
+is_connect = true
 
 [node name="Key4" parent="Center/Arrows/HBoxContainer" instance=ExtResource( 9 )]
 margin_left = 8.0
 margin_right = 15.0
 action = "down"
 text = "down"
+is_connect = true
 
 [node name="Key3" parent="Center/Arrows/HBoxContainer/Key4" instance=ExtResource( 9 )]
 margin_top = -8.0
 margin_bottom = -1.0
 action = "up"
 text = "up"
+is_connect = true
 
 [node name="Key2" parent="Center/Arrows/HBoxContainer" instance=ExtResource( 9 )]
 margin_left = 16.0
 margin_right = 23.0
 action = "right"
 text = "right"
+is_connect = true
 
 [node name="Desc" type="Label" parent="Center/Arrows"]
 margin_left = 26.0
