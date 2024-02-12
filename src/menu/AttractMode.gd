@@ -38,6 +38,7 @@ func set_button_box():
 	box[3].position = Vector2(64, -16)
 	box[3].speed = Vector2.ZERO
 	box[3].remainder = Vector2.ZERO
+	box[3].pick_frame()
 
 func set_box_stack():
 	box[0].position = Vector2(160, -16)
@@ -47,6 +48,7 @@ func set_box_stack():
 	for i in 3: # 0, 1, 2
 		box[i].speed = Vector2.ZERO
 		box[i].remainder = Vector2.ZERO
+		box[i].pick_frame()
 
 func btnx(arg : int):
 	p.btnx = arg

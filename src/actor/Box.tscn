@@ -6,11 +6,13 @@
 [ext_resource path="res://src/shader/palette_swap_2.gdshader" type="Shader" id=4]
 
 [sub_resource type="ShaderMaterial" id=2]
+resource_local_to_scene = true
 shader = ExtResource( 4 )
 shader_param/c0 = Color( 1, 1, 1, 1 )
-shader_param/s0 = Color( 0.670588, 0.321569, 0.211765, 1 )
+shader_param/s0 = Color( 0.8, 0.188235, 0, 1 )
 shader_param/c1 = Color( 0, 0, 0, 1 )
-shader_param/s1 = Color( 1, 0.639216, 0, 1 )
+shader_param/s1 = Color( 1, 0.768627, 0, 1 )
+shader_param/flip = 0.0
 
 [sub_resource type="Animation" id=1]
 resource_name = "hit"
@@ -57,7 +59,7 @@ position = Vector2( 4, 4 )
 texture = ExtResource( 1 )
 hframes = 4
 vframes = 4
-frame = 1
+frame = 6
 
 [node name="AudioHit" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource( 2 )

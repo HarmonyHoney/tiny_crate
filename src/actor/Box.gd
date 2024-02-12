@@ -7,6 +7,7 @@ var is_push = false
 onready var node_audio : AudioStreamPlayer2D = $AudioHit
 onready var node_anim : AnimationPlayer = $AnimationPlayer
 onready var node_sprite : Sprite = $Sprite
+onready var sprite_mat : ShaderMaterial = node_sprite.material
 var spr_pos := Vector2.ZERO
 
 var push_clock := 0.0
@@ -17,8 +18,13 @@ var shake_dist = 0
 
 var scene_slam = preload("res://src/fx/Slam.tscn")
 
+var images = [1, 4, 5, 6, 7]
+export var is_refresh_frame := 0 setget pick_frame
+
 func _ready():
-	if Engine.editor_hint or Shared.is_level_select: return
+	if Engine.editor_hint: return
+	pick_frame()
+	if Shared.is_level_select: return
 	
 	spr_pos = node_sprite.position
 	
@@ -63,3 +69,10 @@ func push(dir : int):
 			a.push(dir)
 		move_x(dir)
 		push_dir = dir
+
+func pick_frame(arg = null):
+	#randomize()
+	node_sprite.frame = images[randi() % images.size()]
+	node_sprite.flip_h = randf() > 0.5
+	sprite_mat.set_shader_param("flip", float(randf() > 0.5))
+	
