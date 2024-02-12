@@ -142,7 +142,6 @@ func menu_select(tag : String = menu_items[cursor].to_lower()):
 			
 
 func on_close_sub():
-	open_clock = open_time
 	Shared.cam.pos_target = Vector2(90, 76)
 	UI.keys(false)
 

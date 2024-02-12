@@ -3,6 +3,7 @@ extends Node2D
 onready var p = $Player
 
 func _ready():
+	if Shared.is_level_select: return
 	Audio.play("menu_pick")
 
 func _physics_process(delta):

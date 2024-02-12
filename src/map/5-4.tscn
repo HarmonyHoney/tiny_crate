@@ -151,7 +151,7 @@
 script = ExtResource( 2 )
 palette = 4
 color_solid = Color( 0.4, 0.741176, 0.415686, 1 )
-color_back = Color( 0.0431373, 0.129412, 0.0470588, 1 )
+color_back = Color( 0.12549, 0.188235, 0.129412, 1 )
 color_grass = Color( 0.0392157, 0.411765, 0.941176, 1 )
 color_wood = Color( 0.658824, 0.176471, 0.176471, 1 )
 

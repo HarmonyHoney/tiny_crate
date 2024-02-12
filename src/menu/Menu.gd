@@ -26,7 +26,8 @@ onready var scroll_node : Control = get_node_or_null(scroll_path)
 var last_menu = null
 
 var open_clock := 0.0
-export var open_time := 0.1
+var open_time := 0.1
+var key_time := 0.1
 
 export var is_close_btn_no := false
 export var is_color := false
@@ -69,6 +70,9 @@ func menu_input(event):
 	elif b_yes: btn_yes()
 	elif b_y != 0: btn_y(b_y)
 	elif b_x != 0: btn_x(b_x)
+	
+	if b_del or b_no or b_yes or b_y or b_x:
+		open_clock = key_time
 
 func btn_del():
 	pass

@@ -82,7 +82,7 @@ func menu_input(event):
 			is_rebind = false
 			popup.visible = false
 			ui_keys()
-		elif event.is_pressed() and !event.is_echo() and Key.is_type(event) and !is_del:
+		elif event.is_pressed() and !event.is_echo() and Key.is_type(event, is_gamepad) and !is_del:
 			assign_key(actions[cursor], event)
 			is_rebind = false
 			ui_keys()

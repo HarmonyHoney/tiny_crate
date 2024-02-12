@@ -51,7 +51,7 @@ var map_list := []
 var map_rows := []
 var map_unlocked := []
 export(String, MULTILINE) var lock_string := ""
-
+var map_vector = {}
 
 func _ready():
 	Leaderboard.connect("new_score", self, "new_score")
@@ -80,6 +80,9 @@ func _ready():
 			screen_pos.append((Vector2(x + (y % 2) * 0.5, y) * (screen_size + screen_dist)))
 			sum += 1
 			screen_list.append(sum)
+			var v = Vector2(x, y)
+			map_vector[v] = sum
+			map_vector[sum] = v
 	screen_max = max(0, screen_pos.size() - 1)
 	overlays.resize(screen_pos.size())
 	
@@ -115,12 +118,20 @@ func _input(event):
 		show_score = posmod(show_score + 1, 3)
 		print("show_score: ", show_score)
 		show_scoreboard()
+		Audio.play("menu_options", 0.8, 1.2)
 	else:
 		var btnx = btn.p("ui_right") - btn.p("ui_left")
 		var btny = btn.p("ui_down") - btn.p("ui_up")
 		if input_count == 0 and (btnx or btny):
 			input_count = input_wait
-			scroll(btnx + (btny * columns))
+			if btnx:
+				scroll(cursor + btnx)
+			else:
+				var v = map_vector[cursor]
+				v.y = clamp(v.y + btny, 0, map_rows.size() - 1)
+				v.x = clamp(v.x, 0, map_rows[v.y].size() - 1)
+				scroll(map_vector[v])
+			
 			Audio.play("menu_scroll3", 0.9, 1.5)
 
 func _physics_process(delta):
@@ -200,10 +211,10 @@ func view_scene(port, path, arg):
 	load_list.append([port_count, path, port])
 	port_count += 1
 
-func scroll(arg = 0):
+func scroll(arg := cursor):
 	if overlays[cursor]: overlays[cursor].visible = true
 	
-	cursor = clamp(cursor + arg, 0, screen_max)
+	cursor = clamp(arg, 0, screen_max)
 	current_map = map_list[cursor]
 	
 	if overlays[cursor]: overlays[cursor].visible = !score_node.visible

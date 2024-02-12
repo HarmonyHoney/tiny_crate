@@ -41,7 +41,6 @@ var scene_explosion = preload("res://src/fx/Explosion.tscn")
 var scene_explosion2 = preload("res://src/fx/Explosion2.tscn")
 
 var btnx = 0
-var btny = 0
 var btnx_last = 0
 var btnx_array = []
 var btnp_jump = false
@@ -97,7 +96,6 @@ func _physics_process(delta):
 	# input
 	if !is_attract_mode:
 		btnx = int(round(Input.get_axis("left", "right")))
-		btny = int(round(Input.get_axis("down", "up")))
 		btnp_jump = btn.p("jump")
 		btnd_jump = btn.d("jump")
 		btnp_pick = btn.p("action")
@@ -166,10 +164,7 @@ func _physics_process(delta):
 				node_audio_drop.pitch_scale = 1 + rand_range(-0.1, 0.1)
 				node_audio_drop.play()
 		else:
-			if btny:
-				box_pickup(0, btny)
-			else:
-				box_pickup(dir * 4, 0)
+			box_pickup(dir * 4, 0)
 	
 	# push box
 	if is_on_floor and move_get_dist().x:

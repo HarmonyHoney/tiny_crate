@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://media/font/m5x7.tres" type="DynamicFont" id=1]
 [ext_resource path="res://media/font/m6x11.tres" type="DynamicFont" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://media/image/crate_tiles.png" type="Texture" id=8]
 [ext_resource path="res://media/image/bricks.png" type="Texture" id=9]
 [ext_resource path="res://src/stage/win.gd" type="Script" id=10]
+[ext_resource path="res://src/menu/hide_on_level_select.gd" type="Script" id=11]
 
 [sub_resource type="TileSet" id=1]
 4/name = "bricks.png 4"
@@ -71,19 +72,23 @@
 
 [node name="Node2D" type="Node2D"]
 
-[node name="YouWin" type="Label" parent="."]
+[node name="Letters" type="Control" parent="."]
 margin_left = 2.0
-margin_top = 10.0
 margin_right = 230.0
+margin_bottom = 128.0
+script = ExtResource( 11 )
+
+[node name="YouWin" type="Label" parent="Letters"]
+margin_top = 10.0
+margin_right = 228.0
 margin_bottom = 23.0
 custom_fonts/font = ExtResource( 2 )
 text = "YOU WIN!"
 align = 1
 
-[node name="ThanksForPlaying" type="Label" parent="."]
-margin_left = 2.0
+[node name="ThanksForPlaying" type="Label" parent="Letters"]
 margin_top = 36.0
-margin_right = 230.0
+margin_right = 228.0
 margin_bottom = 44.0
 custom_fonts/font = ExtResource( 1 )
 text = "thanks for playing"
@@ -92,10 +97,9 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="TinyCrate" type="Label" parent="."]
-margin_left = 2.0
+[node name="TinyCrate" type="Label" parent="Letters"]
 margin_top = 58.0
-margin_right = 230.0
+margin_right = 228.0
 margin_bottom = 71.0
 custom_fonts/font = ExtResource( 2 )
 text = "TINY CRATE"
@@ -104,10 +108,9 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="AGameBy" type="Label" parent="."]
-margin_left = 2.0
+[node name="AGameBy" type="Label" parent="Letters"]
 margin_top = 84.0
-margin_right = 230.0
+margin_right = 228.0
 margin_bottom = 92.0
 custom_fonts/font = ExtResource( 1 )
 text = "a game by"
@@ -116,10 +119,9 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="HarmonyHoney" type="Label" parent="."]
-margin_left = 2.0
+[node name="HarmonyHoney" type="Label" parent="Letters"]
 margin_top = 103.0
-margin_right = 230.0
+margin_right = 228.0
 margin_bottom = 116.0
 custom_fonts/font = ExtResource( 2 )
 text = "Harmony Honey"

@@ -56,7 +56,7 @@
 4/name = "bricks.png 4"
 4/texture = ExtResource( 14 )
 4/tex_offset = Vector2( 0, 0 )
-4/modulate = Color( 0.0431373, 0.129412, 0.0470588, 1 )
+4/modulate = Color( 0.12549, 0.188235, 0.129412, 1 )
 4/region = Rect2( 0, 0, 40, 8 )
 4/tile_mode = 2
 4/autotile/icon_coordinate = Vector2( 0, 0 )
@@ -151,7 +151,7 @@
 script = ExtResource( 10 )
 palette = 4
 color_solid = Color( 0.4, 0.741176, 0.415686, 1 )
-color_back = Color( 0.0431373, 0.129412, 0.0470588, 1 )
+color_back = Color( 0.12549, 0.188235, 0.129412, 1 )
 color_grass = Color( 0.0392157, 0.411765, 0.941176, 1 )
 color_wood = Color( 0.658824, 0.176471, 0.176471, 1 )
 
@@ -170,7 +170,7 @@ tile_data = PoolIntArray( -917513, 5, 0, -917512, 5, 0, -917511, 5, 0, -917510, 
 __meta__ = {
 "_editor_description_": ""
 }
-brick_color = Color( 0.0431373, 0.129412, 0.0470588, 1 )
+brick_color = Color( 0.12549, 0.188235, 0.129412, 1 )
 grass_color = Color( 0.0392157, 0.411765, 0.941176, 1 )
 wood_color = Color( 0.658824, 0.176471, 0.176471, 1 )
 
