@@ -9,7 +9,7 @@
 resource_local_to_scene = true
 shader = ExtResource( 4 )
 shader_param/c0 = Color( 1, 1, 1, 1 )
-shader_param/s0 = Color( 0.8, 0.188235, 0, 1 )
+shader_param/s0 = Color( 0.670588, 0.321569, 0.211765, 1 )
 shader_param/c1 = Color( 0, 0, 0, 1 )
 shader_param/s1 = Color( 1, 0.768627, 0, 1 )
 shader_param/flip = 0.0
