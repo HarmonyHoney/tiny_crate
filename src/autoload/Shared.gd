@@ -55,6 +55,7 @@ var replaying := []
 var replay_map := ""
 var count_gems := 0
 var count_notes := 0
+var count_die := 0
 
 var is_win := false
 var is_note := false
@@ -441,9 +442,11 @@ func win():
 func count_score():
 	count_gems = 0
 	count_notes = 0
+	count_die = 0
 	for i in save_maps.values():
 		if i.has("time"): count_gems += 1
 		if i.has("note"): count_notes += 1
+		if i.has("die"): count_die += i["die"]
 
 func sort_replays(a, b):
 	if a["frames"] < b["frames"]:

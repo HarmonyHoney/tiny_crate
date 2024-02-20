@@ -1,13 +1,10 @@
-extends Node2D
+extends CanvasItem
 
-onready var p = $Player
+onready var gem_label := $VBox/Gems/Label
+onready var note_label := $VBox/Notes/Label
+onready var die_label := $VBox/Die/Label
 
 func _ready():
-	if Shared.is_level_select: return
-	Audio.play("menu_pick")
-
-func _physics_process(delta):
-	if p.position.y > 128:
-		Shared.wipe_scene(Shared.level_select_path)
-		p.is_attract_mode = true
-		set_physics_process(false)
+	gem_label.text = str(Shared.count_gems) + " / 36"
+	note_label.text = str(Shared.count_notes) + " / 36"
+	die_label.text = str(Shared.count_die)

@@ -25,9 +25,6 @@ func _physics_process(delta):
 	bounce += delta * 2.5
 	sprite.offset.y = sin(bounce) * 1.5
 	
-	if is_instance_valid(Shared.map_obscure):
-		modulate.a = lerp(1.0, 0.0, Shared.map_obscure.frac)
-	
 	if is_instance_valid(Shared.player) and is_overlapping(Shared.player):
 		collect()
 

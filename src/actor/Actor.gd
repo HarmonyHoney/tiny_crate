@@ -39,6 +39,7 @@ var time_since_floor := 0
 var ignore_actor : Actor
 
 export var is_select_process := false
+export var is_obscure := false
 
 func _enter_tree():
 	if Engine.editor_hint: return
@@ -65,6 +66,9 @@ func _physics_process(delta):
 			speed.y = min(speed.y + gravity, term_vel)
 		if not is_on_floor:
 			time_since_floor += 1
+	
+	if is_obscure and is_instance_valid(Shared.map_obscure):
+		modulate.a = lerp(1.0, 0.0, Shared.map_obscure.frac)
 
 # update() the _draw() when hitbox values are changed (in the editor)
 func _set_hit_x(value):
