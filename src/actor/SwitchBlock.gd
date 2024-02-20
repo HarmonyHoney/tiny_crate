@@ -13,7 +13,10 @@ var is_switch = false
 func _ready():
 	if Engine.editor_hint: return
 	
-	add_to_group("switch_block_" + color)
+	for i in get_tree().get_nodes_in_group("switch_" + color):
+		i.connect("press", self, "switch_on")
+		i.connect("release", self, "switch_off")
+		break
 
 func _physics_process(delta):
 	if Engine.editor_hint: return

@@ -10,9 +10,11 @@ var is_last := false
 onready var node_sprite : Sprite = $Sprite
 onready var node_audio : AudioStreamPlayer2D = $AudioStreamPlayer2D
 
-func _ready():
+signal press
+signal release
+
+func _enter_tree():
 	if Engine.editor_hint: return
-	
 	add_to_group("switch_" + color)
 
 func _physics_process(delta):
@@ -39,14 +41,12 @@ func noise():
 func press():
 	noise()
 	node_sprite.position.y = 2
-	for a in get_tree().get_nodes_in_group("switch_block_" + color):
-		a.switch_on()
+	emit_signal("press")
 
 func release():
 	noise()
 	node_sprite.position.y = 0
-	for a in get_tree().get_nodes_in_group("switch_block_" + color):
-		a.switch_off()
+	emit_signal("release")
 
 
 
