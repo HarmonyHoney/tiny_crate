@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=2]
+[gd_scene load_steps=29 format=2]
 
 [ext_resource path="res://src/stage/Stage.gd" type="Script" id=1]
 [ext_resource path="res://src/actor/Exit.tscn" type="PackedScene" id=2]
@@ -22,6 +22,7 @@
 [ext_resource path="res://media/font/m6x11.ttf" type="DynamicFontData" id=20]
 [ext_resource path="res://media/image/skull.png" type="Texture" id=21]
 [ext_resource path="res://src/actor/BoxSpawner.tscn" type="PackedScene" id=22]
+[ext_resource path="res://media/image/menu.png" type="Texture" id=23]
 
 [sub_resource type="TileSet" id=1]
 0/name = "solid_bricks.png 0"
@@ -155,17 +156,17 @@
 2/shapes = [  ]
 2/z_index = 0
 
-[sub_resource type="ShaderMaterial" id=7]
-shader = ExtResource( 17 )
-shader_param/line_color = Color( 0, 0, 0, 1 )
-shader_param/line_thickness = 1.0
-
 [sub_resource type="DynamicFont" id=8]
 outline_size = 1
 outline_color = Color( 0, 0, 0, 1 )
 extra_spacing_bottom = -3
 extra_spacing_char = 1
 font_data = ExtResource( 20 )
+
+[sub_resource type="ShaderMaterial" id=7]
+shader = ExtResource( 17 )
+shader_param/line_color = Color( 0, 0, 0, 1 )
+shader_param/line_thickness = 1.0
 
 [node name="Stage" type="Node2D"]
 script = ExtResource( 1 )
@@ -212,69 +213,29 @@ rect_pivot_offset = Vector2( -185, -20 )
 script = ExtResource( 10 )
 
 [node name="VBox" type="VBoxContainer" parent="Control"]
-margin_left = -56.0
-margin_top = -65.0
-margin_right = -16.0
-margin_bottom = -9.0
+margin_left = -62.0
+margin_top = -63.0
+margin_right = -22.0
+margin_bottom = -3.0
 script = ExtResource( 11 )
 
-[node name="Gems" type="Control" parent="Control/VBox"]
-margin_right = 40.0
-margin_bottom = 16.0
-rect_min_size = Vector2( 0, 16 )
-
-[node name="Control" type="Control" parent="Control/VBox/Gems"]
-margin_right = 16.0
-margin_bottom = 16.0
-
-[node name="Sprite" type="Sprite" parent="Control/VBox/Gems/Control"]
-modulate = Color( 1, 0.92549, 0.152941, 1 )
-material = SubResource( 7 )
-position = Vector2( 8, 8 )
-texture = ExtResource( 18 )
-
-[node name="Label" type="Label" parent="Control/VBox/Gems"]
-margin_left = 17.0
-margin_top = 3.0
-margin_right = 78.0
-margin_bottom = 14.0
-custom_fonts/font = SubResource( 8 )
-text = "30/36"
-valign = 1
-
-[node name="Notes" type="Control" parent="Control/VBox"]
-margin_top = 20.0
-margin_right = 40.0
-margin_bottom = 36.0
-rect_min_size = Vector2( 0, 16 )
-
-[node name="Control" type="Control" parent="Control/VBox/Notes"]
-margin_top = -2.0
-margin_right = 16.0
-margin_bottom = 14.0
-
-[node name="Sprite" type="Sprite" parent="Control/VBox/Notes/Control"]
-material = SubResource( 7 )
-position = Vector2( 8, 8 )
-texture = ExtResource( 19 )
-
-[node name="Label" type="Label" parent="Control/VBox/Notes"]
-margin_left = 17.0
-margin_right = 78.0
+[node name="Label" type="Label" parent="Control/VBox"]
+margin_right = 73.0
 margin_bottom = 11.0
 custom_fonts/font = SubResource( 8 )
-text = "13/36"
+text = "YOU WIN !!!"
 valign = 1
 
 [node name="Die" type="Control" parent="Control/VBox"]
-margin_top = 40.0
-margin_right = 40.0
-margin_bottom = 56.0
-rect_min_size = Vector2( 0, 16 )
+margin_top = 15.0
+margin_right = 73.0
+margin_bottom = 27.0
+rect_min_size = Vector2( 0, 12 )
 
 [node name="Control" type="Control" parent="Control/VBox/Die"]
+margin_left = -2.0
 margin_top = -2.0
-margin_right = 16.0
+margin_right = 14.0
 margin_bottom = 14.0
 
 [node name="Sprite" type="Sprite" parent="Control/VBox/Die/Control"]
@@ -283,11 +244,90 @@ position = Vector2( 8, 8 )
 texture = ExtResource( 21 )
 
 [node name="Label" type="Label" parent="Control/VBox/Die"]
-margin_left = 17.0
-margin_right = 78.0
+margin_left = 15.0
+margin_right = 76.0
 margin_bottom = 11.0
 custom_fonts/font = SubResource( 8 )
 text = "592"
+valign = 1
+
+[node name="Gems" type="Control" parent="Control/VBox"]
+margin_top = 31.0
+margin_right = 73.0
+margin_bottom = 43.0
+rect_min_size = Vector2( 0, 12 )
+
+[node name="Control" type="Control" parent="Control/VBox/Gems"]
+margin_left = -2.0
+margin_top = -2.0
+margin_right = 14.0
+margin_bottom = 14.0
+
+[node name="Sprite" type="Sprite" parent="Control/VBox/Gems/Control"]
+modulate = Color( 1, 0.92549, 0.152941, 1 )
+material = SubResource( 7 )
+position = Vector2( 8, 8 )
+texture = ExtResource( 18 )
+
+[node name="Label" type="Label" parent="Control/VBox/Gems"]
+margin_left = 15.0
+margin_right = 76.0
+margin_bottom = 11.0
+custom_fonts/font = SubResource( 8 )
+text = "30/36"
+valign = 1
+
+[node name="Notes" type="Control" parent="Control/VBox"]
+margin_top = 47.0
+margin_right = 73.0
+margin_bottom = 59.0
+rect_min_size = Vector2( 0, 12 )
+
+[node name="Control" type="Control" parent="Control/VBox/Notes"]
+margin_left = -2.0
+margin_top = -2.0
+margin_right = 14.0
+margin_bottom = 14.0
+
+[node name="Sprite" type="Sprite" parent="Control/VBox/Notes/Control"]
+material = SubResource( 7 )
+position = Vector2( 8, 8 )
+texture = ExtResource( 19 )
+
+[node name="Label" type="Label" parent="Control/VBox/Notes"]
+margin_left = 15.0
+margin_right = 76.0
+margin_bottom = 11.0
+custom_fonts/font = SubResource( 8 )
+text = "13/36"
+valign = 1
+
+[node name="Total" type="Control" parent="Control/VBox"]
+margin_top = 63.0
+margin_right = 73.0
+margin_bottom = 75.0
+rect_min_size = Vector2( 0, 12 )
+
+[node name="Control" type="Control" parent="Control/VBox/Total"]
+margin_left = -2.0
+margin_top = -2.0
+margin_right = 14.0
+margin_bottom = 14.0
+
+[node name="Sprite" type="Sprite" parent="Control/VBox/Total/Control"]
+material = SubResource( 7 )
+position = Vector2( 8, 8 )
+texture = ExtResource( 23 )
+hframes = 4
+vframes = 4
+frame = 2
+
+[node name="Label" type="Label" parent="Control/VBox/Total"]
+margin_left = 15.0
+margin_right = 76.0
+margin_bottom = 11.0
+custom_fonts/font = SubResource( 8 )
+text = "97.02%"
 valign = 1
 
 [editable path="GameCamera"]

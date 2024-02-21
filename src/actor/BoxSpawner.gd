@@ -6,6 +6,7 @@ var is_done := false
 
 onready var node_sprite : Sprite = $Sprite
 onready var node_audio : AudioStreamPlayer2D = $Audio
+onready var node_anim := $AnimationPlayer
 
 export var color := "red"
 
@@ -20,4 +21,7 @@ func release():
 	var b = box.instance()
 	b.position = position
 	get_parent().add_child(b)
+	node_anim.play("pop")
+	node_audio.pitch_scale = rand_range(0.8, 1.2)
+	node_audio.play()
 

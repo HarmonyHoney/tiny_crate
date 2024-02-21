@@ -1,8 +1,89 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://src/actor/BoxSpawner.gd" type="Script" id=1]
 [ext_resource path="res://media/image/crate.png" type="Texture" id=2]
-[ext_resource path="res://media/audio/sfx/hit0.wav" type="AudioStream" id=3]
+[ext_resource path="res://media/image/explode2.png" type="Texture" id=4]
+[ext_resource path="res://media/audio/sfx/portal2.wav" type="AudioStream" id=5]
+
+[sub_resource type="Animation" id=1]
+resource_name = "pop"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite2:region_rect")
+tracks/0/interp = 0
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Rect2( 0, 0, 16, 16 ), Rect2( 16, 0, 16, 16 ), Rect2( 32, 0, 16, 16 ), Rect2( 48, 0, 16, 16 ), Rect2( 64, 0, 16, 16 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite2:offset")
+tracks/1/interp = 0
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 0, 0 ), Vector2( 0, 0 ), Vector2( 0, 0 ), Vector2( 0, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Sprite2:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+
+[sub_resource type="Animation" id=2]
+resource_name = "shrink"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite2:region_rect")
+tracks/0/interp = 0
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Rect2( 64, 0, 16, 16 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite2:offset")
+tracks/1/interp = 0
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Sprite2:visible")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ true ]
+}
 
 [node name="BoxSpawner" type="Node2D"]
 script = ExtResource( 1 )
@@ -14,6 +95,20 @@ hframes = 16
 vframes = 8
 frame = 15
 
+[node name="Sprite2" type="Sprite" parent="."]
+position = Vector2( 4, 4 )
+z_index = 50
+z_as_relative = false
+texture = ExtResource( 4 )
+region_enabled = true
+region_rect = Rect2( 64, 0, 16, 16 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "pop"
+anims/pop = SubResource( 1 )
+anims/shrink = SubResource( 2 )
+
 [node name="Audio" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource( 3 )
+stream = ExtResource( 5 )
+attenuation = 0.0544094
 bus = "SFX"

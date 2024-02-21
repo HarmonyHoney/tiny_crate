@@ -56,6 +56,7 @@ var replay_map := ""
 var count_gems := 0
 var count_notes := 0
 var count_die := 0
+var count_percent := 0.0
 
 var is_win := false
 var is_note := false
@@ -447,6 +448,10 @@ func count_score():
 		if i.has("time"): count_gems += 1
 		if i.has("note"): count_notes += 1
 		if i.has("die"): count_die += i["die"]
+	
+	var f = 36.0
+	count_percent = ((count_gems * 0.5) / f) + ((count_notes * 0.5) / f)
+	
 
 func sort_replays(a, b):
 	if a["frames"] < b["frames"]:
