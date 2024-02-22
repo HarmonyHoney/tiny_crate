@@ -57,6 +57,8 @@ var count_gems := 0
 var count_notes := 0
 var count_die := 0
 var count_percent := 0.0
+var count_gems_time := 0.0
+var count_notes_time := 0.0
 
 var is_win := false
 var is_note := false
@@ -444,9 +446,16 @@ func count_score():
 	count_gems = 0
 	count_notes = 0
 	count_die = 0
+	count_notes_time = 0.0
+	count_gems_time = 0.0
+	
 	for i in save_maps.values():
-		if i.has("time"): count_gems += 1
-		if i.has("note"): count_notes += 1
+		if i.has("time"):
+			count_gems += 1
+			count_gems_time += i["time"]
+		if i.has("note"):
+			count_notes += 1
+			count_notes_time += i["note"]
 		if i.has("die"): count_die += i["die"]
 	
 	var f = 36.0

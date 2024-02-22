@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=2]
+[gd_scene load_steps=30 format=2]
 
 [ext_resource path="res://src/stage/Stage.gd" type="Script" id=1]
 [ext_resource path="res://src/actor/Exit.tscn" type="PackedScene" id=2]
@@ -17,12 +17,12 @@
 [ext_resource path="res://media/image/solid_bricks.png" type="Texture" id=15]
 [ext_resource path="res://media/image/8pixel.png" type="Texture" id=16]
 [ext_resource path="res://src/shader/outline2D_outer.shader" type="Shader" id=17]
-[ext_resource path="res://media/image/diamond12.png" type="Texture" id=18]
-[ext_resource path="res://media/image/note.png" type="Texture" id=19]
+[ext_resource path="res://media/image/diamond8.png" type="Texture" id=18]
 [ext_resource path="res://media/font/m6x11.ttf" type="DynamicFontData" id=20]
 [ext_resource path="res://media/image/skull.png" type="Texture" id=21]
 [ext_resource path="res://src/actor/BoxSpawner.tscn" type="PackedScene" id=22]
 [ext_resource path="res://media/image/menu.png" type="Texture" id=23]
+[ext_resource path="res://media/font/QuinqueFive.ttf" type="DynamicFontData" id=24]
 
 [sub_resource type="TileSet" id=1]
 0/name = "solid_bricks.png 0"
@@ -168,20 +168,28 @@ shader = ExtResource( 17 )
 shader_param/line_color = Color( 0, 0, 0, 1 )
 shader_param/line_thickness = 1.0
 
+[sub_resource type="DynamicFont" id=11]
+size = 5
+outline_size = 1
+outline_color = Color( 0, 0, 0, 1 )
+extra_spacing_top = -1
+extra_spacing_bottom = -1
+font_data = ExtResource( 24 )
+
 [node name="Stage" type="Node2D"]
 script = ExtResource( 1 )
 palette = 0
 
 [node name="SolidTileMap" parent="." instance=ExtResource( 3 )]
 tile_set = SubResource( 1 )
-tile_data = PoolIntArray( -917519, 1, 0, -917518, 1, 0, -917517, 1, 0, -917516, 1, 0, -917515, 1, 0, -917514, 1, 0, -917513, 1, 0, -917512, 1, 0, -917511, 1, 0, -917510, 1, 0, -917509, 1, 0, -917508, 1, 0, -917507, 1, 0, -917506, 1, 0, -917505, 1, 0, -983040, 1, 0, -983039, 1, 0, -983038, 1, 0, -983037, 1, 0, -983036, 1, 0, -983035, 1, 0, -983034, 1, 0, -983033, 1, 0, -983032, 1, 0, -983031, 1, 0, -983030, 1, 0, -983029, 1, 0, -983028, 1, 0, -983027, 1, 0, -983026, 1, 0, -851983, 1, 0, -917490, 1, 0, -786447, 1, 0, -851954, 1, 0, -720911, 1, 0, -786418, 1, 0, -655375, 1, 0, -720882, 1, 0, -589839, 1, 0, -655346, 1, 0, -524303, 1, 0, -524297, 0, 0, -524296, 0, 0, -524295, 0, 0, -524294, 0, 0, -524293, 0, 0, -524292, 0, 0, -524291, 0, 0, -524290, 0, 0, -524289, 0, 0, -589824, 0, 0, -589823, 0, 0, -589822, 0, 0, -589821, 0, 0, -589820, 0, 0, -589819, 0, 0, -589818, 0, 0, -589817, 0, 0, -589816, 0, 0, -589810, 1, 0, -458767, 1, 0, -458761, 0, 0, -524274, 1, 0, -393231, 1, 0, -393225, 0, 0, -458744, 0, 0, -458738, 1, 0, -327695, 1, 0, -327689, 0, 0, -393208, 0, 0, -393202, 1, 0, -262159, 1, 0, -262153, 0, 0, -327672, 0, 0, -327666, 1, 0, -196623, 1, 0, -196622, 1, 0, -196621, 1, 0, -196620, 1, 0, -196619, 1, 0, -196618, 1, 0, -196617, 0, 0, -262136, 0, 0, -262130, 1, 0, -131081, 0, 0, -196600, 0, 0, -196594, 1, 0, -65545, 0, 0, -131064, 0, 0, -131058, 1, 0, -9, 0, 0, -65528, 536870912, 0, -65527, 1, 0, -65526, 1, 0, -65525, 1, 0, -65524, 1, 0, -65523, 1, 0, -65522, 1, 0, 65527, 0, 0, 8, 536870912, 1, 131063, 0, 0, 65544, 536870912, 0, 196599, 0, 0, 196600, 536870912, 0, 196601, 536870912, 0, 196602, 536870912, 1, 196603, 0, 0, 196604, 536870912, 1, 196605, 536870912, 0, 196606, 0, 0, 196607, 536870912, 1, 131072, 536870912, 0, 131073, 536870912, 1, 131074, 536870912, 1, 131075, 536870912, 0, 131076, 536870912, 1, 131077, 0, 0, 131078, 536870912, 1, 131079, 536870912, 0, 131080, 536870912, 0 )
+tile_data = PoolIntArray( -917519, 1, 0, -917518, 1, 0, -917517, 1, 0, -917516, 1, 0, -917515, 1, 0, -917514, 1, 0, -917513, 1, 0, -917512, 1, 0, -917511, 1, 0, -917510, 1, 0, -917509, 1, 0, -917508, 1, 0, -917507, 1, 0, -917506, 1, 0, -917505, 1, 0, -983040, 1, 0, -983039, 1, 0, -983038, 1, 0, -983037, 1, 0, -983036, 1, 0, -983035, 1, 0, -983034, 1, 0, -983033, 1, 0, -983032, 1, 0, -983031, 1, 0, -983030, 1, 0, -983029, 1, 0, -983028, 1, 0, -983027, 1, 0, -983026, 1, 0, -851983, 1, 0, -917490, 1, 0, -786447, 1, 0, -851954, 1, 0, -720911, 1, 0, -786418, 1, 0, -655375, 1, 0, -720882, 1, 0, -589839, 1, 0, -655346, 1, 0, -524303, 1, 0, -524297, 536870912, 0, -524296, 536870912, 1, -524295, 536870912, 0, -524294, 536870912, 1, -524293, 0, 0, -524292, 536870912, 1, -524291, 536870912, 0, -524290, 536870912, 1, -524289, 536870912, 1, -589824, 0, 0, -589823, 536870912, 1, -589822, 536870912, 0, -589821, 536870912, 1, -589820, 0, 0, -589819, 536870912, 1, -589818, 536870912, 0, -589817, 536870912, 1, -589816, 536870912, 0, -589810, 1, 0, -458767, 1, 0, -458761, 536870912, 1, -524274, 1, 0, -393231, 1, 0, -393225, 0, 0, -458744, 536870912, 1, -458738, 1, 0, -327695, 1, 0, -327689, 536870912, 1, -393208, 536870912, 0, -393202, 1, 0, -262159, 1, 0, -262153, 536870912, 0, -327672, 536870912, 1, -327666, 1, 0, -196623, 1, 0, -196622, 1, 0, -196621, 1, 0, -196620, 1, 0, -196619, 1, 0, -196618, 1, 0, -196617, 536870912, 0, -262136, 0, 0, -262130, 1, 0, -131081, 536870912, 1, -196600, 536870912, 1, -196594, 1, 0, -65545, 0, 0, -131064, 536870912, 0, -131058, 1, 0, -9, 536870912, 0, -65528, 536870912, 0, -65527, 1, 0, -65526, 1, 0, -65525, 1, 0, -65524, 1, 0, -65523, 1, 0, -65522, 1, 0, 65527, 536870912, 1, 8, 536870912, 1, 131063, 0, 0, 65544, 536870912, 0, 196599, 0, 1, 196600, 0, 0, 196601, 536870912, 1, 196602, 536870912, 0, 196603, 536870912, 1, 196604, 0, 0, 196605, 536870912, 1, 196606, 536870912, 0, 196607, 536870912, 1, 131072, 536870912, 0, 131073, 536870912, 1, 131074, 536870912, 1, 131075, 536870912, 0, 131076, 536870912, 1, 131077, 0, 0, 131078, 536870912, 1, 131079, 536870912, 0, 131080, 536870912, 0 )
 
 [node name="SpikeTileMap" parent="." instance=ExtResource( 13 )]
 
 [node name="DetailTileMap" parent="." instance=ExtResource( 4 )]
 z_index = -11
 tile_set = SubResource( 9 )
-tile_data = PoolIntArray( -7, 536870916, 0, -6, 4, 1, -5, 536870916, 0, -4, 4, 3, -2, 536870916, 3, -1, 536870916, 2, -65532, 4, 2, -65531, 536870916, 1, -65530, 536870916, 0, -65529, 536870916, 1, -65527, 4, 1, -65526, 536870916, 2, 65529, 4, 1, 65530, 4, 3, 65531, 4, 2, 65532, 536870916, 2, 0, 536870917, 0, 4, 536870916, 3, 5, 536870916, 2, 6, 4, 2, 7, 536870916, 0, 9, 536870916, 2, 131065, 4, 1, 131066, 536870916, 0, 131067, 4, 1, 131068, 536870916, 0, 131069, 536870916, 2, 65536, 536870918, 0, 65537, 4, 2, 65538, 4, 3, 65540, 4, 2, 65541, 4, 3, 65542, 536870916, 3, 65543, 536870916, 0, 65545, -536870906, 0, 65546, 536870917, 0, 262136, 536870916, 0, 262137, 4, 1, 262138, 536870916, 0, 262139, 536870916, 2, 196613, 4, 2, 196614, 4, 0, 196615, 536870916, 2, 327672, 536870916, 3, 327673, 4, 0, 327674, 4, 3, 393208, 4, 1, 393209, 536870916, 2 )
+tile_data = PoolIntArray( -720911, 5, 0, -720910, 5, 0, -720909, -1610612731, 0, -720908, 5, 0, -720907, 5, 0, -720906, -1610612731, 0, -720905, 5, 0, -720904, 5, 0, -720903, -1610612731, 0, -720902, 5, 0, -720901, 5, 0, -720900, -1610612731, 0, -720899, 5, 0, -786430, 6, 0, -786429, -2147483643, 0, -786428, -1610612731, 0, -786427, -1610612731, 0, -786426, 1610612741, 0, -786424, 536870916, 3, -786423, 4, 1, -786422, 4, 0, -786421, 4, 1, -786420, 536870916, 0, -786419, 4, 3, -655375, 5, 0, -655374, -1610612731, 0, -655373, 536870917, 0, -655372, -1610612731, 0, -655371, 5, 0, -655370, -1610612731, 0, -655369, 5, 0, -655368, 5, 0, -655367, -1610612731, 0, -655366, 5, 0, -655365, 536870917, 0, -655364, -1610612731, 0, -655363, 1610612741, 2, -720894, 6, 0, -720892, 1073741829, 2, -720891, 1610612741, 2, -720889, 536870916, 3, -720888, 4, 3, -720887, 4, 2, -720886, 4, 1, -720885, 536870916, 0, -720884, 4, 1, -720883, 4, 3, -589837, 1073741829, 2, -589836, 5, 0, -589835, 1610612741, 2, -655359, 5, 2, -655358, 6, 0, -655354, 536870916, 3, -655353, 4, 0, -655352, 4, 1, -655351, 4, 0, -655350, 536870916, 2, -655349, 536870916, 3, -655348, 536870916, 0, -655347, 536870916, 2, -524303, 5, 0, -589815, 4, 1, -589814, 4, 1, -589813, 536870916, 0, -589812, 4, 3, -458767, 5, 0, -458766, -1610612731, 2, -524284, 6, 0, -524283, 4, 2, -524282, 4, 1, -524281, 4, 0, -524279, 4, 1, -524278, 536870916, 0, -524277, 4, 1, -524276, 536870916, 2, -524274, 5, 2, -393231, 5, 0, -393230, -536870907, 2, -458748, 6, 0, -458746, 4, 2, -458745, 4, 1, -458743, 4, 3, -458742, 536870916, 3, -458741, 536870916, 2, -458739, 5, 2, -458738, -1610612731, 0, -327695, 5, 0, -393213, -2147483643, 2, -393212, 536870917, 0, -393211, 536870917, 2, -393209, 4, 2, -393207, 4, 3, -393203, -1073741819, 0, -393202, -1073741819, 0, -327677, 1073741829, 2, -327676, 5, 0, -327675, -1610612731, 0, -327671, 4, 3, -327667, -1073741819, 0, -327666, -1073741819, 0, -196623, 5, 0, -196622, -1610612730, 0, -196621, 1073741829, 0, -196620, -1610612730, 0, -196619, 5, 0, -196618, -1610612730, 0, -262140, 1073741829, 2, -262139, 1610612741, 2, -262137, 536870916, 3, -262135, 536870916, 0, -262134, 4, 3, -262131, 1073741829, 2, -262130, -1610612731, 0, -196607, 4, 2, -196606, 4, 0, -196605, 4, 3, -196602, 536870916, 3, -196601, 536870916, 0, -196599, 536870916, 2, -196594, 1073741829, 2, -65551, 5, 0, -65550, 536870917, 2, -65547, 1610612740, 4, -131068, 536870916, 3, -131067, 4, 0, -131066, 4, 0, -131065, 4, 1, -131063, 4, 3, -15, 5, 0, -14, -1073741819, 0, -13, 536870917, 2, -10, 536870916, 3, -8, 4, 1, -7, 536870916, 0, -6, 4, 1, -5, 536870916, 0, -4, 4, 3, -2, 536870916, 3, -1, 536870916, 2, -65532, 4, 2, -65531, 4, 3, -65530, 4, 2, -65529, 536870916, 0, -65527, -1610612730, 0, -65526, 536870917, 0, -65525, -1610612730, 0, -65524, 1610612741, 0, -65523, -1610612730, 0, -65522, 536870917, 0, 65521, 5, 0, 65522, 5, 0, 65523, -1610612731, 0, 65525, 4, 2, 65526, 4, 0, 65528, 4, 0, 65529, 4, 1, 65530, 4, 3, 65531, 4, 2, 65532, 536870916, 2, 0, 536870917, 0, 4, 536870916, 3, 5, 536870916, 2, 7, 4, 2, 9, 536870916, 2, 131057, 5, 0, 131058, -1073741819, 0, 131059, 1610612741, 2, 131061, 536870916, 3, 131062, 4, 1, 131064, 4, 1, 131065, 536870916, 0, 131066, 536870916, 0, 131067, 4, 1, 131068, 536870916, 0, 131069, 536870916, 2, 65536, 536870918, 0, 65537, 4, 2, 65538, 4, 3, 65540, 4, 2, 65541, 536870916, 2, 65542, 4, 2, 65543, 536870916, 0, 65545, -536870906, 0, 65546, 536870917, 0, 65550, 5, 2, 196593, 5, 0, 196594, 1610612741, 2, 196596, 536870916, 3, 196597, 4, 1, 196598, 536870916, 0, 131085, 5, 2, 131086, -1610612731, 0, 262131, 536870916, 3, 262132, 4, 0, 262133, 4, 1, 262134, 4, 1, 262135, 536870916, 0, 262136, 4, 1, 262137, 4, 0, 262138, 536870916, 0, 262139, 536870916, 2, 262140, 6, 0, 196611, 6, 0, 196613, 4, 2, 196614, 4, 0, 196615, 536870916, 2, 196620, 5, 2, 196621, -1610612731, 0, 196622, 5, 0, 327666, 536870916, 3, 327667, 4, 1, 327668, 4, 0, 327669, 4, 1, 327670, 536870916, 0, 327671, 536870916, 2, 327672, 536870916, 3, 327673, 4, 0, 327674, 4, 3, 327676, 1073741829, 2, 327678, 5, 2, 327679, 5, 0, 262144, 5, 0, 262145, 536870917, 2, 262147, 1610612741, 2, 262155, 5, 2, 262156, -1610612731, 0, 262157, 5, 0, 262158, 5, 0, 393202, 4, 2, 393203, 4, 0, 393204, 4, 1, 393205, 4, 0, 393206, 4, 1, 393207, 4, 1, 393208, 536870916, 0, 393209, 536870916, 2, 393214, 1610612741, 0, 393215, 5, 0, 327680, 5, 0, 327681, 1610612741, 0, 327690, 5, 2, 327691, -1610612731, 0, 327692, 5, 0, 327693, 5, 0, 327694, 5, 0 )
 
 [node name="ObscureMap" parent="." instance=ExtResource( 7 )]
 tile_set = SubResource( 10 )
@@ -200,7 +208,7 @@ position = Vector2( 89, -39 )
 is_obscure = true
 
 [node name="Note" parent="Actors" instance=ExtResource( 12 )]
-position = Vector2( -99, -49 )
+position = Vector2( -101, -61 )
 
 [node name="Switch" parent="Actors" instance=ExtResource( 14 )]
 position = Vector2( 44, 12 )
@@ -217,6 +225,7 @@ margin_left = -62.0
 margin_top = -63.0
 margin_right = -22.0
 margin_bottom = -3.0
+custom_constants/separation = 3
 script = ExtResource( 11 )
 
 [node name="Label" type="Label" parent="Control/VBox"]
@@ -226,108 +235,153 @@ custom_fonts/font = SubResource( 8 )
 text = "YOU WIN !!!"
 valign = 1
 
-[node name="Die" type="Control" parent="Control/VBox"]
-margin_top = 15.0
+[node name="Gems" type="HBoxContainer" parent="Control/VBox"]
+margin_top = 14.0
 margin_right = 73.0
-margin_bottom = 27.0
-rect_min_size = Vector2( 0, 12 )
-
-[node name="Control" type="Control" parent="Control/VBox/Die"]
-margin_left = -2.0
-margin_top = -2.0
-margin_right = 14.0
-margin_bottom = 14.0
-
-[node name="Sprite" type="Sprite" parent="Control/VBox/Die/Control"]
-material = SubResource( 7 )
-position = Vector2( 8, 8 )
-texture = ExtResource( 21 )
-
-[node name="Label" type="Label" parent="Control/VBox/Die"]
-margin_left = 15.0
-margin_right = 76.0
-margin_bottom = 11.0
-custom_fonts/font = SubResource( 8 )
-text = "592"
-valign = 1
-
-[node name="Gems" type="Control" parent="Control/VBox"]
-margin_top = 31.0
-margin_right = 73.0
-margin_bottom = 43.0
-rect_min_size = Vector2( 0, 12 )
+margin_bottom = 22.0
+rect_min_size = Vector2( 0, 8 )
+custom_constants/separation = 3
 
 [node name="Control" type="Control" parent="Control/VBox/Gems"]
-margin_left = -2.0
-margin_top = -2.0
-margin_right = 14.0
-margin_bottom = 14.0
+margin_right = 8.0
+margin_bottom = 8.0
+rect_min_size = Vector2( 8, 8 )
 
 [node name="Sprite" type="Sprite" parent="Control/VBox/Gems/Control"]
 modulate = Color( 1, 0.92549, 0.152941, 1 )
 material = SubResource( 7 )
-position = Vector2( 8, 8 )
+position = Vector2( 4, 4 )
 texture = ExtResource( 18 )
 
 [node name="Label" type="Label" parent="Control/VBox/Gems"]
-margin_left = 15.0
-margin_right = 76.0
-margin_bottom = 11.0
-custom_fonts/font = SubResource( 8 )
-text = "30/36"
-valign = 1
+margin_left = 11.0
+margin_top = 1.0
+margin_right = 23.0
+margin_bottom = 6.0
+custom_fonts/font = SubResource( 11 )
+text = "13"
 
-[node name="Notes" type="Control" parent="Control/VBox"]
-margin_top = 47.0
+[node name="Control2" type="Control" parent="Control/VBox/Gems"]
+margin_left = 26.0
+margin_right = 34.0
+margin_bottom = 8.0
+rect_min_size = Vector2( 8, 8 )
+
+[node name="Sprite" type="Sprite" parent="Control/VBox/Gems/Control2"]
+material = SubResource( 7 )
+position = Vector2( 4, 4 )
+texture = ExtResource( 23 )
+hframes = 4
+vframes = 4
+frame = 6
+
+[node name="Label2" type="Label" parent="Control/VBox/Gems"]
+margin_left = 37.0
+margin_top = 1.0
+margin_right = 67.0
+margin_bottom = 6.0
+custom_fonts/font = SubResource( 11 )
+text = "10:49"
+
+[node name="Notes" type="HBoxContainer" parent="Control/VBox"]
+margin_top = 25.0
 margin_right = 73.0
-margin_bottom = 59.0
-rect_min_size = Vector2( 0, 12 )
+margin_bottom = 33.0
+rect_min_size = Vector2( 0, 8 )
+custom_constants/separation = 3
 
 [node name="Control" type="Control" parent="Control/VBox/Notes"]
-margin_left = -2.0
-margin_top = -2.0
-margin_right = 14.0
-margin_bottom = 14.0
+margin_right = 8.0
+margin_bottom = 8.0
+rect_min_size = Vector2( 8, 8 )
 
 [node name="Sprite" type="Sprite" parent="Control/VBox/Notes/Control"]
 material = SubResource( 7 )
-position = Vector2( 8, 8 )
-texture = ExtResource( 19 )
+position = Vector2( 4, 4 )
+texture = ExtResource( 23 )
+hframes = 4
+vframes = 4
+frame = 5
 
 [node name="Label" type="Label" parent="Control/VBox/Notes"]
-margin_left = 15.0
-margin_right = 76.0
-margin_bottom = 11.0
-custom_fonts/font = SubResource( 8 )
-text = "13/36"
-valign = 1
+margin_left = 11.0
+margin_top = 1.0
+margin_right = 23.0
+margin_bottom = 6.0
+custom_fonts/font = SubResource( 11 )
+text = "13"
 
-[node name="Total" type="Control" parent="Control/VBox"]
-margin_top = 63.0
+[node name="Control2" type="Control" parent="Control/VBox/Notes"]
+margin_left = 26.0
+margin_right = 34.0
+margin_bottom = 8.0
+rect_min_size = Vector2( 8, 8 )
+
+[node name="Sprite" type="Sprite" parent="Control/VBox/Notes/Control2"]
+material = SubResource( 7 )
+position = Vector2( 4, 4 )
+texture = ExtResource( 23 )
+hframes = 4
+vframes = 4
+frame = 6
+
+[node name="Label2" type="Label" parent="Control/VBox/Notes"]
+margin_left = 37.0
+margin_top = 1.0
+margin_right = 67.0
+margin_bottom = 6.0
+custom_fonts/font = SubResource( 11 )
+text = "10:49"
+
+[node name="Total" type="HBoxContainer" parent="Control/VBox"]
+margin_top = 36.0
 margin_right = 73.0
-margin_bottom = 75.0
-rect_min_size = Vector2( 0, 12 )
+margin_bottom = 44.0
+rect_min_size = Vector2( 0, 8 )
 
 [node name="Control" type="Control" parent="Control/VBox/Total"]
-margin_left = -2.0
-margin_top = -2.0
-margin_right = 14.0
-margin_bottom = 14.0
+margin_right = 8.0
+margin_bottom = 8.0
+rect_min_size = Vector2( 8, 8 )
 
 [node name="Sprite" type="Sprite" parent="Control/VBox/Total/Control"]
 material = SubResource( 7 )
-position = Vector2( 8, 8 )
+position = Vector2( 4, 4 )
 texture = ExtResource( 23 )
 hframes = 4
 vframes = 4
 frame = 2
 
 [node name="Label" type="Label" parent="Control/VBox/Total"]
-margin_left = 15.0
-margin_right = 76.0
-margin_bottom = 11.0
-custom_fonts/font = SubResource( 8 )
+margin_left = 12.0
+margin_top = 1.0
+margin_right = 48.0
+margin_bottom = 6.0
+custom_fonts/font = SubResource( 11 )
 text = "97.02%"
-valign = 1
+
+[node name="Die" type="HBoxContainer" parent="Control/VBox"]
+margin_top = 47.0
+margin_right = 73.0
+margin_bottom = 55.0
+rect_min_size = Vector2( 0, 8 )
+
+[node name="Control" type="Control" parent="Control/VBox/Die"]
+margin_right = 8.0
+margin_bottom = 8.0
+rect_min_size = Vector2( 8, 8 )
+
+[node name="Sprite" type="Sprite" parent="Control/VBox/Die/Control"]
+material = SubResource( 7 )
+position = Vector2( 4, 4 )
+texture = ExtResource( 21 )
+
+[node name="Label" type="Label" parent="Control/VBox/Die"]
+margin_left = 12.0
+margin_top = 1.0
+margin_right = 24.0
+margin_bottom = 6.0
+custom_fonts/font = SubResource( 11 )
+text = "13"
 
 [editable path="GameCamera"]
