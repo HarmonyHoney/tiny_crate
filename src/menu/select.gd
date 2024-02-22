@@ -186,13 +186,16 @@ func make_screen(i := 0):
 	if has_note:
 		new.get_node("Overlay/Notes/Label").text = Shared.time_to_string(s["note"])
 	
-	var has_time = s.has("time")
-	new.get_node("Overlay/Time").visible = has_time
+	
 	var gem = new.get_node("Overlay/Gem")
-	gem.modulate = color_gem if has_time else color_new
 	gem.visible = !is_locked
+	var has_time = s.has("time")
+	
+	gem.get_node("Sprite").modulate = color_gem if has_time else color_new
+	var gem_label = gem.get_node("Label")
+	gem_label.visible = has_time
 	if has_time:
-		new.get_node("Overlay/Time/Label").text = Shared.time_to_string(s["time"])
+		gem_label.text = Shared.time_to_string(s["time"])
 	
 	var has_die = s.has("die")
 	new.get_node("Overlay/Death").visible = has_die
