@@ -106,6 +106,7 @@ func _input(event):
 	if event.is_action_pressed("ui_no"):
 		Shared.wipe_scene(Shared.main_menu_path)
 		is_input = false
+		Shared.is_save = true
 		Audio.play("menu_back", 0.9, 1.1)
 	elif event.is_action_pressed("ui_yes"):
 		if open_map():
@@ -118,7 +119,7 @@ func _input(event):
 		show_score = posmod(show_score + 1, 3)
 		print("show_score: ", show_score)
 		show_scoreboard()
-		Audio.play("menu_options", 0.8, 1.2)
+		Audio.play("menu_options", 0.7, 1.3)
 	else:
 		var btnx = btn.p("ui_right") - btn.p("ui_left")
 		var btny = btn.p("ui_down") - btn.p("ui_up")

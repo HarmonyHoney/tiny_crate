@@ -12,6 +12,7 @@ var map_obscure : TileMap
 var is_quit := false
 var is_level_select := false
 var is_in_game := false
+var is_creator := false
 var is_gamepad := false
 signal signal_gamepad
 
@@ -59,6 +60,7 @@ var count_die := 0
 var count_percent := 0.0
 var count_gems_time := 0.0
 var count_notes_time := 0.0
+var save_clock := 0.0
 
 var is_win := false
 var is_note := false
@@ -121,6 +123,9 @@ func _input(event):
 		refresh_scenes()
 
 func _physics_process(delta):
+	if is_level_select or is_in_game or is_creator:
+		save_clock += 1
+	
 	if is_in_game:
 		# map time
 		if !Pause.is_paused:
@@ -194,6 +199,7 @@ func change_map():
 	is_win = false
 	is_save = false
 	is_level_select = scene_path == level_select_path
+	is_creator = scene_path == creator_path
 	is_in_game = scene_path.begins_with(map_dir)
 	map_name = "" if !is_in_game else scene_path.split("/")[-1].trim_suffix(".tscn")
 	map_frame = 0
@@ -246,8 +252,8 @@ func change_map():
 	elif scene_path == creator_path:
 		UI.keys(false, false, true, true, true, true)
 
-func time_to_string(arg := 0.0):
-	var time = arg * (1.0/60.0)
+func time_to_string(arg := 0.0, mod := 60.0):
+	var time = arg * (1.0 / max(1.0, mod))
 	if time < 60.0:
 		return str(time).pad_decimals(2)
 	else:
@@ -271,6 +277,7 @@ func load_file(fname = ""):
 
 func save():
 	var data = {}
+	data["clock"] = save_clock
 	data["username"] = username
 	data["player_colors"] = player_colors
 	data["maps"] = save_maps
@@ -358,6 +365,9 @@ func load_save(_slot = save_slot, is_reload := false):
 	
 	print(_slot, " / ", dict)
 	if !dict.empty():
+		if dict.has("clock"):
+			save_clock = dict["clock"]
+		
 		if dict.has("username"):
 			username = dict["username"]
 			s["username"] = username

@@ -229,7 +229,7 @@ custom_constants/separation = 3
 script = ExtResource( 11 )
 
 [node name="Label" type="Label" parent="Control/VBox"]
-margin_right = 73.0
+margin_right = 94.0
 margin_bottom = 11.0
 custom_fonts/font = SubResource( 8 )
 text = "YOU WIN !!!"
@@ -237,7 +237,7 @@ valign = 1
 
 [node name="Gems" type="HBoxContainer" parent="Control/VBox"]
 margin_top = 14.0
-margin_right = 73.0
+margin_right = 94.0
 margin_bottom = 22.0
 rect_min_size = Vector2( 0, 8 )
 custom_constants/separation = 3
@@ -285,7 +285,7 @@ text = "10:49"
 
 [node name="Notes" type="HBoxContainer" parent="Control/VBox"]
 margin_top = 25.0
-margin_right = 73.0
+margin_right = 94.0
 margin_bottom = 33.0
 rect_min_size = Vector2( 0, 8 )
 custom_constants/separation = 3
@@ -335,7 +335,7 @@ text = "10:49"
 
 [node name="Total" type="HBoxContainer" parent="Control/VBox"]
 margin_top = 36.0
-margin_right = 73.0
+margin_right = 94.0
 margin_bottom = 44.0
 rect_min_size = Vector2( 0, 8 )
 
@@ -360,9 +360,31 @@ margin_bottom = 6.0
 custom_fonts/font = SubResource( 11 )
 text = "97.02%"
 
+[node name="Control2" type="Control" parent="Control/VBox/Total"]
+margin_left = 52.0
+margin_right = 60.0
+margin_bottom = 8.0
+rect_min_size = Vector2( 8, 8 )
+
+[node name="Sprite" type="Sprite" parent="Control/VBox/Total/Control2"]
+material = SubResource( 7 )
+position = Vector2( 4, 4 )
+texture = ExtResource( 23 )
+hframes = 4
+vframes = 4
+frame = 6
+
+[node name="Label2" type="Label" parent="Control/VBox/Total"]
+margin_left = 64.0
+margin_top = 1.0
+margin_right = 94.0
+margin_bottom = 6.0
+custom_fonts/font = SubResource( 11 )
+text = "10:49"
+
 [node name="Die" type="HBoxContainer" parent="Control/VBox"]
 margin_top = 47.0
-margin_right = 73.0
+margin_right = 94.0
 margin_bottom = 55.0
 rect_min_size = Vector2( 0, 8 )
 

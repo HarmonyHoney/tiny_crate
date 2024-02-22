@@ -68,6 +68,7 @@ func _input(event):
 				fill_swatches(i)
 		elif is_no:
 			is_input = false
+			Shared.is_save = true
 			Shared.wipe_scene(Shared.main_menu_path)
 			Audio.play("menu_scroll2", 0.8, 1.2)
 	elif cursor_y == clamp(cursor_y, 1, 4):
