@@ -260,9 +260,10 @@ func time_to_string(arg := 0.0, mod := 60.0):
 	var time = arg * (1.0 / max(1.0, mod))
 	if time < 60.0:
 		return str(time).pad_decimals(2)
-	else:
+	elif time < 3600.0:
 		return str(time / 60.0).pad_zeros(2).pad_decimals(0) + ":" + str(fposmod(time, 60.0)).pad_zeros(2).pad_decimals(0)
-
+	else:
+		return str(time / 3600.0).pad_decimals(0) + ":" + str(fmod(time / 60.0, 60.0)).pad_zeros(2).pad_decimals(0) + ":" + str(fposmod(time, 60.0)).pad_zeros(2).pad_decimals(0)
 
 ### Saving and Loading
 

@@ -107,7 +107,7 @@ func menu_select(tag : String = menu_items[cursor].to_lower()):
 			if parent_node:
 				parent_node.visible = false
 			Shared.cam.pos_target += Vector2(104, 0)
-			Audio.play("menu_pick", 0.9, 1.1)
+			Audio.play("menu_options", 0.9, 1.1)
 			UI.keys(false, false, false, false)
 			TouchScreen.show_keys(false, true, false)
 		"yes":
