@@ -83,7 +83,7 @@ func refresh():
 
 func set_text(arg := text):
 	text = arg.to_lower()
-	print(text)
+	#print(text)
 	var frame = -1
 	
 	

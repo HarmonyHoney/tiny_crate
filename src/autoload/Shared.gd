@@ -204,9 +204,8 @@ func change_map():
 	map_name = "" if !is_in_game else scene_path.split("/")[-1].trim_suffix(".tscn")
 	map_frame = 0
 	replay = {"frames" : 0, "x" : [], "y" : [], "sprite" : []}
-	replaying = []
-	for i in ghosts:
-		i.visible = false
+	
+	setup_ghosts()
 	
 	is_note = false
 	UI.map.visible = is_level_select
@@ -218,18 +217,6 @@ func change_map():
 		TouchScreen.turn_arrows(false)
 		TouchScreen.show_keys(true, true, true, true, true)
 		UI.show_stats()
-		
-		if is_replay or is_replay_note:
-			var m = map_name + ("-note" if is_replay_note else "")
-		
-			if replays[save_slot].has(m):
-				replays[save_slot][m].sort_custom(self, "sort_replays")
-				
-				for i in min(ghost_count, replays[save_slot][m].size()):
-					var r = replays[save_slot][m][i].duplicate()
-					if r.has_all(["frames", "x", "y", "sprite"]):
-						replaying.append(r)
-						ghosts[i].visible = true
 		
 	elif is_level_select:
 		is_replay = false
@@ -251,6 +238,23 @@ func change_map():
 		TouchScreen.show_keys(true, false, true)
 	elif scene_path == creator_path:
 		UI.keys(false, false, true, true, true, true)
+
+func setup_ghosts():
+	replaying = []
+	for i in ghosts:
+		i.visible = false
+	
+	if  is_in_game and (is_replay or is_replay_note):
+		var m = map_name + ("-note" if is_replay_note else "")
+	
+		if replays[save_slot].has(m):
+			replays[save_slot][m].sort_custom(self, "sort_replays")
+			
+			for i in min(ghost_count, replays[save_slot][m].size()):
+				var r = replays[save_slot][m][i].duplicate()
+				if r.has_all(["frames", "x", "y", "sprite"]):
+					replaying.append(r)
+					ghosts[i].visible = true
 
 func time_to_string(arg := 0.0, mod := 60.0):
 	var time = arg * (1.0 / max(1.0, mod))

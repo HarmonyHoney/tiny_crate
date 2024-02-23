@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://media/font/QuinqueFive.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://media/image/diamond12.png" type="Texture" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://src/menu/options/Key.tscn" type="PackedScene" id=7]
 [ext_resource path="res://media/image/skull.png" type="Texture" id=8]
 [ext_resource path="res://media/image/menu.png" type="Texture" id=9]
+[ext_resource path="res://media/image/diamond8.png" type="Texture" id=10]
 
 [sub_resource type="DynamicFont" id=3]
 size = 5
@@ -282,10 +283,10 @@ margin_bottom = 10.0
 rect_min_size = Vector2( 10, 10 )
 
 [node name="Sprite" type="Sprite" parent="Center/Control/Stats/Time/Image"]
+modulate = Color( 1, 0.92549, 0.152941, 1 )
 material = SubResource( 11 )
 position = Vector2( 5, 5 )
-texture = ExtResource( 9 )
-region_enabled = true
+texture = ExtResource( 10 )
 region_rect = Rect2( 15, 7, 10, 10 )
 
 [node name="Label" type="Label" parent="Center/Control/Stats/Time"]

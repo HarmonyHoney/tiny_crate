@@ -29,6 +29,7 @@ list_path = NodePath("Control/Center/VBox/List")
 cursor_path = NodePath("Control/Cursor")
 cursor_expand = Vector2( 9, 8 )
 is_audio_scroll = true
+is_audio_yes = true
 is_color = true
 color_off = Color( 0.639216, 0.65098, 0.8, 1 )
 
@@ -55,32 +56,39 @@ anchor_bottom = 1.0
 
 [node name="VBox" type="VBoxContainer" parent="Control/Center"]
 margin_left = 54.0
-margin_top = 21.0
+margin_top = 8.0
 margin_right = 174.0
-margin_bottom = 106.0
+margin_bottom = 119.0
 custom_constants/separation = 8
 alignment = 1
 
-[node name="Header" type="Label" parent="Control/Center/VBox"]
+[node name="Control" type="Control" parent="Control/Center/VBox"]
 margin_right = 120.0
-margin_bottom = 21.0
+margin_bottom = 2.0
+rect_min_size = Vector2( 0, 2 )
+
+[node name="Header" type="Label" parent="Control/Center/VBox"]
+margin_top = 10.0
+margin_right = 120.0
+margin_bottom = 31.0
 custom_fonts/font = SubResource( 5 )
 text = "pause"
 align = 1
 valign = 2
 
 [node name="List" type="VBoxContainer" parent="Control/Center/VBox"]
-margin_left = 36.0
-margin_top = 29.0
-margin_right = 84.0
-margin_bottom = 85.0
+margin_left = 10.0
+margin_top = 39.0
+margin_right = 110.0
+margin_bottom = 111.0
+rect_min_size = Vector2( 100, 0 )
 size_flags_horizontal = 4
 custom_constants/separation = 8
 alignment = 1
 
 [node name="Label" type="Label" parent="Control/Center/VBox/List"]
-margin_left = 16.0
-margin_right = 32.0
+margin_left = 42.0
+margin_right = 58.0
 margin_bottom = 8.0
 size_flags_horizontal = 4
 custom_fonts/font = SubResource( 4 )
@@ -88,29 +96,40 @@ text = "go"
 uppercase = true
 
 [node name="Label2" type="Label" parent="Control/Center/VBox/List"]
-margin_left = 8.0
+margin_left = 34.0
 margin_top = 16.0
-margin_right = 40.0
+margin_right = 66.0
 margin_bottom = 24.0
 size_flags_horizontal = 4
 custom_fonts/font = SubResource( 4 )
 text = "redo"
 uppercase = true
 
-[node name="Label4" type="Label" parent="Control/Center/VBox/List"]
+[node name="Label5" type="Label" parent="Control/Center/VBox/List"]
+margin_left = 13.0
 margin_top = 32.0
-margin_right = 48.0
+margin_right = 86.0
 margin_bottom = 40.0
+size_flags_horizontal = 4
+custom_fonts/font = SubResource( 4 )
+text = "ghost: off"
+uppercase = true
+
+[node name="Label4" type="Label" parent="Control/Center/VBox/List"]
+margin_left = 26.0
+margin_top = 48.0
+margin_right = 74.0
+margin_bottom = 56.0
 size_flags_horizontal = 4
 custom_fonts/font = SubResource( 4 )
 text = "option"
 uppercase = true
 
 [node name="Label3" type="Label" parent="Control/Center/VBox/List"]
-margin_left = 12.0
-margin_top = 48.0
-margin_right = 36.0
-margin_bottom = 56.0
+margin_left = 38.0
+margin_top = 64.0
+margin_right = 62.0
+margin_bottom = 72.0
 size_flags_horizontal = 4
 custom_fonts/font = SubResource( 4 )
 text = "map"
