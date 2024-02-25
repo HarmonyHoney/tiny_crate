@@ -109,7 +109,7 @@ func menu_select(tag : String = menu_items[cursor].to_lower()):
 			Shared.cam.pos_target += Vector2(104, 0)
 			Audio.play("menu_options", 0.9, 1.1)
 			UI.keys(false, false, false, false)
-			TouchScreen.show_keys(false, true, false)
+			TouchScreen.show_keys()
 		"yes":
 			Audio.play("menu_yes", 0.9, 1.1)
 			if OS.get_name() == "HTML5":

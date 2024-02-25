@@ -235,7 +235,7 @@ func change_map():
 	elif scene_path == main_menu_path:
 		UI.keys(false, false)
 		TouchScreen.turn_arrows(true)
-		TouchScreen.show_keys(true, false, true)
+		TouchScreen.show_keys()
 	elif scene_path == creator_path:
 		UI.keys(false, false, true, true, true, true)
 

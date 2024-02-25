@@ -78,6 +78,11 @@ _global_script_classes=[ {
 "class": "SwitchBlock",
 "language": "GDScript",
 "path": "res://src/actor/SwitchBlock.gd"
+}, {
+"base": "Reference",
+"class": "VirtualJoystick",
+"language": "GDScript",
+"path": "res://src/menu/joystick/virtual_joystick.gd"
 } ]
 _global_script_class_icons={
 "Actor": "",
@@ -93,7 +98,8 @@ _global_script_class_icons={
 "Player": "",
 "SaveDict": "",
 "Switch": "",
-"SwitchBlock": ""
+"SwitchBlock": "",
+"VirtualJoystick": ""
 }
 
 [application]
