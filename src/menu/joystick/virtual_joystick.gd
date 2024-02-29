@@ -127,22 +127,38 @@ func _update_joystick(touch_position: Vector2) -> void:
 
 func _update_input_actions():
 	if _output.x < 0:
-		Input.action_press(action_left, -_output.x)
+		var a = InputEventAction.new()
+		a.action = action_left
+		a.pressed = true
+		a.strength = -_output.x
+		Input.parse_input_event(a)
 	elif Input.is_action_pressed(action_left):
 		Input.action_release(action_left)
 	
 	if _output.x > 0:
-		Input.action_press(action_right, _output.x)
+		var a = InputEventAction.new()
+		a.action = action_right
+		a.pressed = true
+		a.strength = _output.x
+		Input.parse_input_event(a)
 	elif Input.is_action_pressed(action_right):
 		Input.action_release(action_right)
 	
 	if _output.y < 0:
-		Input.action_press(action_up, -_output.y)
+		var a = InputEventAction.new()
+		a.action = action_up
+		a.pressed = true
+		a.strength = -_output.y
+		Input.parse_input_event(a)
 	elif Input.is_action_pressed(action_up):
 		Input.action_release(action_up)
 	
 	if _output.y > 0:
-		Input.action_press(action_down, _output.y)
+		var a = InputEventAction.new()
+		a.action = action_down
+		a.pressed = true
+		a.strength = _output.y
+		Input.parse_input_event(a)
 	elif Input.is_action_pressed(action_down):
 		Input.action_release(action_down)
 

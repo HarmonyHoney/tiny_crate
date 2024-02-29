@@ -26,7 +26,7 @@ func show_keys(arg_arrows := true, arg_c := true, arg_x := true, arg_pause := fa
 
 func set_game(arg := false):
 	var i = "" if arg else "ui_"
-	joystick.set_actions(i + "left", i + "right", i + "up", i + "down")
+	#joystick.set_actions(i + "left", i + "right", i + "up", i + "down")
 	buttons[0].action = "action" if arg else "ui_no"
 	buttons[1].action = "jump" if arg else "ui_yes"
 	

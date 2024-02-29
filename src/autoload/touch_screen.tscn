@@ -3,7 +3,7 @@
 [ext_resource path="res://src/autoload/touch_screen.gd" type="Script" id=1]
 [ext_resource path="res://media/image/circle.png" type="Texture" id=2]
 [ext_resource path="res://src/shader/outline2D_outer.shader" type="Shader" id=3]
-[ext_resource path="res://src/menu/joystick/virtual_joystick.gd" type="Script" id=4]
+[ext_resource path="res://src/menu/joystick.gd" type="Script" id=4]
 [ext_resource path="res://media/font/NicoPaint-Regular.ttf" type="DynamicFontData" id=5]
 [ext_resource path="res://media/image/keys.png" type="Texture" id=6]
 [ext_resource path="res://media/image/diamond16.png" type="Texture" id=7]
@@ -296,52 +296,47 @@ margin_bottom = 6.0
 
 [node name="Joystick" type="Control" parent="Control"]
 modulate = Color( 1, 1, 1, 0.509804 )
-anchor_top = 1.0
-anchor_bottom = 1.0
-margin_left = -33.0
-margin_top = -69.0
-margin_right = 67.0
-margin_bottom = 31.0
+margin_left = 26.0
+margin_top = 98.0
+margin_right = 26.0
+margin_bottom = 98.0
 script = ExtResource( 4 )
-deadzone_size = 5.0
-clampzone_size = 20.0
+max_range = 50.0
 
-[node name="Base" type="TextureRect" parent="Control/Joystick"]
+[node name="Base" type="Control" parent="Control/Joystick"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -50.0
-margin_top = -50.0
-margin_right = 50.0
-margin_bottom = 50.0
 grow_horizontal = 2
 grow_vertical = 2
-rect_min_size = Vector2( 100, 100 )
-rect_pivot_offset = Vector2( 100, 100 )
 size_flags_horizontal = 4
 size_flags_vertical = 4
-stretch_mode = 1
 script = ExtResource( 8 )
 radius = 20.0
-offset = Vector2( 50, 50 )
 
-[node name="Tip" type="TextureRect" parent="Control/Joystick/Base"]
+[node name="Tip" type="Control" parent="Control/Joystick"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -50.0
-margin_top = -50.0
-margin_right = 50.0
-margin_bottom = 50.0
 grow_horizontal = 2
 grow_vertical = 2
-rect_pivot_offset = Vector2( 50, 50 )
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="Image" type="TextureRect" parent="Control/Joystick/Tip"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -12.0
+margin_top = -12.0
+margin_right = 12.0
+margin_bottom = 12.0
+grow_horizontal = 2
+grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 texture = ExtResource( 7 )
 stretch_mode = 4
-__meta__ = {
-"_edit_use_anchors_": false
-}
