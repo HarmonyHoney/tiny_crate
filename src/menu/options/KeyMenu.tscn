@@ -28,26 +28,32 @@ font_data = ExtResource( 5 )
 pause_mode = 2
 script = ExtResource( 3 )
 parent_path = NodePath(".")
-list_path = NodePath("Control/VBox")
-cursor_path = NodePath("Control/Cursor")
+list_path = NodePath("Center/Control/VBox")
+cursor_path = NodePath("Center/Control/Cursor")
 cursor_expand = Vector2( 4, 4 )
 is_audio_scroll = true
 is_audio_back = true
-scroll_path = NodePath("Control")
-row_path = NodePath("Control/VBox/Row")
-label_path = NodePath("Control/VBox/Label")
-header_path = NodePath("Control/VBox/Header")
+scroll_path = NodePath("Center/Control")
+popup_path = NodePath("Center/PopUp")
+row_path = NodePath("Center/Control/VBox/Row")
+label_path = NodePath("Center/Control/VBox/Label")
+header_path = NodePath("Center/Control/VBox/Header")
 
 [node name="Back" type="ColorRect" parent="."]
 modulate = Color( 0, 0, 0, 0.5 )
 anchor_right = 1.0
 anchor_bottom = 1.0
 
-[node name="Control" type="Control" parent="."]
+[node name="Center" type="CenterContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="Control" type="Control" parent="Center"]
 margin_right = 228.0
 margin_bottom = 128.0
+rect_min_size = Vector2( 228, 128 )
 
-[node name="Cursor" type="ColorRect" parent="Control"]
+[node name="Cursor" type="ColorRect" parent="Center/Control"]
 modulate = Color( 1, 0, 0.301961, 1 )
 margin_left = 5.0
 margin_top = 37.0
@@ -55,13 +61,13 @@ margin_right = 47.0
 margin_bottom = 47.0
 script = ExtResource( 4 )
 
-[node name="VBox" type="VBoxContainer" parent="Control"]
+[node name="VBox" type="VBoxContainer" parent="Center/Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_left = 50.0
 margin_right = -50.0
 
-[node name="Header" type="Label" parent="Control/VBox"]
+[node name="Header" type="Label" parent="Center/Control/VBox"]
 margin_right = 128.0
 margin_bottom = 14.0
 size_flags_horizontal = 9
@@ -70,32 +76,32 @@ text = "keyboard"
 align = 1
 valign = 1
 
-[node name="Guide" type="HBoxContainer" parent="Control/VBox"]
+[node name="Guide" type="HBoxContainer" parent="Center/Control/VBox"]
 margin_top = 18.0
 margin_right = 128.0
 margin_bottom = 23.0
 
-[node name="Label" type="Label" parent="Control/VBox/Guide"]
+[node name="Label" type="Label" parent="Center/Control/VBox/Guide"]
 margin_right = 36.0
 margin_bottom = 5.0
 size_flags_horizontal = 9
 custom_fonts/font = SubResource( 2 )
 text = "action"
 
-[node name="Spacer" type="Control" parent="Control/VBox/Guide"]
+[node name="Spacer" type="Control" parent="Center/Control/VBox/Guide"]
 margin_left = 40.0
 margin_right = 100.0
 margin_bottom = 5.0
 size_flags_horizontal = 3
 
-[node name="Label2" type="Label" parent="Control/VBox/Guide"]
+[node name="Label2" type="Label" parent="Center/Control/VBox/Guide"]
 margin_left = 104.0
 margin_right = 128.0
 margin_bottom = 5.0
 custom_fonts/font = SubResource( 2 )
 text = "keys"
 
-[node name="Label" type="Label" parent="Control/VBox"]
+[node name="Label" type="Label" parent="Center/Control/VBox"]
 margin_top = 27.0
 margin_right = 128.0
 margin_bottom = 34.0
@@ -104,20 +110,20 @@ custom_fonts/font = SubResource( 4 )
 text = "game"
 align = 1
 
-[node name="Row" type="HBoxContainer" parent="Control/VBox"]
+[node name="Row" type="HBoxContainer" parent="Center/Control/VBox"]
 margin_top = 38.0
 margin_right = 128.0
 margin_bottom = 54.0
 custom_constants/separation = 4
 
-[node name="Label" type="Label" parent="Control/VBox/Row"]
+[node name="Label" type="Label" parent="Center/Control/VBox/Row"]
 margin_top = 5.0
 margin_right = 24.0
 margin_bottom = 10.0
 custom_fonts/font = SubResource( 2 )
 text = "jump"
 
-[node name="Keys" type="HFlowContainer" parent="Control/VBox/Row"]
+[node name="Keys" type="HFlowContainer" parent="Center/Control/VBox/Row"]
 margin_left = 28.0
 margin_right = 128.0
 margin_bottom = 16.0
@@ -125,7 +131,7 @@ size_flags_horizontal = 3
 custom_constants/vseparation = 2
 custom_constants/hseparation = 2
 
-[node name="Key" parent="Control/VBox/Row/Keys" instance=ExtResource( 2 )]
+[node name="Key" parent="Center/Control/VBox/Row/Keys" instance=ExtResource( 2 )]
 margin_left = 3.0
 margin_right = 34.0
 rect_min_size = Vector2( 31, 7 )
@@ -134,7 +140,7 @@ action = ""
 text = "space"
 is_refresh = false
 
-[node name="Key2" parent="Control/VBox/Row/Keys" instance=ExtResource( 2 )]
+[node name="Key2" parent="Center/Control/VBox/Row/Keys" instance=ExtResource( 2 )]
 margin_left = 36.0
 margin_right = 67.0
 rect_min_size = Vector2( 31, 7 )
@@ -142,7 +148,7 @@ action = ""
 text = "pause"
 is_refresh = false
 
-[node name="Key3" parent="Control/VBox/Row/Keys" instance=ExtResource( 2 )]
+[node name="Key3" parent="Center/Control/VBox/Row/Keys" instance=ExtResource( 2 )]
 margin_left = 69.0
 margin_right = 100.0
 rect_min_size = Vector2( 31, 7 )
@@ -150,29 +156,29 @@ action = ""
 text = "enter"
 is_refresh = false
 
-[node name="Key4" parent="Control/VBox/Row/Keys" instance=ExtResource( 2 )]
+[node name="Key4" parent="Center/Control/VBox/Row/Keys" instance=ExtResource( 2 )]
 margin_top = 9.0
 margin_bottom = 16.0
 action = ""
 text = "x"
 is_refresh = false
 
-[node name="PopUp" type="CenterContainer" parent="."]
-margin_right = 228.0
-margin_bottom = 128.0
-
-[node name="Back" type="ColorRect" parent="PopUp"]
-modulate = Color( 0, 0, 1, 1 )
+[node name="PopUp" type="CenterContainer" parent="Center"]
 margin_left = 74.0
 margin_top = 58.0
 margin_right = 154.0
 margin_bottom = 70.0
+
+[node name="Back" type="ColorRect" parent="Center/PopUp"]
+modulate = Color( 0, 0, 1, 1 )
+margin_right = 80.0
+margin_bottom = 12.0
 rect_min_size = Vector2( 80, 12 )
 
-[node name="Label" type="Label" parent="PopUp"]
-margin_left = 75.0
-margin_top = 61.0
-margin_right = 153.0
-margin_bottom = 66.0
+[node name="Label" type="Label" parent="Center/PopUp"]
+margin_left = 1.0
+margin_top = 3.0
+margin_right = 79.0
+margin_bottom = 8.0
 custom_fonts/font = SubResource( 2 )
 text = "press any key"

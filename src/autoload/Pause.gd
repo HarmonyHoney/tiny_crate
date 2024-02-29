@@ -7,7 +7,7 @@ var clock := 0.0
 
 signal pause
 signal unpause
-onready var ghost_label := $Control/Center/VBox/List/Label5
+onready var ghost_label := $Center/Control/Center/VBox/List/Label5
 var ghost_cursor := 0
 
 func _input(event):
@@ -27,7 +27,7 @@ func toggle_pause():
 	
 	UI.keys(true, is_paused, is_paused, is_paused, is_paused)
 	UI.stats.visible = is_paused
-	TouchScreen.set_game(is_paused)
+	TouchScreen.set_game(!is_paused)
 	clock = timer
 	
 	if is_paused:

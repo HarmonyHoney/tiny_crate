@@ -25,10 +25,8 @@ func show_keys(arg_arrows := true, arg_c := true, arg_x := true, arg_pause := fa
 		i.passby_press = arg_passby
 
 func set_game(arg := false):
-	joystick.action_left = "left" if arg else "ui_left"
-	joystick.action_right = "right" if arg else "ui_right"
-	joystick.action_up = "up" if arg else "ui_up"
-	joystick.action_down = "down" if arg else "ui_down"
+	var i = "" if arg else "ui_"
+	joystick.set_actions(i + "left", i + "right", i + "up", i + "down")
 	buttons[0].action = "action" if arg else "ui_no"
 	buttons[1].action = "jump" if arg else "ui_yes"
 	

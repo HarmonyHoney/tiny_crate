@@ -4,7 +4,8 @@ var default_keys := {}
 
 export var is_gamepad := false
 
-onready var popup := $PopUp
+export var popup_path : NodePath = ""
+onready var popup := get_node_or_null(popup_path)
 var is_rebind := false
 
 export var row_path : NodePath = ""

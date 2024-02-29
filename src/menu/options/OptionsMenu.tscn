@@ -44,8 +44,8 @@ __meta__ = {
 }
 
 [node name="Center" type="CenterContainer" parent="."]
-margin_right = 40.0
-margin_bottom = 40.0
+anchor_right = 1.0
+anchor_bottom = 1.0
 
 [node name="Control" type="Control" parent="Center"]
 margin_right = 228.0

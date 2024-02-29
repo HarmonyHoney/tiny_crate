@@ -79,7 +79,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/actor/SwitchBlock.gd"
 }, {
-"base": "Reference",
+"base": "Control",
 "class": "VirtualJoystick",
 "language": "GDScript",
 "path": "res://src/menu/joystick/virtual_joystick.gd"

@@ -80,14 +80,14 @@ func _input(event: InputEvent) -> void:
 					_touch_index = event.index
 					_tip.modulate = pressed_color
 					_update_joystick(event.position)
-					get_tree().set_input_as_handled()
+					#get_tree().set_input_as_handled()
 		elif event.index == _touch_index:
 			_reset()
-			get_tree().set_input_as_handled()
+			#get_tree().set_input_as_handled()
 	elif event is InputEventScreenDrag:
 		if event.index == _touch_index:
 			_update_joystick(event.position)
-			get_tree().set_input_as_handled()
+			#get_tree().set_input_as_handled()
 
 func _move_base(new_position: Vector2) -> void:
 	_base.rect_global_position = new_position - _base.rect_pivot_offset * get_global_transform_with_canvas().get_scale()
@@ -130,14 +130,17 @@ func _update_input_actions():
 		Input.action_press(action_left, -_output.x)
 	elif Input.is_action_pressed(action_left):
 		Input.action_release(action_left)
+	
 	if _output.x > 0:
 		Input.action_press(action_right, _output.x)
 	elif Input.is_action_pressed(action_right):
 		Input.action_release(action_right)
+	
 	if _output.y < 0:
 		Input.action_press(action_up, -_output.y)
 	elif Input.is_action_pressed(action_up):
 		Input.action_release(action_up)
+	
 	if _output.y > 0:
 		Input.action_press(action_down, _output.y)
 	elif Input.is_action_pressed(action_down):
@@ -159,3 +162,12 @@ func _reset():
 			Input.action_release(action_down)
 		if Input.is_action_pressed(action_up) or Input.is_action_just_pressed(action_up):
 			Input.action_release(action_up)
+
+func set_actions(_left, _right, _up, _down):
+	for i in [action_left, action_right, action_up, action_down]:
+		Input.action_release(i)
+	
+	action_left = _left
+	action_right = _right
+	action_up = _up
+	action_down = _down
