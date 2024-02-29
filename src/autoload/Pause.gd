@@ -27,7 +27,7 @@ func toggle_pause():
 	
 	UI.keys(true, is_paused, is_paused, is_paused, is_paused)
 	UI.stats.visible = is_paused
-	TouchScreen.turn_arrows(is_paused)
+	TouchScreen.set_game(is_paused)
 	clock = timer
 	
 	if is_paused:

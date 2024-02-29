@@ -209,12 +209,11 @@ func change_map():
 	
 	is_note = false
 	UI.map.visible = is_level_select
-	
 	UI.keys(false, false, false, false, false)
 	UI.labels("pick", "erase" if scene_path == creator_path else "back", "score" if is_level_select else "pause")
+	TouchScreen.set_game(is_in_game)
 	
 	if is_in_game:
-		TouchScreen.turn_arrows(false)
 		TouchScreen.show_keys(true, true, true, true, true)
 		UI.show_stats()
 		
@@ -222,7 +221,6 @@ func change_map():
 		is_replay = false
 		is_replay_note = false
 		UI.keys(true, true)
-		TouchScreen.turn_arrows(false)
 		TouchScreen.show_keys(true, true, true, true)
 		
 		last_menu = "open"
@@ -234,7 +232,6 @@ func change_map():
 		
 	elif scene_path == main_menu_path:
 		UI.keys(false, false)
-		TouchScreen.turn_arrows(true)
 		TouchScreen.show_keys()
 	elif scene_path == creator_path:
 		UI.keys(false, false, true, true, true, true)

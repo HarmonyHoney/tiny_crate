@@ -305,10 +305,6 @@ margin_bottom = 31.0
 script = ExtResource( 4 )
 deadzone_size = 5.0
 clampzone_size = 20.0
-action_left = "left"
-action_right = "right"
-action_up = "up"
-action_down = "down"
 
 [node name="Base" type="TextureRect" parent="Control/Joystick"]
 anchor_left = 0.5
