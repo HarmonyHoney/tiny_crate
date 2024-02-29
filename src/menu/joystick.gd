@@ -3,6 +3,7 @@ extends Control
 
 export var radius := 20.0
 export var max_range := 40.0
+export var dead_zone := 2.0
 
 onready var base := $Base
 onready var tip := $Tip
@@ -12,41 +13,59 @@ export var action_down := "ui_down"
 export var action_left := "ui_left"
 export var action_right := "ui_right"
 
+var vec := Vector2.ZERO
+var vl := 0.0
 var joy = Vector2.ZERO
+var is_joy := false
+var last_val = -1
+var index := -1
 
 func _input(event):
 	if Engine.editor_hint: return
 	
-	if event is InputEventScreenTouch or event is InputEventScreenDrag:
-		var vec = event.position - rect_global_position
-		var r = vec.length() < max_range
-		vec = vec.limit_length(radius)
-		joy = vec.normalized() if r else Vector2.ZERO
-		
-		if event is InputEventScreenTouch:
-			r = event.pressed
-		
-		tip.modulate = Color.red if r else Color.white
-		tip.rect_position = vec if r else Vector2.ZERO
-		
-		if r:
-			send_input()
-		else:
-			for i in 4:
-				Input.action_release([action_down, action_left, action_up, action_right][i])
+	var is_touch = event is InputEventScreenTouch
+	var is_drag = event is InputEventScreenDrag
 	
-
+	if (is_drag or is_touch) and (event.index == index or index == -1):
+		vec = event.position - rect_global_position
+		vl = vec.length()
+		joy = vec.normalized()
+		
+		if is_touch:
+			is_joy = vl < max_range if event.pressed else false
+			index = event.index if is_joy else -1
+		
+		vec = vec.limit_length(radius)
+		
+		tip.modulate = Color.red if is_joy else Color.white
+		tip.rect_position = vec if is_joy else Vector2.ZERO
+		
+		send_input()
 
 func send_input():
-	var ja = rad2deg(joy.angle())
-	var is_right = abs(ja) < 45
-	var is_left = abs(ja) > 135
-	var is_up = !is_right and !is_left and ja < 0
-	var is_down = !is_up
+	var ja = wrapf(rad2deg(joy.angle()) + 45.0, 0.0, 360.0)
+	var val = int(ja / 90.0) if is_joy and vl > dead_zone else -1
 	
-	var u = InputEventAction.new()
-	u.action = action_right if is_right else action_left if is_left else action_up if is_up else action_down
-	u.pressed = true
-	Input.parse_input_event(u)
-	print(u.action)
+	var a = [action_right , action_down, action_left, action_up]
+	for i in 4:
+		if i != val: Input.action_release(a[i])
 	
+	if val > -1:
+		var u = InputEventAction.new()
+		u.action = a[val]
+		u.pressed = true
+		Input.parse_input_event(u)
+		print(val, " ", u.action, " ", vec, " index: ", index)
+
+func _physics_process(delta):
+	if Engine.editor_hint: return
+
+func set_actions(_up, _down, _left, _right):
+	is_joy = false
+	index = -1
+	send_input()
+	
+	action_up = _up
+	action_down = _down
+	action_left = _left
+	action_right = _right

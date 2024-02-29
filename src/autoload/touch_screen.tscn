@@ -295,13 +295,14 @@ margin_right = 5.0
 margin_bottom = 6.0
 
 [node name="Joystick" type="Control" parent="Control"]
-modulate = Color( 1, 1, 1, 0.509804 )
+modulate = Color( 1, 1, 1, 0.75 )
 margin_left = 26.0
 margin_top = 98.0
 margin_right = 26.0
 margin_bottom = 98.0
 script = ExtResource( 4 )
-max_range = 50.0
+max_range = 30.0
+dead_zone = 3.0
 
 [node name="Base" type="Control" parent="Control/Joystick"]
 anchor_left = 0.5
@@ -340,3 +341,18 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 texture = ExtResource( 7 )
 stretch_mode = 4
+
+[node name="Guide" type="Control" parent="Control/Joystick"]
+modulate = Color( 1, 1, 1, 0.509804 )
+
+[node name="ColorRect" type="ColorRect" parent="Control/Joystick/Guide"]
+margin_left = -1.0
+margin_top = -15.0
+margin_right = 1.0
+margin_bottom = 15.0
+
+[node name="ColorRect2" type="ColorRect" parent="Control/Joystick/Guide"]
+margin_left = -15.0
+margin_top = -1.0
+margin_right = 15.0
+margin_bottom = 1.0
