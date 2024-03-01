@@ -19,9 +19,10 @@ var joy = Vector2.ZERO
 var is_joy := false
 var last_val = -1
 var index := -1
+var is_input = true
 
 func _input(event):
-	if Engine.editor_hint: return
+	if Engine.editor_hint or !is_input: return
 	
 	var is_touch = event is InputEventScreenTouch
 	var is_drag = event is InputEventScreenDrag

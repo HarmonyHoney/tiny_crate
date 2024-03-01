@@ -10,22 +10,23 @@ onready var c_label := $Center/Control/Bottom/Keys/C/Desc
 onready var v := $Center/Control/Bottom/Keys/V
 onready var v_label := $Center/Control/Bottom/Keys/V/Desc
 
+onready var keys_node := $Center/Control
 onready var top := $Center/Control/Top
 onready var pause_label := $Center/Control/Top/P/Desc
 
-onready var map := $Center/Control/Map
-onready var notes := $Center/Control/Map/Notes
-onready var notes_label := $Center/Control/Map/Notes/Label
-onready var gems := $Center/Control/Map/Gems
-onready var gems_label := $Center/Control/Map/Gems/Label
+onready var map := $Center/Info/Map
+onready var notes := $Center/Info/Map/Notes
+onready var notes_label := $Center/Info/Map/Notes/Label
+onready var gems := $Center/Info/Map/Gems
+onready var gems_label := $Center/Info/Map/Gems/Label
 
-onready var stats := $Center/Control/Stats
-onready var stat_time := $Center/Control/Stats/Time
-onready var stat_time_label := $Center/Control/Stats/Time/Label
-onready var stat_note := $Center/Control/Stats/Note
-onready var stat_note_label := $Center/Control/Stats/Note/Label
-onready var stat_die := $Center/Control/Stats/Die
-onready var stat_die_label := $Center/Control/Stats/Die/Label
+onready var stats := $Center/Info/Stats
+onready var stat_time := $Center/Info/Stats/Time
+onready var stat_time_label := $Center/Info/Stats/Time/Label
+onready var stat_note := $Center/Info/Stats/Note
+onready var stat_note_label := $Center/Info/Stats/Note/Label
+onready var stat_die := $Center/Info/Stats/Die
+onready var stat_die_label := $Center/Info/Stats/Die/Label
 
 export var pos_left := 0
 export var pos_right := 0

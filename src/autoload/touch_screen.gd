@@ -10,11 +10,15 @@ onready var joystick := $Control/Joystick
 func _ready():
 	connect("visibility_changed", self, "vis")
 	
+	yield(get_tree(), "idle_frame")
 	visible = (OS.has_touchscreen_ui_hint() and OS.get_name() == "HTML5") or OS.get_name() == "Android"
 	vis()
 
 func vis():
-	UI.visible = !visible
+	if is_instance_valid(UI.keys_node):
+		UI.keys_node.visible = !visible
+	if is_instance_valid(joystick):
+		joystick.is_input = visible
 
 func show_keys(arg_arrows := true, arg_c := true, arg_x := true, arg_pause := false, arg_passby := false):
 	left.visible = arg_arrows
