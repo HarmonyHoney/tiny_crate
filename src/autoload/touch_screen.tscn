@@ -1,24 +1,11 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://src/autoload/touch_screen.gd" type="Script" id=1]
 [ext_resource path="res://media/image/circle.png" type="Texture" id=2]
-[ext_resource path="res://src/shader/outline2D_outer.shader" type="Shader" id=3]
 [ext_resource path="res://src/menu/joystick.gd" type="Script" id=4]
 [ext_resource path="res://media/font/NicoPaint-Regular.ttf" type="DynamicFontData" id=5]
-[ext_resource path="res://media/image/keys.png" type="Texture" id=6]
 [ext_resource path="res://media/image/diamond16.png" type="Texture" id=7]
 [ext_resource path="res://src/circle.gd" type="Script" id=8]
-
-[sub_resource type="CircleShape2D" id=1]
-radius = 15.0
-
-[sub_resource type="ShaderMaterial" id=7]
-shader = ExtResource( 3 )
-shader_param/line_color = Color( 0, 0, 0, 1 )
-shader_param/line_thickness = 1.0
-
-[sub_resource type="CircleShape2D" id=2]
-radius = 15.0
 
 [sub_resource type="CircleShape2D" id=3]
 radius = 15.0
@@ -48,140 +35,13 @@ margin_top = 5.0
 margin_right = -10.0
 margin_bottom = -5.0
 
-[node name="HBoxLeft" type="HBoxContainer" parent="Control"]
+[node name="HBoxRight" type="HBoxContainer" parent="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 custom_constants/separation = 0
+alignment = 2
 
-[node name="Up" type="CenterContainer" parent="Control/HBoxLeft"]
-visible = false
-margin_top = 88.0
-margin_right = 30.0
-margin_bottom = 118.0
-rect_min_size = Vector2( 30, 30 )
-size_flags_vertical = 8
-
-[node name="Control" type="Control" parent="Control/HBoxLeft/Up"]
-margin_left = 15.0
-margin_top = 15.0
-margin_right = 15.0
-margin_bottom = 15.0
-
-[node name="Button" type="TouchScreenButton" parent="Control/HBoxLeft/Up/Control"]
-shape = SubResource( 1 )
-shape_centered = false
-action = "ui_up"
-visibility_mode = 1
-
-[node name="Circle" type="Sprite" parent="Control/HBoxLeft/Up/Control"]
-modulate = Color( 1, 1, 1, 0.156863 )
-texture = ExtResource( 2 )
-
-[node name="Sprite" type="Sprite" parent="Control/HBoxLeft/Up/Control"]
-modulate = Color( 1, 0.92549, 0.152941, 1 )
-material = SubResource( 7 )
-rotation = 1.5708
-texture = ExtResource( 6 )
-offset = Vector2( -1, 0 )
-
-[node name="Down" type="CenterContainer" parent="Control/HBoxLeft"]
-visible = false
-margin_top = 88.0
-margin_right = 30.0
-margin_bottom = 118.0
-rect_min_size = Vector2( 30, 30 )
-size_flags_vertical = 8
-
-[node name="Control" type="Control" parent="Control/HBoxLeft/Down"]
-margin_left = 15.0
-margin_top = 15.0
-margin_right = 15.0
-margin_bottom = 15.0
-
-[node name="Button" type="TouchScreenButton" parent="Control/HBoxLeft/Down/Control"]
-shape = SubResource( 2 )
-shape_centered = false
-action = "ui_down"
-visibility_mode = 1
-
-[node name="Circle" type="Sprite" parent="Control/HBoxLeft/Down/Control"]
-modulate = Color( 1, 1, 1, 0.156863 )
-texture = ExtResource( 2 )
-
-[node name="Sprite" type="Sprite" parent="Control/HBoxLeft/Down/Control"]
-modulate = Color( 1, 0.92549, 0.152941, 1 )
-material = SubResource( 7 )
-rotation = -1.5708
-texture = ExtResource( 6 )
-offset = Vector2( -1, 0 )
-
-[node name="Left" type="CenterContainer" parent="Control/HBoxLeft"]
-visible = false
-margin_top = 88.0
-margin_right = 30.0
-margin_bottom = 118.0
-rect_min_size = Vector2( 30, 30 )
-size_flags_vertical = 8
-
-[node name="Control" type="Control" parent="Control/HBoxLeft/Left"]
-margin_left = 15.0
-margin_top = 15.0
-margin_right = 15.0
-margin_bottom = 15.0
-
-[node name="Button" type="TouchScreenButton" parent="Control/HBoxLeft/Left/Control"]
-shape = SubResource( 1 )
-shape_centered = false
-action = "ui_left"
-visibility_mode = 1
-
-[node name="Circle" type="Sprite" parent="Control/HBoxLeft/Left/Control"]
-modulate = Color( 1, 1, 1, 0.156863 )
-texture = ExtResource( 2 )
-
-[node name="Sprite" type="Sprite" parent="Control/HBoxLeft/Left/Control"]
-modulate = Color( 1, 0.92549, 0.152941, 1 )
-material = SubResource( 7 )
-texture = ExtResource( 6 )
-offset = Vector2( -1, 0 )
-
-[node name="Right" type="CenterContainer" parent="Control/HBoxLeft"]
-visible = false
-margin_top = 88.0
-margin_right = 30.0
-margin_bottom = 118.0
-rect_min_size = Vector2( 30, 30 )
-size_flags_vertical = 8
-
-[node name="Control" type="Control" parent="Control/HBoxLeft/Right"]
-margin_left = 15.0
-margin_top = 15.0
-margin_right = 15.0
-margin_bottom = 15.0
-
-[node name="Button" type="TouchScreenButton" parent="Control/HBoxLeft/Right/Control"]
-shape = SubResource( 2 )
-shape_centered = false
-action = "ui_right"
-visibility_mode = 1
-
-[node name="Circle" type="Sprite" parent="Control/HBoxLeft/Right/Control"]
-modulate = Color( 1, 1, 1, 0.156863 )
-texture = ExtResource( 2 )
-
-[node name="Sprite" type="Sprite" parent="Control/HBoxLeft/Right/Control"]
-modulate = Color( 1, 0.92549, 0.152941, 1 )
-material = SubResource( 7 )
-rotation = -3.14159
-texture = ExtResource( 6 )
-offset = Vector2( -1, 0 )
-
-[node name="Spacer" type="Control" parent="Control/HBoxLeft"]
-margin_right = 148.0
-margin_bottom = 118.0
-size_flags_horizontal = 3
-
-[node name="C" type="CenterContainer" parent="Control/HBoxLeft"]
+[node name="C" type="CenterContainer" parent="Control/HBoxRight"]
 margin_left = 148.0
 margin_top = 88.0
 margin_right = 178.0
@@ -189,23 +49,23 @@ margin_bottom = 118.0
 rect_min_size = Vector2( 30, 30 )
 size_flags_vertical = 8
 
-[node name="Control" type="Control" parent="Control/HBoxLeft/C"]
+[node name="Control" type="Control" parent="Control/HBoxRight/C"]
 margin_left = 15.0
 margin_top = 15.0
 margin_right = 15.0
 margin_bottom = 15.0
 
-[node name="Button" type="TouchScreenButton" parent="Control/HBoxLeft/C/Control"]
+[node name="Button" type="TouchScreenButton" parent="Control/HBoxRight/C/Control"]
 shape = SubResource( 3 )
 shape_centered = false
 action = "ui_no"
 visibility_mode = 1
 
-[node name="Circle" type="Sprite" parent="Control/HBoxLeft/C/Control"]
+[node name="Circle" type="Sprite" parent="Control/HBoxRight/C/Control"]
 modulate = Color( 1, 1, 1, 0.156863 )
 texture = ExtResource( 2 )
 
-[node name="Key" type="Label" parent="Control/HBoxLeft/C/Control"]
+[node name="Key" type="Label" parent="Control/HBoxRight/C/Control"]
 modulate = Color( 1, 0, 0.301961, 1 )
 margin_left = -11.0
 margin_top = -12.0
@@ -217,7 +77,7 @@ align = 1
 valign = 1
 uppercase = true
 
-[node name="X" type="CenterContainer" parent="Control/HBoxLeft"]
+[node name="X" type="CenterContainer" parent="Control/HBoxRight"]
 margin_left = 178.0
 margin_top = 88.0
 margin_right = 208.0
@@ -225,23 +85,23 @@ margin_bottom = 118.0
 rect_min_size = Vector2( 30, 30 )
 size_flags_vertical = 8
 
-[node name="Control" type="Control" parent="Control/HBoxLeft/X"]
+[node name="Control" type="Control" parent="Control/HBoxRight/X"]
 margin_left = 15.0
 margin_top = 15.0
 margin_right = 15.0
 margin_bottom = 15.0
 
-[node name="Button" type="TouchScreenButton" parent="Control/HBoxLeft/X/Control"]
+[node name="Button" type="TouchScreenButton" parent="Control/HBoxRight/X/Control"]
 shape = SubResource( 4 )
 shape_centered = false
 action = "ui_yes"
 visibility_mode = 1
 
-[node name="Circle" type="Sprite" parent="Control/HBoxLeft/X/Control"]
+[node name="Circle" type="Sprite" parent="Control/HBoxRight/X/Control"]
 modulate = Color( 1, 1, 1, 0.156863 )
 texture = ExtResource( 2 )
 
-[node name="Key" type="Label" parent="Control/HBoxLeft/X/Control"]
+[node name="Key" type="Label" parent="Control/HBoxRight/X/Control"]
 modulate = Color( 0, 0.894118, 0.211765, 1 )
 margin_left = -11.0
 margin_top = -12.0
@@ -305,10 +165,6 @@ max_range = 30.0
 dead_zone = 3.0
 
 [node name="Base" type="Control" parent="Control/Joystick"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
@@ -316,11 +172,22 @@ size_flags_vertical = 4
 script = ExtResource( 8 )
 radius = 20.0
 
+[node name="Guide" type="Control" parent="Control/Joystick/Base"]
+modulate = Color( 1, 1, 1, 0.509804 )
+
+[node name="ColorRect" type="ColorRect" parent="Control/Joystick/Base/Guide"]
+margin_left = -1.0
+margin_top = -15.0
+margin_right = 1.0
+margin_bottom = 15.0
+
+[node name="ColorRect2" type="ColorRect" parent="Control/Joystick/Base/Guide"]
+margin_left = -15.0
+margin_top = -1.0
+margin_right = 15.0
+margin_bottom = 1.0
+
 [node name="Tip" type="Control" parent="Control/Joystick"]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
@@ -341,18 +208,3 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 texture = ExtResource( 7 )
 stretch_mode = 4
-
-[node name="Guide" type="Control" parent="Control/Joystick"]
-modulate = Color( 1, 1, 1, 0.509804 )
-
-[node name="ColorRect" type="ColorRect" parent="Control/Joystick/Guide"]
-margin_left = -1.0
-margin_top = -15.0
-margin_right = 1.0
-margin_bottom = 15.0
-
-[node name="ColorRect2" type="ColorRect" parent="Control/Joystick/Guide"]
-margin_left = -15.0
-margin_top = -1.0
-margin_right = 15.0
-margin_bottom = 1.0

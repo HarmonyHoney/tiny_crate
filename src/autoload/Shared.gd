@@ -214,7 +214,7 @@ func change_map():
 	TouchScreen.set_game(is_in_game)
 	
 	if is_in_game:
-		TouchScreen.show_keys(true, true, true, true, true)
+		TouchScreen.show_keys(true, true, true, true)
 		UI.show_stats()
 		
 	elif is_level_select:
@@ -356,6 +356,7 @@ func load_save(_slot = save_slot, is_reload := false):
 	username = generate_username()
 	player_colors = pick_player_colors()
 	save_maps = {}
+	save_clock = 0.0
 	
 	var dict := {}
 	if is_reload: dict = save_data[_slot]
