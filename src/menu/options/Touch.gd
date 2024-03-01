@@ -4,6 +4,7 @@ onready var fill = $Box/Fill
 var is_selected = false
 
 func _ready():
+	yield(get_tree(), "idle_frame")
 	fill.visible = TouchScreen.visible
 
 func act():
