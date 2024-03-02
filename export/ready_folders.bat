@@ -1,6 +1,9 @@
 rmdir /s /q android
 mkdir android
 
+rmdir /s /q android-bundle
+mkdir android-bundle
+
 rmdir /s /q linux
 mkdir linux
 
