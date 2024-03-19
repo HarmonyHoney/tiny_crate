@@ -66,6 +66,8 @@ var is_win := false
 var is_note := false
 var is_replay := false
 var is_replay_note := false
+var is_faster := false
+var is_faster_note := false
 
 var username := "crate_kid"
 export (Array, Color) var palette := []
@@ -212,6 +214,10 @@ func change_map():
 	UI.keys(false, false, false, false, false)
 	UI.labels("pick", "erase" if scene_path == creator_path else "back", "score" if is_level_select else "pause")
 	TouchScreen.set_game(is_in_game)
+	
+	if !is_level_select:
+		is_faster = false
+		is_faster_note = false
 	
 	if is_in_game:
 		TouchScreen.show_keys(true, true, true, true)
@@ -433,10 +439,12 @@ func win():
 	var hn = s.has("note")
 	if is_note and (!hn or(hn and map_frame < s["note"])):
 		s["note"] = map_frame
+		is_faster_note = true
 	
 	var ht = s.has("time")
 	if !ht or (ht and map_frame < s["time"]):
 		s["time"] = map_frame
+		is_faster = true
 	
 	# replays
 	var m = map_name + ("-note" if is_note else "")

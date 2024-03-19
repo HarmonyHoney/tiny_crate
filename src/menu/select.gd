@@ -52,10 +52,25 @@ var map_rows := []
 var map_unlocked := []
 export(String, MULTILINE) var lock_string := ""
 var map_vector = {}
+var is_faster = false
+var is_faster_note = false
+
+var blink_label
+
+export var blink_on := 0.3
+export var blink_off := 0.2
+var blink_clock := 0.0
+var blink_count = 10
 
 func _ready():
 	Leaderboard.connect("new_score", self, "new_score")
 	SilentWolf.Scores.connect("sw_scores_received", self, "new_score")
+	
+	is_faster_note = Shared.is_faster_note
+	is_faster = is_faster_note or Shared.is_faster
+	print("is_faster: ", is_faster, ", is_faster_note: ", is_faster_note)
+#	if is_faster:
+#		Audio.play("menu_bell", 0.8, 1.2)
 	
 	# setup maps & locks
 	for i in lock_string.split("\n"):
@@ -140,6 +155,13 @@ func _physics_process(delta):
 	for i in last_refresh.keys():
 		last_refresh[i] = max(0, last_refresh[i] - delta)
 	
+	if is_instance_valid(blink_label) and blink_count > 0:
+		blink_clock -= delta
+		if blink_clock < -blink_off:
+			blink_clock = blink_on
+			blink_count -= 1
+		blink_label.modulate = [Color.transparent, Color.white][int(blink_clock > 0.0)]
+	
 	var ticks : float = OS.get_ticks_msec()
 	
 	if is_screening:
@@ -183,9 +205,9 @@ func make_screen(i := 0):
 	
 	var has_note = s.has("note")
 	new.get_node("Overlay/Notes").visible = has_note
+	var note_label = new.get_node("Overlay/Notes/Label")
 	if has_note:
-		new.get_node("Overlay/Notes/Label").text = Shared.time_to_string(s["note"])
-	
+		note_label.text = Shared.time_to_string(s["note"])
 	
 	var gem = new.get_node("Overlay/Gem")
 	gem.visible = !is_locked
@@ -201,6 +223,11 @@ func make_screen(i := 0):
 	new.get_node("Overlay/Death").visible = has_die
 	if has_die:
 		new.get_node("Overlay/Death/Label").text = str(s["die"])
+	
+	if is_faster and i == Shared.map_select:
+		blink_label = note_label if is_faster_note else gem_label
+		print("faster ", i, ", blink_label ", blink_label)
+		Audio.play("menu_bell", 0.5, 1.0)
 	
 	screens_node.add_child(new)
 	overlays[i] = new.get_node("Overlay")
