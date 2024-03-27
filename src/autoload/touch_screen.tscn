@@ -2,7 +2,7 @@
 
 [ext_resource path="res://src/autoload/touch_screen.gd" type="Script" id=1]
 [ext_resource path="res://media/image/circle.png" type="Texture" id=2]
-[ext_resource path="res://src/menu/joystick/round_button.gd" type="Script" id=3]
+[ext_resource path="res://src/menu/round_button.gd" type="Script" id=3]
 [ext_resource path="res://src/menu/joystick.gd" type="Script" id=4]
 [ext_resource path="res://media/font/NicoPaint-Regular.ttf" type="DynamicFontData" id=5]
 [ext_resource path="res://media/image/diamond16.png" type="Texture" id=7]

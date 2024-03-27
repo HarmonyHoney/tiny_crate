@@ -14,6 +14,7 @@ var joy = Vector2.ZERO
 var is_joy := false
 var last_val = -1
 var is_input = true
+var index := -1
 
 func _input(event):
 	if Engine.editor_hint or !is_input: return
@@ -21,14 +22,15 @@ func _input(event):
 	var is_touch = event is InputEventScreenTouch
 	var is_drag = event is InputEventScreenDrag
 	
-	if (is_drag or is_touch):
+	if (is_drag or is_touch) and (event.index == index or index == -1):
 		vec = event.position - rect_global_position
 		vl = vec.length()
 		joy = vec.normalized()
 		
 		is_joy = vl < max_range
-		if is_touch and !event.pressed:
-			is_joy = false
+		if is_touch:
+			if !event.pressed: is_joy = false
+			index = event.index if is_joy else -1
 		
 		vec = vec.limit_length(radius)
 		
@@ -43,3 +45,4 @@ func set_actions(_up, _down, _left, _right):
 	for i in 4:
 		buttons[i].action = [_right, _down, _left, _up][i]
 		buttons[i].passby_press = !("ui_" in _up)
+
