@@ -331,9 +331,13 @@ func load_options(path := options_path):
 	
 	if !dict.empty():
 		if dict.has("sfx"):
-			bus_volume[1] = int(dict["sfx"])
+			var v = int(dict["sfx"])
+			bus_volume[1] = v
+			set_bus_volume(1, v)
 		if dict.has("music"):
-			bus_volume[2] = int(dict["music"])
+			var v = int(dict["music"])
+			bus_volume[2] = v
+			set_bus_volume(2, v)
 		if dict.has("fullscreen"):
 			set_fullscreen(bool(dict["fullscreen"]))
 

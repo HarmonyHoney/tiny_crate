@@ -1,7 +1,8 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://src/autoload/touch_screen.gd" type="Script" id=1]
 [ext_resource path="res://media/image/circle.png" type="Texture" id=2]
+[ext_resource path="res://src/menu/joystick/round_button.gd" type="Script" id=3]
 [ext_resource path="res://src/menu/joystick.gd" type="Script" id=4]
 [ext_resource path="res://media/font/NicoPaint-Regular.ttf" type="DynamicFontData" id=5]
 [ext_resource path="res://media/image/diamond16.png" type="Texture" id=7]
@@ -21,6 +22,18 @@ radius = 15.0
 
 [sub_resource type="CircleShape2D" id=5]
 radius = 15.0
+
+[sub_resource type="ConvexPolygonShape2D" id=7]
+points = PoolVector2Array( 2.12132, 2.12132, 3, 0, 2.12132, -2.12132, 42.4264, -42.4264, 55.4328, -22.961, 60, 0, 55.4328, 22.961, 42.4264, 42.4264 )
+
+[sub_resource type="ConvexPolygonShape2D" id=8]
+points = PoolVector2Array( -2.12132, 2.12132, -1.31134e-07, 3, 2.12132, 2.12132, 42.4264, 42.4264, 22.961, 55.4328, -2.62268e-06, 60, -22.961, 55.4328, -42.4264, 42.4264 )
+
+[sub_resource type="ConvexPolygonShape2D" id=9]
+points = PoolVector2Array( -2.12132, -2.12132, -3, -2.62268e-07, -2.12132, 2.12132, -42.4264, 42.4264, -55.4328, 22.961, -60, -5.24537e-06, -55.4328, -22.961, -42.4264, -42.4264 )
+
+[sub_resource type="ConvexPolygonShape2D" id=10]
+points = PoolVector2Array( 2.12132, -2.12132, 3.57746e-08, -3, -2.12132, -2.12132, -42.4264, -42.4264, -22.961, -55.4328, 7.15493e-07, -60, 22.961, -55.4328, 42.4264, -42.4264 )
 
 [node name="TouchScreen" type="CanvasLayer"]
 pause_mode = 2
@@ -160,9 +173,8 @@ margin_left = 26.0
 margin_top = 98.0
 margin_right = 26.0
 margin_bottom = 98.0
+rect_pivot_offset = Vector2( -84, -71 )
 script = ExtResource( 4 )
-max_range = 30.0
-dead_zone = 3.0
 
 [node name="Base" type="Control" parent="Control/Joystick"]
 grow_horizontal = 2
@@ -171,6 +183,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 script = ExtResource( 8 )
 radius = 20.0
+points = 16
 
 [node name="Guide" type="Control" parent="Control/Joystick/Base"]
 modulate = Color( 1, 1, 1, 0.509804 )
@@ -208,3 +221,34 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 texture = ExtResource( 7 )
 stretch_mode = 4
+
+[node name="Buttons" type="Control" parent="Control/Joystick"]
+margin_right = 40.0
+margin_bottom = 40.0
+
+[node name="0" type="TouchScreenButton" parent="Control/Joystick/Buttons"]
+shape = SubResource( 7 )
+shape_centered = false
+action = "ui_right"
+script = ExtResource( 3 )
+
+[node name="1" type="TouchScreenButton" parent="Control/Joystick/Buttons"]
+shape = SubResource( 8 )
+shape_centered = false
+action = "ui_down"
+script = ExtResource( 3 )
+angle = 90.0
+
+[node name="2" type="TouchScreenButton" parent="Control/Joystick/Buttons"]
+shape = SubResource( 9 )
+shape_centered = false
+action = "ui_left"
+script = ExtResource( 3 )
+angle = 180.0
+
+[node name="3" type="TouchScreenButton" parent="Control/Joystick/Buttons"]
+shape = SubResource( 10 )
+shape_centered = false
+action = "ui_up"
+script = ExtResource( 3 )
+angle = 270.0
