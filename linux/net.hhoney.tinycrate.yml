@@ -19,8 +19,8 @@ modules:
     path: ../
 
   - type: file
-    url: https://github.com/HarmonyHoney/tiny_crate/releases/download/2024.12.16/Tiny-Crate.pck
-    sha256: 538cd6dded643b93011fbd6681da2dbe5f5d01c8d56625d4c1cc77dce174fd29
+    url: https://github.com/HarmonyHoney/tiny_crate/releases/download/2025.1.16/Tiny-Crate.pck
+    sha256: ccf01fa100fe876e2a5d222f4cc7e60f57d2e09728f9948a188fa9ea4540d01b
 
   build-commands:
   - install -Dm644 Tiny-Crate.pck ${FLATPAK_DEST}/bin/godot-runner.pck
