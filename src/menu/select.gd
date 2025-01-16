@@ -50,7 +50,6 @@ var map_lock := {}
 var map_list := []
 var map_rows := []
 var map_unlocked := []
-export(String, MULTILINE) var lock_string := ""
 var map_vector = {}
 var is_faster = false
 var is_faster_note = false
@@ -61,6 +60,14 @@ export var blink_on := 0.3
 export var blink_off := 0.2
 var blink_clock := 0.0
 var blink_count = 10
+
+var lockdict= {0:["1-1", "1-2", "1-3", "1-4", "1-5", "1-6", "1-7", "1-8"],
+6 : ['2-1', '2-2', '2-3', '2-4', '2-5', '2-6', '2-7', '2-8'],
+12: ['3-1', '3-2', '3-3', '3-4', '3-5', '3-6', '3-7', '3-8'],
+18: ['4-1', '4-2', '4-3', '4-4', '4-5', '4-6', '4-7', '4-8'],
+24: ['5-1', '5-2', '5-3', '5-4'],
+30: ['win']}
+
 
 func _ready():
 	#Leaderboard.connect("new_score", self, "new_score")
@@ -73,14 +80,13 @@ func _ready():
 #		Audio.play("menu_bell", 0.8, 1.2)
 	
 	# setup maps & locks
-	for i in lock_string.split("\n"):
-		var s : Array = i.split(" ")
-		var c = int(s.pop_front())
+	for i in lockdict.keys():
+		var s = lockdict[i]
 		map_rows.append(s)
 		for x in s:
-			map_lock[x] = c
+			map_lock[x] = i
 			map_list.append(x)
-			if c - 1 < Shared.count_gems:
+			if i - 1 < Shared.count_gems:
 				map_unlocked.append(x)
 	print("map_lock: ", map_lock)
 	print("map_rows: ", map_rows)
@@ -183,8 +189,9 @@ func _physics_process(delta):
 		while OS.get_ticks_msec() < ticks + (delta * timeout_mod):
 			if load_list.size() > 0:
 				var pop = load_list.pop_front()
-				pop[2].add_child(Shared.scene_dict[pop[1]].instance())
-				screen_static[pop[0]].visible = false
+				if Shared.scene_dict.has(pop[1]):
+					pop[2].add_child(Shared.scene_dict[pop[1]].instance())
+					screen_static[pop[0]].visible = false
 			else:
 				is_load = false
 				print(loading_time, " loading time")

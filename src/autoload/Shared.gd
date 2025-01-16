@@ -34,7 +34,6 @@ var save_filename := "box.save"
 var keys_path := "keys.tres"
 var options_path := "options.tres"
 var scene_dict := {}
-export var is_scene_dict_refresh := false setget set_is_scene_dict_refresh
 var replays := [{}, {}, {}]
 var is_save := false
 var last_menu := "main"
@@ -121,9 +120,6 @@ func _input(event):
 	if is_gamepad != joy:
 		is_gamepad = joy
 		emit_signal("signal_gamepad")
-	
-	if event.is_action_pressed("debug_refresh"):
-		refresh_scenes()
 
 func _physics_process(delta):
 	if is_level_select or is_in_game or is_creator:
@@ -157,25 +153,13 @@ func _physics_process(delta):
 
 ### Changing Maps
 
-func set_is_scene_dict_refresh(arg := false):
-	is_scene_dict_refresh = false
-	refresh_scenes()
-	print("set_is_scene_dict_refresh ", arg)
-
-func refresh_scenes():
-	var k = scene_dict.keys().duplicate()
-	scene_dict.clear()
-	
-	for i in k:
-		scene_dict[i] = load(i)
-
 func wipe_scene(arg := scene_path, timer := 0.0):
 	if Wipe.is_wipe: return
 	if timer > 0.0:
 		yield(get_tree().create_timer(timer), "timeout")
 		if Wipe.is_wipe: return
 	scene_last = scene_path
-	scene_path = arg
+	scene_path = arg.replace(" ", "")
 	Wipe.start()
 
 func wipe_quit():
