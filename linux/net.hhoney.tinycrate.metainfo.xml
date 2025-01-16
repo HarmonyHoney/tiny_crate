@@ -55,11 +55,16 @@
     </screenshot>
     <screenshot>
       <image>https://raw.githubusercontent.com/HarmonyHoney/tiny_crate/10312ba618be82d6bb9de63a087a3a3183cda5d2/media/image/screens/5.png</image>
-      <caption>Eighteen levels to master</caption>
+      <caption>Five worlds and over 30 levels to master</caption>
     </screenshot>
   </screenshots>
 
   <releases>
+    <release version="2025.01.16" date="2025-01-16">
+      <description>
+        <p>Updated icon and under-the-hood cleanup</p>
+      </description>
+    </release>
     <release version="2024.09.18" date="2024-09-18">
       <description>
         <p>Patch 13 - Touch Controls Ghosting Fixed</p>
