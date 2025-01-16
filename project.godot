@@ -14,16 +14,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/actor/Actor.gd"
 }, {
-"base": "Node",
-"class": "AsepriteImportData",
-"language": "GDScript",
-"path": "res://addons/aseprite_importer/classes/AsepriteImportData.gd"
-}, {
-"base": "Node",
-"class": "AsepriteImporter",
-"language": "GDScript",
-"path": "res://addons/aseprite_importer/classes/AsepriteImporter.gd"
-}, {
 "base": "Actor",
 "class": "Box",
 "language": "GDScript",
@@ -33,11 +23,6 @@ _global_script_classes=[ {
 "class": "EaseMover",
 "language": "GDScript",
 "path": "res://src/class/EaseMover.gd"
-}, {
-"base": "Node",
-"class": "EditorTheme",
-"language": "GDScript",
-"path": "res://addons/aseprite_importer/classes/EditorTheme.gd"
 }, {
 "base": "Actor",
 "class": "Exit",
@@ -81,11 +66,8 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "Actor": "",
-"AsepriteImportData": "",
-"AsepriteImporter": "",
 "Box": "",
 "EaseMover": "",
-"EditorTheme": "",
 "Exit": "",
 "Key": "",
 "Menu": "",
@@ -141,7 +123,7 @@ search_in_file_extensions=PoolStringArray( "gd", "gdshader", "shader", "tscn" )
 
 [editor_plugins]
 
-enabled=PoolStringArray( "res://addons/aseprite_importer/plugin.cfg", "res://addons/silent_wolf/plugin.cfg" )
+enabled=PoolStringArray( "res://addons/silent_wolf/plugin.cfg" )
 
 [global]
 

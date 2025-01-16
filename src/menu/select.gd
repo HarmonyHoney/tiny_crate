@@ -63,8 +63,8 @@ var blink_clock := 0.0
 var blink_count = 10
 
 func _ready():
-	Leaderboard.connect("new_score", self, "new_score")
-	SilentWolf.Scores.connect("sw_scores_received", self, "new_score")
+	#Leaderboard.connect("new_score", self, "new_score")
+	#SilentWolf.Scores.connect("sw_scores_received", self, "new_score")
 	
 	is_faster_note = Shared.is_faster_note
 	is_faster = is_faster_note or Shared.is_faster
@@ -276,7 +276,7 @@ func refresh_score(var map_name : String = current_map):
 	write_score()
 	
 	if !last_refresh.has(map_name) or last_refresh[map_name] == 0:
-		Leaderboard.refresh_score(map_name)
+		#Leaderboard.refresh_score(map_name)
 		print(map_name, " FRESH FRESH FRESH FRESH FRESH FRESH FRESH FRESH FRESH FRESH FRESH FRESH FRESH FRESH FRESH ")
 		last_refresh[map_name] = refresh_wait
 
@@ -287,27 +287,14 @@ func write_score():
 	var map_name = current_map + ("-note" if show_score == 2 else "")
 	var t = ""
 	var count = 0
-	if Leaderboard.is_online:
-		if Leaderboard.scores.has(map_name):
-			var s = Leaderboard.scores[map_name]
-			if s.empty():
-				t = "no data!"
-			else:
-				for i in s:
-					t += Shared.time_to_string(-int(i["score"])) + " " + str(i["player_name"]) + "\n"
-					count += 1
-					if count > 9 : break
-		else:
-			t = "loading..."
+	if Shared.replays.has(map_name):
+		for i in Shared.replays[map_name]:
+			if i.has("frames"):
+				t += Shared.time_to_string(int(i["frames"])) + "\n"
+				count += 1
+				if count > 9 : break
 	else:
-		if Shared.replays.has(map_name):
-			for i in Shared.replays[map_name]:
-				if i.has("frames"):
-					t += Shared.time_to_string(int(i["frames"])) + "\n"
-					count += 1
-					if count > 9 : break
-		else:
-			t = "NO DATA!"
+		t = "NO DATA!"
 	
 	score_list.text = t
 

@@ -464,7 +464,7 @@ func win():
 	
 	print("map complete")
 	
-	Leaderboard.submit_score(m, -map_frame)
+	#Leaderboard.submit_score(m, -map_frame)
 	
 	wipe_scene(level_select_path)
 
@@ -502,8 +502,8 @@ func die():
 	else:
 		s["die"] += 1
 	
-	Leaderboard.submit_score("death", 1)
-	Leaderboard.submit_score("death", 1, map_name)
+	#Leaderboard.submit_score("death", 1)
+	#Leaderboard.submit_score("death", 1, map_name)
 	print("you died")
 
 func pick_player_colors():
