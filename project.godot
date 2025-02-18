@@ -86,7 +86,7 @@ hhoney.net"
 run/main_scene="res://src/menu/splash.tscn"
 config/use_custom_user_dir=true
 config/custom_user_dir_name="tiny_crate"
-boot_splash/image="res://media/image/splash.png"
+boot_splash/image="res://media/image/title_splash-pixel.png"
 boot_splash/use_filter=false
 boot_splash/bg_color=Color( 0, 0, 0, 1 )
 config/icon="res://media/image/icon.png"
