@@ -291,17 +291,22 @@ func new_score(arg1 = null, arg2 = null, arg3 = null):
 	write_score()
 
 func write_score():
-	var map_name = current_map + ("-note" if show_score == 2 else "")
+	var key = "note" if show_score == 2 else "time"
+	var dat = Shared.save_data
+	var dict = {}
+	
+	for i in dat.keys():
+		if dat[i].has_all(["username", "maps"]) and dat[i]["maps"].has(current_map) and dat[i]["maps"][current_map].has(key):
+			dict[int(dat[i]["maps"][current_map][key])] = dat[i]["username"]
+	
 	var t = ""
-	var count = 0
-	if Shared.replays.has(map_name):
-		for i in Shared.replays[map_name]:
-			if i.has("frames"):
-				t += Shared.time_to_string(int(i["frames"])) + "\n"
-				count += 1
-				if count > 9 : break
-	else:
-		t = "NO DATA!"
+	var keys = dict.keys()
+	keys.sort()
+	for i in keys:
+		t += Shared.time_to_string(i) + " " + dict[i] + "\n"
+	
+	if t == "":
+		t = "NO DATA !"
 	
 	score_list.text = t
 
