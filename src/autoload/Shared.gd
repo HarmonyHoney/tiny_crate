@@ -25,7 +25,8 @@ var creator_path := "res://src/menu/Creator.tscn"
 var scene_path := level_select_path
 var scene_last := scene_path
 
-var save_data := {0: {}, 1: {}, 2: {}}
+var save_limit = 6
+var save_data := {0: {}, 1: {}, 2: {}, 3: {}, 4: {}, 5: {}}
 var save_slot := 0
 var last_slot = -1
 var save_maps := {}
@@ -34,7 +35,7 @@ var save_filename := "box.save"
 var keys_path := "keys.tres"
 var options_path := "options.tres"
 var scene_dict := {}
-var replays := [{}, {}, {}]
+var replays := [{}, {}, {}, {}, {}, {}, {}]
 var is_save := false
 var last_menu := "main"
 var last_cursor := 0
@@ -103,7 +104,7 @@ func _ready():
 	var dir = Directory.new()
 	if !dir.open(save_path) == OK:
 		dir.make_dir(save_path)
-	for i in 3:
+	for i in save_limit:
 		var s = save_path + str(i)
 		if !dir.open(s) == OK:
 			dir.make_dir(s)
@@ -275,10 +276,12 @@ func save():
 	data["player_colors"] = player_colors
 	data["maps"] = save_maps
 	
+	save_data[save_slot]["username"] = username
+	
 	save_file(save_path + str(save_slot) + "/" + save_filename, JSON.print(data, "\t"))
 
 func load_slots():
-	for i in 3:
+	for i in save_limit:
 		load_save(i)
 		load_replays(i)
 
@@ -342,7 +345,7 @@ func save_replays(arg := replay_map, _slot := save_slot):
 	save_file(save_path + str(_slot) + "/" + arg + ".save", JSON.print(replays[save_slot][arg], "\t"))
 
 func load_save(_slot = save_slot, is_reload := false):
-	save_slot = clamp(_slot, 0, 2)
+	save_slot = clamp(_slot, 0, save_limit - 1)
 	var save_string = save_path + str(save_slot) + "/" + save_filename
 	
 	save_data[save_slot] = {}

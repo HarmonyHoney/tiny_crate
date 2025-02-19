@@ -67,7 +67,7 @@ func btn_y(arg := 1):
 
 func setup_slots():
 	var slot_items := slot_menu.get_children()
-	for i in 3:
+	for i in Shared.save_limit:
 		var si = slot_items[i]
 		var sd = Shared.save_data[i]
 		var gem_label = si.get_node("Label0")
@@ -93,7 +93,7 @@ func setup_slots():
 			if sd.has("player_colors"):
 				Player.set_palette(player_mat, sd["player_colors"])
 
-func menu_select(tag : String = menu_items[cursor].to_lower()):
+func menu_select(tag : String = menu_items[clamp(cursor, 0, menu_items.size() - 1)].to_lower()):
 	Shared.last_cursor = cursor
 	match tag:
 		"play":

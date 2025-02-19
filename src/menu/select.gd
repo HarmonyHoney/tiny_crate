@@ -284,7 +284,7 @@ func refresh_score(var map_name : String = current_map):
 	
 	if !last_refresh.has(map_name) or last_refresh[map_name] == 0:
 		#Leaderboard.refresh_score(map_name)
-		print(map_name, " FRESH FRESH FRESH FRESH FRESH FRESH FRESH FRESH FRESH FRESH FRESH FRESH FRESH FRESH FRESH ")
+		print("   -   ", map_name, " REFRESH SCORE ")
 		last_refresh[map_name] = refresh_wait
 
 func new_score(arg1 = null, arg2 = null, arg3 = null):
