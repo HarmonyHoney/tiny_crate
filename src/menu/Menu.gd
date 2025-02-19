@@ -121,6 +121,10 @@ func set_cursor(arg := cursor):
 	if is_color:
 		for i in list.size():
 			list[i].modulate = color_on if i == cursor else color_off
+	on_cursor()
+
+func on_cursor():
+	pass
 
 func open(arg := false, _last = null):
 	is_open = arg

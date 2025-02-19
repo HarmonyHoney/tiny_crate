@@ -54,6 +54,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/class/savedict.gd"
 }, {
+"base": "Resource",
+"class": "StagePreview",
+"language": "GDScript",
+"path": "res://src/stage/preview.gd"
+}, {
 "base": "Actor",
 "class": "Switch",
 "language": "GDScript",
@@ -74,6 +79,7 @@ _global_script_class_icons={
 "Passthrough": "",
 "Player": "",
 "SaveDict": "",
+"StagePreview": "",
 "Switch": "",
 "SwitchBlock": ""
 }

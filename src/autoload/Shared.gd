@@ -94,20 +94,33 @@ func _ready():
 	for i in [1, 2]:
 		set_bus_volume(i, 7)
 	
-	# get all maps
-	for i in dir_list(map_dir):
-		scene_dict[map_dir + i] = load(map_dir + i)
-		maps.append(i.split(".")[0])
-	#print("maps: ", maps, " ", maps.size(), " ", scene_dict)
-	
 	# make save folders
 	var dir = Directory.new()
 	if !dir.open(save_path) == OK:
 		dir.make_dir(save_path)
-	for i in save_limit:
+	for i in range(save_limit) + ["map"]:
 		var s = save_path + str(i)
 		if !dir.open(s) == OK:
 			dir.make_dir(s)
+	
+	# get all maps
+	for i in dir_list(map_dir):
+		var lm = load(map_dir + i)
+		scene_dict[map_dir + i] = lm
+		maps.append(i.split(".")[0])
+		var inst = lm.instance()
+		for c in inst.get_children():
+			var cname = c.name.to_lower()
+			
+			if "spike" in cname:
+				print(i, " ", c.get_used_cells())
+		
+		
+		
+	#print("maps: ", maps, " ", maps.size(), " ", scene_dict)
+	
+	
+	
 	
 	load_options()
 	load_slots()

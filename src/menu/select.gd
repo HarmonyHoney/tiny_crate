@@ -30,6 +30,7 @@ onready var score_list := $Control/Scores/List
 onready var score_note := $Control/Scores/HBoxContainer/Note
 onready var score_clock := $Control/Scores/HBoxContainer/Clock
 onready var score_map := $Control/Scores/HBoxContainer/Map
+onready var score_row := $Control/Scores/Row
 
 var load_list := []
 var loader : ResourceInteractiveLoader
@@ -301,9 +302,20 @@ func write_score():
 	
 	var t = ""
 	var keys = dict.keys()
+	var row = 0
+	var my_row = -1
+	
 	keys.sort()
 	for i in keys:
 		t += Shared.time_to_string(i) + " " + dict[i] + "\n"
+		
+		if dict[i] == Shared.username:
+			my_row = row
+		
+		row += 1
+	
+	score_row.visible = my_row > -1
+	score_row.rect_position.y = (score_list.rect_position.y - 2) + (my_row * 8)
 	
 	if t == "":
 		t = "NO DATA !"

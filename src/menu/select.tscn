@@ -199,12 +199,17 @@ text = "12:34"
 align = 2
 
 [node name="Scores" type="Control" parent="Control"]
-visible = false
 margin_left = 111.0
 margin_top = 41.0
 margin_right = 245.0
 margin_bottom = 135.0
 rect_min_size = Vector2( 134, 94 )
+
+[node name="Row" type="ColorRect" parent="Control/Scores"]
+margin_left = -1.0
+margin_top = 14.0
+margin_right = 135.0
+margin_bottom = 23.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Control/Scores"]
 anchor_right = 1.0
@@ -237,8 +242,8 @@ region_rect = Rect2( 7, 7, 9, 10 )
 
 [node name="Clock" type="Control" parent="Control/Scores/HBoxContainer"]
 visible = false
-margin_left = 110.0
-margin_right = 120.0
+margin_left = 99.0
+margin_right = 109.0
 margin_bottom = 10.0
 rect_min_size = Vector2( 10, 10 )
 

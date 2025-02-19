@@ -98,7 +98,7 @@
 6/name = "crate_tiles.png 6"
 6/texture = ExtResource( 11 )
 6/tex_offset = Vector2( 0, 0 )
-6/modulate = Color( 0.670588, 0.321569, 0.211765, 1 )
+6/modulate = Color( 0.678431, 0, 0.156863, 1 )
 6/region = Rect2( 0, 24, 8, 8 )
 6/tile_mode = 0
 6/occluder_offset = Vector2( 0, 0 )

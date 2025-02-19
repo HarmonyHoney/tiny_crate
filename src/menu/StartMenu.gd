@@ -5,6 +5,7 @@ onready var quit_menu := $Control/Quit
 onready var slot_menu := $Control/Slot
 onready var open_menu := $Control/Open
 onready var erase_menu := $Control/Erase
+onready var user_label := $Username/Label
 onready var menu_stuff := main_menu.get_children()
 onready var credits_node := $Credits
 onready var stage := $Stage
@@ -36,8 +37,18 @@ func _ready():
 	switch_menu(Shared.last_menu, true)
 	self.cursor = Shared.last_cursor
 	credits_node.visible = false
+	user_label.text = Shared.username
 	
 	open(true)
+
+func on_cursor():
+	if menu_name == "slot":
+		var s = ""
+		var dat = Shared.save_data
+		if dat[cursor].has("username"):
+			s = dat[cursor]["username"]
+		
+		user_label.text = s
 
 func btn_no():
 	if is_credits:
@@ -150,6 +161,8 @@ func on_close_sub():
 	UI.keys(false)
 
 func switch_menu(arg, silent := false, _cursor := 0):
+	user_label.visible = arg == "slot" or arg == "open"
+	
 	var s = ["quit", "main", "slot", "open", "erase"]
 	var items = [quit_items, main_items, slot_items, open_items, erase_items]
 	var node = [quit_menu, main_menu, slot_menu, open_menu, erase_menu]
@@ -180,6 +193,7 @@ func switch_menu(arg, silent := false, _cursor := 0):
 			"slot":
 				_cursor = Shared.last_slot
 				Shared.map_select = 0
+				user_label.visible = true
 			"open":
 				Shared.load_save(Shared.last_slot, true)
 				Player.set_palette(open_player_mat, Shared.player_colors)
@@ -191,4 +205,3 @@ func switch_menu(arg, silent := false, _cursor := 0):
 		
 		self.cursor = _cursor
 		Shared.last_menu = arg
-		

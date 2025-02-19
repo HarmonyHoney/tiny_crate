@@ -28,8 +28,11 @@ onready var stat_note_label := $Center/Info/Stats/Note/Label
 onready var stat_die := $Center/Info/Stats/Die
 onready var stat_die_label := $Center/Info/Stats/Die/Label
 
+onready var user_label := $Center/Control/Top/Username
+
 export var pos_left := 0
 export var pos_right := 0
+
 
 func _ready():
 	keys(false, false, false, false, false)
@@ -50,6 +53,7 @@ func labels(_x := "pick", _c := "back", _pause := "pause", _v := "clear"):
 	c_label.text = _c
 	pause_label.text = _pause
 	v_label.text = _v
+	user_label.text = Shared.username
 
 func show_stats():
 	var m = {}
