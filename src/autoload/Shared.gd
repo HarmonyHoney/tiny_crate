@@ -103,19 +103,17 @@ func _ready():
 		if !dir.open(s) == OK:
 			dir.make_dir(s)
 	
+	
 	# get all maps
 	for i in dir_list(map_dir):
 		var lm = load(map_dir + i)
+		var map_short = str(i.split(".")[0])
+		
 		scene_dict[map_dir + i] = lm
-		maps.append(i.split(".")[0])
+		maps.append(map_short)
+		
 		var inst = lm.instance()
-		for c in inst.get_children():
-			var cname = c.name.to_lower()
-			
-			if "spike" in cname:
-				print(i, " ", c.get_used_cells())
-		
-		
+		make_preview(inst, map_short)
 		
 	#print("maps: ", maps, " ", maps.size(), " ", scene_dict)
 	
@@ -128,6 +126,78 @@ func _ready():
 	load_keys()
 	
 	Wipe.connect("finish", self, "wipe_finish")
+
+func make_preview(inst : Node, map_short):
+	# make preview
+	var sp = StagePreview.new()
+	sp.palette = inst.palette
+	
+	for c in inst.get_children():
+		var cname = c.name.to_lower()
+		
+		var cells = []
+		if "map" in cname:
+			cells = c.get_used_cells()
+		
+		if "spike" in cname:
+			for p in cells:
+				sp.spike += vec_string(p) + " "
+		
+		elif "solid" in cname:
+			for p in cells:
+				make_key(p, c, sp.solid, 1)
+				
+		elif "detail" in cname:
+			for p in cells:
+				make_key(p, c, sp.detail)
+		
+		elif "obscure" in cname:
+			for p in cells:
+				make_key(p, c, sp.obscure, 0)
+		
+		elif "camera" in cname:
+			var p = c.position
+			sp.camera = vec_string(p)
+		
+		elif "actors" in cname:
+			for a in c.get_children():
+				var aname = a.name.to_lower()
+				
+				var p = Vector2.ZERO
+				if a is Node2D:
+					p = a.position
+				
+				if "player" in aname:
+					sp.player = vec_string(p)
+				
+				elif "exit" in aname:
+					sp.exit = vec_string(p)
+				
+				elif "box" in aname:
+					sp.box += vec_string(p) + " "
+				
+				
+			
+	ResourceSaver.save(save_path + "map/" + map_short + ".tres", sp)
+
+func vec_string(p : Vector2):
+	return str(int(p.x)) + "," + str(int(p.y))
+
+func make_key(p : Vector2, c : TileMap, dict : Dictionary, skip_id := -1):
+	var id = c.get_cellv(p)
+	if id == skip_id:
+		return
+	var coord = c.get_cell_autotile_coord(p.x, p.y)
+	
+	var t = c.is_cell_transposed(p.x, p.y)
+	var x = c.is_cell_x_flipped(p.x, p.y)
+	var y = c.is_cell_y_flipped(p.x, p.y)
+	var key = str(id) + " " + str(int(coord.x)) + " " + str(int(t)) + str(int(x)) + str(int(y))
+	
+	if !dict.has(key):
+		dict[key] = ""
+	
+	dict[key] += vec_string(p) + " "
 
 func _input(event):
 	var joy = event is InputEventJoypadButton or event is InputEventJoypadMotion

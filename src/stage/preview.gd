@@ -1,14 +1,17 @@
 extends Resource
 class_name StagePreview
 
-export var camera_pos := Vector2.ZERO
-export var player_pos := Vector2.ZERO
-export var exit_pos := Vector2.ZERO
-export var box_array := []
+export var palette := 0
 
-export var spikes := []
+export var camera := ""
+export var player := ""
+export var exit := ""
+export var box := ""
+
+export var spike := ""
 
 export var solid := {}
 export var detail := {}
+export var obscure := {}
 
-# ID , CO-ORDS, is_transpose, is_x, is_y
+# ID CO-ORDS.x is_transpose + is_x + is_y
