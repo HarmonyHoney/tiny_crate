@@ -483,7 +483,7 @@ func load_replays(_slot := save_slot):
 func generate_username():
 	var u = ""
 	var prefix = "crate box block square rect pack cube stack throw jump jumpin climb thinky brain spike skull pixel puzzle pico"
-	var middle = [" ", "_", "-", "."]
+	var middle = ["!", "_", "-", "."]
 	var suffix = "kid dude dood pal friend bud buddy guy gal boy girl homie person human robot cyborg man woman cousin cuz head face butt fart arms legs body hands feet mind"
 	var pf : Array = prefix.split(" ", false)
 	var sf : Array = suffix.split(" ", false)

@@ -10,6 +10,13 @@ signal unpause
 onready var ghost_label := $Center/Control/Center/VBox/List/Label5
 var ghost_cursor := 0
 
+func _ready():
+	Wipe.connect("finish", self, "wipe_finish")
+
+func wipe_finish():
+	if is_paused:
+		toggle_pause()
+
 func _input(event):
 	if !is_sub and clock == 0 and Shared.is_in_game and !Wipe.is_wipe:
 		if event.is_action_pressed("ui_pause"):
@@ -50,7 +57,6 @@ func btn_yes():
 			toggle_pause()
 		1:
 			Shared.wipe_scene()
-			toggle_pause()
 			Audio.play("menu_reset", 0.9, 1.1)
 		2:
 			scroll_ghost(1)
@@ -58,7 +64,6 @@ func btn_yes():
 			open_sub(OptionsMenu)
 		4:
 			Shared.wipe_scene(Shared.level_select_path)
-			toggle_pause()
 			Audio.play("menu_exit", 0.9, 1.1)
 
 func btn_x(arg := 0):

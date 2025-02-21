@@ -25,6 +25,7 @@ var erase_items := ["really erase", "no erase"]
 
 var menu_name := "main"
 var menu_last := menu_name
+var name_offset := 0
 
 export var is_credits := false
 
@@ -34,12 +35,21 @@ func _ready():
 	
 	setup_slots()
 	
+	user_label.text = Shared.username
 	switch_menu(Shared.last_menu, true)
 	self.cursor = Shared.last_cursor
 	credits_node.visible = false
-	user_label.text = Shared.username
 	
 	open(true)
+
+func menu_process(delta):
+	.menu_process(delta)
+	
+	if menu_name == "slot":
+		user_label.rect_global_position = cursor_node.rect_global_position + cursor_node.rect_size + Vector2(2, -8)
+	
+	if menu_name == "open":
+		user_label.rect_global_position = user_label.rect_global_position.linear_interpolate(list[0].rect_global_position + Vector2((name_offset * 3) - 12, -8), 0.15)
 
 func on_cursor():
 	if menu_name == "slot":
@@ -200,6 +210,7 @@ func switch_menu(arg, silent := false, _cursor := 0):
 				Player.set_palette(demo_player_mat, Shared.player_colors)
 				if menu_last == "erase":
 					_cursor = 2
+				name_offset = abs(min(user_label.text.length() - 10 , 0))
 			"main":
 				Shared.last_slot = -1
 		
