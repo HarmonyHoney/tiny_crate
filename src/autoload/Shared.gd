@@ -75,6 +75,10 @@ var player_colors = [8, 0, 11, 13]
 var preset_palettes = [[7, 13, 6, 3], [8, 0, 11, 13], [11, 7, 9, 0], [12, 1, 7, 5], [9, 8, 12, 3]]
 var last_palette = -1
 
+var time_elapsed := 0
+var auto_save_clock := 0
+var auto_save_time := 1800
+
 func _ready():
 	print("Shared._ready(): ")
 	
@@ -206,6 +210,14 @@ func _input(event):
 		emit_signal("signal_gamepad")
 
 func _physics_process(delta):
+	time_elapsed += 1
+	
+	auto_save_clock += 1
+	if auto_save_clock > auto_save_time:
+		save_options()
+		auto_save_clock = 0
+	
+	
 	if is_level_select or is_in_game or is_creator:
 		save_clock += 1
 	
@@ -392,7 +404,9 @@ func save_options(path := options_path):
 	data["sfx"] = bus_volume[1]
 	data["music"] = bus_volume[2]
 	data["fullscreen"] = int(OS.window_fullscreen)
+	data["time"] = time_elapsed
 	
+	print("save_options, path: ", path, " time: ", time_elapsed)
 	save_file(save_path + options_path, JSON.print(data, "\t"))
 
 func load_options(path := options_path):
@@ -411,6 +425,8 @@ func load_options(path := options_path):
 			set_bus_volume(2, v)
 		if dict.has("fullscreen"):
 			set_fullscreen(bool(dict["fullscreen"]))
+		if dict.has("time"):
+			time_elapsed = abs(int(dict["time"]))
 
 func delete_slot(_slot := save_slot):
 	var dir = Directory.new()

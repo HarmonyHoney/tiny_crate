@@ -346,4 +346,18 @@ margin_right = 116.0
 margin_bottom = 8.0
 rect_min_size = Vector2( 8, 0 )
 
+[node name="Time" type="HBoxContainer" parent="Center/Control/MenuItems" groups=["no_item"]]
+margin_top = 96.0
+margin_right = 116.0
+margin_bottom = 101.0
+
+[node name="TimeLabel" type="Label" parent="Center/Control/MenuItems/Time"]
+unique_name_in_owner = true
+margin_right = 116.0
+margin_bottom = 5.0
+size_flags_horizontal = 3
+custom_fonts/font = SubResource( 2 )
+text = "Touch Controls"
+align = 1
+
 [editable path="Center/Control/MenuItems/Music"]

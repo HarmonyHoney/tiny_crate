@@ -54,7 +54,10 @@ func _input(event):
 func make_list(arg):
 	if is_instance_valid(arg):
 		list_node = arg
-		list = arg.get_children()
+		list = []
+		for i in arg.get_children():
+			if !i.is_in_group("no_item"):
+				list.append(i)
 
 func menu_input(event):
 	if !is_open or is_sub or open_clock > 0 or Wipe.is_wipe: return
