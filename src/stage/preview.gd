@@ -1,6 +1,8 @@
 extends Resource
 class_name StagePreview
 
+export var file_md5 := ""
+
 export var palette := 0
 
 export var camera := ""
