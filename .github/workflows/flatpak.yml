@@ -1,0 +1,24 @@
+name: Flatpak
+on:
+  push:
+    branches:
+    - master2
+  pull_request:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  flatpak:
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/flathub-infra/flatpak-github-actions:freedesktop-24.08
+      options: --privileged
+    steps:
+    - uses: actions/checkout@v4
+    - uses: flathub-infra/flatpak-github-actions/flatpak-builder@master
+      with:
+        bundle: tinycrate.flatpak
+        manifest-path: linux/net.hhoney.tinycrate.yml
+        cache-key: "flatpak-builder-${{ github.sha }}"

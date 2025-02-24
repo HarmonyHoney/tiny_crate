@@ -1,0 +1,56 @@
+name: "Godot Engine"
+on:
+  workflow_dispatch:
+  pull_request:
+  release:
+    types:
+      - released
+
+env:
+  GODOT_VERSION: 3.6
+  EXPORT_NAME: tinycrate-linux
+
+jobs:
+  export:
+    name: Export
+    runs-on: ubuntu-latest
+    container:
+      image: docker.io/smks/godot-ci:3.6
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          lfs: true
+
+      - name: Set up export templates
+        run: |
+          mkdir -v -p ~/.local/share/godot/templates/
+          mv /root/.local/share/godot/templates/${GODOT_VERSION}.stable ~/.local/share/godot/templates/${GODOT_VERSION}.stable
+
+      - name: Export
+        run: |
+          mkdir --verbose --parents ./export/linux
+          godot --no-window --path=./project.godot --export-pack "Linux/X11" ./export/linux/${EXPORT_NAME}.pck
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.EXPORT_NAME }}
+          path: export/linux/${{ env.EXPORT_NAME }}.pck
+
+  release:
+    name: Release
+    needs: export
+    if: ${{ github.event_name == 'release' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ env.EXPORT_NAME }}
+
+      - name: Upload to release
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          gh release upload '${{ github.ref_name }}' ${{ env.EXPORT_NAME }}.pck --repo '${{ github.repository }}'

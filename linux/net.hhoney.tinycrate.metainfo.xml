@@ -60,6 +60,11 @@
   </screenshots>
 
   <releases>
+    <release version="2025.02.23" date="2025-02-23">
+      <description>
+        <p>Updated icon</p>
+      </description>
+    </release>
     <release version="2025.01.16" date="2025-01-16">
       <description>
         <p>Updated icon and under-the-hood cleanup</p>
