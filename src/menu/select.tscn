@@ -84,46 +84,61 @@ position = Vector2( 178, 88 )
 script = ExtResource( 12 )
 bounds = Rect2( 9000, 9000, 9000, 9000 )
 
-[node name="Control" type="Control" parent="."]
-margin_right = 320.0
-margin_bottom = 180.0
-__meta__ = {
-"_edit_lock_": true
-}
+[node name="MapLayer" type="CanvasLayer" parent="."]
+unique_name_in_owner = true
+follow_viewport_enable = true
 
-[node name="Screens" type="Control" parent="Control"]
-margin_right = 40.0
-margin_bottom = 40.0
-
-[node name="Screen" type="Control" parent="Control"]
-margin_left = 110.0
-margin_top = 40.0
-margin_right = 246.0
-margin_bottom = 136.0
-rect_min_size = Vector2( 136, 96 )
-
-[node name="Vis" type="VisibilityNotifier2D" parent="Control/Screen"]
-z_index = 1000
+[node name="Screen" type="VisibilityNotifier2D" parent="MapLayer"]
+unique_name_in_owner = true
+position = Vector2( 110, 40 )
 rect = Rect2( 0, 0, 136, 96 )
 script = ExtResource( 4 )
 
-[node name="Sprite" type="Sprite" parent="Control/Screen/Vis"]
-z_index = -1000
+[node name="Sprite" type="Sprite" parent="MapLayer/Screen"]
 texture = ExtResource( 14 )
 centered = false
 region_enabled = true
 region_rect = Rect2( 0, 0, 136, 96 )
 
-[node name="Overlay" type="Control" parent="Control/Screen/Vis"]
-margin_right = 136.0
-margin_bottom = 104.0
+[node name="ActorLayer" type="CanvasLayer" parent="."]
+layer = 2
 
-[node name="HBox" type="HBoxContainer" parent="Control/Screen/Vis/Overlay"]
+[node name="Control" type="Control" parent="ActorLayer"]
+margin_left = 46.0
+margin_top = 16.0
+margin_right = 182.0
+margin_bottom = 112.0
+rect_clip_content = true
+
+[node name="Actors" type="Node2D" parent="ActorLayer/Control"]
+position = Vector2( 68, 48 )
+
+[node name="Player" parent="ActorLayer/Control/Actors" instance=ExtResource( 5 )]
+unique_name_in_owner = true
+position = Vector2( -21, 10 )
+
+[node name="Exit" parent="ActorLayer/Control/Actors" instance=ExtResource( 15 )]
+unique_name_in_owner = true
+position = Vector2( 19, 17 )
+
+[node name="OverlayLayer" type="CanvasLayer" parent="."]
+unique_name_in_owner = true
+layer = 3
+follow_viewport_enable = true
+
+[node name="Overlay" type="Control" parent="OverlayLayer"]
+unique_name_in_owner = true
+margin_left = 110.0
+margin_top = 40.0
+margin_right = 246.0
+margin_bottom = 144.0
+
+[node name="HBox" type="HBoxContainer" parent="OverlayLayer/Overlay"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 alignment = 1
 
-[node name="Gem" type="Control" parent="Control/Screen/Vis/Overlay/HBox"]
+[node name="Gem" type="Control" parent="OverlayLayer/Overlay/HBox"]
 margin_left = 48.0
 margin_top = 44.0
 margin_right = 64.0
@@ -131,13 +146,13 @@ margin_bottom = 60.0
 rect_min_size = Vector2( 16, 16 )
 size_flags_vertical = 4
 
-[node name="Sprite" type="Sprite" parent="Control/Screen/Vis/Overlay/HBox/Gem"]
+[node name="Sprite" type="Sprite" parent="OverlayLayer/Overlay/HBox/Gem"]
 modulate = Color( 1, 0.92549, 0.152941, 1 )
 material = SubResource( 10 )
 position = Vector2( 8, 8 )
 texture = ExtResource( 9 )
 
-[node name="Label" type="Label" parent="Control/Screen/Vis/Overlay/HBox"]
+[node name="Label" type="Label" parent="OverlayLayer/Overlay/HBox"]
 margin_left = 68.0
 margin_top = 49.0
 margin_right = 88.0
@@ -148,17 +163,17 @@ text = "1-1"
 align = 1
 valign = 1
 
-[node name="Death" type="Control" parent="Control/Screen/Vis/Overlay"]
+[node name="Death" type="Control" parent="OverlayLayer/Overlay"]
 margin_top = 96.0
 margin_bottom = 96.0
 
-[node name="Clock" type="Sprite" parent="Control/Screen/Vis/Overlay/Death"]
+[node name="Clock" type="Sprite" parent="OverlayLayer/Overlay/Death"]
 material = SubResource( 3 )
 position = Vector2( 8, -7 )
 texture = ExtResource( 11 )
 region_rect = Rect2( 15, 7, 10, 10 )
 
-[node name="Label" type="Label" parent="Control/Screen/Vis/Overlay/Death"]
+[node name="Label" type="Label" parent="OverlayLayer/Overlay/Death"]
 margin_left = 15.0
 margin_top = -9.0
 margin_right = 83.0
@@ -167,14 +182,14 @@ grow_horizontal = 2
 custom_fonts/font = SubResource( 4 )
 text = "79"
 
-[node name="Notes" type="Control" parent="Control/Screen/Vis/Overlay"]
+[node name="Notes" type="Control" parent="OverlayLayer/Overlay"]
 
-[node name="Sprite" type="Sprite" parent="Control/Screen/Vis/Overlay/Notes"]
+[node name="Sprite" type="Sprite" parent="OverlayLayer/Overlay/Notes"]
 material = SubResource( 3 )
 position = Vector2( 10, 10 )
 texture = ExtResource( 3 )
 
-[node name="Label" type="Label" parent="Control/Screen/Vis/Overlay/Notes"]
+[node name="Label" type="Label" parent="OverlayLayer/Overlay/Notes"]
 margin_left = 19.0
 margin_top = 4.0
 margin_right = 101.0
@@ -183,19 +198,19 @@ grow_horizontal = 2
 custom_fonts/font = SubResource( 4 )
 text = "12:34"
 
-[node name="Gem" type="Control" parent="Control/Screen/Vis/Overlay"]
+[node name="Gem" type="Control" parent="OverlayLayer/Overlay"]
 margin_left = 136.0
 margin_top = 96.0
 margin_right = 136.0
 margin_bottom = 96.0
 
-[node name="Sprite" type="Sprite" parent="Control/Screen/Vis/Overlay/Gem"]
+[node name="Sprite" type="Sprite" parent="OverlayLayer/Overlay/Gem"]
 modulate = Color( 0.513726, 0.462745, 0.611765, 1 )
 material = SubResource( 9 )
 position = Vector2( -12, -12 )
 texture = ExtResource( 8 )
 
-[node name="Label" type="Label" parent="Control/Screen/Vis/Overlay/Gem"]
+[node name="Label" type="Label" parent="OverlayLayer/Overlay/Gem"]
 margin_left = -103.0
 margin_top = -9.0
 margin_right = -21.0
@@ -205,7 +220,12 @@ custom_fonts/font = SubResource( 4 )
 text = "12:34"
 align = 2
 
-[node name="Scores" type="Control" parent="Control"]
+[node name="ScoreLayer" type="CanvasLayer" parent="."]
+layer = 4
+follow_viewport_enable = true
+
+[node name="Scores" type="Control" parent="ScoreLayer"]
+unique_name_in_owner = true
 visible = false
 margin_left = 111.0
 margin_top = 41.0
@@ -213,20 +233,20 @@ margin_right = 245.0
 margin_bottom = 135.0
 rect_min_size = Vector2( 134, 94 )
 
-[node name="Row" type="ColorRect" parent="Control/Scores"]
+[node name="Row" type="ColorRect" parent="ScoreLayer/Scores"]
 margin_left = -1.0
 margin_top = 14.0
 margin_right = 135.0
 margin_bottom = 23.0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Control/Scores"]
+[node name="HBoxContainer" type="HBoxContainer" parent="ScoreLayer/Scores"]
 anchor_right = 1.0
 margin_top = 1.0
 margin_bottom = 11.0
 custom_constants/separation = 2
 alignment = 1
 
-[node name="Title" type="Label" parent="Control/Scores/HBoxContainer"]
+[node name="Title" type="Label" parent="ScoreLayer/Scores/HBoxContainer"]
 margin_left = 9.0
 margin_top = 2.0
 margin_right = 92.0
@@ -235,34 +255,34 @@ custom_fonts/font = SubResource( 6 )
 text = "FASTEST note"
 valign = 1
 
-[node name="Note" type="Control" parent="Control/Scores/HBoxContainer"]
+[node name="Note" type="Control" parent="ScoreLayer/Scores/HBoxContainer"]
 margin_left = 94.0
 margin_right = 103.0
 margin_bottom = 10.0
 rect_min_size = Vector2( 9, 10 )
 
-[node name="Sprite" type="Sprite" parent="Control/Scores/HBoxContainer/Note"]
+[node name="Sprite" type="Sprite" parent="ScoreLayer/Scores/HBoxContainer/Note"]
 material = SubResource( 3 )
 position = Vector2( 5, 4 )
 texture = ExtResource( 10 )
 region_enabled = true
 region_rect = Rect2( 7, 7, 9, 10 )
 
-[node name="Clock" type="Control" parent="Control/Scores/HBoxContainer"]
+[node name="Clock" type="Control" parent="ScoreLayer/Scores/HBoxContainer"]
 visible = false
 margin_left = 99.0
 margin_right = 109.0
 margin_bottom = 10.0
 rect_min_size = Vector2( 10, 10 )
 
-[node name="Sprite" type="Sprite" parent="Control/Scores/HBoxContainer/Clock"]
+[node name="Sprite" type="Sprite" parent="ScoreLayer/Scores/HBoxContainer/Clock"]
 material = SubResource( 3 )
 position = Vector2( 5, 4 )
 texture = ExtResource( 10 )
 region_enabled = true
 region_rect = Rect2( 15, 7, 10, 10 )
 
-[node name="Map" type="Label" parent="Control/Scores/HBoxContainer"]
+[node name="Map" type="Label" parent="ScoreLayer/Scores/HBoxContainer"]
 margin_left = 105.0
 margin_top = 2.0
 margin_right = 125.0
@@ -271,7 +291,7 @@ custom_fonts/font = SubResource( 6 )
 text = "1-3"
 valign = 1
 
-[node name="List" type="Label" parent="Control/Scores"]
+[node name="List" type="Label" parent="ScoreLayer/Scores"]
 margin_left = 1.0
 margin_top = 16.0
 margin_right = 133.0
@@ -288,13 +308,18 @@ text = "12:67 long_name1234567
 9. waahuu
 10. thats it"
 
-[node name="Cursor" type="Control" parent="."]
+[node name="CursorLayer" type="CanvasLayer" parent="."]
+layer = 5
+follow_viewport_enable = true
+
+[node name="Cursor" type="Control" parent="CursorLayer"]
+unique_name_in_owner = true
 margin_left = 110.0
 margin_top = 40.0
 margin_right = 246.0
 margin_bottom = 136.0
 
-[node name="Arrows" type="Control" parent="Cursor"]
+[node name="Arrows" type="Control" parent="CursorLayer/Cursor"]
 modulate = Color( 1, 0.92549, 0.152941, 1 )
 margin_right = 136.0
 margin_bottom = 96.0
@@ -307,41 +332,24 @@ distance = 12.0
 offset = -6.0
 size = Vector2( 136, 96 )
 
-[node name="c1" type="Sprite" parent="Cursor/Arrows"]
+[node name="c1" type="Sprite" parent="CursorLayer/Cursor/Arrows"]
 material = SubResource( 11 )
 texture = ExtResource( 1 )
 
-[node name="c2" type="Sprite" parent="Cursor/Arrows"]
+[node name="c2" type="Sprite" parent="CursorLayer/Cursor/Arrows"]
 material = SubResource( 11 )
 position = Vector2( 136, 0 )
 rotation = 1.5708
 texture = ExtResource( 1 )
 
-[node name="c3" type="Sprite" parent="Cursor/Arrows"]
+[node name="c3" type="Sprite" parent="CursorLayer/Cursor/Arrows"]
 material = SubResource( 11 )
 position = Vector2( 0, 103 )
 rotation = -1.5708
 texture = ExtResource( 1 )
 
-[node name="c4" type="Sprite" parent="Cursor/Arrows"]
+[node name="c4" type="Sprite" parent="CursorLayer/Cursor/Arrows"]
 material = SubResource( 11 )
 position = Vector2( 136, 103 )
 rotation = 3.14159
 texture = ExtResource( 1 )
-
-[node name="Control" type="Control" parent="Cursor"]
-margin_right = 40.0
-margin_bottom = 40.0
-rect_min_size = Vector2( 136, 96 )
-rect_clip_content = true
-
-[node name="Actors" type="Node2D" parent="Cursor/Control"]
-position = Vector2( 68, 48 )
-
-[node name="Player" parent="Cursor/Control/Actors" instance=ExtResource( 5 )]
-unique_name_in_owner = true
-position = Vector2( -21, 10 )
-
-[node name="Exit" parent="Cursor/Control/Actors" instance=ExtResource( 15 )]
-unique_name_in_owner = true
-position = Vector2( 19, 17 )

@@ -26,6 +26,7 @@ font_data = ExtResource( 5 )
 
 [node name="KeyMenu" type="CanvasLayer"]
 pause_mode = 2
+layer = 40
 script = ExtResource( 3 )
 parent_path = NodePath(".")
 list_path = NodePath("Center/Control/VBox")

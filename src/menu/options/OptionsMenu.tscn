@@ -27,6 +27,7 @@ font_data = ExtResource( 6 )
 
 [node name="OptionsMenu" type="CanvasLayer"]
 pause_mode = 2
+layer = 30
 script = ExtResource( 1 )
 parent_path = NodePath(".")
 list_path = NodePath("Center/Control/MenuItems")
