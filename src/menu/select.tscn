@@ -68,6 +68,17 @@ __meta__ = {
 "_edit_lock_": true
 }
 
+[node name="BG" type="CanvasLayer" parent="."]
+layer = -1
+
+[node name="ColorRect" type="ColorRect" parent="BG"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.160784, 0.678431, 1, 1 )
+__meta__ = {
+"_edit_lock_": true
+}
+
 [node name="CamBounds" type="Node2D" parent="."]
 position = Vector2( 178, 88 )
 script = ExtResource( 12 )
@@ -92,10 +103,12 @@ margin_bottom = 136.0
 rect_min_size = Vector2( 136, 96 )
 
 [node name="Vis" type="VisibilityNotifier2D" parent="Control/Screen"]
+z_index = 1000
 rect = Rect2( 0, 0, 136, 96 )
 script = ExtResource( 4 )
 
 [node name="Sprite" type="Sprite" parent="Control/Screen/Vis"]
+z_index = -1000
 texture = ExtResource( 14 )
 centered = false
 region_enabled = true
@@ -332,14 +345,3 @@ position = Vector2( -21, 10 )
 [node name="Exit" parent="Cursor/Control/Actors" instance=ExtResource( 15 )]
 unique_name_in_owner = true
 position = Vector2( 19, 17 )
-
-[node name="BG" type="CanvasLayer" parent="."]
-layer = -1
-
-[node name="ColorRect" type="ColorRect" parent="BG"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-color = Color( 0.160784, 0.678431, 1, 1 )
-__meta__ = {
-"_edit_lock_": true
-}
