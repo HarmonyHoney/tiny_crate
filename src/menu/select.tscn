@@ -68,6 +68,11 @@ __meta__ = {
 "_edit_lock_": true
 }
 
+[node name="CamBounds" type="Node2D" parent="."]
+position = Vector2( 178, 88 )
+script = ExtResource( 12 )
+bounds = Rect2( 9000, 9000, 9000, 9000 )
+
 [node name="BG" type="CanvasLayer" parent="."]
 layer = -1
 
@@ -78,11 +83,6 @@ color = Color( 0.160784, 0.678431, 1, 1 )
 __meta__ = {
 "_edit_lock_": true
 }
-
-[node name="CamBounds" type="Node2D" parent="."]
-position = Vector2( 178, 88 )
-script = ExtResource( 12 )
-bounds = Rect2( 9000, 9000, 9000, 9000 )
 
 [node name="MapLayer" type="CanvasLayer" parent="."]
 unique_name_in_owner = true

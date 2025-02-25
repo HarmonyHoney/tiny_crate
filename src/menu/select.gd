@@ -2,8 +2,6 @@ extends Node2D
 
 onready var cam : Camera2D = Shared.cam
 onready var cursor_node := $"%Cursor"
-onready var player := $"%Player"
-onready var exit := $"%Exit"
 
 var cursor = 0
 var current_map := "1-1"
@@ -65,6 +63,10 @@ var lockdict= {0:["1-1", "1-2", "1-3", "1-4", "1-5", "1-6", "1-7", "1-8"],
 18: ['4-1', '4-2', '4-3', '4-4', '4-5', '4-6', '4-7', '4-8'],
 24: ['5-1', '5-2', '5-3', '5-4'],
 30: ['win']}
+
+onready var actors = [[Vector2.ZERO, Vector2.ZERO, $"%Player"], [Vector2.ZERO, Vector2.ZERO, $"%Exit"]]
+var actor_lerp := 0.1
+var actor_jump := 0.5
 
 func _ready():
 	screen = screen.duplicate()
@@ -157,10 +159,19 @@ func _input(event):
 			Audio.play("menu_scroll3", 0.9, 1.5)
 
 func _physics_process(delta):
+	# move actors
+	for i in actors:
+		i[0] = i[0].linear_interpolate(i[1], clamp(actor_lerp, 0, 1))
+		if i[0].distance_to(i[1]) < actor_jump:
+			i[0] = i[1]
+		i[2].position = i[0].round()
+	
+	# input count
 	input_count = max(0, input_count - 1)
 	for i in last_refresh.keys():
 		last_refresh[i] = max(0, last_refresh[i] - delta)
 	
+	# blink
 	if is_instance_valid(blink_label) and blink_count > 0:
 		blink_clock -= delta
 		if blink_clock < -blink_off:
@@ -168,9 +179,9 @@ func _physics_process(delta):
 			blink_count -= 1
 		blink_label.modulate = [Color.transparent, Color.white][int(blink_clock > 0.0)]
 	
-	var ticks : float = OS.get_ticks_msec()
-	
+	# make screens
 	if is_screening:
+		var ticks : float = OS.get_ticks_msec()
 		screen_time += delta
 		
 		while OS.get_ticks_msec() < ticks + (delta * timeout_mod):
@@ -192,7 +203,6 @@ func make_screen(i := 0):
 	new.position = screen_pos[i]
 	new_overlay.rect_position = screen_pos[i]
 	
-	new_overlay.get_node("HBox/Label")
 	new_overlay.get_node("HBox/Label").text = (str(map_lock[map_name]) + " to unlock") if is_locked else map_name
 	new_overlay.get_node("HBox/Gem").visible = is_locked
 	
@@ -226,9 +236,8 @@ func make_screen(i := 0):
 		print("faster ", i, ", blink_label ", blink_label)
 		Audio.play("menu_bell", 0.5, 1.0)
 	
-	var sprite = new.get_node("Sprite")
 	var dict = Shared.map_dict[map_name]
-	sprite.region_rect = Rect2(screen_size * Vector2(dict[0], dict[1]), screen_size)
+	new.get_node("Sprite").region_rect = Rect2(screen_size * Vector2(dict[0], dict[1]), screen_size)
 	
 	screens_node.add_child(new)
 	overlay_layer.add_child(new_overlay)
@@ -251,10 +260,9 @@ func scroll(arg := cursor):
 	
 	var dict = Shared.map_dict[str(map_list[cursor])]
 	
-	player.position = Vector2(dict[2], dict[3])
-	player.node_sprite.flip_h = randf() > 0.5
-	exit.position = Vector2(dict[4], dict[5])
-	
+	actors[0][1] = Vector2(dict[2], dict[3])
+	actors[0][2].node_sprite.flip_h = randf() > 0.5
+	actors[1][1] = Vector2(dict[4], dict[5])
 
 func show_scoreboard(arg := show_score):
 	var n = arg == 2
