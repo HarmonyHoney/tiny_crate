@@ -1,9 +1,15 @@
 extends Node2D
 
+onready var color_rect := $CanvasLayer/ColorRect
+onready var logo := $CanvasLayer/Center/Control/Logo
+
 onready var viewport := $ViewportContainer/Viewport
 onready var view_node := $ViewportContainer/Viewport/Node2D
 
 func _ready():
+	
+	color_rect.modulate = Color.black
+	logo.modulate = Color.white
 	
 	Shared.is_level_select = true
 	for i in Shared.scene_dict.keys():
@@ -31,6 +37,10 @@ func _ready():
 	
 	
 	yield(get_tree(), "idle_frame")
+	
+	color_rect.modulate = Color.white
+	logo.modulate = Color.black
+	
 	Music.play()
 	Audio.play("menu_bell")
 	yield(get_tree().create_timer(1.5), "timeout")
