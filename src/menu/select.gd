@@ -9,7 +9,7 @@ var current_map := "1-1"
 onready var screens_node : Control = $Control/Screens
 onready var screen : Control = $Control/Screen
 export var screen_dist = Vector2(5, 5)
-export var screen_size = Vector2(136, 104)
+export var screen_size = Vector2(136, 96)
 export var columns = 8
 var screen_pos := []
 var screen_static := []
@@ -197,7 +197,7 @@ func _physics_process(delta):
 					
 					pop[2].add_child(inst)
 					if is_instance_valid(cam):
-						inst.position += stage_size / 2
+						inst.position -= cam.position
 					
 					screen_static[pop[0]].visible = false
 			else:

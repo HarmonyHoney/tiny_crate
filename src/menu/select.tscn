@@ -69,7 +69,6 @@ script = ExtResource( 7 )
 __meta__ = {
 "_edit_lock_": true
 }
-screen_size = Vector2( 136, 96 )
 
 [node name="Control" type="Control" parent="."]
 margin_right = 320.0
@@ -104,6 +103,8 @@ rect = Rect2( 0, 0, 136, 96 )
 script = ExtResource( 4 )
 
 [node name="Node2D" type="Node2D" parent="Control/Screen/Vis"]
+position = Vector2( 68, 48 )
+z_index = -400
 
 [node name="Static" type="ColorRect" parent="Control/Screen/Vis"]
 modulate = Color( 0.14, 0.14, 0.14, 1 )
