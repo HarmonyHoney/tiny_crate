@@ -110,14 +110,8 @@ func _ready():
 	
 	# get all maps
 	for i in dir_list(map_dir):
-		var lm = load(map_dir + i)
-		var map_short = str(i.split(".")[0])
-		
-		scene_dict[map_dir + i] = lm
-		maps.append(map_short)
-		
-		var inst = lm.instance()
-		make_preview(inst, map_short)
+		scene_dict[map_dir + i] = load(map_dir + i)
+		maps.append(i.split(".")[0])
 		
 	#print("maps: ", maps, " ", maps.size(), " ", scene_dict)
 	

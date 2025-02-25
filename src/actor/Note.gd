@@ -12,6 +12,7 @@ export var palette : PoolColorArray
 func _ready():
 	if Shared.is_level_select:
 		visible = false
+		queue_free()
 		return
 	
 	if Engine.editor_hint: return

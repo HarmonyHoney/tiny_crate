@@ -69,6 +69,7 @@ var lockdict= {0:["1-1", "1-2", "1-3", "1-4", "1-5", "1-6", "1-7", "1-8"],
 24: ['5-1', '5-2', '5-3', '5-4'],
 30: ['win']}
 
+var stage_size := Vector2(136, 96)
 
 func _ready():
 	#Leaderboard.connect("new_score", self, "new_score")
@@ -191,7 +192,13 @@ func _physics_process(delta):
 			if load_list.size() > 0:
 				var pop = load_list.pop_front()
 				if Shared.scene_dict.has(pop[1]):
-					pop[2].add_child(Shared.scene_dict[pop[1]].instance())
+					var inst = Shared.scene_dict[pop[1]].instance()
+					var cam = inst.get_node("CamBounds")
+					
+					pop[2].add_child(inst)
+					if is_instance_valid(cam):
+						inst.position += stage_size / 2
+					
 					screen_static[pop[0]].visible = false
 			else:
 				is_load = false
@@ -240,7 +247,7 @@ func make_screen(i := 0):
 	screens_node.add_child(new)
 	overlays[i] = new.get_node("Overlay")
 	screen_static.append(new.get_node("Vis/Static"))
-	view_scene(new.get_node("Vis/ViewportContainer/Viewport"), Shared.map_dir + map_list[i] + ".tscn", i)
+	view_scene(new.get_node("Vis/Node2D"), Shared.map_dir + map_list[i] + ".tscn", i)
 
 # view a scene inside the viewport by path
 func view_scene(port, path, arg):

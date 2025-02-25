@@ -3,7 +3,7 @@
 [ext_resource path="res://src/stage/SolidTileMap.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/actor/Box.tscn" type="PackedScene" id=2]
 [ext_resource path="res://src/actor/Exit.tscn" type="PackedScene" id=3]
-[ext_resource path="res://src/stage/GameCamera.tscn" type="PackedScene" id=4]
+[ext_resource path="res://src/stage/CamBounds.gd" type="Script" id=4]
 [ext_resource path="res://src/stage/DetailTileMap.tscn" type="PackedScene" id=5]
 [ext_resource path="res://src/stage/SpikeTileMap.tscn" type="PackedScene" id=6]
 [ext_resource path="res://src/actor/Player.tscn" type="PackedScene" id=7]
@@ -177,8 +177,9 @@ tile_data = PoolIntArray( -524295, 536870916, 3, -524294, 536870916, 0, -524293,
 tile_set = SubResource( 10 )
 tile_data = PoolIntArray( -524305, 536870912, 0, -524304, 536870912, 0, -524303, 536870912, 0, -524302, 536870912, 0, -524301, 536870912, 0, -524300, 536870912, 0, -524299, 536870912, 0, -458769, 536870912, 0, -458768, 536870912, 0, -458767, 536870912, 0, -458766, 536870912, 0, -458765, 536870912, 0, -458764, 536870912, 0, -458763, 536870912, 0, -393233, 536870912, 0, -393232, 536870912, 0, -393231, 536870912, 0, -393230, 536870912, 0, -393229, 536870912, 0, -393228, 536870912, 0, -393227, 536870912, 0, -327697, 536870912, 0, -327696, 536870912, 0, -327695, 536870912, 0, -327694, 536870912, 0, -327693, 536870912, 0, -327692, 536870912, 0, -327691, 536870912, 0, -262161, 536870912, 0, -262160, 0, 0, -262159, 0, 0, -262158, 536870912, 0, -262157, 536870912, 0, -262156, 536870912, 0, -262155, 536870912, 0, -196625, 536870912, 0, -196624, 0, 0, -196623, 0, 0, -196622, 536870912, 0, -196621, 536870912, 0, -196620, 536870912, 0, -196619, 536870912, 0, -196618, 536870912, 0, -196617, 536870912, 0, -196616, 536870914, 2, -131089, 536870912, 0, -131088, 536870912, 0, -131087, 536870912, 0, -131086, 536870912, 0, -131085, 536870912, 0, -131084, 536870912, 0, -131083, 536870912, 0, -131082, 536870912, 0, -131081, 536870912, 0, -131080, 536870914, 3 )
 
-[node name="GameCamera" parent="." instance=ExtResource( 4 )]
+[node name="CamBounds" type="Node2D" parent="."]
 position = Vector2( -24, -16 )
+script = ExtResource( 4 )
 
 [node name="Actors" type="Node2D" parent="."]
 
@@ -229,5 +230,3 @@ margin_right = 64.0
 margin_bottom = 6.0
 custom_fonts/font = SubResource( 8 )
 text = "pause"
-
-[editable path="GameCamera"]
