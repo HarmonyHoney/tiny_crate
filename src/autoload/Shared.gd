@@ -103,7 +103,8 @@ func _ready():
 	var dir = Directory.new()
 	if !dir.open(save_path) == OK:
 		dir.make_dir(save_path)
-	for i in save_limit:
+	
+	for i in range(save_limit) + ["map"]:
 		var s = save_path + str(i)
 		if !dir.open(s) == OK:
 			dir.make_dir(s)
@@ -121,25 +122,6 @@ func _ready():
 	load_keys()
 	
 	Wipe.connect("finish", self, "wipe_finish")
-
-func vec_string(p : Vector2):
-	return str(int(p.x)) + "," + str(int(p.y))
-
-func make_key(p : Vector2, c : TileMap, dict : Dictionary, skip_id := -1):
-	var id = c.get_cellv(p)
-	if id == skip_id:
-		return
-	var coord = c.get_cell_autotile_coord(p.x, p.y)
-	
-	var t = c.is_cell_transposed(p.x, p.y)
-	var x = c.is_cell_x_flipped(p.x, p.y)
-	var y = c.is_cell_y_flipped(p.x, p.y)
-	var key = str(id) + " " + str(int(coord.x)) + " " + str(int(t)) + str(int(x)) + str(int(y))
-	
-	if !dict.has(key):
-		dict[key] = ""
-	
-	dict[key] += vec_string(p) + " "
 
 func _input(event):
 	var joy = event is InputEventJoypadButton or event is InputEventJoypadMotion

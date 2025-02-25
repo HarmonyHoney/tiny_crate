@@ -13,6 +13,8 @@ export var color := "red"
 var box = preload("res://src/actor/Box.tscn")
 
 func _ready():
+	if Shared.is_level_select: return
+	
 	for i in get_tree().get_nodes_in_group("switch_" + color):
 		i.connect("press", self, "release")
 
