@@ -3,20 +3,22 @@ extends Node2D
 
 export var bounds := Rect2(0, 0, 0, 0) setget _set_bounds
 
-var bounds_upper := Vector2.ZERO
-var bounds_lower := Vector2.ZERO
-
+var cam
 var rect : Rect2
 var screen = Vector2(228, 128)
 
 func _ready():
 	rect = Rect2(-screen/2, screen)
-	# set limits
-	bounds_upper.x = -bounds.position.x + position.x
-	bounds_upper.y = -bounds.position.y + position.y
-	bounds_lower.x = bounds.size.x + position.x
-	bounds_lower.y = bounds.size.y + position.y
-	print("CamBounds upper: ", bounds_upper, " lower: ", bounds_lower)
+	
+	if (!Shared.is_level_select or get_parent().name == "Select") and is_instance_valid(Shared.cam):
+		cam = Shared.cam
+		cam.bounds_upper = position - bounds.position
+		cam.bounds_lower = bounds.size + position
+		
+		cam.set_pos(global_position)
+		cam.zoom = scale
+		
+		print("CamBounds upper: ", cam.bounds_upper, " lower: ", cam.bounds_lower)
 
 func _set_bounds(arg):
 	bounds.position.x = abs(arg.position.x)

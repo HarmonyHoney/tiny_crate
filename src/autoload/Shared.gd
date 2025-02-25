@@ -2,10 +2,11 @@ extends Node
 
 onready var node_ghost := $Ghost
 onready var node_ghosts := $Ghosts
+onready var cam := $Cam
+
 var ghosts := []
 var ghost_count := 10
 
-var cam : Camera2D
 var map_solid : TileMap
 var map_obscure : TileMap
 
@@ -102,7 +103,7 @@ func _ready():
 	var dir = Directory.new()
 	if !dir.open(save_path) == OK:
 		dir.make_dir(save_path)
-	for i in range(save_limit) + ["map"]:
+	for i in save_limit:
 		var s = save_path + str(i)
 		if !dir.open(s) == OK:
 			dir.make_dir(s)
@@ -112,10 +113,6 @@ func _ready():
 	for i in dir_list(map_dir):
 		scene_dict[map_dir + i] = load(map_dir + i)
 		maps.append(i.split(".")[0])
-		
-	#print("maps: ", maps, " ", maps.size(), " ", scene_dict)
-	
-	
 	
 	
 	load_options()
@@ -124,59 +121,6 @@ func _ready():
 	load_keys()
 	
 	Wipe.connect("finish", self, "wipe_finish")
-
-func make_preview(inst : Node, map_short):
-	# make preview
-	var sp = StagePreview.new()
-	sp.palette = inst.palette
-	
-	for c in inst.get_children():
-		var cname = c.name.to_lower()
-		
-		var cells = []
-		if "map" in cname:
-			cells = c.get_used_cells()
-		
-		if "spike" in cname:
-			for p in cells:
-				sp.spike += vec_string(p) + " "
-		
-		elif "solid" in cname:
-			for p in cells:
-				make_key(p, c, sp.solid, 1)
-				
-		elif "detail" in cname:
-			for p in cells:
-				make_key(p, c, sp.detail)
-		
-		elif "obscure" in cname:
-			for p in cells:
-				make_key(p, c, sp.obscure, 0)
-		
-		elif "camera" in cname:
-			var p = c.position
-			sp.camera = vec_string(p)
-		
-		elif "actors" in cname:
-			for a in c.get_children():
-				var aname = a.name.to_lower()
-				
-				var p = Vector2.ZERO
-				if a is Node2D:
-					p = a.position
-				
-				if "player" in aname:
-					sp.player = vec_string(p)
-				
-				elif "exit" in aname:
-					sp.exit = vec_string(p)
-				
-				elif "box" in aname:
-					sp.box += vec_string(p) + " "
-				
-				
-			
-	ResourceSaver.save(save_path + "map/" + map_short + ".tres", sp)
 
 func vec_string(p : Vector2):
 	return str(int(p.x)) + "," + str(int(p.y))

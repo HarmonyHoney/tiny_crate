@@ -1,6 +1,6 @@
 extends Node2D
 
-onready var cam : Camera2D = $Camera2D
+onready var cam : Camera2D = Shared.cam
 onready var cursor_node := $Cursor
 
 var cursor = 0
@@ -110,7 +110,7 @@ func _ready():
 	overlays.resize(screen_pos.size())
 	
 	scroll(Shared.map_select)
-	cam.reset_smoothing()
+	cam.set_pos(cam.pos_target)
 	
 	screen_list.sort_custom(self, "sort_list")
 	is_screening = true
@@ -193,11 +193,11 @@ func _physics_process(delta):
 				var pop = load_list.pop_front()
 				if Shared.scene_dict.has(pop[1]):
 					var inst = Shared.scene_dict[pop[1]].instance()
-					var cam = inst.get_node("CamBounds")
+					var cb = inst.get_node("CamBounds")
 					
 					pop[2].add_child(inst)
-					if is_instance_valid(cam):
-						inst.position -= cam.position
+					if is_instance_valid(cb):
+						inst.position -= cb.position
 					
 					screen_static[pop[0]].visible = false
 			else:
@@ -211,20 +211,20 @@ func make_screen(i := 0):
 	var is_locked = Shared.count_gems < map_lock[map_name]
 	
 	new.rect_position = screen_pos[i]
-	new.get_node("Overlay/HBox/Label").text = (str(map_lock[map_name]) + " to unlock") if is_locked else map_name
-	new.get_node("Overlay/HBox/Gem").visible = is_locked
+	new.get_node("Vis/Overlay/HBox/Label").text = (str(map_lock[map_name]) + " to unlock") if is_locked else map_name
+	new.get_node("Vis/Overlay/HBox/Gem").visible = is_locked
 	
 	var s = {}
 	if Shared.save_maps.has(map_name):
 		s = Shared.save_maps[map_name]
 	
 	var has_note = s.has("note")
-	new.get_node("Overlay/Notes").visible = has_note
-	var note_label = new.get_node("Overlay/Notes/Label")
+	new.get_node("Vis/Overlay/Notes").visible = has_note
+	var note_label = new.get_node("Vis/Overlay/Notes/Label")
 	if has_note:
 		note_label.text = Shared.time_to_string(s["note"])
 	
-	var gem = new.get_node("Overlay/Gem")
+	var gem = new.get_node("Vis/Overlay/Gem")
 	gem.visible = !is_locked
 	var has_time = s.has("time")
 	
@@ -235,9 +235,9 @@ func make_screen(i := 0):
 		gem_label.text = Shared.time_to_string(s["time"])
 	
 	var has_die = s.has("die")
-	new.get_node("Overlay/Death").visible = has_die
+	new.get_node("Vis/Overlay/Death").visible = has_die
 	if has_die:
-		new.get_node("Overlay/Death/Label").text = str(s["die"])
+		new.get_node("Vis/Overlay/Death/Label").text = str(s["die"])
 	
 	if is_faster and i == Shared.map_select:
 		blink_label = note_label if is_faster_note else gem_label
@@ -245,7 +245,7 @@ func make_screen(i := 0):
 		Audio.play("menu_bell", 0.5, 1.0)
 	
 	screens_node.add_child(new)
-	overlays[i] = new.get_node("Overlay")
+	overlays[i] = new.get_node("Vis/Overlay")
 	screen_static.append(new.get_node("Vis/Static"))
 	view_scene(new.get_node("Vis/Node2D"), Shared.map_dir + map_list[i] + ".tscn", i)
 
@@ -268,7 +268,7 @@ func scroll(arg := cursor):
 	var sp = screen_pos[cursor]
 	cursor_node.rect_position = sp
 	score_node.rect_position = sp + Vector2(1, 1)
-	cam.position = sp + (screen_size * 0.5)
+	cam.pos_target = sp + (screen_size * 0.5)
 	refresh_score()
 
 func show_scoreboard(arg := show_score):

@@ -71,7 +71,7 @@ func _ready():
 		btnx_array.append(0)
 	
 	# assign camera target
-	if !is_attract_mode and Shared.cam:
+	if !is_attract_mode:
 		Shared.cam.node_target = self
 		Shared.cam.pos_target_offset = Vector2(4, 4)
 
