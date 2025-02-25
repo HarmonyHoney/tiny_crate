@@ -6,7 +6,6 @@
 
 [node name="Splash" type="Node2D"]
 script = ExtResource( 3 )
-is_build_sheet = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = 9

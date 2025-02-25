@@ -35,7 +35,6 @@ var save_path := "user://save/"
 var save_filename := "box.save"
 var keys_path := "keys.tres"
 var options_path := "options.tres"
-var scene_dict := {}
 var replays := [{}, {}, {}, {}, {}, {}, {}]
 var is_save := false
 var last_menu := "main"
@@ -114,7 +113,6 @@ func _ready():
 	
 	# get all maps
 	for i in dir_list(map_dir):
-		scene_dict[map_dir + i] = load(map_dir + i)
 		maps.append(i.split(".")[0])
 	
 	
@@ -197,9 +195,7 @@ func change_map():
 	if is_win:
 		save_replays()
 	
-	if !scene_dict.has(scene_path):
-		scene_dict[scene_path] = load(scene_path)
-	get_tree().change_scene_to(scene_dict[scene_path])
+	get_tree().change_scene_to(load(scene_path))
 	
 	is_win = false
 	is_save = false

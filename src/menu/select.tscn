@@ -1,10 +1,9 @@
-[gd_scene load_steps=23 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://media/image/corner.png" type="Texture" id=1]
 [ext_resource path="res://media/font/QuinqueFive.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://media/image/note.png" type="Texture" id=3]
 [ext_resource path="res://src/menu/Vis.gd" type="Script" id=4]
-[ext_resource path="res://src/shader/tv_static.gdshader" type="Shader" id=5]
 [ext_resource path="res://src/shader/outline2D_outer.shader" type="Shader" id=6]
 [ext_resource path="res://src/menu/select.gd" type="Script" id=7]
 [ext_resource path="res://media/image/diamond16.png" type="Texture" id=8]
@@ -14,11 +13,6 @@
 [ext_resource path="res://src/stage/CamBounds.gd" type="Script" id=12]
 [ext_resource path="res://src/menu/cursor_anim.gd" type="Script" id=13]
 [ext_resource path="res://src/stage/sheet.png" type="Texture" id=14]
-
-[sub_resource type="ShaderMaterial" id=8]
-shader = ExtResource( 5 )
-shader_param/mouse_pos = Vector2( 0.01, 0.005 )
-shader_param/vsync_issues = 0.7
 
 [sub_resource type="ShaderMaterial" id=10]
 shader = ExtResource( 6 )
@@ -98,25 +92,6 @@ rect_min_size = Vector2( 136, 96 )
 [node name="Vis" type="VisibilityNotifier2D" parent="Control/Screen"]
 rect = Rect2( 0, 0, 136, 96 )
 script = ExtResource( 4 )
-
-[node name="BG" type="Node2D" parent="Control/Screen/Vis"]
-z_index = -500
-
-[node name="ColorRect" type="ColorRect" parent="Control/Screen/Vis/BG"]
-margin_right = 136.0
-margin_bottom = 96.0
-rect_min_size = Vector2( 136, 96 )
-color = Color( 0, 0, 0, 1 )
-
-[node name="Node2D" type="Node2D" parent="Control/Screen/Vis"]
-position = Vector2( 68, 48 )
-z_index = -400
-
-[node name="Static" type="ColorRect" parent="Control/Screen/Vis"]
-modulate = Color( 0.14, 0.14, 0.14, 1 )
-material = SubResource( 8 )
-margin_right = 136.0
-margin_bottom = 96.0
 
 [node name="Sprite" type="Sprite" parent="Control/Screen/Vis"]
 texture = ExtResource( 14 )

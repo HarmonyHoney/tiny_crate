@@ -10,9 +10,7 @@ onready var screens_node : Control = $Control/Screens
 onready var screen : Control = $Control/Screen
 export var screen_dist = Vector2(5, 5)
 export var screen_size = Vector2(136, 96)
-export var columns = 8
 var screen_pos := []
-var screen_static := []
 var screen_max := 1
 
 var overlays := []
@@ -32,17 +30,10 @@ onready var score_clock := $Control/Scores/HBoxContainer/Clock
 onready var score_map := $Control/Scores/HBoxContainer/Map
 onready var score_row := $Control/Scores/Row
 
-var load_list := []
-var loader : ResourceInteractiveLoader
-var port_count = 0
-var is_load := false
 var is_screening := false
-var map_limit := 0
 var screen_list := []
 export var timeout_mod := 1.0
-
 var screen_time := 0.0
-var loading_time := 0.0
 
 export var color_gem := Color("ffec27")
 export var color_new := Color("83769c")
@@ -68,8 +59,6 @@ var lockdict= {0:["1-1", "1-2", "1-3", "1-4", "1-5", "1-6", "1-7", "1-8"],
 18: ['4-1', '4-2', '4-3', '4-4', '4-5', '4-6', '4-7', '4-8'],
 24: ['5-1', '5-2', '5-3', '5-4'],
 30: ['win']}
-
-var stage_size := Vector2(136, 96)
 
 func _ready():
 	#Leaderboard.connect("new_score", self, "new_score")
@@ -135,7 +124,6 @@ func _input(event):
 		if open_map():
 			Audio.play("menu_pick", 0.9, 1.1)
 			is_input = false
-			is_load = false
 		else:
 			Audio.play("menu_random", 0.8, 1.2)
 	elif event.is_action_pressed("ui_pause"):
@@ -180,29 +168,7 @@ func _physics_process(delta):
 				make_screen(screen_list.pop_front())
 			else:
 				is_screening = false
-				is_load = true
 				print(screen_time, " screeening time")
-				break
-	
-	# load stages
-	elif is_load:
-		loading_time += delta
-		
-		while OS.get_ticks_msec() < ticks + (delta * timeout_mod):
-			if load_list.size() > 0:
-				var pop = load_list.pop_front()
-				if Shared.scene_dict.has(pop[1]):
-					var inst = Shared.scene_dict[pop[1]].instance()
-					var cb = inst.get_node("CamBounds")
-					
-					pop[2].add_child(inst)
-					if is_instance_valid(cb):
-						inst.position -= cb.position
-					
-					screen_static[pop[0]].visible = false
-			else:
-				is_load = false
-				print(loading_time, " loading time")
 				break
 
 func make_screen(i := 0):
@@ -250,16 +216,6 @@ func make_screen(i := 0):
 	
 	screens_node.add_child(new)
 	overlays[i] = new.get_node("Vis/Overlay")
-	screen_static.append(new.get_node("Vis/Static"))
-	#view_scene(new.get_node("Vis/Node2D"), Shared.map_dir + map_list[i] + ".tscn", i)
-
-# view a scene inside the viewport by path
-func view_scene(port, path, arg):
-	for i in port.get_children():
-		i.queue_free()
-	
-	load_list.append([port_count, path, port])
-	port_count += 1
 
 func scroll(arg := cursor):
 	if overlays[cursor]: overlays[cursor].visible = true
