@@ -48,6 +48,8 @@ var bus_volume = [10, 10, 10]
 var actors := []
 var player
 
+var map_dict : Dictionary = load("res://src/stage/sheet.tres").dict
+
 var map_select := 0
 var maps := []
 var map_name := ""
@@ -104,7 +106,7 @@ func _ready():
 	if !dir.open(save_path) == OK:
 		dir.make_dir(save_path)
 	
-	for i in range(save_limit) + ["map"]:
+	for i in save_limit:
 		var s = save_path + str(i)
 		if !dir.open(s) == OK:
 			dir.make_dir(s)

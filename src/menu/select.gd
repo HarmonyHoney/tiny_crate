@@ -244,10 +244,14 @@ func make_screen(i := 0):
 		print("faster ", i, ", blink_label ", blink_label)
 		Audio.play("menu_bell", 0.5, 1.0)
 	
+	var sprite = new.get_node("Vis/Sprite")
+	var dict = Shared.map_dict[map_name]
+	sprite.region_rect = Rect2(screen_size * Vector2(dict[0], dict[1]), screen_size)
+	
 	screens_node.add_child(new)
 	overlays[i] = new.get_node("Vis/Overlay")
 	screen_static.append(new.get_node("Vis/Static"))
-	view_scene(new.get_node("Vis/Node2D"), Shared.map_dir + map_list[i] + ".tscn", i)
+	#view_scene(new.get_node("Vis/Node2D"), Shared.map_dir + map_list[i] + ".tscn", i)
 
 # view a scene inside the viewport by path
 func view_scene(port, path, arg):

@@ -96,6 +96,7 @@ vframes = 8
 frame = 15
 
 [node name="Sprite2" type="Sprite" parent="."]
+visible = false
 position = Vector2( 4, 4 )
 z_index = 50
 z_as_relative = false
