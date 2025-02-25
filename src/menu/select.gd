@@ -2,6 +2,8 @@ extends Node2D
 
 onready var cam : Camera2D = Shared.cam
 onready var cursor_node := $Cursor
+onready var player := $"%Player"
+onready var exit := $"%Exit"
 
 var cursor = 0
 var current_map := "1-1"
@@ -228,8 +230,16 @@ func scroll(arg := cursor):
 	var sp = screen_pos[cursor]
 	cursor_node.rect_position = sp
 	score_node.rect_position = sp + Vector2(1, 1)
-	cam.pos_target = sp + (screen_size * 0.5)
+	var half = sp + (screen_size * 0.5)
+	cam.pos_target = half
 	refresh_score()
+	
+	var dict = Shared.map_dict[str(map_list[cursor])]
+	
+	player.position = Vector2(dict[2], dict[3])
+	player.node_sprite.flip_h = randf() > 0.5
+	exit.position = Vector2(dict[4], dict[5])
+	
 
 func show_scoreboard(arg := show_score):
 	var n = arg == 2

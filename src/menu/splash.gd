@@ -42,21 +42,19 @@ func _ready():
 			var cb = inst.get_node("CamBounds")
 			if is_instance_valid(cb):
 				inst.position -= cb.position
-				dict[2] = int(cb.position.x)
-				dict[3] = int(cb.position.y)
-			
-			var p = inst.get_node("Actors/Player")
-			if is_instance_valid(p):
-				p.visible = false
-				dict[4] = int(p.position.x)
-				dict[5] = int(p.position.y)
-			
-			var e = inst.get_node("Actors/Exit")
-			if is_instance_valid(e):
-				e.visible = false
-				dict[6] = int(e.position.x)
-				dict[7] = int(e.position.y)
-			
+				
+				var p = inst.get_node("Actors/Player")
+				if is_instance_valid(p):
+					p.visible = false
+					dict[2] = int(p.position.x - cb.position.x)
+					dict[3] = int(p.position.y - cb.position.y)
+				
+				var e = inst.get_node("Actors/Exit")
+				if is_instance_valid(e):
+					e.visible = false
+					dict[4] = int(e.position.x - cb.position.x)
+					dict[5] = int(e.position.y - cb.position.y)
+				
 			yield(get_tree(), "idle_frame")
 			
 			var image = viewport.get_texture().get_data()
