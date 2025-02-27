@@ -284,32 +284,37 @@ func refresh_score(var map_name : String = current_map):
 	write_score()
 	
 	if !last_refresh.has(map_name) or last_refresh[map_name] == 0:
-		#Leaderboard.refresh_score(map_name)
 		print("   -   ", map_name, " REFRESH SCORE ")
 		last_refresh[map_name] = refresh_wait
 
-func new_score(arg1 = null, arg2 = null, arg3 = null):
-	write_score()
+func sort_scores(a, b):
+	if a[0] < b[0]:
+		return true 
+	return false
 
 func write_score():
 	var key = "note" if show_score == 2 else "time"
 	var dat = Shared.save_data
-	var dict = {}
+	var array = []
 	
 	for i in dat.keys():
+		#print("dat ", i, " ", dat[i])
 		if dat[i].has_all(["username", "maps"]) and dat[i]["maps"].has(current_map) and dat[i]["maps"][current_map].has(key):
-			dict[int(dat[i]["maps"][current_map][key])] = dat[i]["username"]
+			var k := int(dat[i]["maps"][current_map][key])
+			var v := str(dat[i]["username"])
+			#print(k, " / ", v)
+			array.append([k, v])
 	
 	var t = ""
-	var keys = dict.keys()
 	var row = 0
 	var my_row = -1
 	
-	keys.sort()
-	for i in keys:
-		t += Shared.time_to_string(i) + " " + dict[i] + "\n"
+	array.sort_custom(self, "sort_scores")
+	
+	for i in array:
+		t += Shared.time_to_string(i[0]) + " " + i[1] + "\n"
 		
-		if dict[i] == Shared.username:
+		if i[1] == Shared.username:
 			my_row = row
 		
 		row += 1
