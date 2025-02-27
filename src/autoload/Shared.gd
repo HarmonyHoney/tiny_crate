@@ -355,13 +355,13 @@ func delete_slot(_slot := save_slot):
 			dir.remove(fname)
 			fname = dir.get_next()
 		
-		replays[_slot] = {}
+		replays[_slot] = {}	
 		load_save(_slot)
 
 func save_replays(arg := replay_map, _slot := save_slot):
 	save_file(save_path + str(_slot) + "/" + arg + ".save", JSON.print(replays[save_slot][arg], "\t"))
 
-func load_save(_slot = save_slot, is_reload := false):
+func load_save(_slot = save_slot):
 	save_slot = clamp(_slot, 0, save_limit - 1)
 	var save_string = save_path + str(save_slot) + "/" + save_filename
 	
@@ -374,14 +374,13 @@ func load_save(_slot = save_slot, is_reload := false):
 	save_clock = 0.0
 	
 	var dict := {}
-	if is_reload: dict = save_data[_slot]
 	
 	if dict.empty():
 		var l = load_file(save_string)
 		if l: dict = JSON.parse(l).result
 		else: print(save_string + " not found")
 	
-	print(_slot, " / ", dict)
+	print(save_slot, " / ", dict)
 	if !dict.empty():
 		if dict.has("clock"):
 			save_clock = dict["clock"]

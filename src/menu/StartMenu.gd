@@ -138,10 +138,10 @@ func menu_select(tag : String = menu_items[clamp(cursor, 0, menu_items.size() - 
 			TouchScreen.show_keys()
 		"yes":
 			Audio.play("menu_yes", 0.9, 1.1)
+			menu_stuff[cursor].text = "quit!!"
 			if OS.get_name() == "HTML5":
 				Shared.wipe_scene(Shared.splash_path)
 			else:
-				menu_stuff[cursor].text = "quit!!"
 				Shared.wipe_quit()
 		"no":
 			switch_menu("main")
@@ -206,7 +206,7 @@ func switch_menu(arg, silent := false, _cursor := 0):
 				Shared.map_select = 0
 				user_label.visible = true
 			"open":
-				Shared.load_save(Shared.last_slot, true)
+				Shared.load_save(Shared.last_slot)
 				Player.set_palette(open_player_mat, Shared.player_colors)
 				Player.set_palette(demo_player_mat, Shared.player_colors)
 				if menu_last == "erase":

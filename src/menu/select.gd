@@ -69,6 +69,8 @@ var actor_lerp := 0.1
 var actor_jump := 0.5
 
 func _ready():
+	Shared.load_save()
+	
 	screen = screen.duplicate()
 	$"%Screen".queue_free()
 	
