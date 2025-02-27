@@ -430,9 +430,6 @@ func generate_username():
 	var _name = pf[0] + middle[0] + sf[0] + end[0] + str(randi() % 100)
 	return _name
 
-func delete_save():
-	print("delete save")
-
 func unlock():
 	print("unlock")
 
