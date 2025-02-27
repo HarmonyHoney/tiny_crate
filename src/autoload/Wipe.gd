@@ -53,7 +53,7 @@ func item_rect():
 	mat.set_shader_param("size", (image.rect_size / Vector2(228, 128)) * Vector2(14.25, 8))
 	mat.set_shader_param("offset", Vector2(fposmod(image.rect_size.x / 32, 1.0), 0))
 	
-	print(mat.get_shader_param("size"), " / ", mat.get_shader_param("offset"))
+	#print(mat.get_shader_param("size"), " / ", mat.get_shader_param("offset"))
 
 func set_duration(arg):
 	duration = arg

@@ -103,11 +103,12 @@ region_rect = Rect2( 0, 0, 136, 96 )
 [node name="ActorLayer" type="CanvasLayer" parent="."]
 layer = 2
 
-[node name="CenterContainer" type="CenterContainer" parent="ActorLayer"]
+[node name="Center" type="CenterContainer" parent="ActorLayer"]
+unique_name_in_owner = true
 anchor_right = 1.0
 anchor_bottom = 1.0
 
-[node name="Control" type="Control" parent="ActorLayer/CenterContainer"]
+[node name="Control" type="Control" parent="ActorLayer/Center"]
 margin_left = 46.0
 margin_top = 16.0
 margin_right = 182.0
@@ -115,14 +116,14 @@ margin_bottom = 112.0
 rect_min_size = Vector2( 136, 96 )
 rect_clip_content = true
 
-[node name="Actors" type="Node2D" parent="ActorLayer/CenterContainer/Control"]
+[node name="Actors" type="Node2D" parent="ActorLayer/Center/Control"]
 position = Vector2( 68, 48 )
 
-[node name="Player" parent="ActorLayer/CenterContainer/Control/Actors" instance=ExtResource( 5 )]
+[node name="Player" parent="ActorLayer/Center/Control/Actors" instance=ExtResource( 5 )]
 unique_name_in_owner = true
 position = Vector2( -21, 10 )
 
-[node name="Exit" parent="ActorLayer/CenterContainer/Control/Actors" instance=ExtResource( 15 )]
+[node name="Exit" parent="ActorLayer/Center/Control/Actors" instance=ExtResource( 15 )]
 unique_name_in_owner = true
 position = Vector2( 19, 17 )
 

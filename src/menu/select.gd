@@ -70,6 +70,8 @@ var actor_jump := 0.5
 
 func _ready():
 	Shared.load_save()
+	$"%Center".connect("item_rect_changed", self, "item_rect")
+	item_rect()
 	
 	screen = screen.duplicate()
 	$"%Screen".queue_free()
@@ -193,6 +195,10 @@ func _physics_process(delta):
 				is_screening = false
 				print(screen_time, " screeening time")
 				break
+
+func item_rect():
+	print($"%Center".rect_size)
+	$"%Center".rect_position.x = posmod($"%Center".rect_size.x, 2)
 
 func make_screen(i := 0):
 	var new = screen.duplicate()
