@@ -16,6 +16,12 @@ func _ready():
 	visible = (OS.has_touchscreen_ui_hint() and OS.get_name() == "HTML5") or OS.get_name() == "Android"
 	vis()
 
+func _input(event):
+	if event is InputEventScreenTouch or event is InputEventScreenDrag:
+		visible = true
+	elif event is InputEventKey or event is InputEventJoypadButton or event is InputEventJoypadMotion:
+		visible = false
+
 func vis():
 	if is_instance_valid(UI.keys_node):
 		UI.keys_node.visible = !visible
