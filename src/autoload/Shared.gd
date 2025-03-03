@@ -80,6 +80,7 @@ var last_palette = -1
 var time_elapsed := 0
 var auto_save_clock := 0
 var auto_save_time := 1800
+var window_option := 0 setget set_window_option
 
 func _ready():
 	print("Shared._ready(): ")
@@ -94,7 +95,7 @@ func _ready():
 	# scale window
 	window_scale = floor(OS.get_screen_size().x / get_viewport().size.x)
 	window_scale = max(1, floor(window_scale * 0.9))
-	set_window_scale()
+	#set_window_scale()
 	
 	# lower volume
 	for i in [1, 2]:
@@ -317,11 +318,23 @@ func load_keys(path := keys_path):
 				for e in r.dict[a]:
 					InputMap.action_add_event(a, e)
 
+func set_window_option(arg := window_option):
+	window_option = clamp(arg, 0, 4)
+	OS.window_borderless = window_option == 1 or window_option == 2
+	OS.window_fullscreen = window_option == 3
+	if window_option == 2:
+		OS.window_size = OS.get_screen_size()
+	
+	OS.set_window_position(Vector2.ZERO if window_option == 2 else (OS.get_screen_size() * 0.5 - OS.get_window_size() * 0.5))
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE if window_option < 3 else Input.MOUSE_MODE_HIDDEN
+
 func save_options(path := options_path):
 	var data = {}
 	data["sfx"] = bus_volume[1]
-	data["music"] = bus_volume[2]
-	data["fullscreen"] = int(OS.window_fullscreen)
+	data["ost"] = bus_volume[2]
+	data["touch"] = int(TouchScreen.is_stay)
+	data["full"] = int(OS.window_fullscreen)
+	data["view"] = int(window_option)
 	data["time"] = time_elapsed
 	
 	print("save_options, path: ", path, " time: ", time_elapsed)
@@ -337,12 +350,16 @@ func load_options(path := options_path):
 			var v = int(dict["sfx"])
 			bus_volume[1] = v
 			set_bus_volume(1, v)
-		if dict.has("music"):
-			var v = int(dict["music"])
+		if dict.has("ost"):
+			var v = int(dict["ost"])
 			bus_volume[2] = v
 			set_bus_volume(2, v)
-		if dict.has("fullscreen"):
-			set_fullscreen(bool(dict["fullscreen"]))
+		if dict.has("full"):
+			set_fullscreen(bool(dict["full"]))
+		if dict.has("touch"):
+			TouchScreen.is_stay = bool(dict["touch"])
+		if dict.has("view"):
+			self.window_option = int(dict["view"])
 		if dict.has("time"):
 			time_elapsed = abs(int(dict["time"]))
 
