@@ -3,14 +3,23 @@ extends CanvasItem
 onready var label_scale := $Scale
 onready var label_res := $Resolution
 
+var cursor = 0
+
 func _ready():
-	set_text()
+	get_tree().connect("screen_resized", self, "size_changed")
+	yield(get_tree(),"idle_frame")
+	
+	size_changed()
 
 func scroll(arg = 1):
-	Shared.set_window_scale(clamp(Shared.window_scale + arg, 1, 12))
-	set_text()
+	cursor = clamp(cursor + arg, 1, 32)
+	OS.window_size = Shared.view_size * cursor
+	Shared.set_window_option()
 	Audio.play("menu_scroll2", 0.7, 1.4)
 
-func set_text():
-	label_scale.text = str(Shared.window_scale) + "x"
-	label_res.text = str(Shared.view_size.x * Shared.window_scale) + " x " + str(Shared.view_size.y * Shared.window_scale)
+func size_changed():
+	var view_size = OS.window_size
+	label_res.text = str(view_size.x) + " x " + str(view_size.y)
+	
+	cursor = floor(view_size.y / Shared.view_size. y)
+	label_scale.text = str(cursor) + "x" if OS.window_size == Shared.view_size * cursor else ""

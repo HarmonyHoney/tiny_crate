@@ -40,7 +40,6 @@ var is_save := false
 var last_menu := "main"
 var last_cursor := 0
 
-var window_scale := 1
 var view_size := Vector2(228, 128)
 var bus_volume = [10, 10, 10]
 
@@ -92,11 +91,6 @@ func _ready():
 		ghosts.append(g)
 	node_ghost.visible = false
 	
-	# scale window
-	window_scale = floor(OS.get_screen_size().x / get_viewport().size.x)
-	window_scale = max(1, floor(window_scale * 0.9))
-	#set_window_scale()
-	
 	# lower volume
 	for i in [1, 2]:
 		set_bus_volume(i, 7)
@@ -110,7 +104,6 @@ func _ready():
 		var s = save_path + str(i)
 		if !dir.open(s) == OK:
 			dir.make_dir(s)
-	
 	
 	# get all maps
 	for i in dir_list(map_dir):
@@ -335,6 +328,8 @@ func save_options(path := options_path):
 	data["touch"] = int(TouchScreen.is_stay)
 	data["full"] = int(OS.window_fullscreen)
 	data["view"] = int(window_option)
+	var ws = OS.window_size
+	data["size"] = str(ws.x) + "," + str(ws.y)
 	data["time"] = time_elapsed
 	
 	print("save_options, path: ", path, " time: ", time_elapsed)
@@ -360,6 +355,11 @@ func load_options(path := options_path):
 			TouchScreen.is_stay = bool(dict["touch"])
 		if dict.has("view"):
 			self.window_option = int(dict["view"])
+		if dict.has("size"):
+			var ws = str(dict["size"]).split_floats(",", false)
+			if ws.size() == 2:
+				OS.window_size = Vector2(float(ws[0]), float(ws[1]))
+				set_window_option()
 		if dict.has("time"):
 			time_elapsed = abs(int(dict["time"]))
 
@@ -551,14 +551,6 @@ func dir_list(path : String):
 func set_bus_volume(_bus := 1, _vol := 5):
 	bus_volume[_bus] = clamp(_vol, 0, 10)
 	AudioServer.set_bus_volume_db(_bus, linear2db(bus_volume[_bus] / 10.0))
-
-func set_window_scale(arg := window_scale):
-	window_scale = max(1, arg if arg else window_scale)
-	if OS.get_name() != "HTML5":
-		OS.window_size = Vector2(view_size.x * window_scale, view_size.y * window_scale)
-		# center window
-		OS.set_window_position(OS.get_screen_size() * 0.5 - OS.get_window_size() * 0.5)
-	return "window_scale: " + str(window_scale) + " - resolution: " + str(OS.get_window_size())
 
 func get_all_children(n, a := []):
 	if is_instance_valid(n):

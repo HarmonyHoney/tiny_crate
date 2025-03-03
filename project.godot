@@ -109,8 +109,8 @@ KeyMenu="*res://src/menu/options/KeyMenu.tscn"
 
 window/size/width=228
 window/size/height=128
-window/size/test_width=1280
-window/size/test_height=720
+window/size/test_width=1140
+window/size/test_height=640
 window/dpi/allow_hidpi=true
 window/stretch/mode="viewport"
 window/stretch/aspect="keep_height"
