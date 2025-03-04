@@ -60,6 +60,23 @@
   </screenshots>
 
   <releases>
+    <release version="2025.03.03" date="2025-03-03">
+      <description>
+        <ul>
+          <li>6 Save Slots</li>
+          <li>Local High Scores</li>
+          <li>More support for Touch Screens</li>
+          <li>Optimize level select screen, much faster</li>
+          <li>Display global time played on Options Menu</li>
+        </ul>
+        <p>Save and Load Options for:</p>
+        <ul>
+          <li>Touch Screen: Toggle or Always</li>
+          <li>Window Size: x and y</li>
+          <li>View: Window, Window No Border, Fullscreen No Border, Exclusive Fullscreen</li>
+        </ul>
+      </description>
+    </release>
     <release version="2025.02.23" date="2025-02-23">
       <description>
         <p>Updated icon</p>
