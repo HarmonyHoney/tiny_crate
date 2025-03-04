@@ -9,6 +9,7 @@ onready var user_label := $Username/Label
 onready var menu_stuff := main_menu.get_children()
 onready var credits_node := $Credits
 onready var stage := $Stage
+onready var cam := Shared.cam
 
 export var open_player_path : NodePath = ""
 onready var open_player_mat : ShaderMaterial = get_node(open_player_path).material
@@ -125,22 +126,22 @@ func menu_select(tag : String = menu_items[clamp(cursor, 0, menu_items.size() - 
 		"options":
 			open_sub(OptionsMenu)
 			Audio.play("menu_options", 0.9, 1.1)
-			Shared.cam.pos_target += Vector2(24, -4)
+			cam.pos_target += Vector2(24, -4)
 		"credits":
 			is_credits = true
 			credits_node.visible = true
 			if parent_node:
 				parent_node.visible = false
-			Shared.cam.pos_target += Vector2(104, 0)
+			cam.pos_target += Vector2(104, 0)
 			Audio.play("menu_options", 0.9, 1.1)
 			UI.keys(false, false, false, false)
 			TouchScreen.show_keys()
 		"yes":
 			Audio.play("menu_yes", 0.9, 1.1)
+			menu_stuff[cursor].text = "quit!!"
 			if OS.get_name() == "HTML5":
 				Shared.wipe_scene(Shared.splash_path)
 			else:
-				menu_stuff[cursor].text = "quit!!"
 				Shared.wipe_quit()
 		"no":
 			switch_menu("main")
@@ -167,7 +168,7 @@ func menu_select(tag : String = menu_items[clamp(cursor, 0, menu_items.size() - 
 			
 
 func on_close_sub():
-	Shared.cam.pos_target = Vector2(90, 76)
+	cam.pos_target = Vector2(90, 76)
 	UI.keys(false)
 
 func switch_menu(arg, silent := false, _cursor := 0):
@@ -205,7 +206,7 @@ func switch_menu(arg, silent := false, _cursor := 0):
 				Shared.map_select = 0
 				user_label.visible = true
 			"open":
-				Shared.load_save(Shared.last_slot, true)
+				Shared.load_save(Shared.last_slot)
 				Player.set_palette(open_player_mat, Shared.player_colors)
 				Player.set_palette(demo_player_mat, Shared.player_colors)
 				if menu_last == "erase":

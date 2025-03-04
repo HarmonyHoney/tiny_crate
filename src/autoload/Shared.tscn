@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://src/autoload/Shared.gd" type="Script" id=1]
 [ext_resource path="res://media/image/player_swap.png" type="Texture" id=2]
 [ext_resource path="res://src/shader/player_palette_swap.gdshader" type="Shader" id=3]
+[ext_resource path="res://src/stage/Cam.gd" type="Script" id=4]
 
 [sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 3 )
@@ -32,3 +33,7 @@ vframes = 2
 region_rect = Rect2( 0, 0, 8, 24 )
 
 [node name="Ghosts" type="Node2D" parent="."]
+
+[node name="Cam" type="Camera2D" parent="." groups=["game_camera"]]
+current = true
+script = ExtResource( 4 )

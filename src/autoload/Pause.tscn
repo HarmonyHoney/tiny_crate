@@ -20,6 +20,7 @@ font_data = ExtResource( 6 )
 
 [node name="Pause" type="CanvasLayer"]
 pause_mode = 2
+layer = 20
 script = ExtResource( 3 )
 __meta__ = {
 "_edit_horizontal_guides_": [ -19.0 ]

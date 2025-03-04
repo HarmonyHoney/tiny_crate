@@ -2,10 +2,11 @@ extends Node
 
 onready var node_ghost := $Ghost
 onready var node_ghosts := $Ghosts
+onready var cam := $Cam
+
 var ghosts := []
 var ghost_count := 10
 
-var cam : Camera2D
 var map_solid : TileMap
 var map_obscure : TileMap
 
@@ -34,18 +35,18 @@ var save_path := "user://save/"
 var save_filename := "box.save"
 var keys_path := "keys.tres"
 var options_path := "options.tres"
-var scene_dict := {}
 var replays := [{}, {}, {}, {}, {}, {}, {}]
 var is_save := false
 var last_menu := "main"
 var last_cursor := 0
 
-var window_scale := 1
 var view_size := Vector2(228, 128)
 var bus_volume = [10, 10, 10]
 
 var actors := []
 var player
+
+var map_dict : Dictionary = load("res://src/stage/sheet.tres").dict
 
 var map_select := 0
 var maps := []
@@ -78,6 +79,7 @@ var last_palette = -1
 var time_elapsed := 0
 var auto_save_clock := 0
 var auto_save_time := 1800
+var window_option := 0 setget set_window_option
 
 func _ready():
 	print("Shared._ready(): ")
@@ -89,11 +91,6 @@ func _ready():
 		ghosts.append(g)
 	node_ghost.visible = false
 	
-	# scale window
-	window_scale = floor(OS.get_screen_size().x / get_viewport().size.x)
-	window_scale = max(1, floor(window_scale * 0.9))
-	set_window_scale()
-	
 	# lower volume
 	for i in [1, 2]:
 		set_bus_volume(i, 7)
@@ -102,26 +99,15 @@ func _ready():
 	var dir = Directory.new()
 	if !dir.open(save_path) == OK:
 		dir.make_dir(save_path)
-	for i in range(save_limit) + ["map"]:
+	
+	for i in save_limit:
 		var s = save_path + str(i)
 		if !dir.open(s) == OK:
 			dir.make_dir(s)
 	
-	
 	# get all maps
 	for i in dir_list(map_dir):
-		var lm = load(map_dir + i)
-		var map_short = str(i.split(".")[0])
-		
-		scene_dict[map_dir + i] = lm
-		maps.append(map_short)
-		
-		var inst = lm.instance()
-		make_preview(inst, map_short)
-		
-	#print("maps: ", maps, " ", maps.size(), " ", scene_dict)
-	
-	
+		maps.append(i.split(".")[0])
 	
 	
 	load_options()
@@ -130,78 +116,6 @@ func _ready():
 	load_keys()
 	
 	Wipe.connect("finish", self, "wipe_finish")
-
-func make_preview(inst : Node, map_short):
-	# make preview
-	var sp = StagePreview.new()
-	sp.palette = inst.palette
-	
-	for c in inst.get_children():
-		var cname = c.name.to_lower()
-		
-		var cells = []
-		if "map" in cname:
-			cells = c.get_used_cells()
-		
-		if "spike" in cname:
-			for p in cells:
-				sp.spike += vec_string(p) + " "
-		
-		elif "solid" in cname:
-			for p in cells:
-				make_key(p, c, sp.solid, 1)
-				
-		elif "detail" in cname:
-			for p in cells:
-				make_key(p, c, sp.detail)
-		
-		elif "obscure" in cname:
-			for p in cells:
-				make_key(p, c, sp.obscure, 0)
-		
-		elif "camera" in cname:
-			var p = c.position
-			sp.camera = vec_string(p)
-		
-		elif "actors" in cname:
-			for a in c.get_children():
-				var aname = a.name.to_lower()
-				
-				var p = Vector2.ZERO
-				if a is Node2D:
-					p = a.position
-				
-				if "player" in aname:
-					sp.player = vec_string(p)
-				
-				elif "exit" in aname:
-					sp.exit = vec_string(p)
-				
-				elif "box" in aname:
-					sp.box += vec_string(p) + " "
-				
-				
-			
-	ResourceSaver.save(save_path + "map/" + map_short + ".tres", sp)
-
-func vec_string(p : Vector2):
-	return str(int(p.x)) + "," + str(int(p.y))
-
-func make_key(p : Vector2, c : TileMap, dict : Dictionary, skip_id := -1):
-	var id = c.get_cellv(p)
-	if id == skip_id:
-		return
-	var coord = c.get_cell_autotile_coord(p.x, p.y)
-	
-	var t = c.is_cell_transposed(p.x, p.y)
-	var x = c.is_cell_x_flipped(p.x, p.y)
-	var y = c.is_cell_y_flipped(p.x, p.y)
-	var key = str(id) + " " + str(int(coord.x)) + " " + str(int(t)) + str(int(x)) + str(int(y))
-	
-	if !dict.has(key):
-		dict[key] = ""
-	
-	dict[key] += vec_string(p) + " "
 
 func _input(event):
 	var joy = event is InputEventJoypadButton or event is InputEventJoypadMotion
@@ -275,9 +189,7 @@ func change_map():
 	if is_win:
 		save_replays()
 	
-	if !scene_dict.has(scene_path):
-		scene_dict[scene_path] = load(scene_path)
-	get_tree().change_scene_to(scene_dict[scene_path])
+	get_tree().change_scene_to(load(scene_path))
 	
 	is_win = false
 	is_save = false
@@ -399,11 +311,25 @@ func load_keys(path := keys_path):
 				for e in r.dict[a]:
 					InputMap.action_add_event(a, e)
 
+func set_window_option(arg := window_option):
+	window_option = clamp(arg, 0, 4)
+	OS.window_borderless = window_option == 1 or window_option == 2
+	OS.window_fullscreen = window_option == 3
+	if window_option == 2:
+		OS.window_size = OS.get_screen_size()
+	
+	OS.set_window_position(Vector2.ZERO if window_option == 2 else (OS.get_screen_size() * 0.5 - OS.get_window_size() * 0.5))
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE if window_option < 3 else Input.MOUSE_MODE_HIDDEN
+
 func save_options(path := options_path):
 	var data = {}
 	data["sfx"] = bus_volume[1]
-	data["music"] = bus_volume[2]
-	data["fullscreen"] = int(OS.window_fullscreen)
+	data["ost"] = bus_volume[2]
+	data["touch"] = int(TouchScreen.is_stay)
+	data["full"] = int(OS.window_fullscreen)
+	data["view"] = int(window_option)
+	var ws = OS.window_size
+	data["size"] = str(ws.x) + "," + str(ws.y)
 	data["time"] = time_elapsed
 	
 	print("save_options, path: ", path, " time: ", time_elapsed)
@@ -419,12 +345,21 @@ func load_options(path := options_path):
 			var v = int(dict["sfx"])
 			bus_volume[1] = v
 			set_bus_volume(1, v)
-		if dict.has("music"):
-			var v = int(dict["music"])
+		if dict.has("ost"):
+			var v = int(dict["ost"])
 			bus_volume[2] = v
 			set_bus_volume(2, v)
-		if dict.has("fullscreen"):
-			set_fullscreen(bool(dict["fullscreen"]))
+		if dict.has("full"):
+			set_fullscreen(bool(dict["full"]))
+		if dict.has("touch"):
+			TouchScreen.is_stay = bool(dict["touch"])
+		if dict.has("view"):
+			self.window_option = int(dict["view"])
+		if dict.has("size"):
+			var ws = str(dict["size"]).split_floats(",", false)
+			if ws.size() == 2:
+				OS.window_size = Vector2(float(ws[0]), float(ws[1]))
+				set_window_option()
 		if dict.has("time"):
 			time_elapsed = abs(int(dict["time"]))
 
@@ -437,13 +372,13 @@ func delete_slot(_slot := save_slot):
 			dir.remove(fname)
 			fname = dir.get_next()
 		
-		replays[_slot] = {}
+		replays[_slot] = {}	
 		load_save(_slot)
 
 func save_replays(arg := replay_map, _slot := save_slot):
 	save_file(save_path + str(_slot) + "/" + arg + ".save", JSON.print(replays[save_slot][arg], "\t"))
 
-func load_save(_slot = save_slot, is_reload := false):
+func load_save(_slot = save_slot):
 	save_slot = clamp(_slot, 0, save_limit - 1)
 	var save_string = save_path + str(save_slot) + "/" + save_filename
 	
@@ -456,14 +391,13 @@ func load_save(_slot = save_slot, is_reload := false):
 	save_clock = 0.0
 	
 	var dict := {}
-	if is_reload: dict = save_data[_slot]
 	
 	if dict.empty():
 		var l = load_file(save_string)
 		if l: dict = JSON.parse(l).result
 		else: print(save_string + " not found")
 	
-	print(_slot, " / ", dict)
+	print(save_slot, " / ", dict)
 	if !dict.empty():
 		if dict.has("clock"):
 			save_clock = dict["clock"]
@@ -511,9 +445,6 @@ func generate_username():
 	end.shuffle()
 	var _name = pf[0] + middle[0] + sf[0] + end[0] + str(randi() % 100)
 	return _name
-
-func delete_save():
-	print("delete save")
 
 func unlock():
 	print("unlock")
@@ -620,14 +551,6 @@ func dir_list(path : String):
 func set_bus_volume(_bus := 1, _vol := 5):
 	bus_volume[_bus] = clamp(_vol, 0, 10)
 	AudioServer.set_bus_volume_db(_bus, linear2db(bus_volume[_bus] / 10.0))
-
-func set_window_scale(arg := window_scale):
-	window_scale = max(1, arg if arg else window_scale)
-	if OS.get_name() != "HTML5":
-		OS.window_size = Vector2(view_size.x * window_scale, view_size.y * window_scale)
-		# center window
-		OS.set_window_position(OS.get_screen_size() * 0.5 - OS.get_window_size() * 0.5)
-	return "window_scale: " + str(window_scale) + " - resolution: " + str(OS.get_window_size())
 
 func get_all_children(n, a := []):
 	if is_instance_valid(n):

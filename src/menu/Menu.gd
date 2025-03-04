@@ -56,7 +56,7 @@ func make_list(arg):
 		list_node = arg
 		list = []
 		for i in arg.get_children():
-			if !i.is_in_group("no_item"):
+			if !i.is_in_group("no_item") and i.visible:
 				list.append(i)
 
 func menu_input(event):

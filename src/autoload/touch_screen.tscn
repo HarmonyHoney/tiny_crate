@@ -35,7 +35,7 @@ points = PoolVector2Array( 2.12132, -2.12132, 3.57746e-08, -3, -2.12132, -2.1213
 
 [node name="TouchScreen" type="CanvasLayer"]
 pause_mode = 2
-layer = 6
+layer = 60
 script = ExtResource( 1 )
 
 [node name="Control" type="Control" parent="."]

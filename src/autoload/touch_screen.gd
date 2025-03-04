@@ -9,12 +9,19 @@ onready var buttons := [$Control/HBoxRight/C/Control/Button, $Control/HBoxRight/
 onready var btns := $Control/DPad/Buttons.get_children()
 onready var actions := InputMap.get_actions()
 
+export var is_stay := false
+
 func _ready():
 	connect("visibility_changed", self, "vis")
 	
 	yield(get_tree(), "idle_frame")
-	visible = (OS.has_touchscreen_ui_hint() and OS.get_name() == "HTML5") or OS.get_name() == "Android"
 	vis()
+
+func _input(event):
+	if event is InputEventScreenTouch or event is InputEventScreenDrag:
+		visible = true
+	elif event is InputEventKey or event is InputEventJoypadButton or event is InputEventJoypadMotion:
+		visible = is_stay
 
 func vis():
 	if is_instance_valid(UI.keys_node):

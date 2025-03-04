@@ -7,7 +7,7 @@
 [ext_resource path="res://media/image/bricks.png" type="Texture" id=5]
 [ext_resource path="res://src/stage/ObscureMap.tscn" type="PackedScene" id=6]
 [ext_resource path="res://src/stage/SpikeTileMap.tscn" type="PackedScene" id=7]
-[ext_resource path="res://src/stage/GameCamera.tscn" type="PackedScene" id=8]
+[ext_resource path="res://src/stage/CamBounds.gd" type="Script" id=8]
 [ext_resource path="res://src/actor/Player.tscn" type="PackedScene" id=9]
 [ext_resource path="res://src/actor/Exit.tscn" type="PackedScene" id=10]
 [ext_resource path="res://src/actor/Box.tscn" type="PackedScene" id=11]
@@ -176,8 +176,9 @@ tile_set = SubResource( 3 )
 tile_data = PoolIntArray( -589818, 536870914, 2, -589817, 0, 0, -589816, 0, 0, -589815, 0, 0, -589814, 0, 0, -524282, 2, 3, -524281, 0, 0, -524280, 0, 0, -524279, 0, 0, -524278, 0, 0 )
 tile_color = Color( 0.4, 0.741176, 0.415686, 1 )
 
-[node name="GameCamera" parent="." instance=ExtResource( 8 )]
+[node name="CamBounds" type="Node2D" parent="."]
 position = Vector2( 34, -56 )
+script = ExtResource( 8 )
 bounds = Rect2( 0, 0, 140, 0 )
 
 [node name="Actors" type="Node2D" parent="."]
@@ -196,5 +197,3 @@ position = Vector2( -59, -48 )
 
 [node name="Note" parent="Actors" instance=ExtResource( 12 )]
 position = Vector2( 75, -69 )
-
-[editable path="GameCamera"]

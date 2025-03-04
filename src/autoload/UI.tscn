@@ -69,7 +69,7 @@ font_data = ExtResource( 1 )
 
 [node name="UI" type="CanvasLayer"]
 pause_mode = 2
-layer = 5
+layer = 50
 script = ExtResource( 3 )
 pos_left = 60
 pos_right = 184

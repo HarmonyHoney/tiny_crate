@@ -2,7 +2,7 @@
 
 [ext_resource path="res://src/stage/SolidTileMap.tscn" type="PackedScene" id=1]
 [ext_resource path="res://media/image/player_swap.png" type="Texture" id=2]
-[ext_resource path="res://src/stage/GameCamera.tscn" type="PackedScene" id=3]
+[ext_resource path="res://src/stage/CamBounds.gd" type="Script" id=3]
 [ext_resource path="res://src/stage/DetailTileMap.tscn" type="PackedScene" id=4]
 [ext_resource path="res://media/image/tinyArrow.png" type="Texture" id=5]
 [ext_resource path="res://media/image/creator.png" type="Texture" id=6]
@@ -252,9 +252,10 @@ z_index = -11
 tile_set = SubResource( 22 )
 tile_data = PoolIntArray( 65516, 5, 0, 65517, 5, 0, 65518, 5, 0, 65519, 5, 0, 65520, 5, 0, 131052, 5, 0, 131053, 5, 0, 131054, 5, 0, 131055, 5, 0, 131056, 5, 0, 196588, 1073741829, 2, 196589, 5, 0, 196590, 5, 0, 196591, 5, 0, 196592, 1610612741, 2, 262125, 1073741829, 2, 262126, 5, 0, 262127, 1610612741, 2, 327662, 6, 0, 393198, 6, 0, 524273, 1073741829, 2, 524275, -1610612731, 2, 589811, -1610612731, 0, 655347, -1610612731, 0 )
 
-[node name="GameCamera" parent="." instance=ExtResource( 3 )]
+[node name="CamBounds" type="Node2D" parent="."]
 position = Vector2( -92, 48 )
-zoom = Vector2( 0.5, 0.5 )
+scale = Vector2( 0.5, 0.5 )
+script = ExtResource( 3 )
 
 [node name="Player" type="Node2D" parent="."]
 position = Vector2( -120, 40 )
@@ -1353,5 +1354,3 @@ margin_bottom = 7.0
 custom_fonts/font = SubResource( 14 )
 text = "random"
 align = 1
-
-[editable path="GameCamera"]

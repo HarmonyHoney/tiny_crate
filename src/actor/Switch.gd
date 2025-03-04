@@ -14,11 +14,11 @@ signal press
 signal release
 
 func _enter_tree():
-	if Engine.editor_hint: return
+	if Engine.editor_hint or Shared.is_level_select: return
 	add_to_group("switch_" + color)
 
 func _physics_process(delta):
-	if Engine.editor_hint: return
+	if Engine.editor_hint or Shared.is_level_select: return
 	
 	is_last = is_on
 	is_on = is_area_solid_actor(position.x, position.y)

@@ -54,11 +54,6 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://src/class/savedict.gd"
 }, {
-"base": "Resource",
-"class": "StagePreview",
-"language": "GDScript",
-"path": "res://src/stage/preview.gd"
-}, {
 "base": "Actor",
 "class": "Switch",
 "language": "GDScript",
@@ -79,7 +74,6 @@ _global_script_class_icons={
 "Passthrough": "",
 "Player": "",
 "SaveDict": "",
-"StagePreview": "",
 "Switch": "",
 "SwitchBlock": ""
 }
@@ -115,8 +109,8 @@ KeyMenu="*res://src/menu/options/KeyMenu.tscn"
 
 window/size/width=228
 window/size/height=128
-window/size/test_width=1280
-window/size/test_height=720
+window/size/test_width=1140
+window/size/test_height=640
 window/dpi/allow_hidpi=true
 window/stretch/mode="viewport"
 window/stretch/aspect="keep_height"

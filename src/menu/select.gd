@@ -1,18 +1,19 @@
 extends Node2D
 
-onready var cam : Camera2D = $Camera2D
-onready var cursor_node := $Cursor
+onready var cam : Camera2D = Shared.cam
+onready var cursor_node := $"%Cursor"
 
 var cursor = 0
 var current_map := "1-1"
 
-onready var screens_node : Control = $Control/Screens
-onready var screen : Control = $Control/Screen
+onready var screens_node := $"%MapLayer"
+onready var screen := $"%Screen"
+onready var overlay_node := $"%Overlay"
+onready var overlay_layer := $"%OverlayLayer"
+
 export var screen_dist = Vector2(5, 5)
-export var screen_size = Vector2(136, 104)
-export var columns = 8
+export var screen_size = Vector2(136, 96)
 var screen_pos := []
-var screen_static := []
 var screen_max := 1
 
 var overlays := []
@@ -24,25 +25,19 @@ var show_score := 0
 var last_refresh := {}
 var refresh_wait := 5.0
 
-onready var score_node := $Control/Scores
-onready var score_title := $Control/Scores/HBoxContainer/Title
-onready var score_list := $Control/Scores/List
-onready var score_note := $Control/Scores/HBoxContainer/Note
-onready var score_clock := $Control/Scores/HBoxContainer/Clock
-onready var score_map := $Control/Scores/HBoxContainer/Map
-onready var score_row := $Control/Scores/Row
+onready var score_node := $"%Scores"
+onready var score_list := score_node.get_node("List")
+onready var score_row := score_node.get_node("Row")
+onready var score_hbox := score_node.get_node("HBoxContainer")
+onready var score_title := score_hbox.get_node("Title")
+onready var score_note := score_hbox.get_node("Note")
+onready var score_clock := score_hbox.get_node("Clock")
+onready var score_map := score_hbox.get_node("Map")
 
-var load_list := []
-var loader : ResourceInteractiveLoader
-var port_count = 0
-var is_load := false
 var is_screening := false
-var map_limit := 0
 var screen_list := []
 export var timeout_mod := 1.0
-
 var screen_time := 0.0
-var loading_time := 0.0
 
 export var color_gem := Color("ffec27")
 export var color_new := Color("83769c")
@@ -69,8 +64,21 @@ var lockdict= {0:["1-1", "1-2", "1-3", "1-4", "1-5", "1-6", "1-7", "1-8"],
 24: ['5-1', '5-2', '5-3', '5-4'],
 30: ['win']}
 
+onready var actors = [[Vector2.ZERO, Vector2.ZERO, $"%Player"], [Vector2.ZERO, Vector2.ZERO, $"%Exit"]]
+var actor_lerp := 0.1
+var actor_jump := 0.5
 
 func _ready():
+	Shared.load_save()
+	$"%Center".connect("item_rect_changed", self, "item_rect")
+	item_rect()
+	
+	screen = screen.duplicate()
+	$"%Screen".queue_free()
+	
+	overlay_node = overlay_node.duplicate()
+	$"%Overlay".queue_free()
+	
 	#Leaderboard.connect("new_score", self, "new_score")
 	#SilentWolf.Scores.connect("sw_scores_received", self, "new_score")
 	
@@ -92,8 +100,6 @@ func _ready():
 	print("map_lock: ", map_lock)
 	print("map_rows: ", map_rows)
 	
-	screen.rect_position -= Vector2.ONE * 500
-	
 	# make screens
 	screen_pos = []
 	var sum = -1
@@ -109,7 +115,7 @@ func _ready():
 	overlays.resize(screen_pos.size())
 	
 	scroll(Shared.map_select)
-	cam.reset_smoothing()
+	cam.set_pos(cam.pos_target)
 	
 	screen_list.sort_custom(self, "sort_list")
 	is_screening = true
@@ -134,7 +140,6 @@ func _input(event):
 		if open_map():
 			Audio.play("menu_pick", 0.9, 1.1)
 			is_input = false
-			is_load = false
 		else:
 			Audio.play("menu_random", 0.8, 1.2)
 	elif event.is_action_pressed("ui_pause"):
@@ -158,10 +163,19 @@ func _input(event):
 			Audio.play("menu_scroll3", 0.9, 1.5)
 
 func _physics_process(delta):
+	# move actors
+	for i in actors:
+		i[0] = i[0].linear_interpolate(i[1], clamp(actor_lerp, 0, 1))
+		if i[0].distance_to(i[1]) < actor_jump:
+			i[0] = i[1]
+		i[2].position = i[0].round()
+	
+	# input count
 	input_count = max(0, input_count - 1)
 	for i in last_refresh.keys():
 		last_refresh[i] = max(0, last_refresh[i] - delta)
 	
+	# blink
 	if is_instance_valid(blink_label) and blink_count > 0:
 		blink_clock -= delta
 		if blink_clock < -blink_off:
@@ -169,9 +183,9 @@ func _physics_process(delta):
 			blink_count -= 1
 		blink_label.modulate = [Color.transparent, Color.white][int(blink_clock > 0.0)]
 	
-	var ticks : float = OS.get_ticks_msec()
-	
+	# make screens
 	if is_screening:
+		var ticks : float = OS.get_ticks_msec()
 		screen_time += delta
 		
 		while OS.get_ticks_msec() < ticks + (delta * timeout_mod):
@@ -179,45 +193,38 @@ func _physics_process(delta):
 				make_screen(screen_list.pop_front())
 			else:
 				is_screening = false
-				is_load = true
 				print(screen_time, " screeening time")
 				break
-	
-	# load stages
-	elif is_load:
-		loading_time += delta
-		
-		while OS.get_ticks_msec() < ticks + (delta * timeout_mod):
-			if load_list.size() > 0:
-				var pop = load_list.pop_front()
-				if Shared.scene_dict.has(pop[1]):
-					pop[2].add_child(Shared.scene_dict[pop[1]].instance())
-					screen_static[pop[0]].visible = false
-			else:
-				is_load = false
-				print(loading_time, " loading time")
-				break
+
+func item_rect():
+	print($"%Center".rect_size)
+	$"%Center".rect_position.x = posmod($"%Center".rect_size.x, 2)
 
 func make_screen(i := 0):
 	var new = screen.duplicate()
+	var new_overlay = overlay_node.duplicate()
+	new.node_list.append(new_overlay)
+	
 	var map_name = map_list[i]
 	var is_locked = Shared.count_gems < map_lock[map_name]
 	
-	new.rect_position = screen_pos[i]
-	new.get_node("Overlay/HBox/Label").text = (str(map_lock[map_name]) + " to unlock") if is_locked else map_name
-	new.get_node("Overlay/HBox/Gem").visible = is_locked
+	new.position = screen_pos[i]
+	new_overlay.rect_position = screen_pos[i]
+	
+	new_overlay.get_node("HBox/Label").text = (str(map_lock[map_name]) + " to unlock") if is_locked else map_name
+	new_overlay.get_node("HBox/Gem").visible = is_locked
 	
 	var s = {}
 	if Shared.save_maps.has(map_name):
 		s = Shared.save_maps[map_name]
 	
 	var has_note = s.has("note")
-	new.get_node("Overlay/Notes").visible = has_note
-	var note_label = new.get_node("Overlay/Notes/Label")
+	new_overlay.get_node("Notes").visible = has_note
+	var note_label = new_overlay.get_node("Notes/Label")
 	if has_note:
 		note_label.text = Shared.time_to_string(s["note"])
 	
-	var gem = new.get_node("Overlay/Gem")
+	var gem = new_overlay.get_node("Gem")
 	gem.visible = !is_locked
 	var has_time = s.has("time")
 	
@@ -228,27 +235,21 @@ func make_screen(i := 0):
 		gem_label.text = Shared.time_to_string(s["time"])
 	
 	var has_die = s.has("die")
-	new.get_node("Overlay/Death").visible = has_die
+	new_overlay.get_node("Death").visible = has_die
 	if has_die:
-		new.get_node("Overlay/Death/Label").text = str(s["die"])
+		new_overlay.get_node("Death/Label").text = str(s["die"])
 	
 	if is_faster and i == Shared.map_select:
 		blink_label = note_label if is_faster_note else gem_label
 		print("faster ", i, ", blink_label ", blink_label)
 		Audio.play("menu_bell", 0.5, 1.0)
 	
-	screens_node.add_child(new)
-	overlays[i] = new.get_node("Overlay")
-	screen_static.append(new.get_node("Vis/Static"))
-	view_scene(new.get_node("Vis/ViewportContainer/Viewport"), Shared.map_dir + map_list[i] + ".tscn", i)
-
-# view a scene inside the viewport by path
-func view_scene(port, path, arg):
-	for i in port.get_children():
-		i.queue_free()
+	var dict = Shared.map_dict[map_name]
+	new.get_node("Sprite").region_rect = Rect2(screen_size * Vector2(dict[0], dict[1]), screen_size)
 	
-	load_list.append([port_count, path, port])
-	port_count += 1
+	screens_node.add_child(new)
+	overlay_layer.add_child(new_overlay)
+	overlays[i] = new_overlay
 
 func scroll(arg := cursor):
 	if overlays[cursor]: overlays[cursor].visible = true
@@ -261,8 +262,15 @@ func scroll(arg := cursor):
 	var sp = screen_pos[cursor]
 	cursor_node.rect_position = sp
 	score_node.rect_position = sp + Vector2(1, 1)
-	cam.position = sp + (screen_size * 0.5)
+	var half = sp + (screen_size * 0.5)
+	cam.pos_target = half
 	refresh_score()
+	
+	var dict = Shared.map_dict[str(map_list[cursor])]
+	
+	actors[0][1] = Vector2(dict[2], dict[3])
+	actors[0][2].node_sprite.flip_h = randf() > 0.5
+	actors[1][1] = Vector2(dict[4], dict[5])
 
 func show_scoreboard(arg := show_score):
 	var n = arg == 2
@@ -284,32 +292,37 @@ func refresh_score(var map_name : String = current_map):
 	write_score()
 	
 	if !last_refresh.has(map_name) or last_refresh[map_name] == 0:
-		#Leaderboard.refresh_score(map_name)
 		print("   -   ", map_name, " REFRESH SCORE ")
 		last_refresh[map_name] = refresh_wait
 
-func new_score(arg1 = null, arg2 = null, arg3 = null):
-	write_score()
+func sort_scores(a, b):
+	if a[0] < b[0]:
+		return true 
+	return false
 
 func write_score():
 	var key = "note" if show_score == 2 else "time"
 	var dat = Shared.save_data
-	var dict = {}
+	var array = []
 	
 	for i in dat.keys():
+		#print("dat ", i, " ", dat[i])
 		if dat[i].has_all(["username", "maps"]) and dat[i]["maps"].has(current_map) and dat[i]["maps"][current_map].has(key):
-			dict[int(dat[i]["maps"][current_map][key])] = dat[i]["username"]
+			var k := int(dat[i]["maps"][current_map][key])
+			var v := str(dat[i]["username"])
+			#print(k, " / ", v)
+			array.append([k, v])
 	
 	var t = ""
-	var keys = dict.keys()
 	var row = 0
 	var my_row = -1
 	
-	keys.sort()
-	for i in keys:
-		t += Shared.time_to_string(i) + " " + dict[i] + "\n"
+	array.sort_custom(self, "sort_scores")
+	
+	for i in array:
+		t += Shared.time_to_string(i[0]) + " " + i[1] + "\n"
 		
-		if dict[i] == Shared.username:
+		if i[1] == Shared.username:
 			my_row = row
 		
 		row += 1

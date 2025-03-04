@@ -1,14 +1,16 @@
 extends CanvasItem
 
-onready var fill = $Box/Fill
-var is_selected = false
+onready var label := $Label2
+var text = ["toggle", "always"]
 
 func _ready():
 	yield(get_tree(), "idle_frame")
-	fill.visible = TouchScreen.visible
+	label.text = text[int(TouchScreen.is_stay)]
+
+func scroll(arg := 1):
+	act()
 
 func act():
-	var is_touch = !TouchScreen.visible
-	TouchScreen.visible = is_touch
-	fill.visible = is_touch
+	TouchScreen.is_stay = !TouchScreen.is_stay
+	label.text = text[int(TouchScreen.is_stay)]
 	Audio.play("menu_pause", 0.9, 1.1)
