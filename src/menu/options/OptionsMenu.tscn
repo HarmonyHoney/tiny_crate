@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://src/menu/options/OptionsMenu.gd" type="Script" id=1]
 [ext_resource path="res://src/menu/options/Volume.tscn" type="PackedScene" id=2]
@@ -7,7 +7,9 @@
 [ext_resource path="res://media/audio/sfx/btn0.wav" type="AudioStream" id=5]
 [ext_resource path="res://media/font/QuinqueFive.ttf" type="DynamicFontData" id=6]
 [ext_resource path="res://media/font/ThaleahFat.ttf" type="DynamicFontData" id=7]
+[ext_resource path="res://media/image/tinyArrow5.png" type="Texture" id=8]
 [ext_resource path="res://media/image/tinyArrow.png" type="Texture" id=9]
+[ext_resource path="res://src/menu/options/detail.gd" type="Script" id=10]
 [ext_resource path="res://src/menu/options/Fullscreen.gd" type="Script" id=20]
 [ext_resource path="res://src/menu/options/WindowSize.gd" type="Script" id=21]
 [ext_resource path="res://src/menu/options/Touch.gd" type="Script" id=22]
@@ -30,9 +32,9 @@ pause_mode = 2
 layer = 30
 script = ExtResource( 1 )
 parent_path = NodePath(".")
-list_path = NodePath("Center/Control/CenterContainer/MenuItems")
+list_path = NodePath("Center/Control/MenuItems")
 cursor_path = NodePath("Center/Control/Cursor")
-cursor_expand = Vector2( 4, 4 )
+cursor_expand = Vector2( 4, 2 )
 is_audio_scroll = true
 is_audio_back = true
 is_close_btn_no = true
@@ -63,21 +65,19 @@ margin_bottom = 35.0
 script = ExtResource( 4 )
 color_blink = PoolColorArray( 0, 0, 1, 1, 0, 0.482353, 1, 1 )
 
-[node name="CenterContainer" type="CenterContainer" parent="Center/Control"]
-anchor_right = 1.0
-anchor_bottom = 1.0
-
-[node name="MenuItems" type="VBoxContainer" parent="Center/Control/CenterContainer"]
+[node name="MenuItems" type="VBoxContainer" parent="Center/Control"]
 margin_left = 53.0
-margin_top = 11.0
+margin_top = 10.0
 margin_right = 175.0
-margin_bottom = 116.0
+margin_bottom = 110.0
 rect_min_size = Vector2( 122, 0 )
+custom_constants/separation = 2
 alignment = 1
 
-[node name="Header" type="Label" parent="Center/Control/CenterContainer/MenuItems" groups=["no_item"]]
+[node name="Header" type="Label" parent="Center/Control/MenuItems" groups=["no_item"]]
+margin_top = 4.0
 margin_right = 122.0
-margin_bottom = 12.0
+margin_bottom = 16.0
 rect_min_size = Vector2( 0, 12 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
 custom_constants/shadow_as_outline = 1
@@ -85,103 +85,105 @@ custom_fonts/font = SubResource( 4 )
 text = "OPTIONS"
 align = 1
 
-[node name="Keyboard" type="HBoxContainer" parent="Center/Control/CenterContainer/MenuItems"]
-margin_top = 16.0
+[node name="Keyboard" type="HBoxContainer" parent="Center/Control/MenuItems"]
+margin_top = 18.0
 margin_right = 122.0
-margin_bottom = 24.0
-rect_min_size = Vector2( 0, 8 )
+margin_bottom = 25.0
+rect_min_size = Vector2( 0, 7 )
 script = ExtResource( 3 )
 
-[node name="Label" type="Label" parent="Center/Control/CenterContainer/MenuItems/Keyboard"]
+[node name="Label" type="Label" parent="Center/Control/MenuItems/Keyboard"]
 margin_top = 1.0
 margin_right = 84.0
 margin_bottom = 6.0
 custom_fonts/font = SubResource( 2 )
 text = "Keyboard Setup"
 
-[node name="Spacer" type="Control" parent="Center/Control/CenterContainer/MenuItems/Keyboard"]
+[node name="Spacer" type="Control" parent="Center/Control/MenuItems/Keyboard"]
 margin_left = 88.0
 margin_right = 110.0
-margin_bottom = 8.0
+margin_bottom = 7.0
 size_flags_horizontal = 3
 
-[node name="Spacer2" type="Control" parent="Center/Control/CenterContainer/MenuItems/Keyboard"]
+[node name="Spacer2" type="Control" parent="Center/Control/MenuItems/Keyboard"]
 margin_left = 114.0
 margin_right = 122.0
-margin_bottom = 8.0
+margin_bottom = 7.0
 rect_min_size = Vector2( 8, 0 )
 
-[node name="Gamepad" type="HBoxContainer" parent="Center/Control/CenterContainer/MenuItems"]
-margin_top = 28.0
+[node name="Gamepad" type="HBoxContainer" parent="Center/Control/MenuItems"]
+margin_top = 27.0
 margin_right = 122.0
-margin_bottom = 36.0
-rect_min_size = Vector2( 0, 8 )
+margin_bottom = 34.0
+rect_min_size = Vector2( 0, 7 )
 script = ExtResource( 3 )
 is_gamepad = true
 
-[node name="Label" type="Label" parent="Center/Control/CenterContainer/MenuItems/Gamepad"]
+[node name="Label" type="Label" parent="Center/Control/MenuItems/Gamepad"]
 margin_top = 1.0
 margin_right = 78.0
 margin_bottom = 6.0
 custom_fonts/font = SubResource( 2 )
 text = "gamepad Setup"
 
-[node name="Spacer" type="Control" parent="Center/Control/CenterContainer/MenuItems/Gamepad"]
+[node name="Spacer" type="Control" parent="Center/Control/MenuItems/Gamepad"]
 margin_left = 82.0
 margin_right = 110.0
-margin_bottom = 8.0
+margin_bottom = 7.0
 size_flags_horizontal = 3
 
-[node name="Spacer2" type="Control" parent="Center/Control/CenterContainer/MenuItems/Gamepad"]
+[node name="Spacer2" type="Control" parent="Center/Control/MenuItems/Gamepad"]
 margin_left = 114.0
 margin_right = 122.0
-margin_bottom = 8.0
+margin_bottom = 7.0
 rect_min_size = Vector2( 8, 0 )
 
-[node name="Sounds" parent="Center/Control/CenterContainer/MenuItems" instance=ExtResource( 2 )]
-margin_top = 40.0
+[node name="Sounds" parent="Center/Control/MenuItems" instance=ExtResource( 2 )]
+margin_top = 36.0
 margin_right = 122.0
-margin_bottom = 48.0
+margin_bottom = 43.0
+rect_min_size = Vector2( 0, 7 )
 
-[node name="Music" parent="Center/Control/CenterContainer/MenuItems" instance=ExtResource( 2 )]
-margin_top = 52.0
+[node name="Music" parent="Center/Control/MenuItems" instance=ExtResource( 2 )]
+margin_top = 45.0
 margin_right = 122.0
-margin_bottom = 60.0
+margin_bottom = 52.0
+rect_min_size = Vector2( 0, 7 )
 bus = 2
 
-[node name="Label" parent="Center/Control/CenterContainer/MenuItems/Music" index="0"]
+[node name="Label" parent="Center/Control/MenuItems/Music" index="0"]
 margin_right = 30.0
 text = "Music"
 
-[node name="Spacer" parent="Center/Control/CenterContainer/MenuItems/Music" index="1"]
+[node name="Spacer" parent="Center/Control/MenuItems/Music" index="1"]
 margin_left = 32.0
 margin_right = 71.0
 
-[node name="Arrow" parent="Center/Control/CenterContainer/MenuItems/Music" index="2"]
+[node name="Arrow" parent="Center/Control/MenuItems/Music" index="2"]
 margin_left = 73.0
 margin_right = 76.0
 
-[node name="Meter" parent="Center/Control/CenterContainer/MenuItems/Music" index="3"]
+[node name="Meter" parent="Center/Control/MenuItems/Music" index="3"]
 margin_left = 78.0
 margin_right = 117.0
 
-[node name="Arrow2" parent="Center/Control/CenterContainer/MenuItems/Music" index="4"]
+[node name="Arrow2" parent="Center/Control/MenuItems/Music" index="4"]
 margin_left = 119.0
 margin_right = 122.0
 
-[node name="AudioStreamPlayer" parent="Center/Control/CenterContainer/MenuItems/Music" index="5"]
+[node name="AudioStreamPlayer" parent="Center/Control/MenuItems/Music" index="5"]
 stream = ExtResource( 5 )
 bus = "Music"
 
-[node name="View" type="HBoxContainer" parent="Center/Control/CenterContainer/MenuItems"]
-margin_top = 64.0
+[node name="View" type="HBoxContainer" parent="Center/Control/MenuItems"]
+margin_top = 54.0
 margin_right = 122.0
-margin_bottom = 72.0
-rect_min_size = Vector2( 116, 8 )
+margin_bottom = 61.0
+rect_min_size = Vector2( 116, 7 )
 custom_constants/separation = 2
 script = ExtResource( 20 )
 
-[node name="Label" type="Label" parent="Center/Control/CenterContainer/MenuItems/View"]
+[node name="Label" type="Label" parent="Center/Control/MenuItems/View"]
 margin_top = 1.0
 margin_right = 24.0
 margin_bottom = 6.0
@@ -191,23 +193,23 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Spacer" type="Control" parent="Center/Control/CenterContainer/MenuItems/View"]
+[node name="Spacer" type="Control" parent="Center/Control/MenuItems/View"]
 margin_left = 26.0
 margin_right = 26.0
-margin_bottom = 8.0
+margin_bottom = 7.0
 size_flags_horizontal = 3
 
-[node name="Arrow" type="Control" parent="Center/Control/CenterContainer/MenuItems/View"]
+[node name="Arrow" type="Control" parent="Center/Control/MenuItems/View"]
 margin_left = 28.0
 margin_right = 31.0
-margin_bottom = 8.0
+margin_bottom = 7.0
 rect_min_size = Vector2( 3, 0 )
 
-[node name="Sprite" type="Sprite" parent="Center/Control/CenterContainer/MenuItems/View/Arrow"]
+[node name="Sprite" type="Sprite" parent="Center/Control/MenuItems/View/Arrow"]
 position = Vector2( 2, 4 )
-texture = ExtResource( 9 )
+texture = ExtResource( 8 )
 
-[node name="Label2" type="Label" parent="Center/Control/CenterContainer/MenuItems/View"]
+[node name="Label2" type="Label" parent="Center/Control/MenuItems/View"]
 margin_left = 33.0
 margin_top = 1.0
 margin_right = 117.0
@@ -218,32 +220,32 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Arrow2" type="Control" parent="Center/Control/CenterContainer/MenuItems/View"]
+[node name="Arrow2" type="Control" parent="Center/Control/MenuItems/View"]
 margin_left = 119.0
 margin_right = 122.0
-margin_bottom = 8.0
+margin_bottom = 7.0
 rect_min_size = Vector2( 3, 0 )
 
-[node name="Sprite" type="Sprite" parent="Center/Control/CenterContainer/MenuItems/View/Arrow2"]
+[node name="Sprite" type="Sprite" parent="Center/Control/MenuItems/View/Arrow2"]
 position = Vector2( 1, 4 )
-texture = ExtResource( 9 )
+texture = ExtResource( 8 )
 flip_h = true
 
-[node name="WindowSize" type="HBoxContainer" parent="Center/Control/CenterContainer/MenuItems"]
-margin_top = 76.0
+[node name="WindowSize" type="HBoxContainer" parent="Center/Control/MenuItems"]
+margin_top = 63.0
 margin_right = 122.0
-margin_bottom = 84.0
-rect_min_size = Vector2( 0, 8 )
+margin_bottom = 70.0
+rect_min_size = Vector2( 0, 7 )
 script = ExtResource( 21 )
 
-[node name="Label" type="Label" parent="Center/Control/CenterContainer/MenuItems/WindowSize"]
+[node name="Label" type="Label" parent="Center/Control/MenuItems/WindowSize"]
 margin_top = 1.0
 margin_right = 24.0
 margin_bottom = 6.0
 custom_fonts/font = SubResource( 2 )
 text = "Size"
 
-[node name="Scale" type="Label" parent="Center/Control/CenterContainer/MenuItems/WindowSize"]
+[node name="Scale" type="Label" parent="Center/Control/MenuItems/WindowSize"]
 margin_left = 28.0
 margin_top = 1.0
 margin_right = 64.0
@@ -256,7 +258,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Resolution" type="Label" parent="Center/Control/CenterContainer/MenuItems/WindowSize"]
+[node name="Resolution" type="Label" parent="Center/Control/MenuItems/WindowSize"]
 margin_left = 68.0
 margin_top = 1.0
 margin_right = 122.0
@@ -265,38 +267,38 @@ custom_fonts/font = SubResource( 2 )
 text = "228 x 128"
 align = 1
 
-[node name="Touch" type="HBoxContainer" parent="Center/Control/CenterContainer/MenuItems"]
-margin_top = 88.0
+[node name="Touch" type="HBoxContainer" parent="Center/Control/MenuItems"]
+margin_top = 72.0
 margin_right = 122.0
-margin_bottom = 96.0
-rect_min_size = Vector2( 0, 8 )
+margin_bottom = 79.0
+rect_min_size = Vector2( 0, 7 )
 custom_constants/separation = 2
 script = ExtResource( 22 )
 
-[node name="Label" type="Label" parent="Center/Control/CenterContainer/MenuItems/Touch"]
+[node name="Label" type="Label" parent="Center/Control/MenuItems/Touch"]
 margin_top = 1.0
 margin_right = 72.0
 margin_bottom = 6.0
 custom_fonts/font = SubResource( 2 )
 text = "Touch screen"
 
-[node name="Spacer" type="Control" parent="Center/Control/CenterContainer/MenuItems/Touch"]
+[node name="Spacer" type="Control" parent="Center/Control/MenuItems/Touch"]
 margin_left = 74.0
 margin_right = 74.0
-margin_bottom = 8.0
+margin_bottom = 7.0
 size_flags_horizontal = 3
 
-[node name="Arrow" type="Control" parent="Center/Control/CenterContainer/MenuItems/Touch"]
+[node name="Arrow" type="Control" parent="Center/Control/MenuItems/Touch"]
 margin_left = 76.0
 margin_right = 79.0
-margin_bottom = 8.0
+margin_bottom = 7.0
 rect_min_size = Vector2( 3, 0 )
 
-[node name="Sprite" type="Sprite" parent="Center/Control/CenterContainer/MenuItems/Touch/Arrow"]
+[node name="Sprite" type="Sprite" parent="Center/Control/MenuItems/Touch/Arrow"]
 position = Vector2( 2, 4 )
 texture = ExtResource( 9 )
 
-[node name="Label2" type="Label" parent="Center/Control/CenterContainer/MenuItems/Touch"]
+[node name="Label2" type="Label" parent="Center/Control/MenuItems/Touch"]
 margin_left = 81.0
 margin_top = 1.0
 margin_right = 117.0
@@ -304,23 +306,73 @@ margin_bottom = 6.0
 custom_fonts/font = SubResource( 2 )
 text = "always"
 
-[node name="Arrow2" type="Control" parent="Center/Control/CenterContainer/MenuItems/Touch"]
+[node name="Arrow2" type="Control" parent="Center/Control/MenuItems/Touch"]
 margin_left = 119.0
 margin_right = 122.0
-margin_bottom = 8.0
+margin_bottom = 7.0
 rect_min_size = Vector2( 3, 0 )
 
-[node name="Sprite" type="Sprite" parent="Center/Control/CenterContainer/MenuItems/Touch/Arrow2"]
+[node name="Sprite" type="Sprite" parent="Center/Control/MenuItems/Touch/Arrow2"]
 position = Vector2( 1, 4 )
 texture = ExtResource( 9 )
 flip_h = true
 
-[node name="Time" type="HBoxContainer" parent="Center/Control/CenterContainer/MenuItems" groups=["no_item"]]
-margin_top = 100.0
+[node name="Detail" type="HBoxContainer" parent="Center/Control/MenuItems"]
+margin_top = 81.0
 margin_right = 122.0
-margin_bottom = 105.0
+margin_bottom = 88.0
+rect_min_size = Vector2( 0, 7 )
+custom_constants/separation = 2
+script = ExtResource( 10 )
 
-[node name="TimeLabel" type="Label" parent="Center/Control/CenterContainer/MenuItems/Time"]
+[node name="Label" type="Label" parent="Center/Control/MenuItems/Detail"]
+margin_top = 1.0
+margin_right = 60.0
+margin_bottom = 6.0
+custom_fonts/font = SubResource( 2 )
+text = "background"
+
+[node name="Spacer" type="Control" parent="Center/Control/MenuItems/Detail"]
+margin_left = 62.0
+margin_right = 86.0
+margin_bottom = 7.0
+size_flags_horizontal = 3
+
+[node name="Arrow" type="Control" parent="Center/Control/MenuItems/Detail"]
+margin_left = 88.0
+margin_right = 91.0
+margin_bottom = 7.0
+rect_min_size = Vector2( 3, 0 )
+
+[node name="Sprite" type="Sprite" parent="Center/Control/MenuItems/Detail/Arrow"]
+position = Vector2( 2, 4 )
+texture = ExtResource( 9 )
+
+[node name="Label2" type="Label" parent="Center/Control/MenuItems/Detail"]
+margin_left = 93.0
+margin_top = 1.0
+margin_right = 117.0
+margin_bottom = 6.0
+custom_fonts/font = SubResource( 2 )
+text = "full"
+
+[node name="Arrow2" type="Control" parent="Center/Control/MenuItems/Detail"]
+margin_left = 119.0
+margin_right = 122.0
+margin_bottom = 7.0
+rect_min_size = Vector2( 3, 0 )
+
+[node name="Sprite" type="Sprite" parent="Center/Control/MenuItems/Detail/Arrow2"]
+position = Vector2( 1, 4 )
+texture = ExtResource( 9 )
+flip_h = true
+
+[node name="Time" type="HBoxContainer" parent="Center/Control/MenuItems" groups=["no_item"]]
+margin_top = 90.0
+margin_right = 122.0
+margin_bottom = 95.0
+
+[node name="TimeLabel" type="Label" parent="Center/Control/MenuItems/Time"]
 unique_name_in_owner = true
 margin_right = 122.0
 margin_bottom = 5.0
@@ -329,4 +381,4 @@ custom_fonts/font = SubResource( 2 )
 text = "01:23"
 align = 1
 
-[editable path="Center/Control/CenterContainer/MenuItems/Music"]
+[editable path="Center/Control/MenuItems/Music"]
