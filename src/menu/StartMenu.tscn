@@ -1074,6 +1074,7 @@ valign = 2
 [node name="Stage" type="Node2D" parent="."]
 script = ExtResource( 26 )
 is_random = true
+color_path = NodePath("../Control/Logo")
 
 [node name="SolidTileMap" parent="Stage" instance=ExtResource( 11 )]
 tile_set = SubResource( 13 )
