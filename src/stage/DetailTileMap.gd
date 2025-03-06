@@ -31,3 +31,4 @@ func set_wood_color(arg := wood_color):
 func background_signal():
 	var f = float(Shared.background_option)
 	modulate = Color.black.linear_interpolate(Color.white, f / 10.0)
+	visible = f > 0
