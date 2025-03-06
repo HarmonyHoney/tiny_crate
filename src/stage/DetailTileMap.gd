@@ -9,6 +9,9 @@ func _ready():
 	tile_set = tile_set.duplicate()
 	if Engine.is_editor_hint(): return
 	
+	Shared.connect("background_signal", self, "background_signal")
+	background_signal()
+	
 	set_brick_color()
 	set_grass_color()
 	set_wood_color()
@@ -24,3 +27,8 @@ func set_grass_color(arg := grass_color):
 func set_wood_color(arg := wood_color):
 	wood_color = arg
 	tile_set.tile_set_modulate(6, wood_color)
+
+func background_signal():
+	var f = float(Shared.background_option)
+	modulate = Color.black.linear_interpolate(Color.white, f / 10.0)
+	visible = f > 0

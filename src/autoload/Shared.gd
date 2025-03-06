@@ -80,6 +80,8 @@ var time_elapsed := 0
 var auto_save_clock := 0
 var auto_save_time := 1800
 var window_option := 0 setget set_window_option
+var background_option := 10 setget set_background_option
+signal background_signal
 
 func _ready():
 	print("Shared._ready(): ")
@@ -321,6 +323,10 @@ func set_window_option(arg := window_option):
 	OS.set_window_position(Vector2.ZERO if window_option == 2 else (OS.get_screen_size() * 0.5 - OS.get_window_size() * 0.5))
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE if window_option < 3 else Input.MOUSE_MODE_HIDDEN
 
+func set_background_option(arg := background_option):
+	background_option = clamp(arg, 0, 10)
+	emit_signal("background_signal")
+
 func save_options(path := options_path):
 	var data = {}
 	data["sfx"] = bus_volume[1]
@@ -330,6 +336,7 @@ func save_options(path := options_path):
 	data["view"] = int(window_option)
 	var ws = OS.window_size
 	data["size"] = str(ws.x) + "," + str(ws.y)
+	data["back"] = int(background_option)
 	data["time"] = time_elapsed
 	
 	print("save_options, path: ", path, " time: ", time_elapsed)
@@ -360,6 +367,8 @@ func load_options(path := options_path):
 			if ws.size() == 2:
 				OS.window_size = Vector2(float(ws[0]), float(ws[1]))
 				set_window_option()
+		if dict.has("back"):
+			self.background_option = int(dict["back"])
 		if dict.has("time"):
 			time_elapsed = abs(int(dict["time"]))
 
