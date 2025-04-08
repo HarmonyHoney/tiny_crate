@@ -1,6 +1,6 @@
-butler push win hhoneysoftware/tinycrate-open:windows
-butler push linux hhoneysoftware/tinycrate-open:linux
-butler push mac hhoneysoftware/tinycrate-open:mac
-butler push web hhoneysoftware/tinycrate-open:web
-butler push android hhoneysoftware/tinycrate-open:android
+butler push win hhoneysoftware/tinycrate:windows
+butler push linux hhoneysoftware/tinycrate:linux
+butler push mac hhoneysoftware/tinycrate:mac
+butler push web hhoneysoftware/tinycrate:web
+butler push android hhoneysoftware/tinycrate:android
 pause
