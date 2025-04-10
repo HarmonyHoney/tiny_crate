@@ -60,6 +60,15 @@
   </screenshots>
 
   <releases>
+    <release version="2025.03.05" date="2025-03-05">
+      <description>
+        <ul>
+          <li>Option for Background Visibility</li>
+          <li>Adjust visibility from 0% to 100%</li>
+          <li>HHoney Software Logo color fix</li>
+        </ul>
+      </description>
+    </release>
     <release version="2025.03.03" date="2025-03-03">
       <description>
         <ul>
