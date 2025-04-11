@@ -1,0 +1,148 @@
+<releases>
+  <release version="2025.03.05" date="2025-03-05">
+    <description>
+      <ul>
+        <li>Option for Background Visibility</li>
+        <li>Adjust visibility from 0% to 100%</li>
+        <li>HHoney Software Logo color fix</li>
+      </ul>
+    </description>
+  </release>
+  <release version="2025.03.03" date="2025-03-03">
+    <description>
+      <ul>
+        <li>6 Save Slots</li>
+        <li>Local High Scores</li>
+        <li>More support for Touch Screens</li>
+        <li>Optimize level select screen, much faster</li>
+        <li>Display global time played on Options Menu</li>
+      </ul>
+      <p>Save and Load Options for:</p>
+      <ul>
+        <li>Touch Screen: Toggle or Always</li>
+        <li>Window Size: x and y</li>
+        <li>View: Window, Window No Border, Fullscreen No Border, Exclusive Fullscreen</li>
+      </ul>
+    </description>
+  </release>
+  <release version="2025.02.23" date="2025-02-23">
+    <description>
+      <p>Updated icon</p>
+    </description>
+  </release>
+  <release version="2025.01.16" date="2025-01-16">
+    <description>
+      <p>Updated icon and under-the-hood cleanup</p>
+    </description>
+  </release>
+  <release version="2024.09.18" date="2024-09-18">
+    <description>
+      <p>Patch 13 - Touch Controls Ghosting Fixed</p>
+      <ul>
+        <li>Little fix for touch controls!</li>
+        <li>The D-Pad control Actions are swapped when changing between Menu &amp; Gameplay.</li>
+        <li>Any button held down when finishing a level would stay held down when starting a new level.</li>
+        <li>Now the actions all release when being swapped (:</li>
+      </ul>
+    </description>
+  </release>
+  <release version="2024.09.18" date="2024-09-18">
+    <description>
+      <p>Patch 12 / Virtual D-Pad &amp; Title Colors</p>
+      <ul>
+        <li>Borderless Option</li>
+        <li>Palette Swaps on Start &amp; Char Menu (-;</li>
+        <li>Virtual D-Pad Touch Controls !</li>
+        <li>Engine Upgrade to Godot 3.6</li>
+      </ul>
+    </description>
+  </release>
+  <release version="2024.04.04" date="2024-04-04">
+    <description>
+      <p>Tiny Patch - Touch Controls Rework &amp; Volume Fix</p>
+      <ul>
+        <li>I reworked how the virtual joystick works with touch controls! some users had issues, i hope this works for you!</li>
+        <li>also fixed loading the volume options (-:</li>
+      </ul>
+    </description>
+  </release>
+  <release version="2024.03.19" date="2024-03-19">
+    <description>
+      <p>Tiny Patch! Victory Bell &amp; Secret Shortcut</p>
+      <ul>
+        <li>Victory bell chime &amp; blinking timer after finishing a level, or finishing FASTER !</li>
+        <li>Secret shortcut for Note on 2-1</li>
+      </ul>
+    </description>
+  </release>
+  <release version="2024.03.01" date="2024-03-01">
+    <description>
+      <p>Character Creator, Online Leaderboards, Speedruns + More!</p>
+      <p>Hello! A lot of love went into this March 2024 Tiny Crate Update (-:</p>
+      <p>Noteworthy changes:</p>
+      <ul>
+        <li>Character Creator</li>
+      </ul>
+      <p>Style &amp; Name your character! Pick a color for your Hat, Skin, Suit, Eyes &amp; Shoes (= Submit Speedrun High Scores with your username!</p>
+      <ul>
+        <li>Online Leaderboards / Speedrunning</li>
+        <li>Speedrun Ghosts!</li>
+      </ul>
+      <p>SilentWolf leaderboard backend has been integrated into Tiny Crate! Press Enter on level select to see the "Fastest Run" + "Fastest Note" high scores. Starting the level from either leaderboard will enable Speedrun Ghosts for that score! Ghosts are replays of your fastest runs completing the level (: Turn Ghosts On + Off in the Pause Menu!</p>
+      <ul>
+        <li>10 New Maps!</li>
+        <li>Unique Color Palette for each world!</li>
+        <li>Crate Variety / Colors</li>
+      </ul>
+      <p>10 New Maps have been added to level select, with a total of 36 Gems to collect! Each of the 5 Worlds now has a unique color palette standing out from one another (= Crates now pick 1 of 5 different Images to display, reversing the x-axis or color for more variety. Crate palette changed to improve contrast (:</p>
+      <ul>
+        <li>Rebind Keyboard &amp; GamePad Inputs!</li>
+        <li>UI Input Display</li>
+      </ul>
+      <p>I had been hearing of players with different keyboard layouts &amp; other people having trouble playing Tiny Crate with the default keybindings! Now you can rebind the controls to any Keyboard or GamePad input you like! (-; These Inputs are shown on the UI in Menus.</p>
+      <ul>
+        <li>Pause Menu Rebuilt!</li>
+        <li>Gameplay Stats</li>
+      </ul>
+      <p>Pausing a level will show your fastest runs in the top left corner, along with death accumulated. Options are now accessible through the Pause Menu &amp; Enabling Speedrun Ghosts (:</p>
+      <ul>
+        <li>Touch Control Improvements!</li>
+      </ul>
+      <p>I developed a new Virtual Joystick for touch screen devices! Mobile gameplay is now more intuitive &amp; accessible with a full joystick to navigate! Coming Soon:  X + C buttons will overlap to make double press easier</p>
+      <ul>
+        <li>Start Menu Overhaul</li>
+        <li>Save Slots (=</li>
+      </ul>
+      <p>Tiny Crate now has 3 Save Slots holding up to Three different Characters! Erase &amp; Modify saves from the Start Menu &lt;3 This Menu has been redesigned to incorporate new additions (: At the moment, old saves will be discarded, sorry!</p>
+    </description>
+  </release>
+  <release version="2022.11.02" date="2022-11-02">
+    <description>
+      <p>Secret Update!</p>
+      <p>Find a Music Note hidden in every level! &lt;3</p>
+    </description>
+  </release>
+  <release version="2021.11.27" date="2021-11-27">
+    <description>
+      <p>Tiny Touch! Touch Control Support! ^.^</p>
+      <p>Tiny Crate is now playable on your mobile devices with Touch Screen support!</p>
+      <p>Touch controls are visible by default on all touch devices!</p>
+      <p>Enable or disable Touch Controls in the options menu on any device!</p>
+    </description>
+  </release>
+  <release version="2021.10.02" date="2021-10-02">
+    <description>
+      <p>Tiny Update! Fixed Framerate Processing! (:</p>
+      <p>A user reported the game was running too fast for them 0=</p>
+      <p>You'll understand if you use Godot:</p>
+      <p>I had a feeling this would happen as the whole game has been written with _process() xD</p>
+      <p>Now everything runs under _physics_process() at a fixed 60FPS! (:</p>
+      <p>&lt;3 Hopefully this is a smoother experience for everyone! (:</p>
+    </description>
+  </release>
+  <release version="2021.09.26" date="2021-09-26">
+    <description>
+      <p>Tiny Crate is released! Thanks for playing! &lt;3</p>
+    </description>
+  </release>
+</releases>
