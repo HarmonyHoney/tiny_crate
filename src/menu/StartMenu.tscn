@@ -1190,7 +1190,7 @@ custom_fonts/font = SubResource( 23 )
 text = "
 
 Made with Godot Engine
-Fonts: NicoPaint -emhuo
+Fonts: Nico Family -emhuo
 QuinqueFive -GGBotNet
 Expression Pro -somepx
 Thaleah Fat -Rick Hoppmann
