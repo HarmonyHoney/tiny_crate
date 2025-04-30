@@ -81,12 +81,12 @@ _global_script_class_icons={
 [application]
 
 config/name="Tiny Crate"
-config/description="Tiny Crate by Harmony Honey
-hhoney.net"
+config/description="Tiny Crate by Harmony Honey Monroe
+harmonymonroe.com"
 run/main_scene="res://src/menu/splash.tscn"
 config/use_custom_user_dir=true
 config/custom_user_dir_name="tiny_crate"
-boot_splash/image="res://media/image/title_splash-pixel.png"
+boot_splash/image="res://media/image/harmony-monroe-square-white.png"
 boot_splash/use_filter=false
 boot_splash/bg_color=Color( 0, 0, 0, 1 )
 config/icon="res://media/image/icon.png"
