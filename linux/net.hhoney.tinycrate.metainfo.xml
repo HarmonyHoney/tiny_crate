@@ -30,6 +30,7 @@
   <url type="homepage">https://hhoney.net</url>
   <url type="bugtracker">https://github.com/HarmonyHoney/tiny_crate/issues</url>
   <url type="donation">https://ko-fi.com/hhoney</url>
+  <url type="vcs-browser">https://github.com/HarmonyHoney/tiny_crate</url>
 
   <branding>
     <color type="primary" scheme_preference="light">#2dbeff</color>
